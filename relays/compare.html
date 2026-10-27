@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>STT Engine Comparison</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; background: #111; color: #eee; }
+  h1 { font-size: 20px; }
+  #status { color: #888; margin-bottom: 12px; }
+  button { font-size: 16px; padding: 8px 20px; cursor: pointer; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .panel { border: 1px solid #444; border-radius: 8px; padding: 12px; min-height: 220px; background: #1a1a1a; }
+  .panel h2 { margin: 0 0 8px; font-size: 15px; }
+  .panel .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: #555; }
+  .panel.connected .dot { background: #3c3; }
+  .panel .text { white-space: pre-wrap; line-height: 1.5; }
+</style>
+</head>
+<body>
+<h1>Live STT Comparison - one mic, two engines</h1>
+<div id="status">idle</div>
+<button id="toggle">Start</button>
+
+<div class="grid">
+  <div class="panel" id="panel-whispercpp"><h2><span class="dot"></span>whisper.cpp (chunked, base.en)</h2><div class="text" id="text-whispercpp"></div></div>
+  <div class="panel" id="panel-openaiwhisper"><h2><span class="dot"></span>openai/whisper (VAD-triggered, base.en)</h2><div class="text" id="text-openaiwhisper"></div></div>
+</div>
+
+<script>
+const ENGINES = {
+  whispercpp:     { url: "ws://localhost:8765",  accumulate: false, format: "int16" },
+  openaiwhisper:  { url: "ws://localhost:8766",  accumulate: false, format: "int16" },
+};
+
+let sockets = {};
+let audioCtx, processorNode, micSource, mediaStream;
+let recording = false;
+const statusEl = document.getElementById("status");
+const toggleBtn = document.getElementById("toggle");
+
+// Whisper-family models hallucinate caption-style filler on silence/noise/
+// non-English speech: clean bracketed tags like "(speaking in foreign language)", but also
+// broken/unbalanced fragments like "(speaking in -(speaking in I'm gonna go."
+// Bracket-stripping alone only catches the clean cases, so also nuke the known
+// phrase fragments unbracketed, then clean up leftover orphaned punctuation.
+const HALLUCINATION_PHRASES = [
+  /\(?\s*speaking\s+(?:in\s+)?(?:a\s+)?foreign\s+language\)?/gi,
+  /\(?\s*foreign\s+language\)?/gi,
+  /\[?\s*speaking\s+[a-z]+\s*\]?/gi,
+  /\(?\s*bell\s*d?ings?\)?/gi,
+  /\[?\s*inaudible\s*\]?/gi,
+  /\[?\s*blank[_\s]audio\s*\]?/gi,
+  /\[?\s*music\s*\]?/gi,
+  /\[?\s*applause\s*\]?/gi,
+  /\[?\s*silence\s*\]?/gi,
+];
+
+function cleanText(text) {
+  if (!text) return text;
+  let out = text;
+  out = out.replace(/\([^()]*\)/g, " ");
+  out = out.replace(/\[[^\[\]]*\]/g, " ");
+  for (const re of HALLUCINATION_PHRASES) out = out.replace(re, " ");
+  out = out.replace(/[()\[\]]/g, " ");       // leftover orphaned brackets
+  out = out.replace(/\s+([.,!?])/g, "$1");   // tidy space-before-punctuation
+  out = out.replace(/\s+/g, " ").trim();
+  return out;
+}
+
+function setPanelText(key, text) {
+  document.getElementById("text-" + key).textContent = cleanText(text);
+}
+function appendPanelText(key, text) {
+  const el = document.getElementById("text-" + key);
+  el.textContent = cleanText(el.textContent + " " + text);
+}
+function setConnected(key, on) {
+  document.getElementById("panel-" + key).classList.toggle("connected", on);
+}
+
+function connectAll() {
+  for (const [key, cfg] of Object.entries(ENGINES)) {
+    const ws = new WebSocket(cfg.url);
+    ws.binaryType = "arraybuffer";
+    ws.onopen = () => setConnected(key, true);
+    ws.onclose = () => setConnected(key, false);
+    ws.onerror = () => setConnected(key, false);
+    ws.onmessage = (ev) => {
+      try {
+        const data = JSON.parse(ev.data);
+        const text = (data.text || "").trim();
+        if (!text) return;
+        if (cfg.accumulate) appendPanelText(key, text);
+        else setPanelText(key, text);
+      } catch (e) { /* ignore non-JSON */ }
+    };
+    sockets[key] = ws;
+  }
+}
+
+function disconnectAll() {
+  for (const ws of Object.values(sockets)) {
+    try { ws.close(); } catch (e) {}
+  }
+  sockets = {};
+}
+
+// downsample Float32 mic buffer at native rate -> Float32 at 16kHz
+function downsampleTo16k(buffer, inputRate) {
+  const ratio = inputRate / 16000;
+  const newLength = Math.round(buffer.length / ratio);
+  const result = new Float32Array(newLength);
+  let offsetResult = 0, offsetBuffer = 0;
+  while (offsetResult < newLength) {
+    const nextOffsetBuffer = Math.round((offsetResult + 1) * ratio);
+    let accum = 0, count = 0;
+    for (let i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++) {
+      accum += buffer[i];
+      count++;
+    }
+    result[offsetResult] = count ? accum / count : 0;
+    offsetResult++;
+    offsetBuffer = nextOffsetBuffer;
+  }
+  return result;
+}
+
+function float32ToInt16(float32) {
+  const int16 = new Int16Array(float32.length);
+  for (let i = 0; i < float32.length; i++) {
+    const s = Math.max(-1, Math.min(1, float32[i]));
+    int16[i] = s * 32767;
+  }
+  return int16;
+}
+
+async function start() {
+  for (const key of Object.keys(ENGINES)) setPanelText(key, "");
+  connectAll();
+
+  mediaStream = await navigator.mediaDevices.getUserMedia({
+    audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+  });
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  await audioCtx.resume();
+  micSource = audioCtx.createMediaStreamSource(mediaStream);
+  processorNode = audioCtx.createScriptProcessor(4096, 1, 1);
+
+  processorNode.onaudioprocess = (e) => {
+    const input = e.inputBuffer.getChannelData(0);
+    let peak = 0;
+    for (let i = 0; i < input.length; i++) peak = Math.max(peak, Math.abs(input[i]));
+    statusEl.textContent = `recording - mic level: ${peak < 0.01 ? "SILENT (check mic!)" : Math.round(peak * 100) + "%"}`;
+
+    const pcm32 = downsampleTo16k(input, audioCtx.sampleRate);
+    const pcm16 = float32ToInt16(pcm32);
+    for (const [key, cfg] of Object.entries(ENGINES)) {
+      const ws = sockets[key];
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(cfg.format === "float32" ? pcm32.buffer : pcm16.buffer);
+      }
+    }
+  };
+  micSource.connect(processorNode);
+  // Note: intentionally NOT connecting to audioCtx.destination - that would
+  // play mic audio back through speakers, and on a laptop without headphones
+  // Chrome's echo cancellation / feedback can null out the real voice signal.
+  const silentSink = audioCtx.createGain();
+  silentSink.gain.value = 0;
+  processorNode.connect(silentSink);
+  silentSink.connect(audioCtx.destination);
+
+  recording = true;
+  statusEl.textContent = "recording - speak now";
+  toggleBtn.textContent = "Stop";
+}
+
+function stop() {
+  recording = false;
+  if (processorNode) { processorNode.disconnect(); processorNode = null; }
+  if (micSource) { micSource.disconnect(); micSource = null; }
+  if (mediaStream) { mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; }
+  if (audioCtx) { audioCtx.close(); audioCtx = null; }
+  disconnectAll();
+  statusEl.textContent = "idle";
+  toggleBtn.textContent = "Start";
+}
+
+toggleBtn.addEventListener("click", () => {
+  if (recording) stop(); else start().catch(err => {
+    statusEl.textContent = "error: " + err.message;
+  });
+});
+</script>
+</body>
+</html>

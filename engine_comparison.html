@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>STT Engine Comparison - Mobile Integration</title>
+<style>
+  body { font-family: -apple-system, Helvetica, Arial, sans-serif; margin: 40px; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 4px; }
+  .subtitle { color: #666; font-size: 13px; margin-bottom: 24px; }
+  table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #222; color: #fff; }
+  tr:nth-child(even) td { background: #f7f7f7; }
+  td.best { font-weight: 600; background: #e8f5e9 !important; }
+  .verdict { margin-top: 28px; font-size: 13px; line-height: 1.6; }
+  .verdict h2 { font-size: 15px; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<h1>STT Engine Comparison - Mobile App Integration</h1>
+<div class="subtitle">WhisperLiveKit vs whisper.cpp vs openai/whisper</div>
+
+<table>
+  <tr>
+    <th>Dimension</th>
+    <th>WhisperLiveKit</th>
+    <th>whisper.cpp</th>
+    <th>openai/whisper</th>
+  </tr>
+  <tr>
+    <td>Mobile runtime</td>
+    <td>None &mdash; Python server only</td>
+    <td class="best">Official iOS/Android bindings, runs on-device via C API/Swift/Kotlin</td>
+    <td>None &mdash; pure PyTorch, no mobile export path</td>
+  </tr>
+  <tr>
+    <td>Offline capable</td>
+    <td>No, needs server</td>
+    <td class="best">Yes</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Binary / footprint on phone</td>
+    <td>N/A (client is thin)</td>
+    <td class="best">Small, quantized ggml models (tiny/base run fine on phone CPU/NPU)</td>
+    <td>N/A &mdash; PyTorch runtime too heavy for mobile even if forced on-device</td>
+  </tr>
+  <tr>
+    <td>Server you have to run/ops</td>
+    <td>Yes &mdash; FastAPI + torch/faster-whisper, GPU/Metal helps</td>
+    <td class="best">None needed (can skip server entirely)</td>
+    <td>Yes &mdash; same ops burden as WhisperLiveKit, with none of its session features</td>
+  </tr>
+  <tr>
+    <td>Live multi-viewer / share-link feature</td>
+    <td class="best">Already built (session tokens, pause/latency tuning done)</td>
+    <td>Not built &mdash; you'd build a server in front of it anyway to get this</td>
+    <td>Not built &mdash; same gap, and no streaming primitives to build on</td>
+  </tr>
+  <tr>
+    <td>Mobile client complexity</td>
+    <td>Thin: open WebSocket, stream PCM, render JSON</td>
+    <td>Thin if on-device (native lib call); thin-over-network if a server is added instead</td>
+    <td>Thin-over-network only</td>
+  </tr>
+</table>
+
+<div class="verdict">
+  <h2>Verdict</h2>
+  <p>If the app needs the share/viewer feature (mic, share button, viewer side watching a live session), that requires a server-backed session regardless of engine &mdash; <b>WhisperLiveKit</b> is the easiest fit, since the viewer/share-link mechanism and latency tuning are already built and tested.</p>
+  <p>If offline capability or avoiding server hosting/ops matters more than the share/viewer feature, <b>whisper.cpp</b> is the easiest to actually embed in the app &mdash; real mobile SDKs exist, runs with zero network dependency. The share-link/viewer feature disappears unless a server is added anyway.</p>
+  <p><b>openai/whisper</b> is the weakest choice either way: no mobile path, and server-side it has none of the streaming/session primitives.</p>
+</div>
+
+</body>
+</html>
