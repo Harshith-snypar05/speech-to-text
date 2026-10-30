@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>whisper.cpp vs openai/whisper - Measured Benchmark</title>
+<style>
+  body { font-family: -apple-system, Helvetica, Arial, sans-serif; margin: 40px; color: #222; font-size: 13px; }
+  h1 { font-size: 20px; margin-bottom: 2px; }
+  h2 { font-size: 15px; margin-top: 28px; margin-bottom: 8px; border-bottom: 2px solid #222; padding-bottom: 4px; }
+  .subtitle { color: #666; font-size: 12px; margin-bottom: 4px; }
+  .methodology { background: #f3f4f6; border-radius: 8px; padding: 10px 14px; font-size: 11.5px; color: #444; margin-bottom: 4px; }
+  table { border-collapse: collapse; width: 100%; font-size: 12px; margin-top: 8px; }
+  th, td { border: 1px solid #ccc; padding: 6px 9px; text-align: left; vertical-align: top; }
+  th { background: #222; color: #fff; }
+  tr:nth-child(even) td { background: #f7f7f7; }
+  td.win { font-weight: 700; background: #e8f5e9 !important; }
+  .mono { font-family: ui-monospace, Menlo, monospace; font-size: 11.5px; }
+  .caveat { font-size: 11px; color: #a33; margin-top: 4px; }
+  .note { font-size: 11px; color: #666; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<h1>whisper.cpp vs openai/whisper -- Measured Benchmark</h1>
+<div class="subtitle">base.en model, both engines, same machine (Apple Silicon Mac), same audio. Real measurements, not estimates.</div>
+<div class="methodology">
+<b>Test audio:</b> JFK inaugural clip, 11.0s, 22-word ground-truth transcript ("...ask not what your country can do for you, ask what you can do for your country.").<br>
+<b>Noise conditions:</b> clean, and three synthetically-degraded variants (additive white noise at 5dB, 0dB, -5dB SNR) to get differentiated accuracy data -- the clean clip alone produced 0% WER on both engines, which doesn't distinguish them.<br>
+<b>Raw engine numbers:</b> isolated single-shot runs via <span class="mono">/usr/bin/time -l</span> (exact OS-level CPU/memory accounting), not estimated.<br>
+<b>Live relay numbers:</b> measured through the actual WebSocket relay servers used by the app (<span class="mono">relays/whispercpp_relay.py</span>, <span class="mono">relays/openai_whisper_relay.py</span>), 3 repeated trials each, real-time audio pacing.
+</div>
+
+<h2>1. Accuracy (Word Error Rate against ground truth)</h2>
+<table>
+<tr><th>Condition</th><th>whisper.cpp</th><th>openai/whisper</th><th>Winner</th></tr>
+<tr><td>Clean audio</td><td class="win">100.00% accuracy (0.00% WER)</td><td class="win">100.00% accuracy (0.00% WER)</td><td>Tie</td></tr>
+<tr><td>5dB SNR (light noise)</td><td class="win">100.00% accuracy (0.00% WER)</td><td class="win">100.00% accuracy (0.00% WER)</td><td>Tie</td></tr>
+<tr><td>0dB SNR (moderate noise)</td><td class="win">95.45% accuracy (4.55% WER, 1/22 words wrong)</td><td>90.91% accuracy (9.09% WER, 2/22 words wrong)</td><td><b>whisper.cpp</b></td></tr>
+<tr><td>-5dB SNR (severe noise, noise louder than speech)</td><td>63.64% accuracy (36.36% WER, 8/22 words wrong)</td><td class="win">77.27% accuracy (22.73% WER, 5/22 words wrong)</td><td><b>openai/whisper</b></td></tr>
+</table>
+<div class="note">Not a clean sweep: whisper.cpp holds up better under moderate noise, openai/whisper degrades more gracefully under severe noise. Single test clip -- real result, but not a large corpus; treat as directional, not definitive.</div>
+
+<h2>2. Raw Engine Performance (isolated, single transcription, cold start)</h2>
+<table>
+<tr><th>Metric</th><th>whisper.cpp</th><th>openai/whisper</th><th>Difference</th></tr>
+<tr><td>Pure inference time (11s audio)</td><td class="win">285 ms</td><td>326 ms</td><td>whisper.cpp 1.14x faster</td></tr>
+<tr><td>Real-Time Factor (RTF)</td><td class="win">0.0259 (38.6x faster than real-time)</td><td>0.0296 (33.8x faster than real-time)</td><td>whisper.cpp 1.14x faster</td></tr>
+<tr><td>Peak memory (RSS)</td><td class="win">372 MB</td><td>763 MB</td><td>openai/whisper uses 2.05x more memory</td></tr>
+<tr><td>CPU time consumed (user+sys)</td><td class="win">0.23 s</td><td>1.67 s</td><td>openai/whisper uses 7.3x more CPU-seconds</td></tr>
+<tr><td>Model load time (cold)</td><td class="win">~50-100 ms (within 0.40s total)</td><td>389 ms</td><td>whisper.cpp loads faster</td></tr>
+<tr><td>Model file size on disk</td><td>141.1 MB (ggml-base.en.bin)</td><td>139.0 MB (base.en.pt)</td><td>Essentially identical</td></tr>
+</table>
+<div class="caveat">Caveat: this gap is partly a configuration difference, not purely "the engine." whisper.cpp used Metal GPU acceleration on this Mac; the openai/whisper relay runs CPU-only PyTorch (never configured to use MPS/GPU). The CPU-time and memory gap would likely shrink if openai/whisper were explicitly run on the GPU.</div>
+
+<h2>3. Live Relay Latency (through the actual app backend, 3 trials each, fully consistent run-to-run)</h2>
+<table>
+<tr><th>Metric</th><th>whisper.cpp relay</th><th>openai/whisper relay</th></tr>
+<tr><td>Time to first result</td><td class="win">1.4 s</td><td>3.0 s</td></tr>
+<tr><td>Time from last audio sent to final result</td><td>2.7 s <i>after</i> audio ended</td><td class="win">1.3 s <i>before</i> audio fully finished sending</td></tr>
+<tr><td>Messages emitted (11s speech + 2s trailing silence)</td><td>11 messages</td><td class="win">3 messages</td></tr>
+<tr><td>Output duplication</td><td>Heavy -- same sentence re-emitted 6+ times with growing prefix, by design (sliding-window re-transcription)</td><td class="win">None -- one message per distinct utterance</td></tr>
+</table>
+<div class="note">Architecturally different strategies: whisper.cpp relay re-decodes a sliding window every 1.2s (fast first feedback, but restates text repeatedly -- client-side dedup needed). openai/whisper relay waits for a detected speech pause (VAD) before transcribing once per utterance (slower first feedback, zero duplication, stops promptly when speech stops).</div>
+
+<h2>4. Other factors</h2>
+<table>
+<tr><th>Factor</th><th>whisper.cpp</th><th>openai/whisper</th></tr>
+<tr><td>Offline capable</td><td class="win">Yes -- fully local inference</td><td class="win">Yes -- fully local inference (this is the open-source Python package, not OpenAI's cloud API)</td></tr>
+<tr><td>Internet required</td><td>Only once, to download the model file</td><td>Only once, to download the model file</td></tr>
+<tr><td>GPU acceleration on this Mac</td><td class="win">Yes (Metal)</td><td>No (CPU-only as configured)</td></tr>
+<tr><td>Native mobile SDK</td><td class="win">Yes -- official iOS/Android bindings, can run fully on-device with no server</td><td>No -- Python/PyTorch only, needs a server</td></tr>
+<tr><td>Streaming API</td><td>None natively (relay fakes it via sliding window)</td><td>None natively (relay fakes it via VAD segmentation)</td></tr>
+</table>
+
+<h2>Bottom line</h2>
+<table>
+<tr><th>If you care most about...</th><th>Pick</th></tr>
+<tr><td>Raw speed / lowest CPU &amp; memory / mobile embedding</td><td class="win">whisper.cpp</td></tr>
+<tr><td>Clean output with zero duplication / graceful degradation on very noisy audio</td><td class="win">openai/whisper</td></tr>
+<tr><td>Moderate noise accuracy</td><td class="win">whisper.cpp</td></tr>
+<tr><td>Severe noise accuracy</td><td class="win">openai/whisper</td></tr>
+</table>
+
+</body>
+</html>
