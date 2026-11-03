@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<Transcript>> _transcripts;
+  late Future<List<TranscriptMeta>> _transcripts;
 
   @override
   void initState() {
@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _transcripts = _load();
   }
 
-  Future<List<Transcript>> _load() => TranscriptStorage.list();
+  Future<List<TranscriptMeta>> _load() => TranscriptStorage.listMeta();
 
   Future<void> _refresh() async {
     final next = _load();
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: RefreshIndicator(
                 onRefresh: _refresh,
-                child: FutureBuilder<List<Transcript>>(
+                child: FutureBuilder<List<TranscriptMeta>>(
                   future: _transcripts,
                   builder: (context, snapshot) {
                     final transcripts = snapshot.data ?? [];

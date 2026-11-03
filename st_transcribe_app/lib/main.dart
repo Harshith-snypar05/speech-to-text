@@ -55,8 +55,8 @@ class STTranscribeApp extends StatelessWidget {
                   ),
                 );
               case '/transcript':
-                final t = settings.arguments as Transcript;
-                return MaterialPageRoute(builder: (_) => TranscriptDetailScreen(transcript: t));
+                final meta = settings.arguments as TranscriptMeta;
+                return MaterialPageRoute(builder: (_) => TranscriptDetailScreen(meta: meta));
               default:
                 return MaterialPageRoute(builder: (_) => const HomeScreen());
             }
