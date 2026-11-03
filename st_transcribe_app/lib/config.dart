@@ -6,4 +6,4 @@
 /// Currently pointed at a Cloudflare quick tunnel so remote viewers can
 /// actually use transcription, not just localhost. Random URL, dies when
 /// the tunnel process stops -- update this when it rotates.
-const String kTranscriptionBackendUrl = 'wss://delete-vinyl-messenger-boss.trycloudflare.com';
+const String kTranscriptionBackendUrl = 'ws://localhost:8767';

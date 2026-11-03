@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../config.dart';
+import '../services/connection_status.dart';
 import '../services/viewer_client.dart';
 import '../theme.dart';
 import '../widgets/st_logo.dart';
 
-enum _ViewerState { connecting, live, ended, invalid }
+enum _ViewerState { connecting, reconnecting, live, ended, invalid, failed }
 
 /// Viewer-side experience for someone who opened a shared live-transcript
 /// link (`?session=<id>`). Connects read-only to the same backend relay the
@@ -48,12 +49,32 @@ class _ViewerScreenState extends State<ViewerScreen> {
         _state = _ViewerState.live;
       });
     });
-    client.onEnded.listen((_) {
-      if (mounted) setState(() => _state = _ViewerState.ended);
+    client.onStatus.listen((status) {
+      if (!mounted) return;
+      setState(() {
+        switch (status) {
+          case ConnectionStatus.connecting:
+            _state = _ViewerState.connecting;
+          case ConnectionStatus.connected:
+            _state = _ViewerState.live;
+          case ConnectionStatus.networkLost:
+          case ConnectionStatus.reconnecting:
+            _state = _ViewerState.reconnecting;
+          case ConnectionStatus.speakerEnded:
+            _state = _ViewerState.ended;
+          case ConnectionStatus.backendUnavailable:
+          case ConnectionStatus.connectionFailed:
+            _state = _ViewerState.failed;
+          case ConnectionStatus.stopped:
+            break;
+        }
+      });
     });
     client.connect();
     _client = client;
   }
+
+  void _retryConnection() => _client?.retry();
 
   @override
   void dispose() {
@@ -70,7 +91,15 @@ class _ViewerScreenState extends State<ViewerScreen> {
               status: 'Invalid link', message: 'This link is missing a session id.', dotColor: AppColors.idleGrayDot),
           _ViewerState.connecting => const _ConnectingView(),
           _ViewerState.live => _LiveView(transcript: _transcript, currentPartial: _currentPartial),
+          _ViewerState.reconnecting =>
+            _LiveView(transcript: _transcript, currentPartial: _currentPartial, reconnecting: true),
           _ViewerState.ended => _EndedView(transcript: _transcript),
+          _ViewerState.failed => _MessageView(
+              status: 'Connection failed',
+              message: 'Couldn\'t reach the transcription server. Check your connection and try again.',
+              dotColor: AppColors.recordRed,
+              onRetry: _retryConnection,
+            ),
         },
       ),
     );
@@ -124,7 +153,8 @@ class _MessageView extends StatelessWidget {
   final String status;
   final String message;
   final Color dotColor;
-  const _MessageView({required this.status, required this.message, required this.dotColor});
+  final VoidCallback? onRetry;
+  const _MessageView({required this.status, required this.message, required this.dotColor, this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +172,19 @@ class _MessageView extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Text(message, style: const TextStyle(fontSize: 16, height: 1.6, color: AppColors.textSecondary)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(message, style: const TextStyle(fontSize: 16, height: 1.6, color: AppColors.textSecondary)),
+                if (onRetry != null) ...[
+                  const SizedBox(height: 12),
+                  TextButton(
+                    onPressed: onRetry,
+                    child: const Text('Retry', style: TextStyle(color: AppColors.primaryBlue, fontWeight: FontWeight.w700)),
+                  ),
+                ],
+              ],
+            ),
           ),
         ),
       ],
@@ -153,7 +195,8 @@ class _MessageView extends StatelessWidget {
 class _LiveView extends StatelessWidget {
   final String transcript;
   final String currentPartial;
-  const _LiveView({required this.transcript, required this.currentPartial});
+  final bool reconnecting;
+  const _LiveView({required this.transcript, required this.currentPartial, this.reconnecting = false});
 
   @override
   Widget build(BuildContext context) {
@@ -161,14 +204,26 @@ class _LiveView extends StatelessWidget {
     return Column(
       children: [
         _topBar(
-          statusWidget: const Row(
+          statusWidget: Row(
             children: [
-              Icon(Icons.circle, size: 8, color: AppColors.liveGreen),
-              SizedBox(width: 6),
-              Text('Live', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
+              Icon(Icons.circle, size: 8, color: reconnecting ? const Color(0xFFFFC107) : AppColors.liveGreen),
+              const SizedBox(width: 6),
+              Text(reconnecting ? 'Reconnecting...' : 'Live',
+                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
             ],
           ),
         ),
+        if (reconnecting)
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(color: const Color(0xFFFFF4E5), borderRadius: BorderRadius.circular(12)),
+            child: const Text(
+              'Connection lost. Reconnecting -- anything said right now will be missed.',
+              style: TextStyle(color: Color(0xFF8A5800), fontSize: 12.5, height: 1.4),
+            ),
+          ),
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20),

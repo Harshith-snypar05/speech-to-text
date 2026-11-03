@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../config.dart';
+import '../services/connection_status.dart';
 import '../services/session_id.dart';
 import '../services/transcription_client.dart';
 import '../services/transcript_storage.dart';
@@ -18,6 +19,7 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
   bool _recording = false;
   bool _connecting = false;
   String? _error;
+  ConnectionStatus _connStatus = ConnectionStatus.stopped;
   final List<String> _utterances = [];
   String _currentPartial = '';
   TranscriptionClient? _client;
@@ -62,6 +64,13 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
     client.onPartial.listen((text) {
       if (mounted) setState(() => _currentPartial = text);
     });
+    client.onStatus.listen((status) {
+      if (!mounted) return;
+      setState(() {
+        _connStatus = status;
+        if (status == ConnectionStatus.connected) _error = null;
+      });
+    });
     try {
       await client.start();
       setState(() {
@@ -71,12 +80,16 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
       });
     } catch (e) {
       setState(() {
-        _error = 'Could not start: $e';
+        _error = client.status == ConnectionStatus.backendUnavailable
+            ? 'Could not reach the transcription server. Check your connection and try again.'
+            : 'Could not start: $e';
         _connecting = false;
       });
       client.dispose();
     }
   }
+
+  void _retryConnection() => _client?.retry();
 
   Future<void> _stop() async {
     await _client?.stop();
@@ -85,6 +98,7 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
       _recording = false;
       _client = null;
       _currentPartial = '';
+      _connStatus = ConnectionStatus.stopped;
     });
     if (mounted && saved != null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -209,6 +223,28 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
                 label: const Text('End Session', style: TextStyle(color: AppColors.recordRed, fontWeight: FontWeight.w700)),
               ),
             ],
+            if (_recording && _connStatus != ConnectionStatus.connected) ...[
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  children: [
+                    Text(
+                      _statusMessage(_connStatus),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: AppColors.recordRed, fontSize: 13),
+                    ),
+                    if (_connStatus == ConnectionStatus.connectionFailed) ...[
+                      const SizedBox(height: 4),
+                      TextButton(
+                        onPressed: _retryConnection,
+                        child: const Text('Retry', style: TextStyle(color: AppColors.primaryBlue, fontWeight: FontWeight.w700)),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ],
             if (_error != null) ...[
               const SizedBox(height: 8),
               Padding(
@@ -230,6 +266,21 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
         ),
       ),
     );
+  }
+
+  String _statusMessage(ConnectionStatus status) {
+    switch (status) {
+      case ConnectionStatus.networkLost:
+        return 'Connection lost. Anything said right now won\'t be transcribed.';
+      case ConnectionStatus.reconnecting:
+        return 'Reconnecting...';
+      case ConnectionStatus.connectionFailed:
+        return 'Connection failed. Recording has stopped transcribing.';
+      case ConnectionStatus.backendUnavailable:
+        return 'Transcription server unavailable.';
+      default:
+        return '';
+    }
   }
 
   Widget _ring(Color color, double size, double opacity) {
