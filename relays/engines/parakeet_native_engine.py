@@ -14,6 +14,7 @@ default build is static-only): from whisper.cpp/,
 """
 import asyncio
 import ctypes
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from core.transcript_manager import collapse_repetition
@@ -78,12 +79,16 @@ def _load_library(build_dir: Path):
 
 class ParakeetNativeEngine(TranscriptionEngine):
     """In-process Parakeet via ctypes -- model loaded once at
-    construction, reused for every transcribe_final() call. No
-    streaming/partial API in the C layer used here, same as the
-    subprocess version; final-only.
+    construction, reused for every call. Unlike the subprocess-based
+    ParakeetEngine (final-only -- re-spawning a CLI process every
+    PARTIAL_CYCLE_SECONDS would be too expensive), this one supports
+    partials the same way faster-whisper does: transcribe_partial()
+    just re-runs parakeet_full() on the growing in-progress buffer and
+    splits the result into words. Cheap now that there's no per-call
+    subprocess/model-load cost -- the whole point of this engine.
     """
 
-    supports_partial = False
+    supports_partial = True
 
     def __init__(self, build_dir: Path, model: Path, use_gpu: bool = True):
         if not (build_dir / "libparakeet.dylib").exists():
@@ -95,13 +100,19 @@ class ParakeetNativeEngine(TranscriptionEngine):
             raise SystemExit(f"model not found at {model}")
 
         self._lib = _load_library(build_dir)
-        # Native calls run on a shared context; the executor-thread calls
-        # below are serialized with this lock so two concurrent speakers
-        # on the same relay process can't call into the C library at the
-        # same time on the same ctx (no guarantee the library is safe for
-        # that -- see the *_with_state variants in parakeet.h for the
-        # proper per-session-state API, not used here to keep this change
-        # scoped to "load once" rather than a full concurrency rework).
+        # GGML's Metal backend scheduler crashed (GGML_ASSERT(!sched->is_alloc))
+        # when parakeet_full() was called from whatever worker thread
+        # Python's shared default executor happened to pick per call --
+        # looks like thread affinity, not just needing calls serialized in
+        # time. A single dedicated worker thread means every native call
+        # runs on the exact same OS thread for this engine's whole
+        # lifetime, which also naturally serializes calls (the lock is
+        # redundant with max_workers=1 but kept as a second guarantee
+        # against two concurrent speakers both calling in on the same ctx
+        # -- see the *_with_state variants in parakeet.h for the proper
+        # per-session-state API if real concurrent-speaker throughput is
+        # ever needed; not implemented here).
+        self._executor = ThreadPoolExecutor(max_workers=1)
         self._call_lock = asyncio.Lock()
 
         ctx_params = self._lib.parakeet_context_default_params()
@@ -130,9 +141,18 @@ class ParakeetNativeEngine(TranscriptionEngine):
         samples = np.frombuffer(pcm_bytes, dtype=np.int16).astype(np.float32) / 32768.0
         loop = asyncio.get_running_loop()
         async with self._call_lock:
-            return await loop.run_in_executor(None, self._transcribe_sync, samples)
+            return await loop.run_in_executor(self._executor, self._transcribe_sync, samples)
+
+    async def transcribe_partial(self, pcm_bytes: bytes) -> list[str]:
+        import numpy as np
+        samples = np.frombuffer(pcm_bytes, dtype=np.int16).astype(np.float32) / 32768.0
+        loop = asyncio.get_running_loop()
+        async with self._call_lock:
+            text = await loop.run_in_executor(self._executor, self._transcribe_sync, samples)
+        return text.split()
 
     async def shutdown(self) -> None:
         if self._ctx:
             self._lib.parakeet_free(self._ctx)
             self._ctx = None
+        self._executor.shutdown(wait=False)

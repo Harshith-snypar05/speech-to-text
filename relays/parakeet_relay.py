@@ -14,15 +14,20 @@ Two engine implementations, picked automatically:
   against a shared-library build of libparakeet, model loaded ONCE at
   relay startup and reused for every utterance -- matches faster-whisper/
   openai-whisper's in-process architecture. ~130ms per utterance after
-  the one-time startup cost. Used automatically if the shared library has
-  been built (see that file's docstring for the build command -- it's an
-  extra step, not part of the default whisper.cpp build).
+  the one-time startup cost, and (also unlike the subprocess engine)
+  supports word-by-word partial streaming the same way faster-whisper
+  does, since re-running inference every PARTIAL_CYCLE_SECONDS is only
+  cheap once there's no per-call subprocess/reload cost. Used
+  automatically if the shared library has been built (see that file's
+  docstring for the build command -- it's an extra step, not part of the
+  default whisper.cpp build).
 - ParakeetEngine (engines/parakeet_engine.py): shells out to a fresh
   `parakeet-cli` subprocess per utterance, reloading the full 668MB model
   from disk every single time (~350-520ms measured, not the ~130ms pure
-  inference figure -- that gap is the whole reason the native engine
-  above exists). Used as a fallback when the shared library isn't built,
-  so this relay still works without the extra build step, just slower.
+  inference figure), final-only (no partials -- would mean re-spawning a
+  subprocess every 500ms). Used as a fallback when the shared library
+  isn't built, so this relay still works without the extra build step,
+  just slower and without partials.
 
 Requires the model downloaded separately -- see MODEL path below; not
 bundled in the repo (~669MB).

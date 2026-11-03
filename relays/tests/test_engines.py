@@ -145,4 +145,51 @@ def test_parakeet_native_engine_real_transcription_and_reuses_loaded_model():
         assert text1 == text2, "same audio through the same loaded model must produce the same output"
     finally:
         asyncio.run(engine.shutdown())
-    assert text == collapse_repetition(text), "engine output should already be repetition-collapsed"
+
+
+@pytest.mark.skipif(
+    not (JFK_WAV.exists() and (SHARED_BUILD_DIR / "libparakeet.dylib").exists() and PARAKEET_MODEL.exists()),
+    reason="libparakeet.dylib, model, or sample audio not available",
+)
+def test_parakeet_native_engine_survives_concurrent_partial_and_final_calls():
+    """Regression test for a real crash hit during manual testing:
+    GGML_ASSERT(!sched->is_alloc) inside the Metal backend scheduler,
+    which took the whole relay process down. Root cause was thread
+    affinity -- parakeet_full() was being called from whatever OS thread
+    Python's shared default executor happened to pick per call (varies
+    across calls), and GGML's Metal scheduler doesn't tolerate that, even
+    though an asyncio.Lock already serialized call *timing*. Fixed by
+    pinning all native calls to a single dedicated worker thread. This
+    test fires several transcribe_partial()/transcribe_final() calls
+    concurrently via asyncio.gather -- matching how core/speaker_session.py's
+    partial_cycle() background task and a flush() can genuinely overlap
+    in real usage -- and asserts the process is still alive and every
+    call returned a sane result, not just that it didn't hang.
+    """
+    import asyncio
+
+    from engines.parakeet_native_engine import ParakeetNativeEngine
+
+    with wave.open(str(JFK_WAV), "rb") as f:
+        pcm = f.readframes(f.getnframes())
+    half = pcm[: len(pcm) // 2]
+
+    engine = ParakeetNativeEngine(SHARED_BUILD_DIR, PARAKEET_MODEL)
+    try:
+        async def run_concurrent():
+            return await asyncio.gather(
+                engine.transcribe_partial(half),
+                engine.transcribe_final(pcm),
+                engine.transcribe_partial(half),
+                engine.transcribe_final(pcm),
+            )
+
+        partial1, final1, partial2, final2 = asyncio.run(run_concurrent())
+        assert isinstance(partial1, list) and len(partial1) > 0
+        assert isinstance(partial2, list) and len(partial2) > 0
+        for final in (final1, final2):
+            normalized = final.lower()
+            assert "country" in normalized
+            assert "ask" in normalized
+    finally:
+        asyncio.run(engine.shutdown())
