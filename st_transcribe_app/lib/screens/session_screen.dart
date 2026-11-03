@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../config.dart';
+import '../services/app_settings.dart';
 import '../services/connection_status.dart';
 import '../services/session_id.dart';
 import '../services/transcription_client.dart';
@@ -57,7 +57,11 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
       _utterances.clear();
       _currentPartial = '';
     });
-    final client = TranscriptionClient(wsUrl: kTranscriptionBackendUrl, sessionId: _sessionId);
+    final client = TranscriptionClient(
+      wsUrl: AppSettings.backendUrl.value,
+      sessionId: _sessionId,
+      micDeviceId: AppSettings.micDeviceId.value,
+    );
     client.onText.listen((text) {
       if (mounted) setState(() => _utterances.add(text));
     });
@@ -131,7 +135,8 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    final color = _recording ? AppColors.recordRed : AppColors.primaryBlue;
+    final colors = AppColors.of(context);
+    final color = _recording ? colors.recordRed : colors.primaryBlue;
 
     return Scaffold(
       body: SafeArea(
@@ -148,14 +153,14 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.settings_outlined, color: AppColors.textPrimary),
+                          icon: Icon(Icons.settings_outlined, color: colors.textPrimary),
                           onPressed: () => Navigator.of(context).pushNamed('/settings'),
                         ),
                         Stack(
                           clipBehavior: Clip.none,
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.ios_share, color: AppColors.textPrimary),
+                              icon: Icon(Icons.ios_share, color: colors.textPrimary),
                               onPressed: _openShareSheet,
                             ),
                             Positioned(
@@ -165,7 +170,7 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
                                 width: 9,
                                 height: 9,
                                 decoration: BoxDecoration(
-                                  color: _recording ? AppColors.liveGreen : const Color(0xFFFFC107),
+                                  color: _recording ? colors.liveGreen : const Color(0xFFFFC107),
                                   shape: BoxShape.circle,
                                 ),
                               ),
@@ -213,14 +218,14 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
             const SizedBox(height: 16),
             Text(
               _connecting ? 'Connecting...' : (_recording ? 'Tap to stop' : 'Tap to start'),
-              style: const TextStyle(color: AppColors.textSecondary, fontSize: 14),
+              style: TextStyle(color: colors.textSecondary, fontSize: 14),
             ),
             if (_recording) ...[
               const SizedBox(height: 12),
               TextButton.icon(
                 onPressed: _endSession,
-                icon: const Icon(Icons.stop_circle_outlined, color: AppColors.recordRed, size: 18),
-                label: const Text('End Session', style: TextStyle(color: AppColors.recordRed, fontWeight: FontWeight.w700)),
+                icon: Icon(Icons.stop_circle_outlined, color: colors.recordRed, size: 18),
+                label: Text('End Session', style: TextStyle(color: colors.recordRed, fontWeight: FontWeight.w700)),
               ),
             ],
             if (_recording && _connStatus != ConnectionStatus.connected) ...[
@@ -232,13 +237,13 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
                     Text(
                       _statusMessage(_connStatus),
                       textAlign: TextAlign.center,
-                      style: const TextStyle(color: AppColors.recordRed, fontSize: 13),
+                      style: TextStyle(color: colors.recordRed, fontSize: 13),
                     ),
                     if (_connStatus == ConnectionStatus.connectionFailed) ...[
                       const SizedBox(height: 4),
                       TextButton(
                         onPressed: _retryConnection,
-                        child: const Text('Retry', style: TextStyle(color: AppColors.primaryBlue, fontWeight: FontWeight.w700)),
+                        child: Text('Retry', style: TextStyle(color: colors.primaryBlue, fontWeight: FontWeight.w700)),
                       ),
                     ],
                   ],
@@ -251,7 +256,7 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Text(_error!,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: AppColors.recordRed, fontSize: 13)),
+                    style: TextStyle(color: colors.recordRed, fontSize: 13)),
               ),
             ],
             const SizedBox(height: 16),
@@ -300,88 +305,98 @@ class _TranscriptionSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 24),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        boxShadow: [BoxShadow(color: Color(0x14000000), blurRadius: 16, offset: Offset(0, -4))],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              width: 36,
-              height: 4,
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(color: AppColors.cardBorder, borderRadius: BorderRadius.circular(2)),
-            ),
+    final colors = AppColors.of(context);
+    return ValueListenableBuilder<TranscriptionMode>(
+      valueListenable: AppSettings.transcriptionMode,
+      builder: (context, mode, _) {
+        // "Accurate (per-sentence)" mode hides the in-progress partial and
+        // only shows committed finals -- same relay messages either way,
+        // this is purely a client-side display choice.
+        final showPartial = mode == TranscriptionMode.live;
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 24),
+          decoration: BoxDecoration(
+            color: colors.surface,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+            boxShadow: const [BoxShadow(color: Color(0x14000000), blurRadius: 16, offset: Offset(0, -4))],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Transcription', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
-              Row(
-                children: [
-                  Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(color: AppColors.primaryBlue, shape: BoxShape.circle),
-                  ),
-                  const SizedBox(width: 6),
-                  Text(recording ? 'Live' : 'Ready',
-                      style: const TextStyle(color: AppColors.textSecondary, fontSize: 13, fontWeight: FontWeight.w600)),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          if (transcript.isEmpty && currentPartial.isEmpty)
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 56,
-                      height: 56,
-                      decoration: const BoxDecoration(color: AppColors.lightBlueBg, shape: BoxShape.circle),
-                      child: const Icon(Icons.graphic_eq, color: AppColors.primaryBlue),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text('Start speaking...', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                    const SizedBox(height: 6),
-                    const Text('Your words will appear here in real time.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
-                  ],
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(color: colors.cardBorder, borderRadius: BorderRadius.circular(2)),
                 ),
               ),
-            )
-          else
-            Expanded(
-              child: SingleChildScrollView(
-                child: Text.rich(
-                  TextSpan(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Transcription', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: colors.textPrimary)),
+                  Row(
                     children: [
-                      TextSpan(
-                        text: transcript,
-                        style: const TextStyle(fontSize: 15, height: 1.5, color: AppColors.textPrimary),
+                      Container(
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(color: colors.primaryBlue, shape: BoxShape.circle),
                       ),
-                      if (currentPartial.isNotEmpty)
-                        TextSpan(
-                          text: '${transcript.isEmpty ? '' : ' '}$currentPartial',
-                          style: const TextStyle(fontSize: 15, height: 1.5, color: AppColors.textSecondary),
-                        ),
+                      const SizedBox(width: 6),
+                      Text(recording ? 'Live' : 'Ready',
+                          style: TextStyle(color: colors.textSecondary, fontSize: 13, fontWeight: FontWeight.w600)),
                     ],
                   ),
-                ),
+                ],
               ),
-            ),
-        ],
-      ),
+              const SizedBox(height: 20),
+              if (transcript.isEmpty && (!showPartial || currentPartial.isEmpty))
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 56,
+                          height: 56,
+                          decoration: BoxDecoration(color: colors.lightBlueBg, shape: BoxShape.circle),
+                          child: Icon(Icons.graphic_eq, color: colors.primaryBlue),
+                        ),
+                        const SizedBox(height: 16),
+                        Text('Start speaking...', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15, color: colors.textPrimary)),
+                        const SizedBox(height: 6),
+                        Text('Your words will appear here in real time.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: colors.textSecondary, fontSize: 13)),
+                      ],
+                    ),
+                  ),
+                )
+              else
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: transcript,
+                            style: TextStyle(fontSize: 15, height: 1.5, color: colors.textPrimary),
+                          ),
+                          if (showPartial && currentPartial.isNotEmpty)
+                            TextSpan(
+                              text: '${transcript.isEmpty ? '' : ' '}$currentPartial',
+                              style: TextStyle(fontSize: 15, height: 1.5, color: colors.textSecondary),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

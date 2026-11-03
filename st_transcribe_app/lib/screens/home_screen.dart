@@ -30,20 +30,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              color: AppColors.darkHeader,
+              color: colors.header,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               child: Row(
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.chevron_left, color: Colors.white),
-                    onPressed: () {},
-                  ),
                   const StLogo(size: 28),
                   const SizedBox(width: 8),
                   const Text(
@@ -75,14 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                         const SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text('Recent Transcripts',
-                                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
-                            Icon(Icons.search, color: AppColors.textPrimary),
-                          ],
-                        ),
+                        Text('Recent Transcripts',
+                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: colors.textPrimary)),
                         const SizedBox(height: 12),
                         if (snapshot.connectionState == ConnectionState.waiting)
                           const Padding(
@@ -90,11 +81,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Center(child: CircularProgressIndicator()),
                           )
                         else if (transcripts.isEmpty)
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 32),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 32),
                             child: Center(
                               child: Text('No transcripts yet. Start a session to create one.',
-                                  style: TextStyle(color: AppColors.textSecondary)),
+                                  style: TextStyle(color: colors.textSecondary)),
                             ),
                           )
                         else
@@ -126,7 +117,7 @@ class _StartSessionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.primaryBlue,
+      color: AppColors.of(context).primaryBlue,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
@@ -166,6 +157,7 @@ class _TranscriptTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
@@ -178,35 +170,35 @@ class _TranscriptTile extends StatelessWidget {
               width: 36,
               height: 36,
               alignment: Alignment.center,
-              decoration: BoxDecoration(color: AppColors.lightBlueBg, borderRadius: BorderRadius.circular(8)),
-              child: const Icon(Icons.description_outlined, size: 18, color: AppColors.primaryBlue),
+              decoration: BoxDecoration(color: colors.lightBlueBg, borderRadius: BorderRadius.circular(8)),
+              child: Icon(Icons.description_outlined, size: 18, color: colors.primaryBlue),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+                  Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15, color: colors.textPrimary)),
                   const SizedBox(height: 2),
                   Text(preview,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+                      style: TextStyle(color: colors.textSecondary, fontSize: 13)),
                   const SizedBox(height: 2),
-                  Text(date, style: const TextStyle(color: AppColors.textSecondary, fontSize: 12)),
+                  Text(date, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
                 ],
               ),
             ),
             PopupMenuButton<void>(
-              icon: const Icon(Icons.more_horiz, color: AppColors.textSecondary),
+              icon: Icon(Icons.more_horiz, color: colors.textSecondary),
               itemBuilder: (context) => [
                 PopupMenuItem(
                   onTap: onDownload,
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Icon(Icons.download_outlined, size: 18, color: AppColors.textPrimary),
-                      SizedBox(width: 10),
-                      Text('Download'),
+                      Icon(Icons.download_outlined, size: 18, color: colors.textPrimary),
+                      const SizedBox(width: 10),
+                      const Text('Download'),
                     ],
                   ),
                 ),

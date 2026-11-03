@@ -11,11 +11,12 @@ class ShareLinkSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 32),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -24,39 +25,40 @@ class ShareLinkSheet extends StatelessWidget {
             width: 36,
             height: 4,
             margin: const EdgeInsets.only(bottom: 20),
-            decoration: BoxDecoration(color: AppColors.cardBorder, borderRadius: BorderRadius.circular(2)),
+            decoration: BoxDecoration(color: colors.cardBorder, borderRadius: BorderRadius.circular(2)),
           ),
           Container(
             width: 56,
             height: 56,
-            decoration: const BoxDecoration(color: AppColors.lightBlueBg, shape: BoxShape.circle),
-            child: const Icon(Icons.link, color: AppColors.primaryBlue),
+            decoration: BoxDecoration(color: colors.lightBlueBg, shape: BoxShape.circle),
+            child: Icon(Icons.link, color: colors.primaryBlue),
           ),
           const SizedBox(height: 16),
-          const Text('Live Transcript Link', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 17)),
+          Text('Live Transcript Link',
+              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 17, color: colors.textPrimary)),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             'Anyone with this link can watch the live transcript. The link will stop working when you end the session.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: AppColors.textSecondary, fontSize: 13, height: 1.4),
+            style: TextStyle(color: colors.textSecondary, fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             decoration: BoxDecoration(
-              color: const Color(0xFFF3F4F6),
+              color: colors.neutralChipBg,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
               children: [
-                const Icon(Icons.link, size: 16, color: AppColors.textSecondary),
+                Icon(Icons.link, size: 16, color: colors.textSecondary),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(link, style: const TextStyle(fontSize: 13, color: AppColors.textPrimary)),
+                  child: Text(link, style: TextStyle(fontSize: 13, color: colors.textPrimary)),
                 ),
                 InkWell(
                   onTap: () => Clipboard.setData(ClipboardData(text: link)),
-                  child: const Icon(Icons.copy_outlined, size: 16, color: AppColors.textSecondary),
+                  child: Icon(Icons.copy_outlined, size: 16, color: colors.textSecondary),
                 ),
               ],
             ),
@@ -66,7 +68,7 @@ class ShareLinkSheet extends StatelessWidget {
             width: double.infinity,
             child: FilledButton.icon(
               style: FilledButton.styleFrom(
-                backgroundColor: AppColors.primaryBlue,
+                backgroundColor: colors.primaryBlue,
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
               ),
@@ -81,7 +83,7 @@ class ShareLinkSheet extends StatelessWidget {
           const SizedBox(height: 12),
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Done', style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.w600)),
+            child: Text('Done', style: TextStyle(color: colors.textPrimary, fontWeight: FontWeight.w600)),
           ),
         ],
       ),

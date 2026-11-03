@@ -23,12 +23,14 @@ import 'live_transcript_parser.dart';
 class TranscriptionClient {
   final String wsUrl;
   final String sessionId;
+  final String? micDeviceId;
   final int maxRetries;
   final Duration connectTimeout;
 
   TranscriptionClient({
     required this.wsUrl,
     required this.sessionId,
+    this.micDeviceId,
     this.maxRetries = 5,
     this.connectTimeout = const Duration(seconds: 8),
   });
@@ -74,10 +76,25 @@ class TranscriptionClient {
     final myGen = ++_generation;
     await _connect(myGen, isInitial: true);
 
-    final audioStream = await _recorder.startStream(const RecordConfig(
+    InputDevice? device;
+    if (micDeviceId != null) {
+      final devices = await _recorder.listInputDevices().catchError((_) => <InputDevice>[]);
+      for (final d in devices) {
+        if (d.id == micDeviceId) {
+          device = d;
+          break;
+        }
+      }
+      // If the saved device id isn't found (unplugged, permissions
+      // changed), device stays null and the platform default is used --
+      // silently falling back rather than failing the whole session.
+    }
+
+    final audioStream = await _recorder.startStream(RecordConfig(
       encoder: AudioEncoder.pcm16bits,
       sampleRate: 16000,
       numChannels: 1,
+      device: device,
     ));
     _audioSub = audioStream.listen((chunk) => _channel?.sink.add(chunk));
   }

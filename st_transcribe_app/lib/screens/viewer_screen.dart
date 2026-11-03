@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../config.dart';
+import '../services/app_settings.dart';
 import '../services/connection_status.dart';
 import '../services/viewer_client.dart';
 import '../theme.dart';
@@ -34,7 +34,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
       _state = _ViewerState.invalid;
       return;
     }
-    final client = ViewerClient(wsUrl: kTranscriptionBackendUrl, sessionId: sessionId);
+    final client = ViewerClient(wsUrl: AppSettings.backendUrl.value, sessionId: sessionId);
     client.onText.listen((text) {
       if (!mounted) return;
       setState(() {
@@ -84,11 +84,12 @@ class _ViewerScreenState extends State<ViewerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
       body: SafeArea(
         child: switch (_state) {
-          _ViewerState.invalid => const _MessageView(
-              status: 'Invalid link', message: 'This link is missing a session id.', dotColor: AppColors.idleGrayDot),
+          _ViewerState.invalid => _MessageView(
+              status: 'Invalid link', message: 'This link is missing a session id.', dotColor: colors.idleGrayDot),
           _ViewerState.connecting => const _ConnectingView(),
           _ViewerState.live => _LiveView(transcript: _transcript, currentPartial: _currentPartial),
           _ViewerState.reconnecting =>
@@ -97,7 +98,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
           _ViewerState.failed => _MessageView(
               status: 'Connection failed',
               message: 'Couldn\'t reach the transcription server. Check your connection and try again.',
-              dotColor: AppColors.recordRed,
+              dotColor: colors.recordRed,
               onRetry: _retryConnection,
             ),
         },
@@ -106,7 +107,8 @@ class _ViewerScreenState extends State<ViewerScreen> {
   }
 }
 
-Widget _topBar({required Widget statusWidget}) {
+Widget _topBar(BuildContext context, {required Widget statusWidget}) {
+  final colors = AppColors.of(context);
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     child: Row(
@@ -115,7 +117,7 @@ Widget _topBar({required Widget statusWidget}) {
         const SizedBox(width: 8),
         statusWidget,
         const Spacer(),
-        const Icon(Icons.more_horiz, color: AppColors.textPrimary),
+        Icon(Icons.more_horiz, color: colors.textPrimary),
       ],
     ),
   );
@@ -126,20 +128,21 @@ class _ConnectingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Column(
       children: [
-        _topBar(statusWidget: const SizedBox.shrink()),
-        const Expanded(
+        _topBar(context, statusWidget: const SizedBox.shrink()),
+        Expanded(
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircularProgressIndicator(color: AppColors.primaryBlue),
-                SizedBox(height: 20),
-                Text('Connecting...', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                SizedBox(height: 6),
+                CircularProgressIndicator(color: colors.primaryBlue),
+                const SizedBox(height: 20),
+                const Text('Connecting...', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+                const SizedBox(height: 6),
                 Text('Please wait while we join the live session.',
-                    style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+                    style: TextStyle(color: colors.textSecondary, fontSize: 13)),
               ],
             ),
           ),
@@ -158,9 +161,11 @@ class _MessageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Column(
       children: [
         _topBar(
+          context,
           statusWidget: Row(
             children: [
               Icon(Icons.circle, size: 8, color: dotColor),
@@ -175,12 +180,12 @@ class _MessageView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(message, style: const TextStyle(fontSize: 16, height: 1.6, color: AppColors.textSecondary)),
+                Text(message, style: TextStyle(fontSize: 16, height: 1.6, color: colors.textSecondary)),
                 if (onRetry != null) ...[
                   const SizedBox(height: 12),
                   TextButton(
                     onPressed: onRetry,
-                    child: const Text('Retry', style: TextStyle(color: AppColors.primaryBlue, fontWeight: FontWeight.w700)),
+                    child: Text('Retry', style: TextStyle(color: colors.primaryBlue, fontWeight: FontWeight.w700)),
                   ),
                 ],
               ],
@@ -200,13 +205,15 @@ class _LiveView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     final isEmpty = transcript.isEmpty && currentPartial.isEmpty;
     return Column(
       children: [
         _topBar(
+          context,
           statusWidget: Row(
             children: [
-              Icon(Icons.circle, size: 8, color: reconnecting ? const Color(0xFFFFC107) : AppColors.liveGreen),
+              Icon(Icons.circle, size: 8, color: reconnecting ? const Color(0xFFFFC107) : colors.liveGreen),
               const SizedBox(width: 6),
               Text(reconnecting ? 'Reconnecting...' : 'Live',
                   style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
@@ -228,19 +235,19 @@ class _LiveView extends StatelessWidget {
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: isEmpty
-                ? const Text('Waiting for the speaker to start talking...',
-                    style: TextStyle(fontSize: 16, height: 1.6, color: AppColors.textSecondary))
+                ? Text('Waiting for the speaker to start talking...',
+                    style: TextStyle(fontSize: 16, height: 1.6, color: colors.textSecondary))
                 : Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
                           text: transcript,
-                          style: const TextStyle(fontSize: 16, height: 1.6, color: AppColors.textPrimary),
+                          style: TextStyle(fontSize: 16, height: 1.6, color: colors.textPrimary),
                         ),
                         if (currentPartial.isNotEmpty)
                           TextSpan(
                             text: '${transcript.isEmpty ? '' : ' '}$currentPartial',
-                            style: const TextStyle(fontSize: 16, height: 1.6, color: AppColors.textSecondary),
+                            style: TextStyle(fontSize: 16, height: 1.6, color: colors.textSecondary),
                           ),
                       ],
                     ),
@@ -258,14 +265,16 @@ class _EndedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Column(
       children: [
         _topBar(
-          statusWidget: const Row(
+          context,
+          statusWidget: Row(
             children: [
-              Icon(Icons.circle, size: 8, color: AppColors.idleGrayDot),
-              SizedBox(width: 6),
-              Text('Session ended', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
+              Icon(Icons.circle, size: 8, color: colors.idleGrayDot),
+              const SizedBox(width: 6),
+              const Text('Session ended', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
             ],
           ),
         ),
@@ -273,10 +282,10 @@ class _EndedView extends StatelessWidget {
           width: double.infinity,
           margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
           padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(color: const Color(0xFFF3F4F6), borderRadius: BorderRadius.circular(12)),
-          child: const Text(
+          decoration: BoxDecoration(color: colors.neutralChipBg, borderRadius: BorderRadius.circular(12)),
+          child: Text(
             'The speaker has ended the session. You can still read the transcript below.',
-            style: TextStyle(color: AppColors.textSecondary, fontSize: 13, height: 1.4),
+            style: TextStyle(color: colors.textSecondary, fontSize: 13, height: 1.4),
           ),
         ),
         Expanded(
@@ -284,7 +293,7 @@ class _EndedView extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Text(
               transcript.isEmpty ? 'No transcript available.' : transcript,
-              style: const TextStyle(fontSize: 16, height: 1.6),
+              style: TextStyle(fontSize: 16, height: 1.6, color: colors.textPrimary),
             ),
           ),
         ),
