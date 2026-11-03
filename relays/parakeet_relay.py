@@ -1,16 +1,35 @@
-"""Low-latency live-transcription relay for NVIDIA's Parakeet TDT model,
-via whisper.cpp's native `parakeet-cli` (same vendored fork already used
-for the whisper.cpp relay -- this is a separate binary/model, not a
-variant of whisper-cli). Same VAD-pause-triggered single-shot approach as
-the other CLI-based relay (whisper.cpp): transcribe once per utterance,
-the instant you pause.
+"""Live-transcription relay for NVIDIA's Parakeet TDT model, via
+whisper.cpp's native `parakeet-cli` (same vendored fork already used for
+the whisper.cpp relay -- this is a separate binary/model, not a variant
+of whisper-cli). Same VAD-pause-triggered single-shot approach as the
+other CLI-based relay (whisper.cpp): transcribe once per utterance, the
+instant you pause.
 
-Measured against the other three engines on this hardware (same JFK
-clip + noise-degraded variants, same WER/RTF methodology): best accuracy
-at every noise level tested (100% at 0dB SNR vs 90-95% for the others,
-90.91% at -5dB SNR vs 63-77%), and fastest raw inference (~131ms vs
-232-326ms for an 11s clip). Requires the model downloaded separately --
-see MODEL path below; not bundled in the repo (~669MB).
+Best accuracy of the four engines at every noise level tested on this
+hardware (same JFK clip + noise-degraded variants, same WER methodology):
+100% at 0dB SNR vs 90-95% for the others, 90.91% at -5dB SNR vs 63-77%.
+
+NOT the lowest real-world latency, despite pure inference being the
+fastest of the four (~131ms for an 11s clip, vs 232-326ms) -- that
+number excludes model loading, which doesn't matter for faster-whisper/
+openai-whisper (in-process, loaded once at relay startup) but matters a
+lot here: this engine shells out to a fresh parakeet-cli subprocess per
+utterance (same architecture as the whisper.cpp relay), so every single
+utterance reloads the full 668MB model from disk. Real per-utterance
+latency measured through this relay: ~350-520ms, not ~131ms. Combined
+with supports_partial=False (no word-by-word streaming -- see
+engines/parakeet_engine.py for why), the perceived gap from "stop
+talking" to "see text" is roughly SILENCE_HANG_SECONDS (0.6s) + 350-520ms
+reload+inference, noticeably slower-feeling than faster-whisper's
+continuous word-by-word output even though the underlying model is more
+accurate. Fixing the reload cost would mean a persistent Python binding
+against whisper.cpp's C API instead of shelling out per call (no shared
+library is even built for this yet) -- real engineering work, not done
+here; this tradeoff (best accuracy, noticeably higher latency, no
+partials) is the accepted state as of this relay's introduction.
+
+Requires the model downloaded separately -- see MODEL path below; not
+bundled in the repo (~669MB).
 
 Also acts as the same thin session broadcaster: a speaker connects with
 ?role=speaker&session=<token>, a viewer connects with
