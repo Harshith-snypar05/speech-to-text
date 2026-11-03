@@ -40,6 +40,10 @@ model = WhisperModel("base.en", device="cpu", compute_type="float32")
 logger.info("Model loaded.")
 
 sessions: dict[str, set] = {}
+# session_ids with a currently-connected speaker -- lets viewer cleanup tell
+# "no speaker ever showed up for this id" (safe to drop) apart from
+# "speaker is live with zero viewers right now" (must not drop).
+active_speakers: set[str] = set()
 
 _REPEAT_RES = [
     re.compile(r'\b(' + r'\w+' + (r'[\s,]+\w+' * (n - 1)) + r')\b(?:[\s,]+\1\b){2,}', re.IGNORECASE)
@@ -111,6 +115,8 @@ async def handle_viewer(websocket, session_id: str):
         pass
     finally:
         viewers.discard(websocket)
+        if not viewers and session_id not in active_speakers:
+            sessions.pop(session_id, None)
         logger.info(f"Viewer left session {session_id}")
 
 
@@ -149,17 +155,6 @@ async def handle_speaker(websocket, session_id: str | None):
                 words_sent = len(words)
                 await send({"text": " ".join(new_words), "partial": True})
 
-    def flush():
-        nonlocal buffer, silence_s, speech_s, words_sent, generation
-        generation += 1
-        if buffer and speech_s >= MIN_UTTERANCE_SECONDS:
-            snapshot = bytes(buffer)
-            asyncio.create_task(finalize(snapshot))
-        buffer = bytearray()
-        silence_s = 0.0
-        speech_s = 0.0
-        words_sent = 0
-
     async def finalize(pcm_bytes):
         try:
             audio = pcm_bytes_to_float32(pcm_bytes)
@@ -170,8 +165,35 @@ async def handle_speaker(websocket, session_id: str | None):
         if text:
             await send({"text": text, "partial": False})
 
+    async def flush():
+        # Awaited everywhere it's called (including from the disconnect
+        # path) so the last utterance of a session is never dropped. The
+        # generation bump still guards partial_cycle against racing a
+        # flush that happened while it was mid-transcription.
+        nonlocal buffer, silence_s, speech_s, words_sent, generation
+        generation += 1
+        if buffer and speech_s >= MIN_UTTERANCE_SECONDS:
+            snapshot = bytes(buffer)
+            buffer = bytearray()
+            silence_s = 0.0
+            speech_s = 0.0
+            words_sent = 0
+            try:
+                await asyncio.wait_for(finalize(snapshot), timeout=10.0)
+            except asyncio.TimeoutError:
+                logger.error("final transcription timed out; utterance dropped")
+            except Exception as e:
+                logger.exception(f"flush failed: {e}")
+        else:
+            buffer = bytearray()
+            silence_s = 0.0
+            speech_s = 0.0
+            words_sent = 0
+
     loop = asyncio.get_running_loop()
     partial_task = asyncio.create_task(partial_cycle())
+    if session_id:
+        active_speakers.add(session_id)
     logger.info(f"Speaker connected (session={session_id})")
     try:
         async for message in websocket:
@@ -190,13 +212,21 @@ async def handle_speaker(websocket, session_id: str | None):
                 speech_s += chunk_s
             total_s = len(buffer) / (SAMPLE_RATE * BYTES_PER_SAMPLE)
             if (silence_s >= SILENCE_HANG_SECONDS and speech_s >= MIN_UTTERANCE_SECONDS) or total_s >= MAX_UTTERANCE_SECONDS:
-                flush()
+                await flush()
     except websockets.exceptions.ConnectionClosed:
         pass
     finally:
         partial_task.cancel()
-        flush()
+        try:
+            await partial_task
+        except (asyncio.CancelledError, Exception):
+            pass
+        try:
+            await flush()
+        except Exception as e:
+            logger.exception(f"final flush on disconnect failed: {e}")
         if session_id:
+            active_speakers.discard(session_id)
             await broadcast(session_id, {"type": "ended"})
             for viewer in list(sessions.pop(session_id, ())):
                 try:

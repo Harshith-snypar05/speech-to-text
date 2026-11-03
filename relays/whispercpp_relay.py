@@ -43,6 +43,10 @@ MAX_UTTERANCE_SECONDS = 8.0
 
 # session_id -> set of viewer websockets currently watching that speaker
 sessions: dict[str, set] = {}
+# session_ids with a currently-connected speaker -- lets viewer cleanup tell
+# "no speaker ever showed up for this id" (safe to drop) apart from
+# "speaker is live with zero viewers right now" (must not drop).
+active_speakers: set[str] = set()
 
 # Same degenerate-repetition collapse as openai_whisper_relay.py -- whisper.cpp
 # shares the same underlying Whisper decoder and can hallucinate the same way
@@ -126,6 +130,8 @@ async def handle_viewer(websocket, session_id: str):
         pass
     finally:
         viewers.discard(websocket)
+        if not viewers and session_id not in active_speakers:
+            sessions.pop(session_id, None)
         logger.info(f"Viewer left session {session_id}")
 
 
@@ -149,14 +155,29 @@ async def handle_speaker(websocket, session_id: str | None):
             if session_id:
                 await broadcast(session_id, payload)
 
-    def flush():
+    async def flush():
+        # Awaited everywhere it's called (including from the disconnect
+        # path) so the last utterance of a session is never dropped by a
+        # fire-and-forget task that outlives the connection teardown.
         nonlocal buffer, silence_s, speech_s
         if buffer and speech_s >= MIN_UTTERANCE_SECONDS:
-            asyncio.create_task(transcribe_and_send(bytes(buffer)))
-        buffer = bytearray()
-        silence_s = 0.0
-        speech_s = 0.0
+            snapshot = bytes(buffer)
+            buffer = bytearray()
+            silence_s = 0.0
+            speech_s = 0.0
+            try:
+                await asyncio.wait_for(transcribe_and_send(snapshot), timeout=10.0)
+            except asyncio.TimeoutError:
+                logger.error("final transcription timed out; utterance dropped")
+            except Exception as e:
+                logger.exception(f"flush failed: {e}")
+        else:
+            buffer = bytearray()
+            silence_s = 0.0
+            speech_s = 0.0
 
+    if session_id:
+        active_speakers.add(session_id)
     logger.info(f"Speaker connected (session={session_id})")
     try:
         async for message in websocket:
@@ -175,12 +196,16 @@ async def handle_speaker(websocket, session_id: str | None):
                 speech_s += chunk_s
             total_s = len(buffer) / (SAMPLE_RATE * BYTES_PER_SAMPLE)
             if (silence_s >= SILENCE_HANG_SECONDS and speech_s >= MIN_UTTERANCE_SECONDS) or total_s >= MAX_UTTERANCE_SECONDS:
-                flush()
+                await flush()
     except websockets.exceptions.ConnectionClosed:
         pass
     finally:
-        flush()
+        try:
+            await flush()
+        except Exception as e:
+            logger.exception(f"final flush on disconnect failed: {e}")
         if session_id:
+            active_speakers.discard(session_id)
             await broadcast(session_id, {"type": "ended"})
             for viewer in list(sessions.pop(session_id, ())):
                 try:
