@@ -24,6 +24,11 @@ enum ConnectionStatus {
   /// refused, DNS failure, etc.) -- never got to `connected`.
   backendUnavailable,
 
+  /// The server rejected the connection (missing/wrong access code, or a
+  /// malformed session id/role). Retrying with the same credentials would
+  /// just fail again, so this is terminal -- no automatic retry.
+  unauthorized,
+
   /// User-initiated stop; not an error.
   stopped,
 }

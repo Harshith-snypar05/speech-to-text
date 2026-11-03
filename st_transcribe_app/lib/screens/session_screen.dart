@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/app_settings.dart';
 import '../services/connection_status.dart';
-import '../services/session_id.dart';
+import '../services/session_id.dart' show generateSessionId, generateAccessCode;
 import '../services/transcription_client.dart';
 import '../services/transcript_storage.dart';
 import '../theme.dart';
@@ -25,6 +25,8 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
   TranscriptionClient? _client;
   late final AnimationController _pulse;
   late final String _sessionId;
+  bool _requireAccessCode = false;
+  String? _accessCode;
 
   @override
   void initState() {
@@ -61,6 +63,7 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
       wsUrl: AppSettings.backendUrl.value,
       sessionId: _sessionId,
       micDeviceId: AppSettings.micDeviceId.value,
+      accessCode: _accessCode,
     );
     client.onText.listen((text) {
       if (mounted) setState(() => _utterances.add(text));
@@ -124,12 +127,13 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
     // real, not a placeholder. On native mobile builds there's no "current
     // URL" to derive this from; that needs a configured viewer-site host
     // instead, not handled yet.
-    final link = '${Uri.base.origin}/#/viewer?session=$_sessionId';
+    final code = _accessCode;
+    final link = '${Uri.base.origin}/#/viewer?session=$_sessionId${code != null ? '&code=$code' : ''}';
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => ShareLinkSheet(link: link),
+      builder: (_) => ShareLinkSheet(link: link, accessCode: code),
     );
   }
 
@@ -220,6 +224,22 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
               _connecting ? 'Connecting...' : (_recording ? 'Tap to stop' : 'Tap to start'),
               style: TextStyle(color: colors.textSecondary, fontSize: 14),
             ),
+            if (!_recording && !_connecting) ...[
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Require access code', style: TextStyle(color: colors.textSecondary, fontSize: 13)),
+                  Switch(
+                    value: _requireAccessCode,
+                    onChanged: (v) => setState(() {
+                      _requireAccessCode = v;
+                      _accessCode = v ? generateAccessCode() : null;
+                    }),
+                  ),
+                ],
+              ),
+            ],
             if (_recording) ...[
               const SizedBox(height: 12),
               TextButton.icon(
@@ -283,6 +303,8 @@ class _SessionScreenState extends State<SessionScreen> with SingleTickerProvider
         return 'Connection failed. Recording has stopped transcribing.';
       case ConnectionStatus.backendUnavailable:
         return 'Transcription server unavailable.';
+      case ConnectionStatus.unauthorized:
+        return 'Rejected by the server (access code issue). Recording has stopped transcribing.';
       default:
         return '';
     }

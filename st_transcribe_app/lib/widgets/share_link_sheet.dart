@@ -7,7 +7,8 @@ import '../theme.dart';
 /// "Share Link" hands off to the OS-native share sheet via share_plus.
 class ShareLinkSheet extends StatelessWidget {
   final String link;
-  const ShareLinkSheet({super.key, required this.link});
+  final String? accessCode;
+  const ShareLinkSheet({super.key, required this.link, this.accessCode});
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +39,17 @@ class ShareLinkSheet extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w800, fontSize: 17, color: colors.textPrimary)),
           const SizedBox(height: 8),
           Text(
-            'Anyone with this link can watch the live transcript. The link will stop working when you end the session.',
+            accessCode == null
+                ? 'Anyone with this link can watch the live transcript. The link will stop working when you end the session.'
+                : 'Anyone with this link can watch the live transcript -- the access code is already baked in. Stops working when you end the session.',
             textAlign: TextAlign.center,
             style: TextStyle(color: colors.textSecondary, fontSize: 13, height: 1.4),
           ),
+          if (accessCode != null) ...[
+            const SizedBox(height: 10),
+            Text('Access code: $accessCode',
+                style: TextStyle(color: colors.textPrimary, fontSize: 13, fontWeight: FontWeight.w700)),
+          ],
           const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),

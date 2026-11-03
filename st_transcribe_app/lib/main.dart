@@ -48,7 +48,12 @@ class STTranscribeApp extends StatelessWidget {
               case '/settings':
                 return MaterialPageRoute(builder: (_) => const SettingsScreen());
               case '/viewer':
-                return MaterialPageRoute(builder: (_) => ViewerScreen(sessionId: uri.queryParameters['session']));
+                return MaterialPageRoute(
+                  builder: (_) => ViewerScreen(
+                    sessionId: uri.queryParameters['session'],
+                    accessCode: uri.queryParameters['code'],
+                  ),
+                );
               case '/transcript':
                 final t = settings.arguments as Transcript;
                 return MaterialPageRoute(builder: (_) => TranscriptDetailScreen(transcript: t));

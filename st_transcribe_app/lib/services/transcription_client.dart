@@ -24,6 +24,7 @@ class TranscriptionClient {
   final String wsUrl;
   final String sessionId;
   final String? micDeviceId;
+  final String? accessCode;
   final int maxRetries;
   final Duration connectTimeout;
 
@@ -31,6 +32,7 @@ class TranscriptionClient {
     required this.wsUrl,
     required this.sessionId,
     this.micDeviceId,
+    this.accessCode,
     this.maxRetries = 5,
     this.connectTimeout = const Duration(seconds: 8),
   });
@@ -102,7 +104,11 @@ class TranscriptionClient {
   Future<void> _connect(int myGen, {required bool isInitial}) async {
     if (myGen != _generation) return; // superseded by a newer start()/retry
     _setStatus(isInitial ? ConnectionStatus.connecting : ConnectionStatus.reconnecting);
-    final uri = Uri.parse(wsUrl).replace(queryParameters: {'role': 'speaker', 'session': sessionId});
+    final uri = Uri.parse(wsUrl).replace(queryParameters: {
+      'role': 'speaker',
+      'session': sessionId,
+      if (accessCode != null) 'code': accessCode,
+    });
     final channel = WebSocketChannel.connect(uri);
     try {
       await channel.ready.timeout(connectTimeout);
@@ -149,6 +155,14 @@ class TranscriptionClient {
 
   void _onSocketGone(int myGen) {
     if (_userStopped || myGen != _generation) return;
+    final closeCode = _channel?.closeCode;
+    if (closeCode == 4400 || closeCode == 4401) {
+      // Server rejected the connection outright (bad access code /
+      // malformed params) -- retrying with the same credentials would
+      // just fail again, so this is terminal, not a network blip.
+      _setStatus(ConnectionStatus.unauthorized);
+      return;
+    }
     _setStatus(ConnectionStatus.networkLost);
     _scheduleRetry(myGen);
   }

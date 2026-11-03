@@ -5,14 +5,17 @@ import '../services/viewer_client.dart';
 import '../theme.dart';
 import '../widgets/st_logo.dart';
 
-enum _ViewerState { connecting, reconnecting, live, ended, invalid, failed }
+enum _ViewerState { connecting, reconnecting, live, ended, invalid, failed, unauthorized }
 
 /// Viewer-side experience for someone who opened a shared live-transcript
-/// link (`?session=<id>`). Connects read-only to the same backend relay the
-/// speaker is streaming to; the session ends the moment the speaker stops.
+/// link (`?session=<id>`, optionally `&code=<accessCode>` for a
+/// code-protected session). Connects read-only to the same backend relay
+/// the speaker is streaming to; the session ends the moment the speaker
+/// stops.
 class ViewerScreen extends StatefulWidget {
   final String? sessionId;
-  const ViewerScreen({super.key, required this.sessionId});
+  final String? accessCode;
+  const ViewerScreen({super.key, required this.sessionId, this.accessCode});
 
   @override
   State<ViewerScreen> createState() => _ViewerScreenState();
@@ -34,7 +37,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
       _state = _ViewerState.invalid;
       return;
     }
-    final client = ViewerClient(wsUrl: AppSettings.backendUrl.value, sessionId: sessionId);
+    final client = ViewerClient(wsUrl: AppSettings.backendUrl.value, sessionId: sessionId, accessCode: widget.accessCode);
     client.onText.listen((text) {
       if (!mounted) return;
       setState(() {
@@ -65,6 +68,8 @@ class _ViewerScreenState extends State<ViewerScreen> {
           case ConnectionStatus.backendUnavailable:
           case ConnectionStatus.connectionFailed:
             _state = _ViewerState.failed;
+          case ConnectionStatus.unauthorized:
+            _state = _ViewerState.unauthorized;
           case ConnectionStatus.stopped:
             break;
         }
@@ -100,6 +105,11 @@ class _ViewerScreenState extends State<ViewerScreen> {
               message: 'Couldn\'t reach the transcription server. Check your connection and try again.',
               dotColor: colors.recordRed,
               onRetry: _retryConnection,
+            ),
+          _ViewerState.unauthorized => _MessageView(
+              status: 'Access code required',
+              message: 'This session needs an access code. Ask the speaker for the correct link or code.',
+              dotColor: colors.recordRed,
             ),
         },
       ),

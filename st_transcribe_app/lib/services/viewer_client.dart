@@ -18,12 +18,14 @@ import 'live_transcript_parser.dart';
 class ViewerClient {
   final String wsUrl;
   final String sessionId;
+  final String? accessCode;
   final int maxRetries;
   final Duration connectTimeout;
 
   ViewerClient({
     required this.wsUrl,
     required this.sessionId,
+    this.accessCode,
     this.maxRetries = 5,
     this.connectTimeout = const Duration(seconds: 8),
   });
@@ -61,7 +63,11 @@ class ViewerClient {
   Future<void> _connect(int myGen, {required bool isInitial}) async {
     if (myGen != _generation) return;
     _setStatus(isInitial ? ConnectionStatus.connecting : ConnectionStatus.reconnecting);
-    final uri = Uri.parse(wsUrl).replace(queryParameters: {'role': 'viewer', 'session': sessionId});
+    final uri = Uri.parse(wsUrl).replace(queryParameters: {
+      'role': 'viewer',
+      'session': sessionId,
+      if (accessCode != null) 'code': accessCode,
+    });
     final channel = WebSocketChannel.connect(uri);
     try {
       await channel.ready.timeout(connectTimeout);
@@ -109,6 +115,11 @@ class ViewerClient {
 
   void _onSocketGone(int myGen) {
     if (_stopped || _ended || myGen != _generation) return;
+    final closeCode = _channel?.closeCode;
+    if (closeCode == 4400 || closeCode == 4401) {
+      _setStatus(ConnectionStatus.unauthorized);
+      return;
+    }
     _setStatus(ConnectionStatus.networkLost);
     _scheduleRetry(myGen);
   }

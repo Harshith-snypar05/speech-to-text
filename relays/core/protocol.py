@@ -2,7 +2,12 @@
 what the Flutter clients speak (see
 st_transcribe_app/lib/services/live_transcript_parser.dart).
 """
+import re
 from urllib.parse import parse_qs, urlsplit
+
+_SESSION_ID_RE = re.compile(r'^[A-Za-z0-9_-]{6,64}$')
+_ACCESS_CODE_RE = re.compile(r'^[A-Za-z0-9]{4,32}$')
+_VALID_ROLES = {"speaker", "viewer"}
 
 
 def partial_message(text: str) -> dict:
@@ -17,9 +22,31 @@ def ended_message() -> dict:
     return {"type": "ended"}
 
 
-def parse_connection_params(websocket) -> tuple[str, str | None]:
+def is_valid_session_id(session_id: str | None) -> bool:
+    return bool(session_id) and bool(_SESSION_ID_RE.match(session_id))
+
+
+def is_valid_access_code(code: str | None) -> bool:
+    """None (no code supplied) is valid -- code is optional. A supplied
+    code must still match the expected shape."""
+    return code is None or bool(_ACCESS_CODE_RE.match(code))
+
+
+class ConnectionParams:
+    __slots__ = ("role", "session_id", "access_code")
+
+    def __init__(self, role: str, session_id: str | None, access_code: str | None):
+        self.role = role
+        self.session_id = session_id
+        self.access_code = access_code
+
+
+def parse_connection_params(websocket) -> ConnectionParams:
     query = urlsplit(websocket.request.path).query
     params = parse_qs(query)
     role = (params.get("role", ["speaker"])[0]).strip().lower()
-    session_id = (params.get("session", [None])[0])
-    return role, session_id
+    if role not in _VALID_ROLES:
+        role = "speaker"
+    session_id = params.get("session", [None])[0]
+    access_code = params.get("code", [None])[0]
+    return ConnectionParams(role, session_id, access_code)

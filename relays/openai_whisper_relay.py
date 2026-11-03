@@ -23,10 +23,11 @@ import websockets
 
 from core.audio_processor import UtteranceBuffer
 from core.config import (
-    ADAPTIVE_NOISE_FLOOR, BYTES_PER_SAMPLE, MAX_UTTERANCE_SECONDS, MIN_UTTERANCE_SECONDS,
-    NOISE_FLOOR_MULTIPLIER, SAMPLE_RATE, SILENCE_HANG_SECONDS, SILENCE_RMS_THRESHOLD,
+    ADAPTIVE_NOISE_FLOOR, BYTES_PER_SAMPLE, MAX_TOTAL_CONNECTIONS, MAX_UTTERANCE_SECONDS,
+    MAX_VIEWERS_PER_SESSION, MIN_UTTERANCE_SECONDS, NOISE_FLOOR_MULTIPLIER, SAMPLE_RATE,
+    SILENCE_HANG_SECONDS, SILENCE_RMS_THRESHOLD,
 )
-from core.protocol import parse_connection_params
+from core.protocol import is_valid_access_code, is_valid_session_id, parse_connection_params
 from core.session_manager import SessionRegistry
 from core.speaker_session import run_speaker_session
 from engines.openai_whisper_engine import OpenAIWhisperEngine
@@ -40,7 +41,7 @@ logger.info("Loading openai/whisper base.en model...")
 engine = OpenAIWhisperEngine()
 logger.info("Model loaded.")
 
-registry = SessionRegistry()
+registry = SessionRegistry(max_viewers_per_session=MAX_VIEWERS_PER_SESSION, max_total_connections=MAX_TOTAL_CONNECTIONS)
 
 
 def _new_buffer() -> UtteranceBuffer:
@@ -52,11 +53,17 @@ def _new_buffer() -> UtteranceBuffer:
 
 
 async def handle(websocket):
-    role, session_id = parse_connection_params(websocket)
-    if role == "viewer":
-        await registry.handle_viewer(websocket, session_id)
+    params = parse_connection_params(websocket)
+    if not is_valid_access_code(params.access_code):
+        await websocket.close(code=4400, reason="malformed access code")
+        return
+    if params.role == "viewer":
+        await registry.handle_viewer(websocket, params.session_id, params.access_code)
     else:
-        await run_speaker_session(websocket, session_id, engine, _new_buffer(), registry)
+        if params.session_id and not is_valid_session_id(params.session_id):
+            await websocket.close(code=4400, reason="malformed session id")
+            return
+        await run_speaker_session(websocket, params.session_id, engine, _new_buffer(), registry, params.access_code)
 
 
 async def main():

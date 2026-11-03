@@ -29,3 +29,14 @@ FINAL_FLUSH_TIMEOUT_SECONDS = float(os.environ.get("STT_FINAL_FLUSH_TIMEOUT_SECO
 # default -- see UtteranceBuffer's docstring for why. Set to "1" to try it.
 ADAPTIVE_NOISE_FLOOR = os.environ.get("STT_ADAPTIVE_NOISE_FLOOR", "0") == "1"
 NOISE_FLOOR_MULTIPLIER = float(os.environ.get("STT_NOISE_FLOOR_MULTIPLIER", "2.5"))
+
+# A session (one continuous speaker connection) is proactively ended once
+# it's been open this long, regardless of activity -- a safety cap, not a
+# UX feature; generous by default so normal sessions never hit it.
+SESSION_MAX_DURATION_SECONDS = float(os.environ.get("STT_SESSION_MAX_DURATION_SECONDS", str(4 * 3600)))
+
+# Per-relay-process connection limits -- a crude but real guard against
+# unbounded resource growth from a session with many viewers or a flood
+# of connections.
+MAX_VIEWERS_PER_SESSION = int(os.environ.get("STT_MAX_VIEWERS_PER_SESSION", "50"))
+MAX_TOTAL_CONNECTIONS = int(os.environ.get("STT_MAX_TOTAL_CONNECTIONS", "200"))

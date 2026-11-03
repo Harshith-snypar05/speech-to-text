@@ -8,11 +8,12 @@ disconnect (awaited, not fire-and-forget).
 import asyncio
 import json
 import logging
+import time
 
 import websockets
 
 from .audio_processor import UtteranceBuffer
-from .config import FINAL_FLUSH_TIMEOUT_SECONDS, PARTIAL_CYCLE_SECONDS
+from .config import FINAL_FLUSH_TIMEOUT_SECONDS, PARTIAL_CYCLE_SECONDS, SESSION_MAX_DURATION_SECONDS
 from .protocol import final_message, partial_message
 from .session_manager import SessionRegistry
 from engines.base_engine import TranscriptionEngine
@@ -26,9 +27,11 @@ async def run_speaker_session(
     engine: TranscriptionEngine,
     buffer: UtteranceBuffer,
     registry: SessionRegistry,
+    access_code: str | None = None,
 ):
     words_sent = 0
     generation = 0  # bumped on every flush; lets a slow partial notice it's stale
+    started_at = time.monotonic()
 
     async def send(payload: dict):
         try:
@@ -82,13 +85,26 @@ async def run_speaker_session(
             await send(final_message(text))
 
     partial_task = asyncio.create_task(partial_cycle())
-    registry.speaker_connected(session_id)
+    registry.speaker_connected(session_id, access_code)
     logger.info(f"Speaker connected (session={session_id})")
     try:
         async for message in websocket:
             if not isinstance(message, (bytes, bytearray)):
                 continue
-            if buffer.add_chunk(message):
+            if time.monotonic() - started_at > SESSION_MAX_DURATION_SECONDS:
+                logger.info(f"Session {session_id} hit the max duration cap; ending it")
+                await websocket.close(code=1000, reason="session time limit reached")
+                break
+            try:
+                boundary = buffer.add_chunk(message)
+            except Exception as e:
+                # A malformed/corrupt audio frame (e.g. odd byte length
+                # that doesn't divide evenly into 16-bit samples) must not
+                # take the whole connection down -- drop the frame and
+                # keep the session alive.
+                logger.warning(f"dropped malformed audio frame: {e}")
+                continue
+            if boundary:
                 await flush()
     except websockets.exceptions.ConnectionClosed:
         pass
