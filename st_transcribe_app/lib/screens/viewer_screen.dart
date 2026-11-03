@@ -108,7 +108,6 @@ class _ViewerScreenState extends State<ViewerScreen> {
 }
 
 Widget _topBar(BuildContext context, {required Widget statusWidget}) {
-  final colors = AppColors.of(context);
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     child: Row(
@@ -116,8 +115,6 @@ Widget _topBar(BuildContext context, {required Widget statusWidget}) {
         const StLogo(size: 26),
         const SizedBox(width: 8),
         statusWidget,
-        const Spacer(),
-        Icon(Icons.more_horiz, color: colors.textPrimary),
       ],
     ),
   );
