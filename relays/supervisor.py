@@ -56,7 +56,7 @@ class ManagedProcess:
             stdout=self._log_file,
             stderr=subprocess.STDOUT,
         )
-        print(f"[supervisor] started {self.name} (pid={self.proc.pid})")
+        print(f"[supervisor] started {self.name} (pid={self.proc.pid})", flush=True)
 
     def poll(self):
         return self.proc.poll() if self.proc else None
@@ -70,7 +70,7 @@ class ManagedProcess:
         try:
             self.proc.wait(timeout=timeout)
         except subprocess.TimeoutExpired:
-            print(f"[supervisor] {self.name} did not exit after SIGTERM, killing")
+            print(f"[supervisor] {self.name} did not exit after SIGTERM, killing", flush=True)
             self.proc.kill()
             self.proc.wait()
         if self._log_file:
@@ -102,30 +102,30 @@ def _running_supervisor():
 def cmd_status():
     data = _running_supervisor()
     if not data:
-        print("supervisor: not running")
+        print("supervisor: not running", flush=True)
         return
-    print(f"supervisor: running (pid={data['pid']}, engines={data['engines']}, since={time.ctime(data['started'])})")
+    print(f"supervisor: running (pid={data['pid']}, engines={data['engines']}, since={time.ctime(data['started'])})", flush=True)
 
 
 def cmd_stop():
     data = _running_supervisor()
     if not data:
-        print("supervisor: not running")
+        print("supervisor: not running", flush=True)
         return
     os.kill(data["pid"], signal.SIGTERM)
-    print(f"sent SIGTERM to supervisor (pid={data['pid']})")
+    print(f"sent SIGTERM to supervisor (pid={data['pid']})", flush=True)
 
 
 def cmd_run(requested):
     if _running_supervisor():
         existing = _running_supervisor()
-        print(f"supervisor already running (pid={existing['pid']}). Refusing to start a duplicate.")
+        print(f"supervisor already running (pid={existing['pid']}). Refusing to start a duplicate.", flush=True)
         sys.exit(1)
 
     names = requested or list(ENGINES.keys())
     for n in names:
         if n not in ENGINES:
-            print(f"unknown engine: {n} (choices: {', '.join(ENGINES)})")
+            print(f"unknown engine: {n} (choices: {', '.join(ENGINES)})", flush=True)
             sys.exit(1)
 
     managed = [ManagedProcess(n, ENGINES[n]) for n in names]
@@ -154,20 +154,20 @@ def cmd_run(requested):
                 if p.restart_count >= MAX_RESTARTS_PER_ENGINE:
                     p.given_up = True
                     print(f"[supervisor] {p.name} exceeded {MAX_RESTARTS_PER_ENGINE} restarts; giving up on it "
-                          f"(other engines keep running -- check relays/logs/{p.name}.log)")
+                          f"(other engines keep running -- check relays/logs/{p.name}.log)", flush=True)
                     continue
                 backoff = RESTART_BACKOFF_SECONDS[min(p.restart_count, len(RESTART_BACKOFF_SECONDS) - 1)]
                 print(f"[supervisor] {p.name} exited (code={code}); restarting in {backoff}s "
-                      f"(attempt {p.restart_count + 1}/{MAX_RESTARTS_PER_ENGINE})")
+                      f"(attempt {p.restart_count + 1}/{MAX_RESTARTS_PER_ENGINE})", flush=True)
                 time.sleep(backoff)
                 p.restart_count += 1
                 p.start()
     finally:
-        print("[supervisor] shutting down...")
+        print("[supervisor] shutting down...", flush=True)
         for p in managed:
             p.stop()
         _remove_pid_file()
-        print("[supervisor] stopped.")
+        print("[supervisor] stopped.", flush=True)
 
 
 def main():

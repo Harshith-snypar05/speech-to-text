@@ -41,8 +41,11 @@ class TranscriptStorage {
 
     if (kIsWeb) {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('$_webBodyKeyPrefix$id', trimmed);
+      // Read the index before writing the new body: _readWebIndex can
+      // trigger a legacy-data migration scan, and that must not see this
+      // save's own body key and double-count it.
       final index = await _readWebIndex(prefs);
+      await prefs.setString('$_webBodyKeyPrefix$id', trimmed);
       index.insert(0, transcript.meta);
       await _writeWebIndex(prefs, index);
       triggerWebDownload('transcript_$id', trimmed);
@@ -50,8 +53,12 @@ class TranscriptStorage {
     }
 
     final dir = await _dir();
-    await File('${dir.path}/$id.txt').writeAsString(trimmed);
+    // Same ordering requirement natively: _readNativeIndex rebuilds from
+    // .txt files when index.json is missing, so it must run before this
+    // save's own file exists on disk, or the rebuild scan and the insert
+    // below both add this transcript -- duplicating it.
     final index = await _readNativeIndex(dir);
+    await File('${dir.path}/$id.txt').writeAsString(trimmed);
     index.insert(0, transcript.meta);
     await _writeNativeIndex(dir, index);
     return transcript;
