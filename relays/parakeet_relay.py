@@ -1,32 +1,28 @@
 """Live-transcription relay for NVIDIA's Parakeet TDT model, via
-whisper.cpp's native `parakeet-cli` (same vendored fork already used for
-the whisper.cpp relay -- this is a separate binary/model, not a variant
-of whisper-cli). Same VAD-pause-triggered single-shot approach as the
-other CLI-based relay (whisper.cpp): transcribe once per utterance, the
-instant you pause.
+whisper.cpp's native Parakeet support (same vendored fork already used
+for the whisper.cpp relay -- this is a separate binary/model, not a
+variant of whisper-cli). Same VAD-pause-triggered single-shot approach as
+the other CLI-based relay (whisper.cpp): transcribe once per utterance,
+the instant you pause.
 
 Best accuracy of the four engines at every noise level tested on this
 hardware (same JFK clip + noise-degraded variants, same WER methodology):
 100% at 0dB SNR vs 90-95% for the others, 90.91% at -5dB SNR vs 63-77%.
 
-NOT the lowest real-world latency, despite pure inference being the
-fastest of the four (~131ms for an 11s clip, vs 232-326ms) -- that
-number excludes model loading, which doesn't matter for faster-whisper/
-openai-whisper (in-process, loaded once at relay startup) but matters a
-lot here: this engine shells out to a fresh parakeet-cli subprocess per
-utterance (same architecture as the whisper.cpp relay), so every single
-utterance reloads the full 668MB model from disk. Real per-utterance
-latency measured through this relay: ~350-520ms, not ~131ms. Combined
-with supports_partial=False (no word-by-word streaming -- see
-engines/parakeet_engine.py for why), the perceived gap from "stop
-talking" to "see text" is roughly SILENCE_HANG_SECONDS (0.6s) + 350-520ms
-reload+inference, noticeably slower-feeling than faster-whisper's
-continuous word-by-word output even though the underlying model is more
-accurate. Fixing the reload cost would mean a persistent Python binding
-against whisper.cpp's C API instead of shelling out per call (no shared
-library is even built for this yet) -- real engineering work, not done
-here; this tradeoff (best accuracy, noticeably higher latency, no
-partials) is the accepted state as of this relay's introduction.
+Two engine implementations, picked automatically:
+- ParakeetNativeEngine (engines/parakeet_native_engine.py): ctypes binding
+  against a shared-library build of libparakeet, model loaded ONCE at
+  relay startup and reused for every utterance -- matches faster-whisper/
+  openai-whisper's in-process architecture. ~130ms per utterance after
+  the one-time startup cost. Used automatically if the shared library has
+  been built (see that file's docstring for the build command -- it's an
+  extra step, not part of the default whisper.cpp build).
+- ParakeetEngine (engines/parakeet_engine.py): shells out to a fresh
+  `parakeet-cli` subprocess per utterance, reloading the full 668MB model
+  from disk every single time (~350-520ms measured, not the ~130ms pure
+  inference figure -- that gap is the whole reason the native engine
+  above exists). Used as a fallback when the shared library isn't built,
+  so this relay still works without the extra build step, just slower.
 
 Requires the model downloaded separately -- see MODEL path below; not
 bundled in the repo (~669MB).
@@ -54,17 +50,30 @@ from core.config import (
 from core.protocol import is_valid_access_code, is_valid_session_id, parse_connection_params
 from core.session_manager import SessionRegistry
 from core.speaker_session import run_speaker_session
-from engines.parakeet_engine import ParakeetEngine
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("parakeet_relay")
 
 ROOT = Path(__file__).resolve().parent.parent
-PARAKEET_CLI = ROOT / "whisper.cpp" / "build" / "bin" / "parakeet-cli"
-MODEL = ROOT / "whisper.cpp" / "models" / "ggml-parakeet-tdt-0.6b-v3-q8_0.bin"
+WHISPER_CPP = ROOT / "whisper.cpp"
+MODEL = WHISPER_CPP / "models" / "ggml-parakeet-tdt-0.6b-v3-q8_0.bin"
+SHARED_BUILD_DIR = WHISPER_CPP / "build-shared" / "bin"
+PARAKEET_CLI = WHISPER_CPP / "build" / "bin" / "parakeet-cli"
 LISTEN_PORT = 8768
 
-engine = ParakeetEngine(PARAKEET_CLI, MODEL, SAMPLE_RATE, BYTES_PER_SAMPLE)
+if (SHARED_BUILD_DIR / "libparakeet.dylib").exists():
+    from engines.parakeet_native_engine import ParakeetNativeEngine
+    logger.info("using ParakeetNativeEngine (model loaded once, shared library found)")
+    engine = ParakeetNativeEngine(SHARED_BUILD_DIR, MODEL)
+else:
+    from engines.parakeet_engine import ParakeetEngine
+    logger.warning(
+        "libparakeet.dylib not found in %s -- falling back to per-utterance subprocess "
+        "(slower, ~350-520ms vs ~130ms per utterance; see this file's docstring to build the shared library)",
+        SHARED_BUILD_DIR,
+    )
+    engine = ParakeetEngine(PARAKEET_CLI, MODEL, SAMPLE_RATE, BYTES_PER_SAMPLE)
+
 registry = SessionRegistry(max_viewers_per_session=MAX_VIEWERS_PER_SESSION, max_total_connections=MAX_TOTAL_CONNECTIONS)
 
 

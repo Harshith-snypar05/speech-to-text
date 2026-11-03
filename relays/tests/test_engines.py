@@ -107,4 +107,42 @@ def test_parakeet_engine_real_transcription():
     normalized = text.lower()
     assert "country" in normalized
     assert "ask" in normalized
+    assert text == collapse_repetition(text)
+
+
+SHARED_BUILD_DIR = JFK_WAV.parent.parent / "build-shared" / "bin"
+
+
+@pytest.mark.skipif(
+    not (JFK_WAV.exists() and (SHARED_BUILD_DIR / "libparakeet.dylib").exists() and PARAKEET_MODEL.exists()),
+    reason="libparakeet.dylib (shared-library build, see parakeet_native_engine.py docstring), model, or sample audio not available",
+)
+def test_parakeet_native_engine_real_transcription_and_reuses_loaded_model():
+    """Real integration test against the ctypes binding -- not mocked.
+    Also proves the actual point of this engine over the subprocess one:
+    two transcribe_final() calls against the same instance (same loaded
+    model, no reload) both succeed and produce correct, consistent
+    output -- the real fix for the ~350-520ms per-utterance reload cost
+    measured through the subprocess-based engine.
+    """
+    import asyncio
+
+    from engines.parakeet_native_engine import ParakeetNativeEngine
+
+    with wave.open(str(JFK_WAV), "rb") as f:
+        assert f.getframerate() == 16000
+        pcm = f.readframes(f.getnframes())
+
+    engine = ParakeetNativeEngine(SHARED_BUILD_DIR, PARAKEET_MODEL)
+    try:
+        text1 = asyncio.run(engine.transcribe_final(pcm))
+        text2 = asyncio.run(engine.transcribe_final(pcm))
+        for text in (text1, text2):
+            normalized = text.lower()
+            assert "country" in normalized
+            assert "ask" in normalized
+            assert text == collapse_repetition(text)
+        assert text1 == text2, "same audio through the same loaded model must produce the same output"
+    finally:
+        asyncio.run(engine.shutdown())
     assert text == collapse_repetition(text), "engine output should already be repetition-collapsed"
