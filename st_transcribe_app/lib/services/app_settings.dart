@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,6 +10,7 @@ enum TranscriptionEnginePreset {
   fasterWhisper('faster-whisper', 'ws://localhost:8767'),
   whisperCpp('whisper.cpp', 'ws://localhost:8765'),
   openaiWhisper('openai/whisper', 'ws://localhost:8766'),
+  parakeet('Parakeet TDT', 'ws://localhost:8768'),
   custom('Custom', '');
 
   final String label;
@@ -38,6 +40,23 @@ bool isValidBackendUrl(String value) {
   if (uri.scheme != 'ws' && uri.scheme != 'wss') return false;
   if (uri.host.isEmpty) return false;
   return true;
+}
+
+/// When the app is served from a real host (not localhost -- e.g. behind
+/// relays/combined_proxy.py, which serves the app and proxies the relay
+/// on the same port), the backend is reachable at that same origin. Used
+/// as the first-load default so a shared link works with zero per-device
+/// Settings configuration. Returns null for local dev (`flutter run`,
+/// localhost/127.0.0.1), where it wouldn't mean anything -- the app's own
+/// dev-server port isn't the relay.
+String? detectSameOriginBackendUrl() {
+  if (!kIsWeb) return null;
+  final base = Uri.base;
+  final host = base.host;
+  if (host.isEmpty || host == 'localhost' || host == '127.0.0.1') return null;
+  final scheme = base.scheme == 'https' ? 'wss' : 'ws';
+  final port = base.hasPort ? ':${base.port}' : '';
+  return '$scheme://$host$port';
 }
 
 /// Persisted app settings, loaded once at startup. Each field is a
@@ -76,7 +95,19 @@ class AppSettings {
       (p) => p.name == presetName,
       orElse: () => TranscriptionEnginePreset.fasterWhisper,
     );
-    backendUrl.value = prefs.getString(_kBackendUrl) ?? enginePreset.value.defaultUrl;
+
+    final storedUrl = prefs.getString(_kBackendUrl);
+    if (storedUrl != null) {
+      backendUrl.value = storedUrl;
+    } else {
+      final sameOrigin = detectSameOriginBackendUrl();
+      if (sameOrigin != null) {
+        enginePreset.value = TranscriptionEnginePreset.custom;
+        backendUrl.value = sameOrigin;
+      } else {
+        backendUrl.value = enginePreset.value.defaultUrl;
+      }
+    }
 
     final sizeName = prefs.getString(_kTextSize);
     textSize.value = AppTextSize.values.firstWhere((s) => s.name == sizeName, orElse: () => AppTextSize.medium);

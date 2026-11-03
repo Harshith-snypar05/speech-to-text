@@ -32,6 +32,7 @@ ENGINES = {
     "whispercpp": ROOT / "whispercpp_relay.py",
     "openaiwhisper": ROOT / "openai_whisper_relay.py",
     "fasterwhisper": ROOT / "fasterwhisper_relay.py",
+    "parakeet": ROOT / "parakeet_relay.py",
 }
 
 RESTART_BACKOFF_SECONDS = [1, 2, 5, 10, 30]

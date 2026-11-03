@@ -76,3 +76,35 @@ def test_fasterwhisper_engine_real_transcription():
     assert "country" in normalized
     assert "ask" in normalized
     assert text == collapse_repetition(text), "engine output should already be repetition-collapsed"
+
+
+PARAKEET_CLI = JFK_WAV.parent.parent / "build" / "bin" / "parakeet-cli"
+PARAKEET_MODEL = JFK_WAV.parent.parent / "models" / "ggml-parakeet-tdt-0.6b-v3-q8_0.bin"
+
+
+@pytest.mark.skipif(
+    not (JFK_WAV.exists() and PARAKEET_CLI.exists() and PARAKEET_MODEL.exists()),
+    reason="parakeet-cli binary, model (~669MB, not vendored -- see relays/parakeet_relay.py docstring), or sample audio not available",
+)
+def test_parakeet_engine_real_transcription():
+    """Real integration test against the actual parakeet-cli binary and
+    the real nvidia/parakeet-tdt-0.6b-v3 GGML model (ggml-org's MIT-licensed
+    conversion) -- not mocked. Measured independently against the other
+    three engines on this same clip + noise-degraded variants: best
+    accuracy at every noise level and fastest raw inference (see
+    relays/parakeet_relay.py docstring for numbers).
+    """
+    import asyncio
+
+    from engines.parakeet_engine import ParakeetEngine
+
+    with wave.open(str(JFK_WAV), "rb") as f:
+        assert f.getframerate() == 16000
+        pcm = f.readframes(f.getnframes())
+
+    engine = ParakeetEngine(PARAKEET_CLI, PARAKEET_MODEL, 16000, 2)
+    text = asyncio.run(engine.transcribe_final(pcm))
+    normalized = text.lower()
+    assert "country" in normalized
+    assert "ask" in normalized
+    assert text == collapse_repetition(text), "engine output should already be repetition-collapsed"
