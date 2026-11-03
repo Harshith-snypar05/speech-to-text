@@ -8,9 +8,10 @@ import websockets
 ENGINES = {
     "whispercpp": "ws://localhost:8765",
     "openaiwhisper": "ws://localhost:8766",
+    "fasterwhisper": "ws://localhost:8767",
 }
 
-FORMATS = {"whispercpp": "int16", "openaiwhisper": "int16"}
+FORMATS = {"whispercpp": "int16", "openaiwhisper": "int16", "fasterwhisper": "int16"}
 
 
 async def run_one(name, url, audio_bytes, wait_s):
@@ -44,7 +45,7 @@ async def main():
     audio_i16 = (audio * 32767).astype(np.int16)
 
     bytes_by_format = {"int16": audio_i16.tobytes()}
-    waits = {"whispercpp": 10, "openaiwhisper": 10}
+    waits = {"whispercpp": 10, "openaiwhisper": 10, "fasterwhisper": 10}
     tasks = [
         run_one(name, url, bytes_by_format[FORMATS[name]], waits[name])
         for name, url in ENGINES.items()
