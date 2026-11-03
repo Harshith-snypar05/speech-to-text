@@ -9,3 +9,5 @@ stt-compare-venv/
 
 __pycache__/
 *.pyc
+relays/logs/
+relays/supervisor.pid
