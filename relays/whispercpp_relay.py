@@ -25,8 +25,8 @@ import websockets
 
 from core.audio_processor import UtteranceBuffer
 from core.config import (
-    BYTES_PER_SAMPLE, MAX_UTTERANCE_SECONDS, MIN_UTTERANCE_SECONDS,
-    SAMPLE_RATE, SILENCE_HANG_SECONDS, SILENCE_RMS_THRESHOLD,
+    ADAPTIVE_NOISE_FLOOR, BYTES_PER_SAMPLE, MAX_UTTERANCE_SECONDS, MIN_UTTERANCE_SECONDS,
+    NOISE_FLOOR_MULTIPLIER, SAMPLE_RATE, SILENCE_HANG_SECONDS, SILENCE_RMS_THRESHOLD,
 )
 from core.protocol import parse_connection_params
 from core.session_manager import SessionRegistry
@@ -49,6 +49,7 @@ def _new_buffer() -> UtteranceBuffer:
     return UtteranceBuffer(
         SAMPLE_RATE, BYTES_PER_SAMPLE, SILENCE_RMS_THRESHOLD,
         SILENCE_HANG_SECONDS, MIN_UTTERANCE_SECONDS, MAX_UTTERANCE_SECONDS,
+        adaptive_noise_floor=ADAPTIVE_NOISE_FLOOR, noise_floor_multiplier=NOISE_FLOOR_MULTIPLIER,
     )
 
 

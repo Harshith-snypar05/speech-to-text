@@ -23,3 +23,9 @@ PARTIAL_CYCLE_SECONDS = float(os.environ.get("STT_PARTIAL_CYCLE_SECONDS", "0.5")
 # Final transcription must complete within this long on disconnect, or
 # it's abandoned rather than hanging session cleanup forever.
 FINAL_FLUSH_TIMEOUT_SECONDS = float(os.environ.get("STT_FINAL_FLUSH_TIMEOUT_SECONDS", "10.0"))
+
+# Opt-in: track a slow-moving average of silence RMS and classify speech
+# relative to it instead of the fixed SILENCE_RMS_THRESHOLD. Off by
+# default -- see UtteranceBuffer's docstring for why. Set to "1" to try it.
+ADAPTIVE_NOISE_FLOOR = os.environ.get("STT_ADAPTIVE_NOISE_FLOOR", "0") == "1"
+NOISE_FLOOR_MULTIPLIER = float(os.environ.get("STT_NOISE_FLOOR_MULTIPLIER", "2.5"))
