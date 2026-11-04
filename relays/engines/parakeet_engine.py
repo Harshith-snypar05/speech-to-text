@@ -9,13 +9,15 @@ from engines.base_engine import TranscriptionEngine
 
 class ParakeetEngine(TranscriptionEngine):
     """Shells out to whisper.cpp's `parakeet-cli` (native Parakeet TDT
-    support, separate binary from `whisper-cli`) per utterance. Like
-    WhisperCppEngine, no streaming/partial API -- final-only. Parakeet-cli
-    does expose per-token timing with word_start markers (enough to
-    reconstruct word-level partials), but re-invoking a CLI subprocess
-    every PARTIAL_CYCLE_SECONDS the way faster-whisper's in-process model
-    does would add real subprocess-spawn overhead; whisper.cpp's own
-    engine made the same call for the same reason.
+    support) per utterance. No streaming/partial API -- final-only.
+    parakeet-cli does expose per-token timing with word_start markers
+    (enough to reconstruct word-level partials), but re-invoking a CLI
+    subprocess every PARTIAL_CYCLE_SECONDS would add real subprocess-spawn
+    and model-reload overhead -- see ParakeetNativeEngine
+    (parakeet_native_engine.py) for the in-process version that doesn't
+    have that problem and does support partials; this subprocess version
+    exists only as a fallback for when the shared library required by
+    ParakeetNativeEngine hasn't been built.
     """
 
     supports_partial = False

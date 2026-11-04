@@ -1,7 +1,4 @@
 websockets
 numpy
-soundfile
-openai-whisper
-faster-whisper
 pytest
 pytest-asyncio

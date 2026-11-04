@@ -49,35 +49,6 @@ async def test_fake_engine_raises_when_configured_to():
         await engine.transcribe_final(b"\x00\x00")
 
 
-@pytest.mark.skipif(not JFK_WAV.exists(), reason="sample audio not available")
-def test_fasterwhisper_engine_real_transcription():
-    """Real integration test against the actual model (already cached in
-    this environment from earlier benchmarking) -- not mocked. Skips
-    cleanly in environments without the sample audio rather than failing
-    the whole suite over a missing fixture.
-    """
-    try:
-        from engines.fasterwhisper_engine import FasterWhisperEngine
-    except ImportError:
-        pytest.skip("faster_whisper not installed in this environment")
-
-    import asyncio
-    import numpy as np
-
-    with wave.open(str(JFK_WAV), "rb") as f:
-        assert f.getframerate() == 16000
-        pcm = f.readframes(f.getnframes())
-
-    engine = FasterWhisperEngine()
-    text = asyncio.run(engine.transcribe_final(pcm))
-    normalized = text.lower()
-    # Real assertion against real inference output, not a mock -- the JFK
-    # clip's well-known line.
-    assert "country" in normalized
-    assert "ask" in normalized
-    assert text == collapse_repetition(text), "engine output should already be repetition-collapsed"
-
-
 PARAKEET_CLI = JFK_WAV.parent.parent / "build" / "bin" / "parakeet-cli"
 PARAKEET_MODEL = JFK_WAV.parent.parent / "models" / "ggml-parakeet-tdt-0.6b-v3-q8_0.bin"
 
@@ -89,10 +60,9 @@ PARAKEET_MODEL = JFK_WAV.parent.parent / "models" / "ggml-parakeet-tdt-0.6b-v3-q
 def test_parakeet_engine_real_transcription():
     """Real integration test against the actual parakeet-cli binary and
     the real nvidia/parakeet-tdt-0.6b-v3 GGML model (ggml-org's MIT-licensed
-    conversion) -- not mocked. Measured independently against the other
-    three engines on this same clip + noise-degraded variants: best
-    accuracy at every noise level and fastest raw inference (see
-    relays/parakeet_relay.py docstring for numbers).
+    conversion) -- not mocked. This is the subprocess-based fallback
+    engine (see relays/parakeet_relay.py's docstring); ParakeetNativeEngine
+    below is what's actually used when the shared library is built.
     """
     import asyncio
 

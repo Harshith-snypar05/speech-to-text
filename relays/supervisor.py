@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Lightweight process supervisor for the three STT relays.
+"""Lightweight process supervisor for the STT relay(s).
 
 No systemd on macOS (the dev environment this was built on), and Docker
 is a heavy lift for audio/model-downloading Python processes -- this is a
@@ -11,10 +11,10 @@ to a real Linux server, each ManagedProcess maps 1:1 onto a systemd unit
 same idea without requiring systemd to exist.
 
 Usage:
-    python3 relays/supervisor.py                            # run all three
-    python3 relays/supervisor.py whispercpp fasterwhisper    # just these
-    python3 relays/supervisor.py status                      # is it running?
-    python3 relays/supervisor.py stop                        # stop a running supervisor
+    python3 relays/supervisor.py           # run all configured engines (just parakeet)
+    python3 relays/supervisor.py parakeet  # same, explicit
+    python3 relays/supervisor.py status    # is it running?
+    python3 relays/supervisor.py stop      # stop a running supervisor
 """
 import json
 import os
@@ -28,10 +28,11 @@ ROOT = Path(__file__).resolve().parent
 LOG_DIR = ROOT / "logs"
 PID_FILE = ROOT / "supervisor.pid"
 
+# whisper.cpp, openai/whisper, and faster-whisper relays were removed after
+# head-to-head testing showed Parakeet TDT ahead on both accuracy and
+# latency (see relays/parakeet_relay.py's docstring for the numbers) --
+# kept as a dict rather than a single constant in case that changes again.
 ENGINES = {
-    "whispercpp": ROOT / "whispercpp_relay.py",
-    "openaiwhisper": ROOT / "openai_whisper_relay.py",
-    "fasterwhisper": ROOT / "fasterwhisper_relay.py",
     "parakeet": ROOT / "parakeet_relay.py",
 }
 

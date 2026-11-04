@@ -29,7 +29,7 @@ void main() {
     expect(partials, ['']); // partial is cleared right before the final fires
   });
 
-  test('final message with no partial key defaults to final (whisper.cpp/openai relays)', () {
+  test('final message with no partial key defaults to final (defensive -- the relay always sends it explicitly now)', () {
     parse('{"text": "hello world"}');
     expect(finals, ['hello world']);
   });

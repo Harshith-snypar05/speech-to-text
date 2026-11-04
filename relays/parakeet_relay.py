@@ -1,13 +1,15 @@
 """Live-transcription relay for NVIDIA's Parakeet TDT model, via
-whisper.cpp's native Parakeet support (same vendored fork already used
-for the whisper.cpp relay -- this is a separate binary/model, not a
-variant of whisper-cli). Same VAD-pause-triggered single-shot approach as
-the other CLI-based relay (whisper.cpp): transcribe once per utterance,
-the instant you pause.
+whisper.cpp's native Parakeet support (this vendored whisper.cpp fork is
+still a dependency -- it's where libparakeet/parakeet-cli live -- even
+though the whisper.cpp *relay* itself was removed). VAD-pause-triggered:
+transcribe once per utterance, the instant you pause.
 
-Best accuracy of the four engines at every noise level tested on this
-hardware (same JFK clip + noise-degraded variants, same WER methodology):
-100% at 0dB SNR vs 90-95% for the others, 90.91% at -5dB SNR vs 63-77%.
+The only engine in this app. whisper.cpp, openai/whisper, and
+faster-whisper relays existed earlier in this project and were removed
+after head-to-head testing on this hardware (same JFK clip +
+noise-degraded variants, same WER methodology) showed Parakeet ahead on
+accuracy at every noise level tested: 100% at 0dB SNR vs 90-95% for the
+others, 90.91% at -5dB SNR vs 63-77%.
 
 Two engine implementations, picked automatically:
 - ParakeetNativeEngine (engines/parakeet_native_engine.py): ctypes binding
@@ -37,8 +39,10 @@ Also acts as the same thin session broadcaster: a speaker connects with
 ?role=viewer&session=<token> and receives the same transcript messages
 read-only. The session dies the moment the speaker disconnects.
 
-Session/VAD/broadcast orchestration lives in core/ and is shared with the
-other three relays; this file just wires the Parakeet engine into it.
+Session/VAD/broadcast orchestration lives in core/ -- built shared across
+what used to be four relays, kept that way (rather than inlined here)
+in case another engine is added later; this file just wires the
+Parakeet engine into it.
 """
 import asyncio
 import logging

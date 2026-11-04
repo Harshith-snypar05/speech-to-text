@@ -11,9 +11,9 @@ void main() {
     await AppSettings.load();
   });
 
-  test('defaults to faster-whisper preset and its local-dev URL', () {
-    expect(AppSettings.enginePreset.value, TranscriptionEnginePreset.fasterWhisper);
-    expect(AppSettings.backendUrl.value, 'ws://localhost:8767');
+  test('defaults to the Parakeet preset and its local-dev URL', () {
+    expect(AppSettings.enginePreset.value, TranscriptionEnginePreset.parakeet);
+    expect(AppSettings.backendUrl.value, 'ws://localhost:8768');
   });
 
   test('defaults to live transcription mode, medium text, system theme', () {
@@ -23,10 +23,11 @@ void main() {
     expect(AppSettings.micDeviceId.value, isNull);
   });
 
-  test('setEnginePreset updates backendUrl to that preset default', () async {
-    await AppSettings.setEnginePreset(TranscriptionEnginePreset.whisperCpp);
-    expect(AppSettings.enginePreset.value, TranscriptionEnginePreset.whisperCpp);
-    expect(AppSettings.backendUrl.value, 'ws://localhost:8765');
+  test('setEnginePreset back to parakeet resets backendUrl to its default', () async {
+    await AppSettings.setBackendUrl('wss://example.com:9999');
+    await AppSettings.setEnginePreset(TranscriptionEnginePreset.parakeet);
+    expect(AppSettings.enginePreset.value, TranscriptionEnginePreset.parakeet);
+    expect(AppSettings.backendUrl.value, 'ws://localhost:8768');
   });
 
   test('switching to Custom preset does not overwrite a previously-set URL', () async {
@@ -66,7 +67,7 @@ void main() {
 
   group('isValidBackendUrl', () {
     test('accepts ws:// and wss:// with a host', () {
-      expect(isValidBackendUrl('ws://localhost:8767'), isTrue);
+      expect(isValidBackendUrl('ws://localhost:8768'), isTrue);
       expect(isValidBackendUrl('wss://example.com:9999'), isTrue);
     });
 

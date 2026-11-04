@@ -2,14 +2,16 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Known relay backends for local development, plus a Custom slot for a
+/// Known relay backend for local development, plus a Custom slot for a
 /// tunnel URL or a real deployment. Selecting a preset here is what
 /// replaces the old hardcoded `kTranscriptionBackendUrl` constant --
 /// changing backend no longer requires editing code and rebuilding.
+///
+/// whisper.cpp, openai/whisper, and faster-whisper presets were removed
+/// after head-to-head testing showed Parakeet TDT ahead on both accuracy
+/// and latency (see relays/parakeet_relay.py's docstring for the
+/// numbers) -- Parakeet is now the only bundled engine.
 enum TranscriptionEnginePreset {
-  fasterWhisper('faster-whisper', 'ws://localhost:8767'),
-  whisperCpp('whisper.cpp', 'ws://localhost:8765'),
-  openaiWhisper('openai/whisper', 'ws://localhost:8766'),
   parakeet('Parakeet TDT', 'ws://localhost:8768'),
   custom('Custom', '');
 
@@ -75,9 +77,9 @@ class AppSettings {
   static const _kMicLabel = 'settings_mic_label';
 
   static final ValueNotifier<String> backendUrl =
-      ValueNotifier(TranscriptionEnginePreset.fasterWhisper.defaultUrl);
+      ValueNotifier(TranscriptionEnginePreset.parakeet.defaultUrl);
   static final ValueNotifier<TranscriptionEnginePreset> enginePreset =
-      ValueNotifier(TranscriptionEnginePreset.fasterWhisper);
+      ValueNotifier(TranscriptionEnginePreset.parakeet);
   static final ValueNotifier<AppTextSize> textSize = ValueNotifier(AppTextSize.medium);
   static final ValueNotifier<ThemeMode> themeMode = ValueNotifier(ThemeMode.system);
   static final ValueNotifier<TranscriptionMode> transcriptionMode = ValueNotifier(TranscriptionMode.live);
@@ -93,7 +95,7 @@ class AppSettings {
     final presetName = prefs.getString(_kEnginePreset);
     enginePreset.value = TranscriptionEnginePreset.values.firstWhere(
       (p) => p.name == presetName,
-      orElse: () => TranscriptionEnginePreset.fasterWhisper,
+      orElse: () => TranscriptionEnginePreset.parakeet,
     );
 
     final storedUrl = prefs.getString(_kBackendUrl);
