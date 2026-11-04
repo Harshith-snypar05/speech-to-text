@@ -1,8 +1,6 @@
-# Vendored upstream tools -- pushed separately as forks, not bundled here:
+# Vendored upstream tool -- pushed separately as a fork, not bundled here:
 #   https://github.com/Harshith-snypar05/whisper.cpp
-#   https://github.com/Harshith-snypar05/whisper
 whisper.cpp/
-openai-whisper/
 
 # Python virtualenv -- regenerate with: uv venv stt-compare-venv && uv pip install -r relays/requirements.txt
 stt-compare-venv/
