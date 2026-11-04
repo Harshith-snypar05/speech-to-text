@@ -1,7 +1,9 @@
 import asyncio
+import json
 
 import pytest
 
+import core.transcript_store as transcript_store
 from core.session_manager import CLOSE_AT_CAPACITY, CLOSE_INVALID_SESSION, CLOSE_UNAUTHORIZED, SessionRegistry
 
 from .conftest import FakeWebSocket
@@ -154,3 +156,60 @@ async def test_access_code_cleared_on_speaker_disconnect():
     reg.speaker_connected("temp-session", access_code="secret1")
     await reg.speaker_disconnected("temp-session")
     assert "temp-session" not in reg.access_codes
+
+
+async def test_viewer_joining_mid_session_receives_history_replay_first():
+    reg = SessionRegistry()
+    reg.speaker_connected("history-session")
+    transcript_store.record_event("history-session", "hello world")
+    transcript_store.record_event("history-session", "second utterance")
+
+    ws = FakeWebSocket()
+    task = asyncio.create_task(reg.handle_viewer(ws, "history-session"))
+    await asyncio.sleep(0.02)
+    assert ws.sent == [
+        json.dumps({"text": "hello world", "partial": False}),
+        json.dumps({"text": "second utterance", "partial": False}),
+    ]
+    assert ws.close_code is None  # still live, connection stays open
+
+    ws.disconnect()
+    await task
+
+
+async def test_viewer_opening_ended_session_url_gets_history_then_closes():
+    reg = SessionRegistry()
+    reg.speaker_connected("ended-with-history")
+    transcript_store.record_event("ended-with-history", "what was said")
+    await reg.speaker_disconnected("ended-with-history")
+
+    ws = FakeWebSocket()
+    await reg.handle_viewer(ws, "ended-with-history")
+    assert ws.sent == [
+        json.dumps({"text": "what was said", "partial": False}),
+        json.dumps({"type": "ended"}),
+    ]
+    assert ws.close_code == 1000
+
+
+async def test_viewer_opening_ended_session_still_requires_its_access_code():
+    reg = SessionRegistry()
+    reg.speaker_connected("ended-coded", access_code="secret1")
+    await reg.speaker_disconnected("ended-coded")
+
+    ws = FakeWebSocket()
+    await reg.handle_viewer(ws, "ended-coded", access_code="wrongcode")
+    assert ws.close_code == CLOSE_UNAUTHORIZED
+
+
+async def test_viewer_opening_never_started_session_is_rejected_as_invalid():
+    reg = SessionRegistry()
+    ws = FakeWebSocket()
+    task = asyncio.create_task(reg.handle_viewer(ws, "truly-never-existed"))
+    await asyncio.sleep(0.02)
+    # No speaker has ever connected with this id -- today's "orphan
+    # viewer waiting for a speaker to show up" behavior must still work,
+    # not be mistaken for an ended session.
+    assert ws.close_code is None
+    ws.disconnect()
+    await task

@@ -12,7 +12,16 @@ import websockets.exceptions
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import core.transcript_store as transcript_store  # noqa: E402
 from engines.base_engine import TranscriptionEngine  # noqa: E402
+
+
+@pytest.fixture(autouse=True)
+def isolated_transcript_store(monkeypatch):
+    """Every test gets its own in-memory transcript DB -- without this,
+    all tests would share relays/data/transcripts.db on disk, leaking
+    state across both tests and separate pytest runs."""
+    monkeypatch.setattr(transcript_store, "_conn", transcript_store._new_connection(":memory:"))
 
 
 class FakeWebSocket:

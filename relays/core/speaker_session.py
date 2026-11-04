@@ -12,6 +12,7 @@ import time
 
 import websockets
 
+from . import transcript_store
 from .audio_processor import UtteranceBuffer
 from .config import FINAL_FLUSH_TIMEOUT_SECONDS, PARTIAL_CYCLE_SECONDS, SESSION_MAX_DURATION_SECONDS
 from .protocol import final_message, partial_message
@@ -82,6 +83,8 @@ async def run_speaker_session(
             logger.exception(f"final transcription failed: {e}")
             return
         if text:
+            if session_id:
+                transcript_store.record_event(session_id, text)
             await send(final_message(text))
 
     partial_task = asyncio.create_task(partial_cycle())

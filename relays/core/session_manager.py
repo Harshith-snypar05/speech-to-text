@@ -1,14 +1,17 @@
 """Session/broadcast lifecycle shared by all three relays: a speaker
 connects with ?role=speaker&session=<token>, a viewer connects with
 ?role=viewer&session=<token> and receives the same transcript messages
-read-only. The session ends the moment the speaker disconnects.
+read-only. Live broadcast ends the moment the speaker disconnects, but
+the transcript itself (see transcript_store) outlives that -- a viewer
+opening the link later, during or after the session, still gets it.
 """
 import json
 import logging
 
 import websockets
 
-from .protocol import ended_message, is_valid_session_id
+from . import transcript_store
+from .protocol import ended_message, final_message, is_valid_session_id
 
 logger = logging.getLogger(__name__)
 
@@ -56,13 +59,35 @@ class SessionRegistry:
         if not is_valid_session_id(session_id):
             await websocket.close(code=CLOSE_INVALID_SESSION, reason="missing or malformed session id")
             return
-        required_code = self.access_codes.get(session_id)
+        persisted = transcript_store.get_session(session_id)
+        # The in-memory code (live session) wins if present; otherwise fall
+        # back to the persisted one so a code-protected session still
+        # requires it after the speaker has disconnected.
+        required_code = self.access_codes.get(session_id) or (persisted["access_code"] if persisted else None)
         if required_code and access_code != required_code:
             await websocket.close(code=CLOSE_UNAUTHORIZED, reason="invalid or missing access code")
             return
         if self._total_connections >= self.max_total_connections:
             await websocket.close(code=CLOSE_AT_CAPACITY, reason="server at capacity")
             return
+
+        history = transcript_store.get_history(session_id) if persisted else []
+        try:
+            for text in history:
+                await websocket.send(json.dumps(final_message(text)))
+        except websockets.exceptions.ConnectionClosed:
+            return
+
+        already_ended = persisted is not None and persisted["ended_at"] is not None and session_id not in self.active_speakers
+        if already_ended:
+            try:
+                await websocket.send(json.dumps(ended_message()))
+            except websockets.exceptions.ConnectionClosed:
+                pass
+            await websocket.close(code=1000, reason="session ended")
+            logger.info(f"Viewer opened ended session {session_id}, replayed {len(history)} saved message(s)")
+            return
+
         viewers = self.sessions.setdefault(session_id, set())
         if len(viewers) >= self.max_viewers_per_session:
             await websocket.close(code=CLOSE_AT_CAPACITY, reason="session viewer limit reached")
@@ -90,12 +115,14 @@ class SessionRegistry:
                 self.access_codes[session_id] = access_code
             else:
                 self.access_codes.pop(session_id, None)
+            transcript_store.start_session(session_id, access_code)
 
     async def speaker_disconnected(self, session_id: str | None):
         if not session_id:
             return
         self.active_speakers.discard(session_id)
         self.access_codes.pop(session_id, None)
+        transcript_store.end_session(session_id)
         await self.broadcast(session_id, ended_message())
         # list(...) snapshots the set -- closing each viewer triggers their
         # own handler's finally block, which discards them from this same

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'models/transcript.dart';
-import 'screens/home_screen.dart';
+import 'screens/auth_gate.dart';
 import 'screens/session_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/transcript_detail_screen.dart';
 import 'screens/viewer_screen.dart';
 import 'services/app_settings.dart';
+import 'services/auth_service.dart';
 import 'theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppSettings.load();
+  await AuthService.load();
   runApp(const STTranscribeApp());
 }
 
@@ -42,7 +44,7 @@ class STTranscribeApp extends StatelessWidget {
             final uri = Uri.parse(settings.name ?? '/');
             switch (uri.path) {
               case '/':
-                return MaterialPageRoute(builder: (_) => const HomeScreen());
+                return MaterialPageRoute(builder: (_) => const AuthGate());
               case '/session':
                 return MaterialPageRoute(builder: (_) => const SessionScreen());
               case '/settings':
@@ -58,7 +60,7 @@ class STTranscribeApp extends StatelessWidget {
                 final meta = settings.arguments as TranscriptMeta;
                 return MaterialPageRoute(builder: (_) => TranscriptDetailScreen(meta: meta));
               default:
-                return MaterialPageRoute(builder: (_) => const HomeScreen());
+                return MaterialPageRoute(builder: (_) => const AuthGate());
             }
           },
         );

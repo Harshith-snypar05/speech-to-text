@@ -2,6 +2,7 @@ import asyncio
 import json
 
 import core.speaker_session as speaker_session_module
+import core.transcript_store as transcript_store
 from core.audio_processor import UtteranceBuffer
 from core.session_manager import SessionRegistry
 from core.speaker_session import run_speaker_session
@@ -175,6 +176,29 @@ async def test_session_max_duration_ends_session_proactively(monkeypatch):
     await asyncio.wait_for(task, timeout=1.0)
     assert ws.close_code == 1000
     assert ws.close_reason == "session time limit reached"
+
+
+async def test_final_utterance_is_persisted_for_later_viewer_replay():
+    ws = FakeWebSocket()
+    engine = FakeEngine(final_text="ask not what your country can do for you")
+    registry = SessionRegistry()
+    buf = _buf()
+    task = await _run_until_done(ws, "persisttest1", engine, buf, registry)
+
+    for _ in range(3):
+        ws.feed(make_speech_chunk(amplitude=0.5, seconds=0.1))
+        await asyncio.sleep(0.01)
+    for _ in range(4):
+        ws.feed(make_speech_chunk(amplitude=0.001, seconds=0.1))
+        await asyncio.sleep(0.01)
+    await asyncio.sleep(0.05)
+
+    assert transcript_store.get_history("persisttest1") == ["ask not what your country can do for you"]
+
+    ws.disconnect()
+    await task
+    session = transcript_store.get_session("persisttest1")
+    assert session is not None and session["ended_at"] is not None
 
 
 async def test_speaker_connected_and_disconnected_tracked_in_registry():

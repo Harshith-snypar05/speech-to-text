@@ -11,3 +11,4 @@ __pycache__/
 *.pyc
 relays/logs/
 relays/supervisor.pid
+relays/data/

@@ -37,7 +37,9 @@ bundled in the repo (~669MB).
 Also acts as the same thin session broadcaster: a speaker connects with
 ?role=speaker&session=<token>, a viewer connects with
 ?role=viewer&session=<token> and receives the same transcript messages
-read-only. The session dies the moment the speaker disconnects.
+read-only -- including everything said before they joined (replayed from
+core/transcript_store on connect) and, if the speaker has already
+disconnected, the full saved transcript followed by an immediate close.
 
 Session/VAD/broadcast orchestration lives in core/ -- built shared across
 what used to be four relays, kept that way (rather than inlined here)

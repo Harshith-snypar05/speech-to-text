@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:record/record.dart';
 import '../services/app_settings.dart';
+import '../services/auth_service.dart';
 import '../theme.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -61,6 +62,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (picked != null) await AppSettings.setThemeMode(picked);
   }
 
+  Future<void> _logout() async {
+    await AuthService.logout();
+    if (!mounted) return;
+    Navigator.of(context).popUntil((route) => route.isFirst);
+  }
+
   Future<void> _pickMicrophone() async {
     List<InputDevice> devices;
     try {
@@ -107,6 +114,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           AppSettings.backendUrl,
           AppSettings.themeMode,
           AppSettings.micDeviceLabel,
+          AuthService.currentEmail,
         ]),
         builder: (context, _) {
           return ListView(
@@ -180,6 +188,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 label: 'Microphone',
                 value: AppSettings.micDeviceLabel.value ?? 'Default',
                 onTap: _pickMicrophone,
+              ),
+              Divider(height: 32, color: colors.cardBorder),
+              _settingsRow(
+                colors: colors,
+                icon: Icons.logout,
+                label: 'Log out',
+                value: AuthService.currentEmail.value ?? '',
+                onTap: _logout,
               ),
             ],
           );
