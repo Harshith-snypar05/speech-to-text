@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+
 import '../services/app_settings.dart';
 import '../services/connection_status.dart';
 import '../services/viewer_client.dart';
 import '../theme.dart';
 import '../widgets/st_logo.dart';
 
-enum _ViewerState { connecting, reconnecting, live, ended, invalid, failed, unauthorized }
+enum _ViewerState {
+  connecting,
+  reconnecting,
+  live,
+  ended,
+  invalid,
+  failed,
+  unauthorized,
+}
 
 /// Viewer-side experience for someone who opened a shared live-transcript
 /// link (`?session=<id>`, optionally `&code=<accessCode>` for a
@@ -37,7 +46,11 @@ class _ViewerScreenState extends State<ViewerScreen> {
       _state = _ViewerState.invalid;
       return;
     }
-    final client = ViewerClient(wsUrl: AppSettings.backendUrl.value, sessionId: sessionId, accessCode: widget.accessCode);
+    final client = ViewerClient(
+      wsUrl: AppSettings.backendUrl.value,
+      sessionId: sessionId,
+      accessCode: widget.accessCode,
+    );
     client.onText.listen((text) {
       if (!mounted) return;
       setState(() {
@@ -94,23 +107,32 @@ class _ViewerScreenState extends State<ViewerScreen> {
       body: SafeArea(
         child: switch (_state) {
           _ViewerState.invalid => _MessageView(
-              status: 'Invalid link', message: 'This link is missing a session id.', dotColor: colors.idleGrayDot),
+            status: 'Invalid link',
+            message: 'This link is missing a session id.',
+            dotColor: colors.idleGrayDot,
+          ),
           _ViewerState.connecting => const _ConnectingView(),
-          _ViewerState.live => _LiveView(transcript: _transcript, currentPartial: _currentPartial),
-          _ViewerState.reconnecting =>
-            _LiveView(transcript: _transcript, currentPartial: _currentPartial, reconnecting: true),
+          _ViewerState.live => _LiveView(
+            transcript: _transcript,
+            currentPartial: _currentPartial,
+          ),
+          _ViewerState.reconnecting => _LiveView(
+            transcript: _transcript,
+            currentPartial: _currentPartial,
+            reconnecting: true,
+          ),
           _ViewerState.ended => _EndedView(transcript: _transcript),
           _ViewerState.failed => _MessageView(
-              status: 'Connection failed',
-              message: 'Couldn\'t reach the transcription server. Check your connection and try again.',
-              dotColor: colors.recordRed,
-              onRetry: _retryConnection,
-            ),
+            status: 'Connection failed',
+            message: 'Couldn\'t reach the transcription server. Check your connection and try again.',
+            dotColor: colors.recordRed,
+            onRetry: _retryConnection,
+          ),
           _ViewerState.unauthorized => _MessageView(
-              status: 'Access code required',
-              message: 'This session needs an access code. Ask the speaker for the correct link or code.',
-              dotColor: colors.recordRed,
-            ),
+            status: 'Access code required',
+            message: 'This session needs an access code. Ask the speaker for the correct link or code.',
+            dotColor: colors.recordRed,
+          ),
         },
       ),
     );
@@ -146,10 +168,15 @@ class _ConnectingView extends StatelessWidget {
               children: [
                 CircularProgressIndicator(color: colors.primaryBlue),
                 const SizedBox(height: 20),
-                const Text('Connecting...', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+                const Text(
+                  'Connecting...',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+                ),
                 const SizedBox(height: 6),
-                Text('Please wait while we join the live session.',
-                    style: TextStyle(color: colors.textSecondary, fontSize: 13)),
+                Text(
+                  'Please wait while we join the live session.',
+                  style: TextStyle(color: colors.textSecondary, fontSize: 13),
+                ),
               ],
             ),
           ),
@@ -164,7 +191,12 @@ class _MessageView extends StatelessWidget {
   final String message;
   final Color dotColor;
   final VoidCallback? onRetry;
-  const _MessageView({required this.status, required this.message, required this.dotColor, this.onRetry});
+  const _MessageView({
+    required this.status,
+    required this.message,
+    required this.dotColor,
+    this.onRetry,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +209,13 @@ class _MessageView extends StatelessWidget {
             children: [
               Icon(Icons.circle, size: 8, color: dotColor),
               const SizedBox(width: 6),
-              Text(status, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
+              Text(
+                status,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                ),
+              ),
             ],
           ),
         ),
@@ -187,12 +225,25 @@ class _MessageView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(message, style: TextStyle(fontSize: 16, height: 1.6, color: colors.textSecondary)),
+                Text(
+                  message,
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 1.6,
+                    color: colors.textSecondary,
+                  ),
+                ),
                 if (onRetry != null) ...[
                   const SizedBox(height: 12),
                   TextButton(
                     onPressed: onRetry,
-                    child: Text('Retry', style: TextStyle(color: colors.primaryBlue, fontWeight: FontWeight.w700)),
+                    child: Text(
+                      'Retry',
+                      style: TextStyle(
+                        color: colors.primaryBlue,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ],
               ],
@@ -204,57 +255,131 @@ class _MessageView extends StatelessWidget {
   }
 }
 
-class _LiveView extends StatelessWidget {
+class _LiveView extends StatefulWidget {
   final String transcript;
   final String currentPartial;
   final bool reconnecting;
-  const _LiveView({required this.transcript, required this.currentPartial, this.reconnecting = false});
+  const _LiveView({
+    required this.transcript,
+    required this.currentPartial,
+    this.reconnecting = false,
+  });
+
+  @override
+  State<_LiveView> createState() => _LiveViewState();
+}
+
+class _LiveViewState extends State<_LiveView> {
+  final _scrollController = ScrollController();
+
+  @override
+  void didUpdateWidget(covariant _LiveView old) {
+    super.didUpdateWidget(old);
+    if (widget.transcript != old.transcript ||
+        widget.currentPartial != old.currentPartial) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+    }
+  }
+
+  void _scrollToBottom() {
+    if (!_scrollController.hasClients) return;
+    final position = _scrollController.position;
+    // Lands with the latest text roughly in the lower half of the screen
+    // rather than jammed against the very bottom edge.
+    final target = (position.maxScrollExtent - position.viewportDimension * 0.4)
+        .clamp(0.0, position.maxScrollExtent);
+    _scrollController.animateTo(
+      target,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
-    final isEmpty = transcript.isEmpty && currentPartial.isEmpty;
+    final isEmpty = widget.transcript.isEmpty && widget.currentPartial.isEmpty;
     return Column(
       children: [
         _topBar(
           context,
           statusWidget: Row(
             children: [
-              Icon(Icons.circle, size: 8, color: reconnecting ? const Color(0xFFFFC107) : colors.liveGreen),
+              Icon(
+                Icons.circle,
+                size: 8,
+                color: widget.reconnecting
+                    ? const Color(0xFFFFC107)
+                    : colors.liveGreen,
+              ),
               const SizedBox(width: 6),
-              Text(reconnecting ? 'Reconnecting...' : 'Live',
-                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
+              Text(
+                widget.reconnecting ? 'Reconnecting...' : 'Live',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                ),
+              ),
             ],
           ),
         ),
-        if (reconnecting)
+        if (widget.reconnecting)
           Container(
             width: double.infinity,
             margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            decoration: BoxDecoration(color: const Color(0xFFFFF4E5), borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(
+              color: const Color(0xFFFFF4E5),
+              borderRadius: BorderRadius.circular(12),
+            ),
             child: const Text(
               'Connection lost. Reconnecting -- anything said right now will be missed.',
-              style: TextStyle(color: Color(0xFF8A5800), fontSize: 12.5, height: 1.4),
+              style: TextStyle(
+                color: Color(0xFF8A5800),
+                fontSize: 12.5,
+                height: 1.4,
+              ),
             ),
           ),
         Expanded(
           child: SingleChildScrollView(
+            controller: _scrollController,
             padding: const EdgeInsets.all(20),
             child: isEmpty
-                ? Text('Waiting for the speaker to start talking...',
-                    style: TextStyle(fontSize: 16, height: 1.6, color: colors.textSecondary))
+                ? Text(
+                    'Waiting for the speaker to start talking...',
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.6,
+                      color: colors.textSecondary,
+                    ),
+                  )
                 : Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: transcript,
-                          style: TextStyle(fontSize: 16, height: 1.6, color: colors.textPrimary),
+                          text: widget.transcript,
+                          style: TextStyle(
+                            fontSize: 16,
+                            height: 1.6,
+                            color: colors.textPrimary,
+                          ),
                         ),
-                        if (currentPartial.isNotEmpty)
+                        if (widget.currentPartial.isNotEmpty)
                           TextSpan(
-                            text: '${transcript.isEmpty ? '' : ' '}$currentPartial',
-                            style: TextStyle(fontSize: 16, height: 1.6, color: colors.textSecondary),
+                            text:
+                                '${widget.transcript.isEmpty ? '' : ' '}${widget.currentPartial}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              height: 1.6,
+                              color: colors.textSecondary,
+                            ),
                           ),
                       ],
                     ),
@@ -281,7 +406,10 @@ class _EndedView extends StatelessWidget {
             children: [
               Icon(Icons.circle, size: 8, color: colors.idleGrayDot),
               const SizedBox(width: 6),
-              const Text('Session ended', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
+              const Text(
+                'Session ended',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+              ),
             ],
           ),
         ),
@@ -289,10 +417,17 @@ class _EndedView extends StatelessWidget {
           width: double.infinity,
           margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
           padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(color: colors.neutralChipBg, borderRadius: BorderRadius.circular(12)),
+          decoration: BoxDecoration(
+            color: colors.neutralChipBg,
+            borderRadius: BorderRadius.circular(12),
+          ),
           child: Text(
             'The speaker has ended the session. You can still read the transcript below.',
-            style: TextStyle(color: colors.textSecondary, fontSize: 13, height: 1.4),
+            style: TextStyle(
+              color: colors.textSecondary,
+              fontSize: 13,
+              height: 1.4,
+            ),
           ),
         ),
         Expanded(
@@ -300,7 +435,11 @@ class _EndedView extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Text(
               transcript.isEmpty ? 'No transcript available.' : transcript,
-              style: TextStyle(fontSize: 16, height: 1.6, color: colors.textPrimary),
+              style: TextStyle(
+                fontSize: 16,
+                height: 1.6,
+                color: colors.textPrimary,
+              ),
             ),
           ),
         ),

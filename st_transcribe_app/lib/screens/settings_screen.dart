@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:record/record.dart';
+
 import '../services/app_settings.dart';
 import '../services/auth_service.dart';
 import '../theme.dart';
@@ -12,7 +14,13 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  final _urlController = TextEditingController(text: AppSettings.backendUrl.value);
+  // Only shown on native builds -- the web app auto-detects its backend
+  // from the page's own address (see detectSameOriginBackendUrl), but a
+  // native build isn't hosted anywhere, so there's no address to detect
+  // this from. Someone has to type it in once.
+  final _urlController = TextEditingController(
+    text: AppSettings.backendUrl.value,
+  );
   String? _urlError;
 
   @override
@@ -21,26 +29,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.dispose();
   }
 
-  Future<void> _pickEngine(AppColors colors) async {
-    final picked = await _showOptionSheet<TranscriptionEnginePreset>(
-      context: context,
-      title: 'Transcription Engine',
-      options: [
-        for (final p in TranscriptionEnginePreset.values)
-          _Option(value: p, label: p.label, subtitle: p == TranscriptionEnginePreset.custom ? null : p.defaultUrl),
-      ],
-      selected: AppSettings.enginePreset.value,
-    );
-    if (picked == null) return;
-    await AppSettings.setEnginePreset(picked);
-    _urlController.text = AppSettings.backendUrl.value;
-    setState(() => _urlError = null);
-  }
-
   void _submitUrl() {
     final value = _urlController.text.trim();
     if (!isValidBackendUrl(value)) {
-      setState(() => _urlError = 'Must be a ws:// or wss:// URL, e.g. ws://localhost:8767');
+      setState(
+        () => _urlError = 'Must be a ws:// or wss:// address, e.g. wss://your-tunnel.trycloudflare.com',
+      );
       return;
     }
     setState(() => _urlError = null);
@@ -90,8 +84,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ],
       selected: AppSettings.micDeviceId.value,
     );
-    if (picked == null && AppSettings.micDeviceId.value == null) return; // no change, both "Default"
-    final label = picked == null ? null : devices.firstWhere((d) => d.id == picked).label;
+    if (picked == null && AppSettings.micDeviceId.value == null)
+      return; // no change, both "Default"
+    final label = picked == null
+        ? null
+        : devices.firstWhere((d) => d.id == picked).label;
     await AppSettings.setMicDevice(picked, label);
   }
 
@@ -100,87 +97,68 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final colors = AppColors.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
+        title: const Text(
+          'Settings',
+          style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
+        ),
         leading: BackButton(color: colors.textPrimary),
         actions: [
-          IconButton(icon: Icon(Icons.close, color: colors.textPrimary), onPressed: () => Navigator.of(context).pop()),
+          IconButton(
+            icon: Icon(Icons.close, color: colors.textPrimary),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ],
       ),
       body: AnimatedBuilder(
         animation: Listenable.merge([
-          AppSettings.transcriptionMode,
           AppSettings.textSize,
-          AppSettings.enginePreset,
-          AppSettings.backendUrl,
           AppSettings.themeMode,
           AppSettings.micDeviceLabel,
+          AppSettings.backendUrl,
           AuthService.currentEmail,
         ]),
         builder: (context, _) {
           return ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
-              Text('Transcription mode', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: colors.textPrimary)),
-              const SizedBox(height: 10),
-              _segmented(
-                colors: colors,
-                options: const ['Live\n(word-by-word)', 'Accurate\n(per-sentence)'],
-                selected: AppSettings.transcriptionMode.value == TranscriptionMode.live ? 0 : 1,
-                onChanged: (i) => AppSettings.setTranscriptionMode(i == 0 ? TranscriptionMode.live : TranscriptionMode.accurate),
-              ),
-              const SizedBox(height: 20),
               Row(
                 children: [
-                  Icon(Icons.text_fields, color: colors.textSecondary, size: 20),
+                  Icon(
+                    Icons.text_fields,
+                    color: colors.textSecondary,
+                    size: 20,
+                  ),
                   const SizedBox(width: 14),
-                  Expanded(child: Text('Text size', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: colors.textPrimary))),
+                  Expanded(
+                    child: Text(
+                      'Text size',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                        color: colors.textPrimary,
+                      ),
+                    ),
+                  ),
                   _segmented(
                     colors: colors,
                     options: const ['S', 'M', 'L'],
-                    selected: AppTextSize.values.indexOf(AppSettings.textSize.value),
+                    selected: AppTextSize.values.indexOf(
+                      AppSettings.textSize.value,
+                    ),
                     compact: true,
-                    onChanged: (i) => AppSettings.setTextSize(AppTextSize.values[i]),
+                    onChanged: (i) =>
+                        AppSettings.setTextSize(AppTextSize.values[i]),
                   ),
                 ],
               ),
               Divider(height: 32, color: colors.cardBorder),
-              Text('Backend', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: colors.textPrimary)),
-              const SizedBox(height: 4),
               _settingsRow(
                 colors: colors,
-                icon: Icons.dns_outlined,
-                label: 'Transcription Engine',
-                value: AppSettings.enginePreset.value.label,
-                onTap: () => _pickEngine(colors),
+                icon: Icons.brightness_6_outlined,
+                label: 'Theme',
+                value: _themeLabel(AppSettings.themeMode.value),
+                onTap: _pickTheme,
               ),
-              if (AppSettings.enginePreset.value == TranscriptionEnginePreset.custom) ...[
-                const SizedBox(height: 10),
-                TextField(
-                  controller: _urlController,
-                  onSubmitted: (_) => _submitUrl(),
-                  style: TextStyle(fontSize: 14, color: colors.textPrimary),
-                  decoration: InputDecoration(
-                    labelText: 'Backend URL',
-                    hintText: 'wss://your-server.example.com',
-                    errorText: _urlError,
-                    border: const OutlineInputBorder(),
-                    suffixIcon: IconButton(icon: const Icon(Icons.check), onPressed: _submitUrl),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'ws:// works for local development; use wss:// for anything outside localhost.',
-                  style: TextStyle(color: colors.textSecondary, fontSize: 12),
-                ),
-              ] else ...[
-                const SizedBox(height: 4),
-                Padding(
-                  padding: const EdgeInsets.only(left: 34),
-                  child: Text(AppSettings.backendUrl.value, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
-                ),
-              ],
-              Divider(height: 32, color: colors.cardBorder),
-              _settingsRow(colors: colors, icon: Icons.brightness_6_outlined, label: 'Theme', value: _themeLabel(AppSettings.themeMode.value), onTap: _pickTheme),
               Divider(height: 1, color: colors.cardBorder),
               _settingsRow(
                 colors: colors,
@@ -189,6 +167,53 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: AppSettings.micDeviceLabel.value ?? 'Default',
                 onTap: _pickMicrophone,
               ),
+              if (!kIsWeb) ...[
+                Divider(height: 32, color: colors.cardBorder),
+                Text(
+                  'Connection',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    color: colors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.dns_outlined,
+                      color: colors.textSecondary,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: TextField(
+                        controller: _urlController,
+                        onSubmitted: (_) => _submitUrl(),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: colors.textPrimary,
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Backend address',
+                          hintText: 'wss://your-tunnel.trycloudflare.com',
+                          errorText: _urlError,
+                          border: const OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.check),
+                            onPressed: _submitUrl,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'The address of the computer running the transcription server.',
+                  style: TextStyle(color: colors.textSecondary, fontSize: 12),
+                ),
+              ],
               Divider(height: 32, color: colors.cardBorder),
               _settingsRow(
                 colors: colors,
@@ -205,10 +230,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   String _themeLabel(ThemeMode mode) => switch (mode) {
-        ThemeMode.system => 'System',
-        ThemeMode.light => 'Light',
-        ThemeMode.dark => 'Dark',
-      };
+    ThemeMode.system => 'System',
+    ThemeMode.light => 'Light',
+    ThemeMode.dark => 'Dark',
+  };
 
   Widget _settingsRow({
     required AppColors colors,
@@ -225,12 +250,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             Icon(icon, color: colors.textSecondary, size: 20),
             const SizedBox(width: 14),
-            Expanded(child: Text(label, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: colors.textPrimary))),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  color: colors.textPrimary,
+                ),
+              ),
+            ),
             Flexible(
-              child: Text(value,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.right,
-                  style: TextStyle(color: colors.textSecondary, fontSize: 14)),
+              child: Text(
+                value,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.right,
+                style: TextStyle(color: colors.textSecondary, fontSize: 14),
+              ),
             ),
             const SizedBox(width: 4),
             Icon(Icons.chevron_right, color: colors.textSecondary, size: 18),
@@ -249,7 +285,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }) {
     return Container(
       padding: const EdgeInsets.all(3),
-      decoration: BoxDecoration(color: colors.neutralChipBg, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+        color: colors.neutralChipBg,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Row(
         mainAxisSize: compact ? MainAxisSize.min : MainAxisSize.max,
         children: [
@@ -260,7 +299,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: () => onChanged(i),
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 2),
-                  padding: EdgeInsets.symmetric(vertical: compact ? 6 : 10, horizontal: compact ? 14 : 4),
+                  padding: EdgeInsets.symmetric(
+                    vertical: compact ? 6 : 10,
+                    horizontal: compact ? 14 : 4,
+                  ),
                   decoration: BoxDecoration(
                     color: selected == i ? colors.header : Colors.transparent,
                     borderRadius: BorderRadius.circular(8),
@@ -316,10 +358,20 @@ Future<T?> _showOptionSheet<T>({
                 width: 36,
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 16),
-                decoration: BoxDecoration(color: colors.sheetHandle, borderRadius: BorderRadius.circular(2)),
+                decoration: BoxDecoration(
+                  color: colors.sheetHandle,
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
             ),
-            Text(title, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 17, color: colors.textPrimary)),
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                fontSize: 17,
+                color: colors.textPrimary,
+              ),
+            ),
             const SizedBox(height: 8),
             for (final o in options)
               InkWell(
@@ -332,13 +384,27 @@ Future<T?> _showOptionSheet<T>({
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(o.label, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                            Text(
+                              o.label,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: colors.textPrimary,
+                              ),
+                            ),
                             if (o.subtitle != null)
-                              Text(o.subtitle!, style: TextStyle(fontSize: 12, color: colors.textSecondary)),
+                              Text(
+                                o.subtitle!,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: colors.textSecondary,
+                                ),
+                              ),
                           ],
                         ),
                       ),
-                      if (o.value == selected) Icon(Icons.check, color: colors.primaryBlue),
+                      if (o.value == selected)
+                        Icon(Icons.check, color: colors.primaryBlue),
                     ],
                   ),
                 ),

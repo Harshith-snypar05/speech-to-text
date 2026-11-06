@@ -61,6 +61,21 @@ String? detectSameOriginBackendUrl() {
   return '$scheme://$host$port';
 }
 
+/// Origin to build a shareable viewer link against. On web this is simply
+/// where the app itself is being served from (`Uri.base`), same as above.
+/// On a native build there is no such thing -- the app isn't hosted
+/// anywhere -- so the origin is derived from the configured backend URL
+/// instead, since relays/combined_proxy.py serves the web viewer on that
+/// same host.
+String viewerLinkOrigin() {
+  if (kIsWeb) return Uri.base.origin;
+  final backend = Uri.tryParse(AppSettings.backendUrl.value);
+  if (backend == null || backend.host.isEmpty) return '';
+  final scheme = backend.scheme == 'wss' ? 'https' : 'http';
+  final port = backend.hasPort ? ':${backend.port}' : '';
+  return '$scheme://${backend.host}$port';
+}
+
 /// Persisted app settings, loaded once at startup. Each field is a
 /// ValueNotifier so widgets can listen directly without a state
 /// management package -- small enough surface area that `setState` +
@@ -76,13 +91,19 @@ class AppSettings {
   static const _kMicId = 'settings_mic_id';
   static const _kMicLabel = 'settings_mic_label';
 
-  static final ValueNotifier<String> backendUrl =
-      ValueNotifier(TranscriptionEnginePreset.parakeet.defaultUrl);
+  static final ValueNotifier<String> backendUrl = ValueNotifier(
+    TranscriptionEnginePreset.parakeet.defaultUrl,
+  );
   static final ValueNotifier<TranscriptionEnginePreset> enginePreset =
       ValueNotifier(TranscriptionEnginePreset.parakeet);
-  static final ValueNotifier<AppTextSize> textSize = ValueNotifier(AppTextSize.medium);
-  static final ValueNotifier<ThemeMode> themeMode = ValueNotifier(ThemeMode.system);
-  static final ValueNotifier<TranscriptionMode> transcriptionMode = ValueNotifier(TranscriptionMode.live);
+  static final ValueNotifier<AppTextSize> textSize = ValueNotifier(
+    AppTextSize.medium,
+  );
+  static final ValueNotifier<ThemeMode> themeMode = ValueNotifier(
+    ThemeMode.system,
+  );
+  static final ValueNotifier<TranscriptionMode> transcriptionMode =
+      ValueNotifier(TranscriptionMode.live);
   static final ValueNotifier<String?> micDeviceId = ValueNotifier(null);
   static final ValueNotifier<String?> micDeviceLabel = ValueNotifier(null);
 
@@ -112,10 +133,16 @@ class AppSettings {
     }
 
     final sizeName = prefs.getString(_kTextSize);
-    textSize.value = AppTextSize.values.firstWhere((s) => s.name == sizeName, orElse: () => AppTextSize.medium);
+    textSize.value = AppTextSize.values.firstWhere(
+      (s) => s.name == sizeName,
+      orElse: () => AppTextSize.medium,
+    );
 
     final modeName = prefs.getString(_kThemeMode);
-    themeMode.value = ThemeMode.values.firstWhere((m) => m.name == modeName, orElse: () => ThemeMode.system);
+    themeMode.value = ThemeMode.values.firstWhere(
+      (m) => m.name == modeName,
+      orElse: () => ThemeMode.system,
+    );
 
     final transcriptionModeName = prefs.getString(_kTranscriptionMode);
     transcriptionMode.value = TranscriptionMode.values.firstWhere(

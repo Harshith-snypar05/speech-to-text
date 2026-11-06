@@ -30,12 +30,10 @@ void main() {
     expect(AuthService.currentEmail.value, 'tester.two@gmail.com');
   });
 
-  testWidgets('test accounts are hidden until toggled', (tester) async {
+  testWidgets('no test-account credentials are shown on screen', (tester) async {
     await tester.pumpWidget(const MaterialApp(home: LoginScreen()));
-    expect(find.textContaining('tester.one@gmail.com'), findsNothing);
-
-    await tester.tap(find.text('Show test accounts'));
-    await tester.pumpAndSettle();
-    expect(find.textContaining('tester.one@gmail.com'), findsOneWidget);
+    for (final email in testAccounts.keys) {
+      expect(find.textContaining(email), findsNothing);
+    }
   });
 }

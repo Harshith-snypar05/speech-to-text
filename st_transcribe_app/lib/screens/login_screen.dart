@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../services/auth_service.dart';
 import '../theme.dart';
 import '../widgets/st_logo.dart';
@@ -15,7 +16,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   String? _error;
   bool _submitting = false;
-  bool _showTestAccounts = false;
 
   @override
   void dispose() {
@@ -29,7 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
       _error = null;
       _submitting = true;
     });
-    final ok = await AuthService.login(_emailController.text, _passwordController.text);
+    final ok = await AuthService.login(
+      _emailController.text,
+      _passwordController.text,
+    );
     if (!mounted) return;
     setState(() {
       _submitting = false;
@@ -56,24 +59,37 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     'Sign in',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w800,
+                      color: colors.textPrimary,
+                    ),
                   ),
                   const SizedBox(height: 24),
                   TextField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder()),
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                   const SizedBox(height: 12),
                   TextField(
                     controller: _passwordController,
                     obscureText: true,
                     onSubmitted: (_) => _submit(),
-                    decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder()),
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                   if (_error != null) ...[
                     const SizedBox(height: 10),
-                    Text(_error!, style: TextStyle(color: colors.recordRed, fontSize: 13)),
+                    Text(
+                      _error!,
+                      style: TextStyle(color: colors.recordRed, fontSize: 13),
+                    ),
                   ],
                   const SizedBox(height: 20),
                   FilledButton(
@@ -82,33 +98,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? const SizedBox(
                             height: 18,
                             width: 18,
-                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
                           )
                         : const Text('Log In'),
                   ),
-                  const SizedBox(height: 16),
-                  TextButton(
-                    onPressed: () => setState(() => _showTestAccounts = !_showTestAccounts),
-                    child: Text(_showTestAccounts ? 'Hide test accounts' : 'Show test accounts'),
-                  ),
-                  if (_showTestAccounts)
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(color: colors.neutralChipBg, borderRadius: BorderRadius.circular(10)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          for (final entry in testAccounts.entries)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2),
-                              child: Text(
-                                '${entry.key}  /  ${entry.value}',
-                                style: TextStyle(fontSize: 12, color: colors.textSecondary, fontFamily: 'monospace'),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
                 ],
               ),
             ),
