@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/inter";
+import "@fontsource-variable/plus-jakarta-sans";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth";
 
@@ -10,10 +10,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#ffffff" }, { media: "(prefers-color-scheme: dark)", color: "#0b0f1a" }],
+  themeColor: "#0d0618",
 };
 
-const themeScript = `try{var t=localStorage.getItem('sl-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}`;
+// Dark is the brand default (the reference design) for anyone with no saved choice; 'light' wins, 'system' follows the OS.
+const themeScript = `try{var t=localStorage.getItem('sl-theme');var d=t==='system'?matchMedia('(prefers-color-scheme: dark)').matches:t!=='light';if(d)document.documentElement.classList.add('dark')}catch(e){document.documentElement.classList.add('dark')}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

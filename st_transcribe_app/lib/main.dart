@@ -10,6 +10,7 @@ import 'screens/viewer_screen.dart';
 import 'services/app_settings.dart';
 import 'services/auth_service.dart';
 import 'theme.dart';
+import 'widgets/wave_backdrop.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +37,7 @@ class STTranscribeApp extends StatelessWidget {
             data: MediaQuery.of(context).copyWith(
               textScaler: TextScaler.linear(AppSettings.textSize.value.scale),
             ),
-            child: child!,
+            child: WaveBackdrop(child: child!),
           ),
           initialRoute: '/',
           onGenerateRoute: (settings) {

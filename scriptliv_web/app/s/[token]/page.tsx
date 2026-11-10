@@ -62,9 +62,9 @@ export default function SharedPage() {
           <Card className="flex flex-wrap items-center justify-between gap-3 bg-lavender/50">
             <div className="flex items-center gap-3 text-sm"><Smartphone className="size-5 text-primary" /> Read this on your phone with the ScriptLiv app.</div>
             <div className="flex gap-2 text-sm font-medium">
-              <a href={v.app_links.deep_link} className="rounded-xl border border-primary px-3 py-1.5 text-primary">Open in app</a>
-              {v.app_links.android_store && <a href={v.app_links.android_store} className="rounded-xl border border-line px-3 py-1.5">Google Play</a>}
-              {v.app_links.ios_store && <a href={v.app_links.ios_store} className="rounded-xl border border-line px-3 py-1.5">App Store</a>}
+              <a href={v.app_links.deep_link} className="rounded-full border border-primary px-4 py-1.5 text-primary">Open in app</a>
+              {v.app_links.android_store && <a href={v.app_links.android_store} className="rounded-full border border-line px-4 py-1.5">Google Play</a>}
+              {v.app_links.ios_store && <a href={v.app_links.ios_store} className="rounded-full border border-line px-4 py-1.5">App Store</a>}
             </div>
           </Card>
         </main>

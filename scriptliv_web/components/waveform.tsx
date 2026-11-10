@@ -20,8 +20,8 @@ export function Waveform({ levels, active, bars = 48, height = 72 }: { levels: n
     g.clearRect(0, 0, w, height);
     const slot = w / bars;
     const grad = g.createLinearGradient(0, 0, w, 0);
-    grad.addColorStop(0, "#6A00FF");
-    grad.addColorStop(1, "#A855F7");
+    grad.addColorStop(0, "#9a29e0");
+    grad.addColorStop(1, "#d946ef");
     g.fillStyle = active ? grad : getComputedStyle(document.documentElement).getPropertyValue("--border") || "#ccc";
     const tail = levels.slice(-bars);
     for (let i = 0; i < bars; i++) {

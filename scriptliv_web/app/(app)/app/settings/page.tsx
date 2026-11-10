@@ -110,10 +110,10 @@ function Preferences() {
     <Section title="Preferences">
       <div>
         <div className="text-sm font-medium">Theme</div>
-        <div role="radiogroup" aria-label="Theme" className="mt-2 inline-flex rounded-xl border border-line p-1">
+        <div role="radiogroup" aria-label="Theme" className="mt-2 inline-flex rounded-full border border-line p-1">
           {themes.map((t) => (
             <button key={t} role="radio" aria-checked={settings.theme === t} onClick={() => save({ theme: t })}
-              className={"rounded-lg px-4 py-1.5 text-sm font-medium capitalize " + (settings.theme === t ? "bg-lavender text-primary" : "text-ink-2 hover:text-ink")}>{t}</button>
+              className={"rounded-full px-4 py-1.5 text-sm font-medium capitalize " + (settings.theme === t ? "bg-lavender text-primary" : "text-ink-2 hover:text-ink")}>{t}</button>
           ))}
         </div>
       </div>

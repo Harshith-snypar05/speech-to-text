@@ -1,31 +1,14 @@
 "use client";
-import { cva, type VariantProps } from "class-variance-authority";
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { button, type ButtonVariants } from "./button-styles";
 
-const button = cva(
-  "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]",
-  {
-    variants: {
-      variant: {
-        primary: "brand-gradient text-white shadow-[0_8px_20px_-8px_rgba(106,0,255,0.7)] hover:brightness-110",
-        secondary: "bg-surface-alt text-ink hover:brightness-95 border border-line",
-        ghost: "text-ink-2 hover:bg-surface-alt hover:text-ink",
-        danger: "bg-error text-white hover:brightness-110",
-        outline: "border border-line text-ink hover:bg-surface-alt",
-      },
-      size: { sm: "h-8 px-3 text-sm", md: "h-10 px-4 text-sm", lg: "h-12 px-6 text-base" },
-    },
-    defaultVariants: { variant: "primary", size: "md" },
-  },
-);
-
-export function Button({ className, variant, size, ...p }: ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof button>) {
+export function Button({ className, variant, size, ...p }: ButtonHTMLAttributes<HTMLButtonElement> & ButtonVariants) {
   return <button className={cn(button({ variant, size }), className)} {...p} />;
 }
 
 export function Card({ className, ...p }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow)]", className)} {...p} />;
+  return <div className={cn("sl-panel rounded-[var(--radius-card)] p-5", className)} {...p} />;
 }
 
 type Tone = "neutral" | "success" | "error" | "warning" | "info" | "primary";
@@ -54,7 +37,7 @@ export function Stat({ label, value, hint, tone }: { label: string; value: React
 
 export function Empty({ title, children }: { title: string; children?: ReactNode }) {
   return (
-    <div className="rounded-[var(--radius-card)] border border-dashed border-line p-10 text-center">
+    <div className="rounded-[var(--radius-card)] border border-dashed border-line bg-surface/30 p-10 text-center">
       <div className="font-medium">{title}</div>
       {children && <div className="mx-auto mt-1 max-w-md text-sm text-ink-2">{children}</div>}
     </div>
@@ -63,7 +46,7 @@ export function Empty({ title, children }: { title: string; children?: ReactNode
 
 export function Notice({ tone = "info", title, children }: { tone?: Tone; title: string; children?: ReactNode }) {
   return (
-    <div role="status" className={cn("rounded-xl border p-4 text-sm", tones[tone])}>
+    <div role="status" className={cn("rounded-2xl border p-4 text-sm", tones[tone])}>
       <div className="font-semibold">{title}</div>
       {children && <div className="mt-1 text-ink-2">{children}</div>}
     </div>
@@ -74,7 +57,7 @@ export function Spinner() {
   return <span aria-label="Loading" className="inline-block size-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />;
 }
 
-export const inputCls = "mt-1 h-11 w-full rounded-xl border border-line bg-bg px-3 text-sm outline-none focus:ring-2 focus:ring-[var(--ring)] disabled:opacity-60";
+export const inputCls = "mt-1 h-11 w-full rounded-full border border-line bg-bg/70 px-4 text-sm text-ink outline-none transition-colors focus:border-violet focus:ring-2 focus:ring-[var(--ring)] disabled:opacity-60";
 
 export function Field({ label, hint, children }: { label: string; hint?: ReactNode; children: ReactNode }) {
   return (

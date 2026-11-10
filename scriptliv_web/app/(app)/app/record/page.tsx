@@ -146,7 +146,7 @@ export default function RecordPage() {
           <dt className="text-ink-2">Segments</dt><dd className="text-right tabular-nums">{finals.length}</dd>
           <dt className="text-ink-2">Screen lock</dt><dd className="text-right">{settings?.prevent_auto_lock ? "Kept awake" : "Normal"}</dd>
         </dl>
-        {sessionId && state === "stopped" && <Link href={`/app/history/${sessionId}`} className="block rounded-xl border border-primary/40 px-3 py-2 text-center text-xs font-medium text-primary">Open transcript</Link>}
+        {sessionId && state === "stopped" && <Link href={`/app/history/${sessionId}`} className="block rounded-full border border-primary/40 px-3 py-2 text-center text-xs font-medium text-primary">Open transcript</Link>}
       </Card>
       </div>
     </div>

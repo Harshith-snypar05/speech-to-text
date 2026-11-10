@@ -16,10 +16,10 @@ void main() {
     expect(AppSettings.backendUrl.value, 'ws://localhost:8768');
   });
 
-  test('defaults to live transcription mode, medium text, system theme', () {
+  test('defaults to live transcription mode, medium text, dark theme', () {
     expect(AppSettings.transcriptionMode.value, TranscriptionMode.live);
     expect(AppSettings.textSize.value, AppTextSize.medium);
-    expect(AppSettings.themeMode.value, ThemeMode.system);
+    expect(AppSettings.themeMode.value, ThemeMode.dark);
     expect(AppSettings.micDeviceId.value, isNull);
   });
 

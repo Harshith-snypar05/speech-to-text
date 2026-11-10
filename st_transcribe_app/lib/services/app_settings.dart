@@ -105,7 +105,7 @@ class AppSettings {
     AppTextSize.medium,
   );
   static final ValueNotifier<ThemeMode> themeMode = ValueNotifier(
-    ThemeMode.system,
+    ThemeMode.dark,
   );
   static final ValueNotifier<TranscriptionMode> transcriptionMode =
       ValueNotifier(TranscriptionMode.live);
@@ -150,7 +150,7 @@ class AppSettings {
     final modeName = prefs.getString(_kThemeMode);
     themeMode.value = ThemeMode.values.firstWhere(
       (m) => m.name == modeName,
-      orElse: () => ThemeMode.system,
+      orElse: () => ThemeMode.dark,
     );
 
     final transcriptionModeName = prefs.getString(_kTranscriptionMode);

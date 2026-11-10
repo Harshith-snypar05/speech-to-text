@@ -20,8 +20,9 @@ export function Logo({ className, href = "/", icon = false }: { className?: stri
   return <Link href={href} aria-label="ScriptLiv home" className="inline-flex shrink-0 items-center">{img}</Link>;
 }
 
+/* Round sun/moon switch (reference navbar). Shows the icon of the theme you will switch to. */
 export function ThemeToggle() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   useEffect(() => setDark(document.documentElement.classList.contains("dark")), []);
   return (
     <button
@@ -32,9 +33,18 @@ export function ThemeToggle() {
         try { localStorage.setItem("sl-theme", n ? "dark" : "light"); } catch { /* ignore */ }
         setDark(n);
       }}
-      className="grid size-9 place-items-center rounded-xl border border-line text-ink-2 hover:bg-surface-alt hover:text-ink"
+      className="grid size-10 place-items-center rounded-full border border-line bg-surface/60 text-ink-2 transition-colors hover:border-violet hover:text-ink"
     >
-      {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+      {dark ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />}
     </button>
+  );
+}
+
+/* Outlined pill label ("Real-time Speech to Text", "Use Cases"). */
+export function Chip({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <span className={cn("inline-flex items-center gap-2 rounded-full border border-line bg-surface/50 px-4 py-1.5 text-sm font-medium text-ink-2", className)}>
+      {children}
+    </span>
   );
 }

@@ -32,7 +32,7 @@ const write = (v: string | null) => { try { if (v) localStorage.setItem(KEY, v);
 export function applyTheme(theme: Settings["theme"]) {
   const dark = theme === "dark" || (theme === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
   document.documentElement.classList.toggle("dark", dark);
-  try { localStorage.setItem("sl-theme", theme === "system" ? "" : theme); } catch { /* ignore */ }
+  try { localStorage.setItem("sl-theme", theme); } catch { /* ignore */ }
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
