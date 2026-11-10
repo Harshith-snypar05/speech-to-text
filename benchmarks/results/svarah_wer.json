@@ -1,0 +1,5615 @@
+{
+  "meta": {
+    "when": "2026-11-07T15:44:14",
+    "host": "Windows-11-10.0.26300-SP0",
+    "python": "3.13.5",
+    "url": "ws://localhost:8768/?role=speaker",
+    "note": "Svarah 60-clip Parakeet 0.6B v3 q8_0 CPU, relay default config",
+    "chunk_ms": 100,
+    "tail_s": 1.5,
+    "hang_s_assumed": 0.6,
+    "warmup": 1,
+    "manifest": "C:/data/corpus_svarah/manifest.json",
+    "caveat": "latency = audio captured -> text received by this client; excludes mic, UI, tunnel"
+  },
+  "levels": [
+    {
+      "concurrency": 1,
+      "wall_s": 1019.6108207702637,
+      "errors": [],
+      "resources": {
+        "gpu_mem_mb": {
+          "mean": 169.26362625139043,
+          "max": 278.0
+        },
+        "gpu_util": {
+          "mean": 0.006674082313681869,
+          "max": 5.0
+        },
+        "relay_cpu": {
+          "mean": 163.58153503893215,
+          "max": 401.2
+        },
+        "relay_rss_mb": {
+          "mean": 713.7803094282535,
+          "max": 747.999232
+        },
+        "sys_cpu": {
+          "mean": 13.286540600667406,
+          "max": 47.5
+        },
+        "_samples": 899
+      },
+      "summary": {
+        "clips": 60,
+        "wer": {
+          "wer": 0.23067484662576687,
+          "ci95": [
+            0.17867014859272154,
+            0.29528046036928307
+          ],
+          "clips": 60,
+          "ref_words": 1630
+        },
+        "ttfw_s": {
+          "n": 196,
+          "p50": 0.891000650008209,
+          "p95": 2.1722687500179747,
+          "max": 7.585360099957325,
+          "mean": 1.088479279591916
+        },
+        "first_partial_s": {
+          "n": 187,
+          "p50": 0.8769397000316523,
+          "p95": 2.1333850899641402,
+          "max": 6.227665799995885,
+          "mean": 1.029685720855764
+        },
+        "final_latency_s": {
+          "n": 196,
+          "p50": 0.9089398000389335,
+          "p95": 1.4996243500150732,
+          "max": 1.890467300079763,
+          "mean": 0.9420969862277067
+        },
+        "final_latency_after_hang_s": {
+          "n": 196,
+          "p50": 0.3089398000389335,
+          "p95": 0.8996243500150732,
+          "max": 1.2904673000797628,
+          "mean": 0.34209698622770685
+        },
+        "partial_revision_rate": 0.3605651105651106,
+        "partial_prefix_stable_rate": 0.22872340425531915,
+        "segment_mismatch_clips": 6,
+        "hang_s_assumed": 0.6,
+        "wer_by_tag": {
+          "corpus": {
+            "svarah": {
+              "wer": 0.23067484662576687,
+              "ci95": [
+                0.17867014859272154,
+                0.29528046036928307
+              ],
+              "clips": 60,
+              "ref_words": 1630
+            }
+          },
+          "gender": {
+            "Female": {
+              "wer": 0.24493731918997108,
+              "ci95": [
+                0.17324612085924662,
+                0.3373636788791816
+              ],
+              "clips": 37,
+              "ref_words": 1037
+            },
+            "Male": {
+              "wer": 0.2057335581787521,
+              "ci95": [
+                0.1362817733990148,
+                0.2983983644859813
+              ],
+              "clips": 23,
+              "ref_words": 593
+            }
+          },
+          "age_group": {
+            "18-30": {
+              "wer": 0.25119236883942764,
+              "ci95": [
+                0.16954276367035365,
+                0.34603079710144924
+              ],
+              "clips": 23,
+              "ref_words": 629
+            },
+            "30-45": {
+              "wer": 0.2859375,
+              "ci95": [
+                0.19284137056531173,
+                0.41746152026993266
+              ],
+              "clips": 24,
+              "ref_words": 640
+            },
+            "45-60": {
+              "wer": 0.11618257261410789,
+              "ci95": [
+                0.051375409973929864,
+                0.2154292929292929
+              ],
+              "clips": 9,
+              "ref_words": 241
+            },
+            "60+": {
+              "wer": 0.058333333333333334,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 120
+            }
+          },
+          "l1": {
+            "Assamese": {
+              "wer": 0.3577981651376147,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 109
+            },
+            "Bengali": {
+              "wer": 0.125,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 120
+            },
+            "Bodo": {
+              "wer": 0.35106382978723405,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 94
+            },
+            "Dogri": {
+              "wer": 0.1728395061728395,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 81
+            },
+            "Gujarati": {
+              "wer": 0.26,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 50
+            },
+            "Hindi": {
+              "wer": 0.25688073394495414,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 109
+            },
+            "Kannada": {
+              "wer": 0.0945945945945946,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 74
+            },
+            "Kashmiri": {
+              "wer": 0.19469026548672566,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 113
+            },
+            "Konkani": {
+              "wer": 0.45098039215686275,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 51
+            },
+            "Maithili": {
+              "wer": 0.22077922077922077,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 77
+            },
+            "Malayalam": {
+              "wer": 0.5641025641025641,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 39
+            },
+            "Marathi": {
+              "wer": 0.20909090909090908,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 110
+            },
+            "Nepali": {
+              "wer": 0.24,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 50
+            },
+            "Odia": {
+              "wer": 0.23529411764705882,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 85
+            },
+            "Punjabi": {
+              "wer": 0.20652173913043478,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 92
+            },
+            "Sindhi": {
+              "wer": 0.4230769230769231,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 78
+            },
+            "Tamil": {
+              "wer": 0.1891891891891892,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 74
+            },
+            "Telugu": {
+              "wer": 0.07586206896551724,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 145
+            },
+            "Urdu": {
+              "wer": 0.13924050632911392,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 79
+            }
+          },
+          "state": {
+            "Andhra Pradesh": {
+              "wer": 0.09523809523809523,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 21
+            },
+            "Assam": {
+              "wer": 0.35467980295566504,
+              "ci95": [
+                0.23529411764705882,
+                0.4829685939060939
+              ],
+              "clips": 8,
+              "ref_words": 203
+            },
+            "Bihar": {
+              "wer": 0.22077922077922077,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 77
+            },
+            "Goa": {
+              "wer": 0.45098039215686275,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 51
+            },
+            "Gujarat": {
+              "wer": 0.3181818181818182,
+              "ci95": [
+                0.13611447288800022,
+                0.5567369935267322
+              ],
+              "clips": 8,
+              "ref_words": 198
+            },
+            "Jammu Kashmir": {
+              "wer": 0.18556701030927836,
+              "ci95": [
+                0.09322033898305085,
+                0.31958333333333316
+              ],
+              "clips": 6,
+              "ref_words": 194
+            },
+            "Karnataka": {
+              "wer": 0.09302325581395349,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 86
+            },
+            "Kerala": {
+              "wer": 0.5641025641025641,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 39
+            },
+            "Madhya Pradesh": {
+              "wer": 0.43478260869565216,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 23
+            },
+            "Maharashtra": {
+              "wer": 0.24390243902439024,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 123
+            },
+            "Meghalaya": {
+              "wer": 0.10344827586206896,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 29
+            },
+            "Odisha": {
+              "wer": 0.18831168831168832,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 154
+            },
+            "Punjab": {
+              "wer": 0.20652173913043478,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 92
+            },
+            "Rajasthan": {
+              "wer": 0.0625,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 48
+            },
+            "Tamil Nadu": {
+              "wer": 0.1891891891891892,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 74
+            },
+            "Telangana": {
+              "wer": 0.012987012987012988,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 77
+            },
+            "West Bengal": {
+              "wer": 0.1702127659574468,
+              "ci95": [
+                0.06349206349206349,
+                0.3333333333333333
+              ],
+              "clips": 5,
+              "ref_words": 141
+            }
+          },
+          "district": {
+            "Ahmedabad": {
+              "wer": 0.3181818181818182,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 110
+            },
+            "Ajmer": {
+              "wer": 0.0625,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 48
+            },
+            "Amreli": {
+              "wer": 0.1794871794871795,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 39
+            },
+            "Bangalore Urban": {
+              "wer": 0.06451612903225806,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 62
+            },
+            "Biswanath": {
+              "wer": 0.5555555555555556,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 18
+            },
+            "Chennai": {
+              "wer": 0.05,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 20
+            },
+            "Cuttack": {
+              "wer": 0.20689655172413793,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 29
+            },
+            "Darbhanga": {
+              "wer": 0.22077922077922077,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 77
+            },
+            "Guntur": {
+              "wer": 0.09523809523809523,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 21
+            },
+            "Hassan": {
+              "wer": 0.16666666666666666,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 24
+            },
+            "Hyderabad": {
+              "wer": 0.012987012987012988,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 77
+            },
+            "Jammu": {
+              "wer": 0.1728395061728395,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 81
+            },
+            "Kalimpong": {
+              "wer": 0.42857142857142855,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 21
+            },
+            "Khandwa": {
+              "wer": 0.43478260869565216,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 23
+            },
+            "Kokrajhar": {
+              "wer": 0.35106382978723405,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 94
+            },
+            "Kolkata": {
+              "wer": 0.13793103448275862,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 29
+            },
+            "Lakhimpur": {
+              "wer": 0.038461538461538464,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 26
+            },
+            "Mansa": {
+              "wer": 1.1666666666666667,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 12
+            },
+            "Nalbari": {
+              "wer": 0.4307692307692308,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 65
+            },
+            "North Goa": {
+              "wer": 0.05555555555555555,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 18
+            },
+            "Palakkad": {
+              "wer": 0.9230769230769231,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 13
+            },
+            "Pathanamthitta": {
+              "wer": 0.38461538461538464,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 26
+            },
+            "Pune": {
+              "wer": 0.45454545454545453,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 33
+            },
+            "Raigad": {
+              "wer": 0.1038961038961039,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 77
+            },
+            "Ri Bhoi": {
+              "wer": 0.10344827586206896,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 29
+            },
+            "Rupnagar": {
+              "wer": 0.0625,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 80
+            },
+            "Sabarkantha": {
+              "wer": 0.5454545454545454,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 11
+            },
+            "Sambalpur": {
+              "wer": 0.13043478260869565,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 69
+            },
+            "Satara": {
+              "wer": 0.5384615384615384,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 13
+            },
+            "South 24 Parganas": {
+              "wer": 0.12087912087912088,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 91
+            },
+            "South Goa": {
+              "wer": 0.6666666666666666,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 33
+            },
+            "Srinagar": {
+              "wer": 0.19469026548672566,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 113
+            },
+            "Sundergarh": {
+              "wer": 0.25,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 56
+            },
+            "Vadodara": {
+              "wer": 0.39473684210526316,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 38
+            },
+            "Virudhunagar": {
+              "wer": 0.24074074074074073,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 54
+            }
+          },
+          "qualification": {
+            "Doctoral (PhD) or higher level": {
+              "wer": 0.18421052631578946,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 76
+            },
+            "Graduate": {
+              "wer": 0.14600550964187328,
+              "ci95": [
+                0.09141137443999864,
+                0.21715333799480274
+              ],
+              "clips": 12,
+              "ref_words": 363
+            },
+            "Post Graduate": {
+              "wer": 0.27412082957619477,
+              "ci95": [
+                0.20187073339085418,
+                0.35910184177756665
+              ],
+              "clips": 44,
+              "ref_words": 1109
+            },
+            "Under Graduate Student": {
+              "wer": 0.06097560975609756,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 82
+            }
+          },
+          "job": {
+            "Freelance": {
+              "wer": 0.24271844660194175,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 103
+            },
+            "Full Time": {
+              "wer": 0.250499001996008,
+              "ci95": [
+                0.17430748892916537,
+                0.3503485774949848
+              ],
+              "clips": 37,
+              "ref_words": 1002
+            },
+            "Other": {
+              "wer": 0.19909502262443438,
+              "ci95": [
+                0.12144188596491227,
+                0.3254794374600468
+              ],
+              "clips": 15,
+              "ref_words": 442
+            },
+            "Part Time": {
+              "wer": 0.14457831325301204,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 83
+            }
+          },
+          "domain": {
+            "Education and Research": {
+              "wer": 0.19751693002257337,
+              "ci95": [
+                0.13926437822882745,
+                0.2646922454540837
+              ],
+              "clips": 30,
+              "ref_words": 886
+            },
+            "Entertainment": {
+              "wer": 0.13793103448275862,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 29
+            },
+            "Financial Services (Banking and Insurance)": {
+              "wer": 0.375,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 40
+            },
+            "Government": {
+              "wer": 0.36633663366336633,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 101
+            },
+            "Healthcare (Medical &amp; Pharma)": {
+              "wer": 0.20689655172413793,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 29
+            },
+            "Information and Media": {
+              "wer": 0.3082706766917293,
+              "ci95": [
+                0.14981148265640437,
+                0.5283755896226414
+              ],
+              "clips": 9,
+              "ref_words": 266
+            },
+            "Technology and Services": {
+              "wer": 0.20430107526881722,
+              "ci95": [
+                0.11378710370089681,
+                0.3178480184446659
+              ],
+              "clips": 12,
+              "ref_words": 279
+            }
+          },
+          "accent": {
+            "indian_english": {
+              "wer": 0.23067484662576687,
+              "ci95": [
+                0.17867014859272154,
+                0.29528046036928307
+              ],
+              "clips": 60,
+              "ref_words": 1630
+            }
+          },
+          "source": {
+            "svarah": {
+              "wer": 0.23067484662576687,
+              "ci95": [
+                0.17867014859272154,
+                0.29528046036928307
+              ],
+              "clips": 60,
+              "ref_words": 1630
+            }
+          }
+        }
+      },
+      "clips": [
+        {
+          "id": "svarah_assamese_01954_281474976906794_f3277_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "18-30",
+            "l1": "Assamese",
+            "state": "Assam",
+            "district": "Lakhimpur",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "What are the main challenges and opportunities facing young people in your district in terms of education, employment and leadership, youth development, skill building and entrepreneurship?",
+          "hypothesis": "What are the main challenges and opportunities facing young people in your district? In terms of education, employment, and leadership. Youth development, skill building, entrepreneurship.",
+          "ref_words": 26,
+          "sub": 0,
+          "del": 1,
+          "ins": 0,
+          "errors": 1,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.6,
+              "end": 5.6,
+              "forced": false
+            },
+            {
+              "start": 6.3,
+              "end": 9.2,
+              "forced": false
+            },
+            {
+              "start": 10.5,
+              "end": 13.4,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            7.23,
+            10.131,
+            14.418
+          ],
+          "final_words": [
+            13,
+            7,
+            5
+          ],
+          "finals_received": 3,
+          "partials_received": 9,
+          "ttfw_s": [
+            1.0694730999879538,
+            1.0246392000000926,
+            1.2476847999496385
+          ],
+          "first_partial_s": [
+            1.0694730999879538,
+            1.0246392000000926,
+            1.2476847999496385
+          ],
+          "final_latency_s": [
+            1.6296170999761674,
+            0.9306530999718241,
+            1.0179778000107031
+          ],
+          "final_latency_after_hang_s": [
+            1.0296170999761673,
+            0.3306530999718241,
+            0.41797780001070317
+          ],
+          "partial_words": 25,
+          "partial_words_revised": 8,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "svarah_assamese_03817_281474976885867_f1767_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Assamese",
+            "state": "Assam",
+            "district": "Nalbari",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Yes, I have some favorite, not favorite, but I like some idioms and proverbs like don't judge a book by its cover, actions speak louder than words, once in a blue moon, through thick and thin, spill the beans etc.",
+          "hypothesis": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+          "ref_words": 40,
+          "sub": 6,
+          "del": 7,
+          "ins": 4,
+          "errors": 17,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.3,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 16.2,
+              "end": 19.1,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.864,
+            17.136
+          ],
+          "final_words": [
+            18,
+            19
+          ],
+          "finals_received": 2,
+          "partials_received": 19,
+          "ttfw_s": [
+            0.574171399930492,
+            1.0036487998906516
+          ],
+          "first_partial_s": [
+            0.574171399930492,
+            1.0036487998906516
+          ],
+          "final_latency_s": [
+            0.7635866999393333,
+            0.9360972999827908
+          ],
+          "final_latency_after_hang_s": [
+            0.16358669993933328,
+            0.3360972999827908
+          ],
+          "partial_words": 33,
+          "partial_words_revised": 19,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_assamese_05643_281474976885848_f972_chu",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Assamese",
+            "state": "Assam",
+            "district": "Nalbari",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Can you confirm if the date of birth and beneficiary name of user with phone number 88921446709 is correct as per his Disability ID card",
+          "hypothesis": "Can you confirm if the date of birth and beneficiary name of user with phone number eight eight nine two one four four six seven zero nine? Is correct as per his disability ID card.",
+          "ref_words": 25,
+          "sub": 1,
+          "del": 0,
+          "ins": 10,
+          "errors": 11,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.4,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.869,
+            12.62
+          ],
+          "final_words": [
+            27,
+            8
+          ],
+          "finals_received": 2,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.4727279999991879,
+            3.3376041999785233
+          ],
+          "first_partial_s": [
+            0.4727279999991879,
+            3.3376041999785233
+          ],
+          "final_latency_s": [
+            0.7689305000007156,
+            1.2202184000285339
+          ],
+          "final_latency_after_hang_s": [
+            0.16893050000071563,
+            0.6202184000285339
+          ],
+          "partial_words": 30,
+          "partial_words_revised": 3,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_assamese_06152_281474976901758_f990_chu",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Assamese",
+            "state": "Assam",
+            "district": "Biswanath",
+            "qualification": "Doctoral (PhD) or higher level",
+            "job": "Full Time",
+            "domain": "Information and Media",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Can you stop automatically sending Ghanim Rs. 300 bi-weekly and send Rs. 60000 instead, on Yono SBI",
+          "hypothesis": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+          "ref_words": 18,
+          "sub": 6,
+          "del": 3,
+          "ins": 1,
+          "errors": 10,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 10.299999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.694
+          ],
+          "final_words": [
+            16
+          ],
+          "finals_received": 1,
+          "partials_received": 7,
+          "ttfw_s": [
+            0.8085207000141963
+          ],
+          "first_partial_s": [
+            0.8085207000141963
+          ],
+          "final_latency_s": [
+            0.593846500013024
+          ],
+          "final_latency_after_hang_s": [
+            -0.006153499986976008
+          ],
+          "partial_words": 12,
+          "partial_words_revised": 3,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 1,
+          "worker": 0
+        },
+        {
+          "id": "svarah_bengali_00427_281474976899542_f1195_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "45-60",
+            "l1": "Bengali",
+            "state": "West Bengal",
+            "district": "South 24 Parganas",
+            "qualification": "Graduate",
+            "job": "Other",
+            "domain": "Financial Services (Banking and Insurance)",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Show the current holdings of my APY account with PRAN number 527154998165",
+          "hypothesis": "Show the current holding of my AP account with PRAN number five two.",
+          "ref_words": 12,
+          "sub": 3,
+          "del": 0,
+          "ins": 1,
+          "errors": 4,
+          "utterances_expected": 1,
+          "expected_detail": [
+            {
+              "start": 0.8,
+              "end": 7.1,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.385
+          ],
+          "final_words": [
+            13
+          ],
+          "finals_received": 1,
+          "partials_received": 0,
+          "ttfw_s": [
+            7.585360099957325
+          ],
+          "first_partial_s": [],
+          "final_latency_s": [
+            1.285360099957325
+          ],
+          "final_latency_after_hang_s": [
+            0.6853600999573249
+          ],
+          "partial_words": 0,
+          "partial_words_revised": 0,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 0,
+          "worker": 0
+        },
+        {
+          "id": "svarah_bengali_01831_281474976896941_f53_chun",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Bengali",
+            "state": "West Bengal",
+            "district": "Kolkata",
+            "qualification": "Graduate",
+            "job": "Freelance",
+            "domain": "Entertainment",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "A distinct advantage that in-fighters have when throwing uppercuts is that they can channel their entire bodyweight behind the punch; Mike Tyson was famous for throwing devastating uppercuts",
+          "hypothesis": "A distinct advantage that in fighters have when throwing uppercuts is that they can channel their entire body weight behind the pun. Yeah. Mike Tyson was famous for throwing devastating uppercuts.",
+          "ref_words": 29,
+          "sub": 2,
+          "del": 0,
+          "ins": 2,
+          "errors": 4,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 12.799999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.851,
+            8.993,
+            13.915
+          ],
+          "final_words": [
+            22,
+            1,
+            8
+          ],
+          "finals_received": 3,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.4751566999824718,
+            0.8932899000123147
+          ],
+          "first_partial_s": [
+            0.4751566999824718
+          ],
+          "final_latency_s": [
+            0.7510455000214282,
+            -3.8067100999876846
+          ],
+          "final_latency_after_hang_s": [
+            0.15104550002142825,
+            -4.406710099987684
+          ],
+          "partial_words": 24,
+          "partial_words_revised": 15,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_bengali_04742_281474976895139_f2137_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Bengali",
+            "state": "West Bengal",
+            "district": "South 24 Parganas",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Information and Media",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "The nomenclature 24 Parganas has been in vogue since July 15, 1757, when Mir Jafar as Nawab of Bengal ceded to the company the rights of 24 Mahals. The district started taking shape under Clause No. 2, 3 and 9 of the Regulation of 1793.",
+          "hypothesis": "The nomenclature 24 Paganas has been in vogue since July 15, 1757. Venir Jafar as Nawab of Bengal ceded to the company the rights of 24 Mahals. The district started taking shape under clause number two, three and nine of the regulation of 1793",
+          "ref_words": 45,
+          "sub": 6,
+          "del": 1,
+          "ins": 0,
+          "errors": 7,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 5.8,
+              "forced": false
+            },
+            {
+              "start": 6.6,
+              "end": 12.1,
+              "forced": false
+            },
+            {
+              "start": 13.3,
+              "end": 19.900000000000002,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            6.942,
+            13.232,
+            21.174
+          ],
+          "final_words": [
+            12,
+            15,
+            17
+          ],
+          "finals_received": 3,
+          "partials_received": 18,
+          "ttfw_s": [
+            0.5652081000152975,
+            0.4488880999619145,
+            2.270951499976217
+          ],
+          "first_partial_s": [
+            0.5652081000152975,
+            0.4488880999619145,
+            2.270951499976217
+          ],
+          "final_latency_s": [
+            1.1421240999363365,
+            1.1324922999832783,
+            1.2743262999225387
+          ],
+          "final_latency_after_hang_s": [
+            0.5421240999363365,
+            0.5324922999832783,
+            0.6743262999225387
+          ],
+          "partial_words": 47,
+          "partial_words_revised": 18,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "svarah_bengali_06105_281474976895133_f2183_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Bengali",
+            "state": "West Bengal",
+            "district": "South 24 Parganas",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Information and Media",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "As for the languages, I write the pronunciation of the words in my own language. And as for different vocal styles and techniques, it all depends on the training. How much trained you are.",
+          "hypothesis": "As for the languages, I Write the pronunciation of the words in my own language And as for different vocal styles and techniques it all depends on the training How much trained you are.",
+          "ref_words": 34,
+          "sub": 0,
+          "del": 0,
+          "ins": 0,
+          "errors": 0,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 2.2,
+              "forced": false
+            },
+            {
+              "start": 3.1,
+              "end": 7.5,
+              "forced": false
+            },
+            {
+              "start": 8.1,
+              "end": 13.6,
+              "forced": false
+            },
+            {
+              "start": 14.7,
+              "end": 16.6,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.038,
+            8.729,
+            14.845,
+            17.457
+          ],
+          "final_words": [
+            5,
+            10,
+            14,
+            5
+          ],
+          "finals_received": 4,
+          "partials_received": 15,
+          "ttfw_s": [
+            0.564117299974896,
+            0.48360620005987576,
+            1.2166634000372145,
+            0.7295733000617481
+          ],
+          "first_partial_s": [
+            0.564117299974896,
+            0.48360620005987576,
+            1.2166634000372145,
+            0.7295733000617481
+          ],
+          "final_latency_s": [
+            0.8383136000018565,
+            1.2289668000303209,
+            1.2448036999907348,
+            0.8567135999677689
+          ],
+          "final_latency_after_hang_s": [
+            0.23831360000185653,
+            0.6289668000303209,
+            0.6448036999907348,
+            0.2567135999677689
+          ],
+          "partial_words": 33,
+          "partial_words_revised": 9,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "svarah_bodo_00437_281474976893845_f1948_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Bodo",
+            "state": "Assam",
+            "district": "Kokrajhar",
+            "qualification": "Post Graduate",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "So, there are four types of mandalas that are used for different purposes. Like, the first one is outer mandala. So it's a basic kind of mandala that represents the universe",
+          "hypothesis": "So uh there are four types of mandalas. that are used for different purposes Like The first one is outer mandala. So it's a basic kind of mandala that It represents the universe.",
+          "ref_words": 31,
+          "sub": 0,
+          "del": 0,
+          "ins": 2,
+          "errors": 2,
+          "utterances_expected": 6,
+          "expected_detail": [
+            {
+              "start": 0.7,
+              "end": 3.2,
+              "forced": false
+            },
+            {
+              "start": 4.1,
+              "end": 6.5,
+              "forced": false
+            },
+            {
+              "start": 7.2,
+              "end": 7.5,
+              "forced": false
+            },
+            {
+              "start": 8.1,
+              "end": 10.2,
+              "forced": false
+            },
+            {
+              "start": 11.1,
+              "end": 12.9,
+              "forced": false
+            },
+            {
+              "start": 13.5,
+              "end": 14.9,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            4.383,
+            7.408,
+            8.279,
+            11.038,
+            13.739,
+            15.69
+          ],
+          "final_words": [
+            8,
+            6,
+            1,
+            6,
+            8,
+            4
+          ],
+          "finals_received": 6,
+          "partials_received": 13,
+          "ttfw_s": [
+            0.41844700004439805,
+            2.164068000018597,
+            0.38705980004742724,
+            1.1999842000426728,
+            0.6613614000147212,
+            1.2313317999942228
+          ],
+          "first_partial_s": [
+            0.41844700004439805,
+            2.164068000018597,
+            0.38705980004742724,
+            1.1999842000426728,
+            0.6613614000147212,
+            1.2313317999942228
+          ],
+          "final_latency_s": [
+            1.182971700048074,
+            0.9079294000985101,
+            0.7794311000034213,
+            0.8377198000205688,
+            0.8394582000561055,
+            0.7898824000963938
+          ],
+          "final_latency_after_hang_s": [
+            0.582971700048074,
+            0.3079294000985101,
+            0.17943110000342133,
+            0.2377198000205688,
+            0.23945820005610552,
+            0.1898824000963938
+          ],
+          "partial_words": 31,
+          "partial_words_revised": 6,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 6,
+          "worker": 0
+        },
+        {
+          "id": "svarah_bodo_03478_281474976893852_f1949_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Bodo",
+            "state": "Assam",
+            "district": "Kokrajhar",
+            "qualification": "Post Graduate",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "collected and meats are purchased with the cash money. So then again feast is done with the purchased meat along with singing and dancing.",
+          "hypothesis": "Collect it. \u041d\u0438\u0442\u0441 \u042d\u043d\u043d. Let me side purchase with the Cash money. So Uh then again fish is done with \u0414\u0430 \u043f\u043e\u0447 Meet. Along with singing and dancing.",
+          "ref_words": 24,
+          "sub": 7,
+          "del": 2,
+          "ins": 2,
+          "errors": 11,
+          "utterances_expected": 8,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 0.5,
+              "forced": false
+            },
+            {
+              "start": 2.2,
+              "end": 4.699999999999999,
+              "forced": false
+            },
+            {
+              "start": 7.5,
+              "end": 9.1,
+              "forced": false
+            },
+            {
+              "start": 9.7,
+              "end": 10.0,
+              "forced": false
+            },
+            {
+              "start": 11.0,
+              "end": 13.9,
+              "forced": false
+            },
+            {
+              "start": 15.6,
+              "end": 16.6,
+              "forced": false
+            },
+            {
+              "start": 17.3,
+              "end": 17.6,
+              "forced": false
+            },
+            {
+              "start": 18.8,
+              "end": 20.6,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            1.243,
+            5.686,
+            10.1,
+            11.89,
+            14.776,
+            17.44,
+            18.306,
+            21.477
+          ],
+          "final_words": [
+            2,
+            0,
+            6,
+            3,
+            7,
+            0,
+            1,
+            5
+          ],
+          "finals_received": 8,
+          "partials_received": 11,
+          "ttfw_s": [
+            1.0430376000702382,
+            2.2785375000210477,
+            1.125133900088258,
+            1.9690763001097373,
+            1.7848961000563577,
+            1.2848577000899244,
+            0.6680570000782602,
+            1.3548709000926458
+          ],
+          "first_partial_s": [
+            2.2785375000210477,
+            1.125133900088258,
+            1.9690763001097373,
+            1.7848961000563577,
+            1.2848577000899244,
+            0.6680570000782602,
+            1.3548709000926458
+          ],
+          "final_latency_s": [
+            0.7430376000702381,
+            0.9858380000339828,
+            1.0002504000207413,
+            1.890467300079763,
+            0.876100400020368,
+            0.84002249999903,
+            0.7062974000349627,
+            0.876650200085713
+          ],
+          "final_latency_after_hang_s": [
+            0.14303760007023814,
+            0.38583800003398283,
+            0.4002504000207413,
+            1.2904673000797628,
+            0.27610040002036806,
+            0.24002249999903003,
+            0.10629740003496269,
+            0.27665020008571306
+          ],
+          "partial_words": 27,
+          "partial_words_revised": 13,
+          "partial_prefix_ok": 3,
+          "partial_prefix_total": 7,
+          "worker": 0
+        },
+        {
+          "id": "svarah_bodo_03621_281474976893846_f3264_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Bodo",
+            "state": "Assam",
+            "district": "Kokrajhar",
+            "qualification": "Post Graduate",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Online clients can see the works. If you have your own website, blog or social media account, people can easily access your work.",
+          "hypothesis": "Online clients can see the works. Like if you have your own website, blog or social social media account. Um Dedicating to your verb. Um like people can easily access",
+          "ref_words": 23,
+          "sub": 0,
+          "del": 2,
+          "ins": 9,
+          "errors": 11,
+          "utterances_expected": 7,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 1.9000000000000001,
+              "forced": false
+            },
+            {
+              "start": 3.0,
+              "end": 6.0,
+              "forced": false
+            },
+            {
+              "start": 6.7,
+              "end": 7.699999999999999,
+              "forced": false
+            },
+            {
+              "start": 8.5,
+              "end": 9.0,
+              "forced": false
+            },
+            {
+              "start": 10.0,
+              "end": 12.1,
+              "forced": false
+            },
+            {
+              "start": 12.9,
+              "end": 15.1,
+              "forced": false
+            },
+            {
+              "start": 16.3,
+              "end": 18.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            2.733,
+            6.961,
+            8.474,
+            9.735,
+            12.969,
+            15.96
+          ],
+          "final_words": [
+            6,
+            10,
+            3,
+            1,
+            4,
+            6
+          ],
+          "finals_received": 6,
+          "partials_received": 14,
+          "ttfw_s": [
+            1.1407463001087308,
+            1.183803900028579,
+            0.8485246001044287,
+            0.8096609000349417,
+            1.6666730000870302,
+            0.5520190000766885
+          ],
+          "first_partial_s": [
+            1.1407463001087308,
+            1.183803900028579,
+            0.8485246001044287,
+            0.8096609000349417,
+            1.6666730000870302,
+            0.5520190000766885
+          ],
+          "final_latency_s": [
+            0.8325180000625549,
+            0.9612055000616238,
+            0.7739537000423304,
+            0.7354799000313506,
+            0.8693905001040552,
+            0.8598655001027513
+          ],
+          "final_latency_after_hang_s": [
+            0.23251800006255496,
+            0.3612055000616238,
+            0.17395370004233046,
+            0.13547990003135058,
+            0.2693905001040552,
+            0.25986550010275133
+          ],
+          "partial_words": 33,
+          "partial_words_revised": 17,
+          "partial_prefix_ok": 3,
+          "partial_prefix_total": 6,
+          "worker": 0
+        },
+        {
+          "id": "svarah_bodo_06287_281474976893847_f2044_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Bodo",
+            "state": "Assam",
+            "district": "Kokrajhar",
+            "qualification": "Post Graduate",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Secondly, we have Sattriya Nritya. It is a classical dance form of Assam, representing Sattriya culture",
+          "hypothesis": "Secondly uh We have uh T uh so tree knee. Uh it is a classical dance form of Assam representing Satya culture.",
+          "ref_words": 16,
+          "sub": 3,
+          "del": 0,
+          "ins": 6,
+          "errors": 9,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 1.2000000000000002,
+              "forced": false
+            },
+            {
+              "start": 2.0,
+              "end": 2.9,
+              "forced": false
+            },
+            {
+              "start": 3.8,
+              "end": 5.8,
+              "forced": false
+            },
+            {
+              "start": 6.9,
+              "end": 9.4,
+              "forced": false
+            },
+            {
+              "start": 10.2,
+              "end": 13.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            1.986,
+            3.814,
+            6.659,
+            10.327,
+            13.933
+          ],
+          "final_words": [
+            2,
+            3,
+            5,
+            8,
+            4
+          ],
+          "finals_received": 5,
+          "partials_received": 13,
+          "ttfw_s": [
+            0.4601240999531001,
+            0.3874149000039324,
+            0.9683492000214757,
+            0.9309079000027847,
+            1.4683801999315627
+          ],
+          "first_partial_s": [
+            0.4601240999531001,
+            0.3874149000039324,
+            0.9683492000214757,
+            0.9309079000027847,
+            1.4683801999315627
+          ],
+          "final_latency_s": [
+            0.7861829000292344,
+            0.913833500025794,
+            0.8594323000172155,
+            0.9272720000240948,
+            0.932842499925755
+          ],
+          "final_latency_after_hang_s": [
+            0.18618290002923443,
+            0.313833500025794,
+            0.2594323000172155,
+            0.32727200002409484,
+            0.332842499925755
+          ],
+          "partial_words": 22,
+          "partial_words_revised": 14,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "svarah_dogri_00937_281474976889906_f3211_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Dogri",
+            "state": "Jammu Kashmir",
+            "district": "Jammu",
+            "qualification": "Under Graduate Student",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Even Hindi speakers or any other language speakers can be literate. That's my point on literacy. And I don't think so that considering any language as a symbol of literacy is the right thing.",
+          "hypothesis": "Even Hindi speakers or any other language speakers can be literate. So that's my point on literacy. And um I don't think so that considering any language as a symbol of literacy is the right thing.",
+          "ref_words": 34,
+          "sub": 0,
+          "del": 0,
+          "ins": 2,
+          "errors": 2,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.4,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 13.1,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.853,
+            14.17
+          ],
+          "final_words": [
+            19,
+            17
+          ],
+          "finals_received": 2,
+          "partials_received": 12,
+          "ttfw_s": [
+            0.7186952999560162,
+            1.1836391000309963
+          ],
+          "first_partial_s": [
+            0.7186952999560162,
+            1.1836391000309963
+          ],
+          "final_latency_s": [
+            0.7532012000214312,
+            1.0704325999598954
+          ],
+          "final_latency_after_hang_s": [
+            0.15320120002143123,
+            0.4704325999598954
+          ],
+          "partial_words": 33,
+          "partial_words_revised": 5,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_dogri_01112_281474976925739_f3299_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Dogri",
+            "state": "Jammu Kashmir",
+            "district": "Jammu",
+            "qualification": "Graduate",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "As we can say, English is used as a common language even though there are some various variants in habits, cultures, traditions.",
+          "hypothesis": "Yeah. As we can say, English is used as a common language even though there are some various uh variants in habits. Cultures.",
+          "ref_words": 22,
+          "sub": 0,
+          "del": 1,
+          "ins": 2,
+          "errors": 3,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 0.30000000000000004,
+              "forced": false
+            },
+            {
+              "start": 1.2,
+              "end": 9.0,
+              "forced": true
+            },
+            {
+              "start": 9.4,
+              "end": 10.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            0.989,
+            10.089,
+            10.766
+          ],
+          "final_words": [
+            1,
+            21,
+            1
+          ],
+          "finals_received": 3,
+          "partials_received": 7,
+          "ttfw_s": [
+            0.5601740999845788,
+            1.7263160000555218,
+            1.3662562000332397
+          ],
+          "first_partial_s": [
+            0.5601740999845788,
+            1.7263160000555218
+          ],
+          "final_latency_s": [
+            0.6893250999739393,
+            1.0893430999713019,
+            0.76625620003324
+          ],
+          "final_latency_after_hang_s": [
+            0.08932509997393934,
+            0.4893430999713019,
+            0.16625620003324004
+          ],
+          "partial_words": 19,
+          "partial_words_revised": 5,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_dogri_04159_281474976892331_f1842_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Dogri",
+            "state": "Jammu Kashmir",
+            "district": "Jammu",
+            "qualification": "Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "children's first visit to a packed beach places. The gesture of happiness on my family faces itself was breathtaking after the long of COVID pandemic.",
+          "hypothesis": "Children first pay the two pack. Beach places. The gesture of happiness on my candy. Paces itself. Was breath checking. After the long of COVID pandemic.",
+          "ref_words": 25,
+          "sub": 8,
+          "del": 0,
+          "ins": 1,
+          "errors": 9,
+          "utterances_expected": 7,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 1.5,
+              "forced": false
+            },
+            {
+              "start": 2.8,
+              "end": 3.6,
+              "forced": false
+            },
+            {
+              "start": 4.8,
+              "end": 6.8,
+              "forced": false
+            },
+            {
+              "start": 7.7,
+              "end": 8.299999999999999,
+              "forced": false
+            },
+            {
+              "start": 9.4,
+              "end": 10.6,
+              "forced": false
+            },
+            {
+              "start": 11.8,
+              "end": 12.4,
+              "forced": false
+            },
+            {
+              "start": 13.8,
+              "end": 14.5,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            2.297,
+            4.388,
+            7.685,
+            9.039,
+            11.405,
+            13.189,
+            15.293
+          ],
+          "final_words": [
+            6,
+            2,
+            7,
+            2,
+            3,
+            3,
+            3
+          ],
+          "finals_received": 7,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.5583062999648973,
+            0.6809466999722646,
+            0.4699255000334235,
+            1.3393190999748184,
+            2.004538000002503,
+            1.3886114999651902,
+            0.8769397000316523
+          ],
+          "first_partial_s": [
+            0.5583062999648973,
+            0.6809466999722646,
+            0.4699255000334235,
+            0.8769397000316523
+          ],
+          "final_latency_s": [
+            0.7969099000329152,
+            0.787645800015889,
+            0.8853338000364603,
+            0.7393190999748196,
+            0.8045380000025038,
+            0.7886114999651905,
+            0.7925839000381529
+          ],
+          "final_latency_after_hang_s": [
+            0.1969099000329152,
+            0.18764580001588904,
+            0.28533380003646036,
+            0.13931909997481962,
+            0.20453800000250377,
+            0.18861149996519055,
+            0.19258390003815296
+          ],
+          "partial_words": 17,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "svarah_gujarati_01860_281474976887082_f3312_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Gujarati",
+            "state": "Gujarat",
+            "district": "Amreli",
+            "qualification": "Post Graduate",
+            "job": "Freelance",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "where proper education system is not easily available may be due to infrastructure or may be due to some traditional constraints.",
+          "hypothesis": "where proper education system is not easily available, maybe due to infrastructure or maybe due to some traditional constraints.",
+          "ref_words": 21,
+          "sub": 2,
+          "del": 2,
+          "ins": 0,
+          "errors": 4,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 3.6,
+              "forced": false
+            },
+            {
+              "start": 4.5,
+              "end": 9.799999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            4.567,
+            10.924
+          ],
+          "final_words": [
+            6,
+            13
+          ],
+          "finals_received": 2,
+          "partials_received": 10,
+          "ttfw_s": [
+            0.45345240002498033,
+            0.743023700080812
+          ],
+          "first_partial_s": [
+            0.45345240002498033,
+            0.743023700080812
+          ],
+          "final_latency_s": [
+            0.9667026999872177,
+            1.1241148000583063
+          ],
+          "final_latency_after_hang_s": [
+            0.3667026999872177,
+            0.5241148000583064
+          ],
+          "partial_words": 19,
+          "partial_words_revised": 10,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_gujarati_02313_281474976887687_f685_chu",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Gujarati",
+            "state": "Gujarat",
+            "district": "Sabarkantha",
+            "qualification": "Post Graduate",
+            "job": "Part Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Download my vaccine certificate using phone number 97515178528 and OTP 514395.",
+          "hypothesis": "Download my vaccine certificate using phone number 97515178528 and OTP five one four three nine five.",
+          "ref_words": 11,
+          "sub": 1,
+          "del": 0,
+          "ins": 5,
+          "errors": 6,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.5,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.812,
+            12.559
+          ],
+          "final_words": [
+            9,
+            7
+          ],
+          "finals_received": 2,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.9314384000143037,
+            1.1480405999813232
+          ],
+          "first_partial_s": [
+            0.9314384000143037,
+            1.1480405999813232
+          ],
+          "final_latency_s": [
+            0.7119244000408802,
+            1.058657499961555
+          ],
+          "final_latency_after_hang_s": [
+            0.11192440004088022,
+            0.458657499961555
+          ],
+          "partial_words": 23,
+          "partial_words_revised": 15,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_gujarati_03802_281474976895927_f289_chu",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "45-60",
+            "l1": "Gujarati",
+            "state": "Gujarat",
+            "district": "Amreli",
+            "qualification": "Post Graduate",
+            "job": "Part Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Delete Scotch brite Soap Dispensing Dishwand , Cothas Vanilla Milkshake and Cremica Mix Fruit Jam from my shopping list.",
+          "hypothesis": "Delete Scotch Bright Soap Dispensing Dishwand. Otha's vanilla milkshake and Krimika Mix Fruit Jam from my shopping list.",
+          "ref_words": 18,
+          "sub": 3,
+          "del": 0,
+          "ins": 0,
+          "errors": 3,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 4.3999999999999995,
+              "forced": false
+            },
+            {
+              "start": 5.0,
+              "end": 10.5,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            5.435,
+            11.625
+          ],
+          "final_words": [
+            6,
+            12
+          ],
+          "finals_received": 2,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.9196021999930963,
+            1.0944069999968633
+          ],
+          "first_partial_s": [
+            0.9196021999930963,
+            1.0944069999968633
+          ],
+          "final_latency_s": [
+            1.035490199946799,
+            1.1245458000339568
+          ],
+          "final_latency_after_hang_s": [
+            0.43549019994679894,
+            0.5245458000339568
+          ],
+          "partial_words": 18,
+          "partial_words_revised": 8,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_hindi_03150_281474976884039_f1853_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Hindi",
+            "state": "Gujarat",
+            "district": "Vadodara",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Information and Media",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "So that would be one norm which I can think of. I am not sure whether there are other norms which can be applicable in this scenario or condition. If there are, I am not aware of them.",
+          "hypothesis": "So that would be uh one norm which uh I can think of. I'm not sure whether there are other norms uh which can be applicable uh in this uh uh uh s uh uh scenario or condition. Uh uh i if there are, I am not aware of them.",
+          "ref_words": 38,
+          "sub": 1,
+          "del": 1,
+          "ins": 13,
+          "errors": 15,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 1.3,
+              "forced": false
+            },
+            {
+              "start": 1.9,
+              "end": 9.0,
+              "forced": false
+            },
+            {
+              "start": 9.7,
+              "end": 15.2,
+              "forced": false
+            },
+            {
+              "start": 15.9,
+              "end": 19.400000000000002,
+              "forced": false
+            },
+            {
+              "start": 20.0,
+              "end": 23.8,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            2.082,
+            10.577,
+            16.571,
+            20.632,
+            24.952
+          ],
+          "final_words": [
+            4,
+            17,
+            10,
+            7,
+            12
+          ],
+          "finals_received": 5,
+          "partials_received": 21,
+          "ttfw_s": [
+            0.5628144999500364,
+            0.4992780999979005,
+            1.3556158999679617,
+            1.2895128999603909,
+            0.8533373000100255
+          ],
+          "first_partial_s": [
+            0.5628144999500364,
+            0.4992780999979005,
+            1.3556158999679617,
+            1.2895128999603909,
+            0.8533373000100255
+          ],
+          "final_latency_s": [
+            0.7817738999612629,
+            1.5770623000571504,
+            1.37120380003471,
+            1.2321807999629506,
+            1.1523287999909364
+          ],
+          "final_latency_after_hang_s": [
+            0.18177389996126292,
+            0.9770623000571504,
+            0.77120380003471,
+            0.6321807999629506,
+            0.5523287999909364
+          ],
+          "partial_words": 45,
+          "partial_words_revised": 12,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "svarah_hindi_03253_281474976879629_f1172_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Hindi",
+            "state": "Madhya Pradesh",
+            "district": "Khandwa",
+            "qualification": "Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "You are 2 hours late than the delivery time for my products Dettol Shaving Cream and Good knight Activ+ Low Smoke Mosquito Coil",
+          "hypothesis": "You are two hours late then the delivery time for my products that all shaving cream and good night at trip plus load. smoke mosquito.",
+          "ref_words": 23,
+          "sub": 6,
+          "del": 1,
+          "ins": 3,
+          "errors": 10,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.2,
+              "end": 10.1,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.725,
+            10.935
+          ],
+          "final_words": [
+            23,
+            2
+          ],
+          "finals_received": 2,
+          "partials_received": 10,
+          "ttfw_s": [
+            0.8217676999513059,
+            0.9540372999152176
+          ],
+          "first_partial_s": [
+            0.8217676999513059,
+            0.9540372999152176
+          ],
+          "final_latency_s": [
+            0.6251956999534745,
+            0.8351264999713752
+          ],
+          "final_latency_after_hang_s": [
+            0.025195699953474482,
+            0.23512649997137525
+          ],
+          "partial_words": 18,
+          "partial_words_revised": 5,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_hindi_04506_281474976897588_f1724_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Hindi",
+            "state": "Rajasthan",
+            "district": "Ajmer",
+            "qualification": "Under Graduate Student",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "I take out my drawing book and all my stationeries such as all my shades of pencils, charcoal pencils, eraser, ruler etc. Then I draw margins on my paper and I start drawing. And I do refer to online as well as offline sources while creating a drawing.",
+          "hypothesis": "I take out my drawing book and all my stationeries such as all my shades of pencils, charcoal pencils. erasor, ruler, etcetera. Then I draw margins on my uh paper and I start drawing and I do refer to online as well as offline sources while creating a drawing.",
+          "ref_words": 48,
+          "sub": 2,
+          "del": 0,
+          "ins": 1,
+          "errors": 3,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 16.2,
+              "end": 23.400000000000002,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.769,
+            16.864,
+            25.056
+          ],
+          "final_words": [
+            19,
+            15,
+            15
+          ],
+          "finals_received": 3,
+          "partials_received": 18,
+          "ttfw_s": [
+            0.8095466000260785,
+            1.0978250999236483,
+            1.0912051000166691
+          ],
+          "first_partial_s": [
+            0.8095466000260785,
+            1.0978250999236483,
+            1.0912051000166691
+          ],
+          "final_latency_s": [
+            0.6694811000255871,
+            0.6637267999583827,
+            1.6557025999296435
+          ],
+          "final_latency_after_hang_s": [
+            0.06948110002558716,
+            0.06372679995838271,
+            1.0557025999296434
+          ],
+          "partial_words": 42,
+          "partial_words_revised": 18,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "svarah_kannada_00197_281474976884629_f2039_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Kannada",
+            "state": "Karnataka",
+            "district": "Hassan",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "you can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow-clad mountain ranges, widely spread cool bagyals",
+          "hypothesis": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+          "ref_words": 24,
+          "sub": 0,
+          "del": 4,
+          "ins": 0,
+          "errors": 4,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 10.2,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.902
+          ],
+          "final_words": [
+            20
+          ],
+          "finals_received": 1,
+          "partials_received": 8,
+          "ttfw_s": [
+            0.45027569993399086
+          ],
+          "first_partial_s": [
+            0.45027569993399086
+          ],
+          "final_latency_s": [
+            0.8016005999874327
+          ],
+          "final_latency_after_hang_s": [
+            0.20160059998743274
+          ],
+          "partial_words": 17,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 1,
+          "worker": 0
+        },
+        {
+          "id": "svarah_kannada_04106_281474976887436_f128_chu",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Kannada",
+            "state": "Karnataka",
+            "district": "Bangalore Urban",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Dalal Sadaam, a female relative who had just given birth, attempted to stop the violence only to be assaulted by the butt of a rifle to the mouth.",
+          "hypothesis": "Dalal Sadam, a female relative who had just given birth, attempted to stop the violence only to be assault. assaulted by the butt of a rifle to the mouth.",
+          "ref_words": 28,
+          "sub": 1,
+          "del": 0,
+          "ins": 1,
+          "errors": 2,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 10.9,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.883,
+            11.817
+          ],
+          "final_words": [
+            19,
+            10
+          ],
+          "finals_received": 2,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.5563185999635607,
+            1.211698999954388
+          ],
+          "first_partial_s": [
+            0.5563185999635607,
+            1.211698999954388
+          ],
+          "final_latency_s": [
+            0.7828968999441717,
+            0.9172434000298377
+          ],
+          "final_latency_after_hang_s": [
+            0.1828968999441717,
+            0.31724340002983775
+          ],
+          "partial_words": 24,
+          "partial_words_revised": 6,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_kannada_06343_281474976896163_f378_chu",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "60+",
+            "l1": "Kannada",
+            "state": "Telangana",
+            "district": "Hyderabad",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Can you fetch the list of all University Managed-Private institutes which are approved by AICTE in the academic year 2019 - 2020",
+          "hypothesis": "Can you fetch the list of all university managed private institutes which are approved by AICT? in the academic year 2019-2020.",
+          "ref_words": 22,
+          "sub": 1,
+          "del": 0,
+          "ins": 0,
+          "errors": 1,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 12.299999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.899,
+            13.725
+          ],
+          "final_words": [
+            16,
+            6
+          ],
+          "finals_received": 2,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.4558377999113873,
+            1.9076942999148745
+          ],
+          "first_partial_s": [
+            0.4558377999113873,
+            1.9076942999148745
+          ],
+          "final_latency_s": [
+            0.7992339998949323,
+            1.4250930999871354
+          ],
+          "final_latency_after_hang_s": [
+            0.1992339998949323,
+            0.8250930999871354
+          ],
+          "partial_words": 22,
+          "partial_words_revised": 8,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_kashmiri_03111_281474976891473_f1165_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "18-30",
+            "l1": "Kashmiri",
+            "state": "Jammu Kashmir",
+            "district": "Srinagar",
+            "qualification": "Post Graduate",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Change your quantities of items Nestle Munch Wafer Bar , Chai Point Rusk Cake and Lal Besan Laddoo as their current quantities are out of stock",
+          "hypothesis": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+          "ref_words": 25,
+          "sub": 3,
+          "del": 8,
+          "ins": 0,
+          "errors": 11,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.2,
+              "end": 10.799999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.738
+          ],
+          "final_words": [
+            17
+          ],
+          "finals_received": 1,
+          "partials_received": 7,
+          "ttfw_s": [
+            0.9094704000279308
+          ],
+          "first_partial_s": [
+            0.9094704000279308
+          ],
+          "final_latency_s": [
+            0.6382341000484306
+          ],
+          "final_latency_after_hang_s": [
+            0.03823410004843064
+          ],
+          "partial_words": 11,
+          "partial_words_revised": 3,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 1,
+          "worker": 0
+        },
+        {
+          "id": "svarah_kashmiri_03131_281474976891498_f2075_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "18-30",
+            "l1": "Kashmiri",
+            "state": "Jammu Kashmir",
+            "district": "Srinagar",
+            "qualification": "Post Graduate",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "But in particularly for tourists and for common person, there is no such a place ,I, so far my knowledge is concerned. There may be but I am not sure",
+          "hypothesis": "But in particular for tourists to sign the But for common person there is no such a place. I so far my knowledge is concerned. There may be. But I'm not sure.",
+          "ref_words": 30,
+          "sub": 3,
+          "del": 1,
+          "ins": 3,
+          "errors": 7,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 2.6,
+              "forced": false
+            },
+            {
+              "start": 3.2,
+              "end": 9.1,
+              "forced": false
+            },
+            {
+              "start": 10.0,
+              "end": 10.799999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.517,
+            10.278,
+            11.725
+          ],
+          "final_words": [
+            8,
+            20,
+            4
+          ],
+          "finals_received": 3,
+          "partials_received": 10,
+          "ttfw_s": [
+            1.0270927999867125,
+            0.604869999992661,
+            0.8792560000438243
+          ],
+          "first_partial_s": [
+            1.0270927999867125,
+            0.604869999992661,
+            0.8792560000438243
+          ],
+          "final_latency_s": [
+            0.9167435000184923,
+            1.1775684000225741,
+            0.925182899972425
+          ],
+          "final_latency_after_hang_s": [
+            0.3167435000184923,
+            0.5775684000225741,
+            0.325182899972425
+          ],
+          "partial_words": 29,
+          "partial_words_revised": 18,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "svarah_kashmiri_05623_281474976894270_f2003_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Kashmiri",
+            "state": "Jammu Kashmir",
+            "district": "Srinagar",
+            "qualification": "Doctoral (PhD) or higher level",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "artistic ideal of craftsmanship. It is a 700-year-old art that requires a lot of time and effort. The Kashmiri artisans also make beautiful patterns on copperware. And this is not only adored by the visitors, but also by the people living in the valley. Copperware is found in almost each and every household in the valley",
+          "hypothesis": "artistic ideal of craftsmanship. It isn't s seven hundred year old art that requires a lot of time and effort. The Kashmiri artisans also make beautiful patterns on copperware, and this is not only adored by the visitors but also by the people living in the valley. Copperware is found in almost each and every household in the valley.",
+          "ref_words": 58,
+          "sub": 3,
+          "del": 0,
+          "ins": 1,
+          "errors": 4,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 1.9000000000000001,
+              "forced": false
+            },
+            {
+              "start": 2.6,
+              "end": 6.8,
+              "forced": false
+            },
+            {
+              "start": 7.5,
+              "end": 15.5,
+              "forced": true
+            },
+            {
+              "start": 16.1,
+              "end": 19.700000000000003,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            2.748,
+            8.012,
+            16.774,
+            20.892
+          ],
+          "final_words": [
+            4,
+            16,
+            27,
+            12
+          ],
+          "finals_received": 4,
+          "partials_received": 19,
+          "ttfw_s": [
+            0.929468800034374,
+            0.46361630000174037,
+            1.2904061999870464,
+            1.1480249999789507
+          ],
+          "first_partial_s": [
+            0.929468800034374,
+            0.46361630000174037,
+            1.2904061999870464,
+            1.1480249999789507
+          ],
+          "final_latency_s": [
+            0.847851299936883,
+            1.211817099992186,
+            1.2744394999463111,
+            1.1922559999627964
+          ],
+          "final_latency_after_hang_s": [
+            0.24785129993688304,
+            0.611817099992186,
+            0.6744394999463111,
+            0.5922559999627964
+          ],
+          "partial_words": 49,
+          "partial_words_revised": 15,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "svarah_konkani_02421_281474976895431_f2105_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "18-30",
+            "l1": "Konkani",
+            "state": "Goa",
+            "district": "South Goa",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "We have a lot many waterfalls spice plantation strawberry plantation and much more for the nature lovers We have the world famous Dotsagar waterfall",
+          "hypothesis": "We have lot many waterfalls, spice plantations, strawberry plantations. and much more for the nature lovers. We have the world famous Tutsagar waterfall.",
+          "ref_words": 24,
+          "sub": 3,
+          "del": 1,
+          "ins": 0,
+          "errors": 4,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.4,
+              "end": 5.6,
+              "forced": false
+            },
+            {
+              "start": 6.5,
+              "end": 9.7,
+              "forced": false
+            },
+            {
+              "start": 10.8,
+              "end": 13.5,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            6.726,
+            10.67,
+            14.434
+          ],
+          "final_words": [
+            9,
+            7,
+            7
+          ],
+          "finals_received": 3,
+          "partials_received": 12,
+          "ttfw_s": [
+            0.7172182000009343,
+            0.5336268999380991,
+            2.042018199968151
+          ],
+          "first_partial_s": [
+            0.7172182000009343,
+            0.5336268999380991,
+            2.042018199968151
+          ],
+          "final_latency_s": [
+            1.1256037000333894,
+            0.969927999959328,
+            0.934276600019075
+          ],
+          "final_latency_after_hang_s": [
+            0.5256037000333894,
+            0.369927999959328,
+            0.334276600019075
+          ],
+          "partial_words": 23,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "svarah_konkani_05399_281474976887658_f3219_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "60+",
+            "l1": "Konkani",
+            "state": "Goa",
+            "district": "North Goa",
+            "qualification": "Graduate",
+            "job": "Full Time",
+            "domain": "Financial Services (Banking and Insurance)",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "And fortunately our leaders and people who voted at that time voted in favor of retaining Goa independently.",
+          "hypothesis": "And fortunately our leaders and people who voted at that time voted in favor of retaining Goa. Yeah.",
+          "ref_words": 18,
+          "sub": 1,
+          "del": 0,
+          "ins": 0,
+          "errors": 1,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 9.299999999999999,
+              "forced": false
+            },
+            {
+              "start": 9.9,
+              "end": 10.799999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.747,
+            10.081,
+            11.546
+          ],
+          "final_words": [
+            14,
+            3,
+            1
+          ],
+          "finals_received": 3,
+          "partials_received": 7,
+          "ttfw_s": [
+            0.9269951999420301,
+            1.7406743999803442,
+            0.5120636999141421
+          ],
+          "first_partial_s": [
+            0.9269951999420301,
+            1.7406743999803442,
+            0.5120636999141421
+          ],
+          "final_latency_s": [
+            0.6467105999821801,
+            0.7807710000080998,
+            0.7456784999696549
+          ],
+          "final_latency_after_hang_s": [
+            0.04671059998218008,
+            0.18077100000809987,
+            0.14567849996965487
+          ],
+          "partial_words": 14,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "svarah_konkani_05655_281474976888936_f1603_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Konkani",
+            "state": "Goa",
+            "district": "South Goa",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Government",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Check if I received 700 rupees from 93486051058@upi",
+          "hypothesis": "Check if I received seven hundred rupees from nine three four eight six six zero five one zero five eight. at the rate of UPI.",
+          "ref_words": 9,
+          "sub": 2,
+          "del": 0,
+          "ins": 16,
+          "errors": 18,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.2,
+              "end": 10.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.789,
+            10.833
+          ],
+          "final_words": [
+            20,
+            5
+          ],
+          "finals_received": 2,
+          "partials_received": 7,
+          "ttfw_s": [
+            0.5504111000336707,
+            1.0470201000105597
+          ],
+          "first_partial_s": [
+            0.5504111000336707,
+            1.0470201000105597
+          ],
+          "final_latency_s": [
+            0.6886693000327799,
+            0.8327619000338018
+          ],
+          "final_latency_after_hang_s": [
+            0.08866930003277995,
+            0.23276190003380182
+          ],
+          "partial_words": 23,
+          "partial_words_revised": 13,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_maithili_01206_281474976901158_f1892_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "45-60",
+            "l1": "Maithili",
+            "state": "Bihar",
+            "district": "Darbhanga",
+            "qualification": "Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Now, the teachers are focusing more on educating the children, which will surely make the students more educated and a good citizen of country.",
+          "hypothesis": "Now, the teachers are focusing more on educating the children. which will surely make the students more educated. And a good citizen of country.",
+          "ref_words": 24,
+          "sub": 0,
+          "del": 0,
+          "ins": 0,
+          "errors": 0,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 5.3,
+              "forced": false
+            },
+            {
+              "start": 6.1,
+              "end": 10.1,
+              "forced": false
+            },
+            {
+              "start": 10.7,
+              "end": 13.7,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            6.409,
+            11.188,
+            14.621
+          ],
+          "final_words": [
+            10,
+            8,
+            6
+          ],
+          "finals_received": 3,
+          "partials_received": 16,
+          "ttfw_s": [
+            0.8949469000333921,
+            0.874427700042725,
+            0.635027700057254
+          ],
+          "first_partial_s": [
+            0.8949469000333921,
+            0.874427700042725,
+            0.635027700057254
+          ],
+          "final_latency_s": [
+            1.1089106000028552,
+            1.0877357000485066,
+            0.9211852000560619
+          ],
+          "final_latency_after_hang_s": [
+            0.5089106000028553,
+            0.48773570004850664,
+            0.3211852000560619
+          ],
+          "partial_words": 24,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "svarah_maithili_04379_281474976901605_f2022_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Maithili",
+            "state": "Bihar",
+            "district": "Darbhanga",
+            "qualification": "Post Graduate",
+            "job": "Freelance",
+            "domain": "Information and Media",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "second also they have targeted the students those who are really at the marginalized sections. So, they have targeted to those student also in offline mode, like in audio mode. So, it is very",
+          "hypothesis": "Second also they have targeted the students, those who are really uh at the marginalized sections, so they have targeted To those students, also in offline mode, like in audio mode. So it's very",
+          "ref_words": 34,
+          "sub": 2,
+          "del": 1,
+          "ins": 1,
+          "errors": 4,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 14.799999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.872,
+            16.031
+          ],
+          "final_words": [
+            20,
+            14
+          ],
+          "finals_received": 2,
+          "partials_received": 13,
+          "ttfw_s": [
+            0.4744667999679223,
+            4.206804399937392
+          ],
+          "first_partial_s": [
+            0.4744667999679223,
+            4.206804399937392
+          ],
+          "final_latency_s": [
+            0.7717830999521542,
+            1.2311762999044742
+          ],
+          "final_latency_after_hang_s": [
+            0.17178309995215424,
+            0.6311762999044742
+          ],
+          "partial_words": 29,
+          "partial_words_revised": 6,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_maithili_04468_281474976901572_f2765_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Maithili",
+            "state": "Bihar",
+            "district": "Darbhanga",
+            "qualification": "Post Graduate",
+            "job": "Freelance",
+            "domain": "Information and Media",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "For downloading the vaccination certificate for beneficiary Wahida please enter the OTP sent to your registered mobile number 86301841402",
+          "hypothesis": "For downloading the vaccination certificate for beneficiary Vahida, please enter the vacuum. Enter the OTP sent to your registered mobile number. Eight six. Three zero one eight. \u0424\u043e \u0432\u0430\u043d. Four zero. Two.",
+          "ref_words": 19,
+          "sub": 2,
+          "del": 0,
+          "ins": 11,
+          "errors": 13,
+          "utterances_expected": 7,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 13.6,
+              "forced": false
+            },
+            {
+              "start": 14.6,
+              "end": 15.6,
+              "forced": false
+            },
+            {
+              "start": 16.4,
+              "end": 18.900000000000002,
+              "forced": false
+            },
+            {
+              "start": 19.8,
+              "end": 20.900000000000002,
+              "forced": false
+            },
+            {
+              "start": 21.7,
+              "end": 22.8,
+              "forced": false
+            },
+            {
+              "start": 23.4,
+              "end": 23.900000000000002,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            9.663,
+            15.404,
+            16.434,
+            19.981,
+            21.894,
+            23.824,
+            24.618
+          ],
+          "final_words": [
+            12,
+            9,
+            2,
+            4,
+            0,
+            2,
+            1
+          ],
+          "finals_received": 7,
+          "partials_received": 18,
+          "ttfw_s": [
+            0.9237336000194774,
+            2.1394113999325786,
+            1.314684499963187,
+            0.6264550999272629,
+            0.400670099933631,
+            0.6623606000328444,
+            0.9320718000177308
+          ],
+          "first_partial_s": [
+            0.9237336000194774,
+            2.1394113999325786,
+            1.314684499963187,
+            0.6264550999272629,
+            0.400670099933631,
+            0.6623606000328444,
+            0.9320718000177308
+          ],
+          "final_latency_s": [
+            1.5626453000353653,
+            1.8035563999786977,
+            0.8335963999619711,
+            1.0813355000223943,
+            0.9941544999834129,
+            1.0240047999424853,
+            0.7177530999993884
+          ],
+          "final_latency_after_hang_s": [
+            0.9626453000353653,
+            1.2035563999786976,
+            0.23359639996197112,
+            0.48133550002239434,
+            0.3941544999834129,
+            0.4240047999424853,
+            0.11775309999938843
+          ],
+          "partial_words": 27,
+          "partial_words_revised": 8,
+          "partial_prefix_ok": 4,
+          "partial_prefix_total": 7,
+          "worker": 0
+        },
+        {
+          "id": "svarah_malayalam_00226_281474976883951_f2089_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Malayalam",
+            "state": "Kerala",
+            "district": "Pathanamthitta",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Later, if we compare the English language to other languages such as Malayalam, Hindi, Tamil, etc",
+          "hypothesis": "Later. If we compare the English language To other languages such as Malayalam, Hindi, Tamil, etc.",
+          "ref_words": 16,
+          "sub": 0,
+          "del": 0,
+          "ins": 0,
+          "errors": 0,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.4,
+              "end": 0.9,
+              "forced": false
+            },
+            {
+              "start": 2.5,
+              "end": 4.3,
+              "forced": false
+            },
+            {
+              "start": 5.7,
+              "end": 10.4,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            1.66,
+            5.209,
+            12.004
+          ],
+          "final_words": [
+            1,
+            6,
+            9
+          ],
+          "finals_received": 3,
+          "partials_received": 8,
+          "ttfw_s": [
+            0.6942485999548808,
+            1.4983849000418559,
+            0.7280795999802647
+          ],
+          "first_partial_s": [
+            0.6942485999548808,
+            1.4983849000418559,
+            0.7280795999802647
+          ],
+          "final_latency_s": [
+            0.7595621999586001,
+            0.9091532000340523,
+            1.604403400002047
+          ],
+          "final_latency_after_hang_s": [
+            0.1595621999586001,
+            0.30915320003405233,
+            1.004403400002047
+          ],
+          "partial_words": 23,
+          "partial_words_revised": 13,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "svarah_malayalam_03654_281474976893601_f1422_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Malayalam",
+            "state": "Kerala",
+            "district": "Palakkad",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Show me my transaction history from 23-3-2022 to 2-8-2020",
+          "hypothesis": "Show me my transaction history from Twenty third. Three. Two thousand twenty two. Two. Eight two thousand twenty.",
+          "ref_words": 13,
+          "sub": 7,
+          "del": 0,
+          "ins": 5,
+          "errors": 12,
+          "utterances_expected": 7,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 2.8000000000000003,
+              "forced": false
+            },
+            {
+              "start": 3.8,
+              "end": 4.5,
+              "forced": false
+            },
+            {
+              "start": 5.1,
+              "end": 5.5,
+              "forced": false
+            },
+            {
+              "start": 6.1,
+              "end": 7.1,
+              "forced": false
+            },
+            {
+              "start": 7.9,
+              "end": 9.7,
+              "forced": false
+            },
+            {
+              "start": 10.3,
+              "end": 10.6,
+              "forced": false
+            },
+            {
+              "start": 11.3,
+              "end": 12.1,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.705,
+            5.28,
+            6.225,
+            7.855,
+            10.543,
+            11.293,
+            12.847
+          ],
+          "final_words": [
+            6,
+            2,
+            1,
+            4,
+            1,
+            1,
+            3
+          ],
+          "finals_received": 7,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.5599147999892011,
+            1.2953346999594944,
+            0.5599931999808181,
+            0.6339587999740619,
+            2.196871000016108,
+            0.8776001000544049,
+            0.4320891999406733
+          ],
+          "first_partial_s": [
+            0.5599147999892011,
+            1.2953346999594944,
+            0.5599931999808181,
+            0.6339587999740619,
+            2.196871000016108,
+            0.8776001000544049,
+            0.4320891999406733
+          ],
+          "final_latency_s": [
+            0.9047643000259993,
+            0.779574100044556,
+            0.7246645999839529,
+            0.754658599942923,
+            0.8434838000219322,
+            0.692743299971335,
+            0.7465869999490682
+          ],
+          "final_latency_after_hang_s": [
+            0.3047643000259993,
+            0.17957410004455598,
+            0.12466459998395296,
+            0.15465859994292297,
+            0.24348380002193226,
+            0.09274329997133501,
+            0.1465869999490682
+          ],
+          "partial_words": 19,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 4,
+          "partial_prefix_total": 7,
+          "worker": 0
+        },
+        {
+          "id": "svarah_malayalam_06468_281474976894903_f296_chu",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Malayalam",
+            "state": "Kerala",
+            "district": "Pathanamthitta",
+            "qualification": "Post Graduate",
+            "job": "Other",
+            "domain": "Financial Services (Banking and Insurance)",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Use my UAN number 387775845565 to generate EPFO passbook statement",
+          "hypothesis": "Use my UAM number three three eight seven. Seven five. Eight four four. To generate EPFO passbook statement.",
+          "ref_words": 10,
+          "sub": 2,
+          "del": 0,
+          "ins": 8,
+          "errors": 10,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 2.5,
+              "forced": false
+            },
+            {
+              "start": 3.1,
+              "end": 3.6,
+              "forced": false
+            },
+            {
+              "start": 4.2,
+              "end": 6.3999999999999995,
+              "forced": false
+            },
+            {
+              "start": 7.2,
+              "end": 7.8999999999999995,
+              "forced": false
+            },
+            {
+              "start": 8.5,
+              "end": 14.2,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.557,
+            4.311,
+            7.26,
+            8.649,
+            15.338
+          ],
+          "final_words": [
+            5,
+            3,
+            2,
+            3,
+            5
+          ],
+          "finals_received": 5,
+          "partials_received": 13,
+          "ttfw_s": [
+            0.5707128000212833,
+            0.755958400061354,
+            0.7242306000087408,
+            0.8330267000244929,
+            0.5998081000288948
+          ],
+          "first_partial_s": [
+            0.5707128000212833,
+            0.755958400061354,
+            0.7242306000087408,
+            0.8330267000244929,
+            0.5998081000288948
+          ],
+          "final_latency_s": [
+            1.0567101000342518,
+            0.7111664000898599,
+            0.860136900004,
+            0.7485618000151595,
+            1.1376888000639163
+          ],
+          "final_latency_after_hang_s": [
+            0.45671010003425183,
+            0.1111664000898599,
+            0.260136900004,
+            0.1485618000151595,
+            0.5376888000639163
+          ],
+          "partial_words": 20,
+          "partial_words_revised": 16,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "svarah_marathi_02487_281474976883763_f2304_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Marathi",
+            "state": "Maharashtra",
+            "district": "Raigad",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Though some steps have been taken to provide services to children with specific needs, even today, inclusive education is far behind. Not much attention is given to addressing the special needs and the problem starts with the admission itself. The services provided are of low grade and still may not be accessible to everyone.",
+          "hypothesis": "Though some steps have been taken to provide services to children with specific needs. Even today, inclusive education is far behind. Not not much attention is given to addressing the special needs. And the problem starts with the admission itself. The services provided are of low grade and still may not be accessible to every nyone.",
+          "ref_words": 54,
+          "sub": 1,
+          "del": 0,
+          "ins": 2,
+          "errors": 3,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 5.8999999999999995,
+              "forced": false
+            },
+            {
+              "start": 6.5,
+              "end": 9.7,
+              "forced": false
+            },
+            {
+              "start": 10.4,
+              "end": 15.799999999999999,
+              "forced": false
+            },
+            {
+              "start": 16.6,
+              "end": 19.3,
+              "forced": false
+            },
+            {
+              "start": 19.9,
+              "end": 26.700000000000003,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            7.493,
+            10.655,
+            16.935,
+            20.209,
+            27.947
+          ],
+          "final_words": [
+            14,
+            7,
+            11,
+            8,
+            16
+          ],
+          "finals_received": 5,
+          "partials_received": 29,
+          "ttfw_s": [
+            0.790331400046125,
+            1.6037053000181913,
+            0.50276300010737,
+            0.8287912000436322,
+            0.7075835000956445
+          ],
+          "first_partial_s": [
+            0.790331400046125,
+            1.6037053000181913,
+            0.50276300010737,
+            0.8287912000436322,
+            0.7075835000956445
+          ],
+          "final_latency_s": [
+            1.5931914000771945,
+            0.9552352000726394,
+            1.1351772000081848,
+            0.9087264000438147,
+            1.247128900093955
+          ],
+          "final_latency_after_hang_s": [
+            0.9931914000771945,
+            0.3552352000726394,
+            0.5351772000081848,
+            0.3087264000438147,
+            0.647128900093955
+          ],
+          "partial_words": 54,
+          "partial_words_revised": 9,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "svarah_marathi_02701_281474976899455_f1986_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Marathi",
+            "state": "Maharashtra",
+            "district": "Pune",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Swami in Malaguti days is my favorite literary character. I like him because he is a free bird and his curiosity is what drives him always. I like him his enthusiasm and innocence.",
+          "hypothesis": "Swameen Maliko Didez is my favourite literary character. Uh I like him uh because he's a free bird and his uh his curiosities uh mm what uh drives him always. I like him his enthusiasm. and innocence.",
+          "ref_words": 33,
+          "sub": 9,
+          "del": 1,
+          "ins": 5,
+          "errors": 15,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 3.7,
+              "forced": false
+            },
+            {
+              "start": 4.3,
+              "end": 10.9,
+              "forced": false
+            },
+            {
+              "start": 11.5,
+              "end": 17.3,
+              "forced": false
+            },
+            {
+              "start": 17.9,
+              "end": 18.700000000000003,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            4.668,
+            12.556,
+            18.747,
+            19.476
+          ],
+          "final_words": [
+            8,
+            16,
+            11,
+            2
+          ],
+          "finals_received": 4,
+          "partials_received": 17,
+          "ttfw_s": [
+            0.92328499997966,
+            0.8797203000169249,
+            1.6102929000044242,
+            1.5759250000352054
+          ],
+          "first_partial_s": [
+            0.92328499997966,
+            0.8797203000169249,
+            1.6102929000044242
+          ],
+          "final_latency_s": [
+            0.9684483999852089,
+            1.6559872000012543,
+            1.4469340999377884,
+            0.7759250000352012
+          ],
+          "final_latency_after_hang_s": [
+            0.36844839998520895,
+            1.0559872000012542,
+            0.8469340999377885,
+            0.17592500003520117
+          ],
+          "partial_words": 35,
+          "partial_words_revised": 19,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "svarah_marathi_03771_281474976883736_f2614_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Marathi",
+            "state": "Maharashtra",
+            "district": "Raigad",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "What is the status of my order with items GoodDiet Cold Pressed Coconut Oil , Fresho Signature Dry Fruit Munchies , Charvik Dry Fruit Ladoo",
+          "hypothesis": "What is the status of my order with items good diet, cold press, coconut oil? Fresh of Signature Dry Fruit Munchies, Charvik Dry Fruit Ladoo.",
+          "ref_words": 23,
+          "sub": 3,
+          "del": 0,
+          "ins": 2,
+          "errors": 5,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 5.6,
+              "forced": false
+            },
+            {
+              "start": 6.2,
+              "end": 10.299999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            6.718,
+            11.319
+          ],
+          "final_words": [
+            15,
+            10
+          ],
+          "finals_received": 2,
+          "partials_received": 10,
+          "ttfw_s": [
+            0.5637588000390679,
+            2.1193237000377847
+          ],
+          "first_partial_s": [
+            0.5637588000390679,
+            2.1193237000377847
+          ],
+          "final_latency_s": [
+            1.1180651000235233,
+            1.0191141000716026
+          ],
+          "final_latency_after_hang_s": [
+            0.5180651000235234,
+            0.41911410007160266
+          ],
+          "partial_words": 24,
+          "partial_words_revised": 8,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_nepali_01420_281474976883853_f3233_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "45-60",
+            "l1": "Nepali",
+            "state": "Meghalaya",
+            "district": "Ri Bhoi",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "The government of Meghalaya is trying its best to provide vocational training and skill development for the youths.",
+          "hypothesis": "The Government of Meghalaya. Uh is trying its best To provide a vocational training and skill development for the youths.",
+          "ref_words": 18,
+          "sub": 0,
+          "del": 0,
+          "ins": 2,
+          "errors": 2,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.7,
+              "end": 2.1,
+              "forced": false
+            },
+            {
+              "start": 3.7,
+              "end": 4.199999999999999,
+              "forced": false
+            },
+            {
+              "start": 4.9,
+              "end": 7.1,
+              "forced": false
+            },
+            {
+              "start": 9.1,
+              "end": 14.799999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            2.959,
+            5.0,
+            8.132,
+            16.356
+          ],
+          "final_words": [
+            4,
+            1,
+            4,
+            11
+          ],
+          "finals_received": 4,
+          "partials_received": 6,
+          "ttfw_s": [
+            1.076697300025262,
+            0.9846172000514342,
+            0.8887114000041034,
+            4.436499200039544
+          ],
+          "first_partial_s": [
+            1.076697300025262,
+            0.9846172000514342,
+            0.8887114000041034,
+            4.436499200039544
+          ],
+          "final_latency_s": [
+            0.8590072000864892,
+            0.7995708999922506,
+            1.0324818000430245,
+            1.5555801999755214
+          ],
+          "final_latency_after_hang_s": [
+            0.25900720008648925,
+            0.19957089999225064,
+            0.4324818000430245,
+            0.9555801999755215
+          ],
+          "partial_words": 19,
+          "partial_words_revised": 7,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "svarah_nepali_03998_281474976894746_f342_chu",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Nepali",
+            "state": "West Bengal",
+            "district": "Kalimpong",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Along with Nike Wood Blast Man Deodorant, please also remove Mortein Cockroach Killer Spray, Biotique Lip Balm, and Cinthol Deo Talc.",
+          "hypothesis": "Along with Nike Wood. Blastman Duodorant. Please also remove Morton cockrows killer spray. Biotech lip balm and synthal diotoc.",
+          "ref_words": 21,
+          "sub": 7,
+          "del": 2,
+          "ins": 0,
+          "errors": 9,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.5,
+              "end": 2.3000000000000003,
+              "forced": false
+            },
+            {
+              "start": 3.0,
+              "end": 4.8999999999999995,
+              "forced": false
+            },
+            {
+              "start": 5.5,
+              "end": 7.1,
+              "forced": false
+            },
+            {
+              "start": 7.7,
+              "end": 9.7,
+              "forced": false
+            },
+            {
+              "start": 10.3,
+              "end": 14.1,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.147,
+            5.751,
+            7.893,
+            10.681,
+            15.109
+          ],
+          "final_words": [
+            4,
+            2,
+            3,
+            4,
+            6
+          ],
+          "finals_received": 5,
+          "partials_received": 15,
+          "ttfw_s": [
+            0.6120292000705376,
+            0.545000100042671,
+            0.6001063000876456,
+            0.75230620005168,
+            0.744421800062991
+          ],
+          "first_partial_s": [
+            0.6120292000705376,
+            0.545000100042671,
+            0.6001063000876456,
+            0.75230620005168,
+            0.744421800062991
+          ],
+          "final_latency_s": [
+            0.8473543000174684,
+            0.8506440000142907,
+            0.7925353999948133,
+            0.981416200008244,
+            1.0092400000197816
+          ],
+          "final_latency_after_hang_s": [
+            0.2473543000174684,
+            0.25064400001429077,
+            0.19253539999481328,
+            0.38141620000824406,
+            0.40924000001978167
+          ],
+          "partial_words": 19,
+          "partial_words_revised": 15,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "svarah_nepali_04984_281474976883853_f3233_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "45-60",
+            "l1": "Nepali",
+            "state": "Meghalaya",
+            "district": "Ri Bhoi",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "And overall, the scenario is said to be optimistic. That's all.",
+          "hypothesis": "And overall, the scenario is uh Said to be Optimistic? That's all.",
+          "ref_words": 11,
+          "sub": 0,
+          "del": 0,
+          "ins": 1,
+          "errors": 1,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.7,
+              "end": 3.1,
+              "forced": false
+            },
+            {
+              "start": 4.4,
+              "end": 5.3999999999999995,
+              "forced": false
+            },
+            {
+              "start": 8.5,
+              "end": 10.2,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            4.262,
+            6.216,
+            11.231
+          ],
+          "final_words": [
+            6,
+            3,
+            3
+          ],
+          "finals_received": 3,
+          "partials_received": 5,
+          "ttfw_s": [
+            0.9644319000188262,
+            1.3353819999843832,
+            1.071010500076227
+          ],
+          "first_partial_s": [
+            0.9644319000188262,
+            1.3353819999843832,
+            1.071010500076227
+          ],
+          "final_latency_s": [
+            1.1619463000446557,
+            0.8158854000736033,
+            1.0305706000188373
+          ],
+          "final_latency_after_hang_s": [
+            0.5619463000446557,
+            0.21588540007360335,
+            0.4305706000188373
+          ],
+          "partial_words": 17,
+          "partial_words_revised": 8,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "svarah_odia_00139_281474976899793_f1792_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Odia",
+            "state": "Odisha",
+            "district": "Cuttack",
+            "qualification": "Graduate",
+            "job": "Other",
+            "domain": "Healthcare (Medical &amp; Pharma)",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "It makes our life so easy and I don't need to make a note on paper and pen so I can make the presentations. It makes it more easy.",
+          "hypothesis": "It makes our life so easy and I don't need to make a note on paper and pen so I can make the presentation. Yeah.",
+          "ref_words": 29,
+          "sub": 2,
+          "del": 4,
+          "ins": 0,
+          "errors": 6,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 10.4,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.88,
+            11.256
+          ],
+          "final_words": [
+            24,
+            1
+          ],
+          "finals_received": 2,
+          "partials_received": 8,
+          "ttfw_s": [
+            1.077749199909158,
+            1.2476723999483514
+          ],
+          "first_partial_s": [
+            1.077749199909158,
+            1.2476723999483514
+          ],
+          "final_latency_s": [
+            0.7798251999542121,
+            0.8556500999489796
+          ],
+          "final_latency_after_hang_s": [
+            0.1798251999542121,
+            0.2556500999489796
+          ],
+          "partial_words": 24,
+          "partial_words_revised": 5,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_odia_02272_281474976897398_f3281_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "18-30",
+            "l1": "Odia",
+            "state": "Odisha",
+            "district": "Sundergarh",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "like just going around on a drive around the scenic spots in the towns because because they should be able to roam around the town like",
+          "hypothesis": "Like Um Just going around on a drive around the uh uh the sp scenic spots in the towns because uh because they should be able to uh roam around the town like",
+          "ref_words": 26,
+          "sub": 0,
+          "del": 0,
+          "ins": 7,
+          "errors": 7,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.4,
+              "end": 0.7999999999999999,
+              "forced": false
+            },
+            {
+              "start": 1.9,
+              "end": 2.6,
+              "forced": false
+            },
+            {
+              "start": 5.4,
+              "end": 11.299999999999999,
+              "forced": true
+            },
+            {
+              "start": 11.3,
+              "end": 16.1,
+              "forced": false
+            },
+            {
+              "start": 16.9,
+              "end": 18.700000000000003,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            1.549,
+            3.363,
+            12.491,
+            17.581,
+            19.542
+          ],
+          "final_words": [
+            1,
+            1,
+            10,
+            15,
+            6
+          ],
+          "finals_received": 5,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.706592099997215,
+            0.8492258000420407,
+            0.6297149000689384,
+            2.3661284000147127,
+            0.8114737000083565
+          ],
+          "first_partial_s": [
+            0.706592099997215,
+            0.8492258000420407,
+            0.6297149000689384,
+            2.3661284000147127,
+            0.8114737000083565
+          ],
+          "final_latency_s": [
+            0.7494084000820295,
+            0.7630569000961258,
+            1.1912938000634323,
+            1.4809724000282571,
+            0.8423042000038521
+          ],
+          "final_latency_after_hang_s": [
+            0.1494084000820295,
+            0.16305690009612583,
+            0.5912938000634324,
+            0.8809724000282572,
+            0.2423042000038521
+          ],
+          "partial_words": 32,
+          "partial_words_revised": 20,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "svarah_odia_02839_281474976897399_f2215_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "18-30",
+            "l1": "Odia",
+            "state": "Odisha",
+            "district": "Sundergarh",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "In Sundargarh, Rautkala used to be an education hub until the 90s and until facilities started coming up in Bhubaneswar, there were coaching centers in Kualnagar for engineering, for medical.",
+          "hypothesis": "In Sundargad Raukla used to be a an education hub until the nineties and until uh facilities started coming up in Bhavneshore. There were coaching centers in Kuelnagar for engineering, for medical.",
+          "ref_words": 30,
+          "sub": 5,
+          "del": 0,
+          "ins": 2,
+          "errors": 7,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.7,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.727,
+            12.691
+          ],
+          "final_words": [
+            22,
+            10
+          ],
+          "finals_received": 2,
+          "partials_received": 12,
+          "ttfw_s": [
+            0.9216710000298918,
+            1.0524971999460835
+          ],
+          "first_partial_s": [
+            0.9216710000298918,
+            1.0524971999460835
+          ],
+          "final_latency_s": [
+            0.6269941000267867,
+            0.9905595000134788
+          ],
+          "final_latency_after_hang_s": [
+            0.026994100026786705,
+            0.39055950001347883
+          ],
+          "partial_words": 28,
+          "partial_words_revised": 10,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_punjabi_00253_281474976893747_f1552_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Punjabi",
+            "state": "Punjab",
+            "district": "Mansa",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Government",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Show the transaction details of my APY account with PRAN number 288614536785",
+          "hypothesis": "Show the transaction details of my APY account with PRA number two eight eight six one four. four five three six seven eight five.",
+          "ref_words": 12,
+          "sub": 2,
+          "del": 0,
+          "ins": 12,
+          "errors": 14,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 10.6,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            9.068,
+            11.488
+          ],
+          "final_words": [
+            17,
+            7
+          ],
+          "finals_received": 2,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.4613790999632329,
+            1.4060163999442015
+          ],
+          "first_partial_s": [
+            0.4613790999632329,
+            1.4060163999442015
+          ],
+          "final_latency_s": [
+            0.9681225999724123,
+            0.8883461999706928
+          ],
+          "final_latency_after_hang_s": [
+            0.36812259997241237,
+            0.2883461999706928
+          ],
+          "partial_words": 22,
+          "partial_words_revised": 8,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_punjabi_02511_281474976884179_f1751_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "60+",
+            "l1": "Punjabi",
+            "state": "Punjab",
+            "district": "Rupnagar",
+            "qualification": "Graduate",
+            "job": "Other",
+            "domain": "Government",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "We can manage in all the languages, and the interaction is very good, and coexistence is very good because of the following of each other's festivals and other things, et cetera.",
+          "hypothesis": "We can manage In all the languages and the uh Interaction is very good and coexistence is very good because of the following of each other's uh festivals and other things, etcetera.",
+          "ref_words": 31,
+          "sub": 1,
+          "del": 1,
+          "ins": 2,
+          "errors": 4,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 1.3,
+              "forced": false
+            },
+            {
+              "start": 2.3,
+              "end": 5.1,
+              "forced": false
+            },
+            {
+              "start": 6.3,
+              "end": 11.799999999999999,
+              "forced": false
+            },
+            {
+              "start": 12.5,
+              "end": 15.2,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            2.081,
+            6.156,
+            12.97,
+            16.104
+          ],
+          "final_words": [
+            3,
+            7,
+            16,
+            6
+          ],
+          "finals_received": 4,
+          "partials_received": 15,
+          "ttfw_s": [
+            0.45666609993204477,
+            1.959397999965586,
+            0.6438370999414476,
+            1.0476478999480605
+          ],
+          "first_partial_s": [
+            0.45666609993204477,
+            1.959397999965586,
+            0.6438370999414476,
+            1.0476478999480605
+          ],
+          "final_latency_s": [
+            0.7808351000305265,
+            1.0564872999442745,
+            1.1695475000189628,
+            0.9041812999174006
+          ],
+          "final_latency_after_hang_s": [
+            0.1808351000305265,
+            0.4564872999442745,
+            0.5695475000189628,
+            0.3041812999174006
+          ],
+          "partial_words": 32,
+          "partial_words_revised": 7,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "svarah_punjabi_05227_281474976884174_f1972_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "60+",
+            "l1": "Punjabi",
+            "state": "Punjab",
+            "district": "Rupnagar",
+            "qualification": "Graduate",
+            "job": "Other",
+            "domain": "Government",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "And then when I got married, I gave all my stamps to my children. I don't know whether they kept it or lost them somewhere. But then I had that sense of fulfillment of collection. Similar thing is there. I have got good collection of coins from various countries.",
+          "hypothesis": "And then When when I got married, I gave all my stamps to my children. I don't know whether they kept it or lost them somewhere, but then I had that sense of fulfillment of collection. Similar thing is there, I have got good collection of coins from various countries.",
+          "ref_words": 49,
+          "sub": 0,
+          "del": 0,
+          "ins": 1,
+          "errors": 1,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 1.2000000000000002,
+              "forced": false
+            },
+            {
+              "start": 2.4,
+              "end": 8.299999999999999,
+              "forced": false
+            },
+            {
+              "start": 8.9,
+              "end": 17.0,
+              "forced": true
+            },
+            {
+              "start": 17.2,
+              "end": 22.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            1.98,
+            9.502,
+            17.862,
+            23.094
+          ],
+          "final_words": [
+            2,
+            13,
+            21,
+            14
+          ],
+          "finals_received": 4,
+          "partials_received": 19,
+          "ttfw_s": [
+            0.47300129998475315,
+            0.5479790000477807,
+            1.053826499986462,
+            1.7549763000104583
+          ],
+          "first_partial_s": [
+            0.47300129998475315,
+            0.5479790000477807,
+            1.053826499986462,
+            1.7549763000104583
+          ],
+          "final_latency_s": [
+            0.7804343000287188,
+            1.2021389999892573,
+            0.8622713000513613,
+            1.0942840999923646
+          ],
+          "final_latency_after_hang_s": [
+            0.18043430002871885,
+            0.6021389999892574,
+            0.26227130005136134,
+            0.49428409999236467
+          ],
+          "partial_words": 48,
+          "partial_words_revised": 19,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "svarah_sindhi_00186_281474976896763_f1815_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Sindhi",
+            "state": "Gujarat",
+            "district": "Ahmedabad",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Information and Media",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "I am totally quiet. So that is also an indicator of my happiness and sadness or something, you know. Something wrong has happened. This is how it goes.",
+          "hypothesis": "I am totally quiet. So that is also an indicator of m the my happiness and sadness or something, you know, something wrong. has happened. This is how it goes.",
+          "ref_words": 28,
+          "sub": 0,
+          "del": 0,
+          "ins": 2,
+          "errors": 2,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 9.799999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.875,
+            10.621
+          ],
+          "final_words": [
+            23,
+            7
+          ],
+          "finals_received": 2,
+          "partials_received": 10,
+          "ttfw_s": [
+            0.5625421999720857,
+            1.8971023999387402
+          ],
+          "first_partial_s": [
+            0.5625421999720857,
+            1.8971023999387402
+          ],
+          "final_latency_s": [
+            0.7746194000123072,
+            0.8211462999926891
+          ],
+          "final_latency_after_hang_s": [
+            0.17461940001230725,
+            0.2211462999926891
+          ],
+          "partial_words": 24,
+          "partial_words_revised": 2,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_sindhi_03349_281474976896761_f1924_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Sindhi",
+            "state": "Gujarat",
+            "district": "Ahmedabad",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Information and Media",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "my other five classmates were giving audition for a dance competition which went really well. And we got a standing ovation for that as well.",
+          "hypothesis": "My other five classmates were uh giving audition for a dance competition which went really well and we were uh got a a standing aviation for that as well.",
+          "ref_words": 25,
+          "sub": 1,
+          "del": 0,
+          "ins": 4,
+          "errors": 5,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 10.6,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.839,
+            11.694
+          ],
+          "final_words": [
+            20,
+            9
+          ],
+          "finals_received": 2,
+          "partials_received": 8,
+          "ttfw_s": [
+            0.5562662999145687,
+            3.594371599936858
+          ],
+          "first_partial_s": [
+            0.5562662999145687
+          ],
+          "final_latency_s": [
+            0.7388294000178579,
+            1.0943715999368582
+          ],
+          "final_latency_after_hang_s": [
+            0.13882940001785793,
+            0.4943715999368582
+          ],
+          "partial_words": 15,
+          "partial_words_revised": 1,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 1,
+          "worker": 0
+        },
+        {
+          "id": "svarah_sindhi_04981_281474976896729_f1038_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Sindhi",
+            "state": "Gujarat",
+            "district": "Ahmedabad",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Information and Media",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "I want to login to EPFO portal using my registered phone number 89397789229 and fetch my passbook statement for PF account with UAN number 295546922497",
+          "hypothesis": "I want to log into EPFO portal using my register phone number eight nine three nine seven seven eight nine two two nine and following. Fetch my passbook statement for PF account with UAN number two nine five four six nine two two four nine seven.",
+          "ref_words": 25,
+          "sub": 5,
+          "del": 0,
+          "ins": 21,
+          "errors": 26,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            }
+          ],
+          "final_times_s": [
+            8.939,
+            17.349
+          ],
+          "final_words": [
+            25,
+            21
+          ],
+          "finals_received": 2,
+          "partials_received": 17,
+          "ttfw_s": [
+            0.4651378999464214,
+            1.2743677999591458
+          ],
+          "first_partial_s": [
+            0.4651378999464214,
+            1.2743677999591458
+          ],
+          "final_latency_s": [
+            0.8385132999159399,
+            1.1494647999759735
+          ],
+          "final_latency_after_hang_s": [
+            0.23851329991593995,
+            0.5494647999759735
+          ],
+          "partial_words": 39,
+          "partial_words_revised": 12,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_tamil_01242_281474976886814_f1691_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Tamil",
+            "state": "Tamil Nadu",
+            "district": "Virudhunagar",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "We can say that it was, you know, the chillness and the cold there was very much unexpected and unusual too",
+          "hypothesis": "We can say that it was uh you know, the uh the chillness and uh the cold there was very much unexpected. Expected and unusual too.",
+          "ref_words": 21,
+          "sub": 0,
+          "del": 0,
+          "ins": 5,
+          "errors": 5,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 10.1,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.779,
+            10.952
+          ],
+          "final_words": [
+            22,
+            4
+          ],
+          "finals_received": 2,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.9131728999316693,
+            1.114929300011136
+          ],
+          "first_partial_s": [
+            0.9131728999316693,
+            1.114929300011136
+          ],
+          "final_latency_s": [
+            0.6786674000089992,
+            0.8519220999209214
+          ],
+          "final_latency_after_hang_s": [
+            0.07866740000899919,
+            0.2519220999209214
+          ],
+          "partial_words": 21,
+          "partial_words_revised": 2,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_tamil_03855_281474976886823_f1784_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Tamil",
+            "state": "Tamil Nadu",
+            "district": "Virudhunagar",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "like a thought that the person speaking English were superior and the person who conversed in the native language or used the native language were considered inferior among the other English speaking people",
+          "hypothesis": "like uh a thought that uh the person speaking english were superior and the person who who converse in the native language or use the native language are considered inferior among the other s uh English speaking people.",
+          "ref_words": 33,
+          "sub": 3,
+          "del": 0,
+          "ins": 5,
+          "errors": 8,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            }
+          ],
+          "final_times_s": [
+            8.898,
+            17.312
+          ],
+          "final_words": [
+            16,
+            22
+          ],
+          "finals_received": 2,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.5626956999767572,
+            6.227665799995885
+          ],
+          "first_partial_s": [
+            0.5626956999767572,
+            6.227665799995885
+          ],
+          "final_latency_s": [
+            0.7975134999491278,
+            1.1123789000092046
+          ],
+          "final_latency_after_hang_s": [
+            0.1975134999491278,
+            0.5123789000092046
+          ],
+          "partial_words": 29,
+          "partial_words_revised": 22,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_tamil_06305_281474976886911_f847_chu",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Tamil",
+            "state": "Tamil Nadu",
+            "district": "Chennai",
+            "qualification": "Post Graduate",
+            "job": "Part Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Show the list of all Govt-Aided institutes which are approved of AICTE in the academic year 2020 to 2021.",
+          "hypothesis": "Show the list of all government aided institutes which are approved of AICTE. In the academic year 2020 to 2021.",
+          "ref_words": 20,
+          "sub": 1,
+          "del": 0,
+          "ins": 0,
+          "errors": 1,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 13.2,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.911,
+            14.204
+          ],
+          "final_words": [
+            13,
+            7
+          ],
+          "finals_received": 2,
+          "partials_received": 13,
+          "ttfw_s": [
+            0.5583492999430746,
+            1.9380726000294093
+          ],
+          "first_partial_s": [
+            0.5583492999430746,
+            1.9380726000294093
+          ],
+          "final_latency_s": [
+            0.8110884999390695,
+            1.0044692999916158
+          ],
+          "final_latency_after_hang_s": [
+            0.21108849993906953,
+            0.40446929999161585
+          ],
+          "partial_words": 23,
+          "partial_words_revised": 10,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_telugu_00331_281474976886701_f1840_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "45-60",
+            "l1": "Telugu",
+            "state": "Odisha",
+            "district": "Sambalpur",
+            "qualification": "Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Actually, there's a book called a boy in the striped pajamas and I once read the book, but I didn't like it that much. But then I got to see the movie which came in the YouTube. And then once I saw the movie, I was so impressed by it and I went back to read the book again. And that is when I started liking it so much.",
+          "hypothesis": "Uh-huh. Actually there's a book called A Boy in the Striped Pajamas. And um I once read the book but I didn't like it that much. But then I got to see the movie which uh came in uh the uh YouTube and then uh once I saw the movie I was so uh impressed by it And uh I went back to read the book again and that is when I started liking it so much.",
+          "ref_words": 69,
+          "sub": 0,
+          "del": 0,
+          "ins": 9,
+          "errors": 9,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 3.8000000000000003,
+              "forced": false
+            },
+            {
+              "start": 4.6,
+              "end": 9.2,
+              "forced": false
+            },
+            {
+              "start": 9.9,
+              "end": 15.6,
+              "forced": false
+            },
+            {
+              "start": 16.2,
+              "end": 21.8,
+              "forced": false
+            },
+            {
+              "start": 22.4,
+              "end": 28.900000000000002,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            4.789,
+            10.262,
+            16.955,
+            23.072,
+            30.222
+          ],
+          "final_words": [
+            13,
+            10,
+            18,
+            17,
+            20
+          ],
+          "finals_received": 5,
+          "partials_received": 28,
+          "ttfw_s": [
+            0.9048335999948904,
+            0.5034507000586022,
+            0.8592870000516992,
+            1.358963600080461,
+            1.2844572999980315
+          ],
+          "first_partial_s": [
+            0.9048335999948904,
+            0.5034507000586022,
+            0.8592870000516992,
+            1.358963600080461,
+            1.2844572999980315
+          ],
+          "final_latency_s": [
+            0.9889761000405994,
+            1.0622383000561975,
+            1.3550999000202868,
+            1.2723024000180878,
+            1.3222239000257083
+          ],
+          "final_latency_after_hang_s": [
+            0.38897610004059946,
+            0.4622383000561975,
+            0.7550999000202868,
+            0.6723024000180878,
+            0.7222239000257084
+          ],
+          "partial_words": 69,
+          "partial_words_revised": 31,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "svarah_telugu_00871_281474976886979_f1251_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "45-60",
+            "l1": "Telugu",
+            "state": "Andhra Pradesh",
+            "district": "Guntur",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "For people of age group 18+ years is there any Free vaccination centre available in district Jaipur which provides First Dose",
+          "hypothesis": "For people of age group about 18 years, is there any free vaccination center available in District Jaipur? which provides first dose",
+          "ref_words": 21,
+          "sub": 1,
+          "del": 0,
+          "ins": 1,
+          "errors": 2,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.6,
+              "end": 10.7,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.802,
+            11.678
+          ],
+          "final_words": [
+            18,
+            4
+          ],
+          "finals_received": 2,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.9106807999312878,
+            0.6401883999118585
+          ],
+          "first_partial_s": [
+            0.9106807999312878,
+            0.6401883999118585
+          ],
+          "final_latency_s": [
+            0.7021349000046033,
+            0.9778117999201648
+          ],
+          "final_latency_after_hang_s": [
+            0.10213490000460335,
+            0.3778117999201648
+          ],
+          "partial_words": 19,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_telugu_02772_281474976897600_f2042_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "45-60",
+            "l1": "Telugu",
+            "state": "Telangana",
+            "district": "Hyderabad",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Emotions are at the very heart of my singing. I prefer singing alone and that's when the emotions are better expressed. And I do not actually do anything specifically to express those, they automatically come out because I understand the song, the meaning of the song, and the rhythm and the power of that song.",
+          "hypothesis": "Emotions are at the very heart of my singing. I prefer singing alone and that's when the emotions are better expressed. And I do not actually do anything specifically to express those, they automatically come out. Because I understand the song, the meaning of the song and the rhythm. and the power of that song.",
+          "ref_words": 55,
+          "sub": 0,
+          "del": 0,
+          "ins": 0,
+          "errors": 0,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 16.2,
+              "end": 20.1,
+              "forced": false
+            },
+            {
+              "start": 20.7,
+              "end": 22.900000000000002,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.854,
+            17.126,
+            21.137,
+            23.762
+          ],
+          "final_words": [
+            21,
+            15,
+            13,
+            6
+          ],
+          "finals_received": 4,
+          "partials_received": 22,
+          "ttfw_s": [
+            0.9392975000198931,
+            1.189131299941801,
+            1.3853293999098248,
+            0.5905220999382443
+          ],
+          "first_partial_s": [
+            0.9392975000198931,
+            1.189131299941801,
+            1.3853293999098248,
+            0.5905220999382443
+          ],
+          "final_latency_s": [
+            0.7537333999993283,
+            0.9258534999797092,
+            1.0367072999710203,
+            0.8621904999250525
+          ],
+          "final_latency_after_hang_s": [
+            0.15373339999932834,
+            0.32585349997970925,
+            0.4367072999710203,
+            0.2621904999250525
+          ],
+          "partial_words": 50,
+          "partial_words_revised": 6,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "svarah_urdu_01483_281474976900644_f2038_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Urdu",
+            "state": "Gujarat",
+            "district": "Ahmedabad",
+            "qualification": "Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "he has written such a thing that when a person reads and gets to know the reality, his heart fills with hope, and all of the sorrows and grief leave and go.",
+          "hypothesis": "He has written such a thing that when a person reads And get to know the reality. His heart fills with hope. Um All of the sorrows and grief Leave and go.",
+          "ref_words": 32,
+          "sub": 2,
+          "del": 0,
+          "ins": 0,
+          "errors": 2,
+          "utterances_expected": 6,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 3.7,
+              "forced": false
+            },
+            {
+              "start": 4.7,
+              "end": 7.199999999999999,
+              "forced": false
+            },
+            {
+              "start": 7.9,
+              "end": 10.299999999999999,
+              "forced": false
+            },
+            {
+              "start": 11.2,
+              "end": 12.0,
+              "forced": false
+            },
+            {
+              "start": 12.7,
+              "end": 14.799999999999999,
+              "forced": false
+            },
+            {
+              "start": 15.4,
+              "end": 17.400000000000002,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            4.671,
+            8.116,
+            11.42,
+            12.766,
+            15.737,
+            18.269
+          ],
+          "final_words": [
+            11,
+            6,
+            5,
+            1,
+            6,
+            3
+          ],
+          "finals_received": 6,
+          "partials_received": 15,
+          "ttfw_s": [
+            1.1671377999009565,
+            0.5662022999720646,
+            0.4964093999238681,
+            0.5381921999622143,
+            1.3880734999664135,
+            0.6469645999837663
+          ],
+          "first_partial_s": [
+            1.1671377999009565,
+            0.5662022999720646,
+            0.4964093999238681,
+            0.5381921999622143,
+            1.3880734999664135,
+            0.6469645999837663
+          ],
+          "final_latency_s": [
+            0.9713770999340339,
+            0.916252499981784,
+            1.1200731999007996,
+            0.765531999990344,
+            0.9372199998935695,
+            0.8687477999133968
+          ],
+          "final_latency_after_hang_s": [
+            0.3713770999340339,
+            0.31625249998178406,
+            0.5200731999007996,
+            0.16553199999034407,
+            0.33721999989356954,
+            0.2687477999133968
+          ],
+          "partial_words": 31,
+          "partial_words_revised": 6,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 6,
+          "worker": 0
+        },
+        {
+          "id": "svarah_urdu_01750_281474976902147_f2503_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "45-60",
+            "l1": "Urdu",
+            "state": "Maharashtra",
+            "district": "Satara",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Can you transfer Rs. 9000 to my 66299326943182 in Chhattisgarh Rajya Gramin Bank",
+          "hypothesis": "Can you transfer Rs 9000 to my 66293-26943-1840? two in Chattisgar Raja Grahin Bank",
+          "ref_words": 13,
+          "sub": 4,
+          "del": 0,
+          "ins": 3,
+          "errors": 7,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.4,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.2,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.839,
+            12.132
+          ],
+          "final_words": [
+            10,
+            6
+          ],
+          "finals_received": 2,
+          "partials_received": 5,
+          "ttfw_s": [
+            0.7371140000410378,
+            1.8338560999603946
+          ],
+          "first_partial_s": [
+            0.7371140000410378,
+            1.8338560999603946
+          ],
+          "final_latency_s": [
+            0.7387355000013489,
+            0.9316778999753303
+          ],
+          "final_latency_after_hang_s": [
+            0.13873550000134893,
+            0.33167789997533037
+          ],
+          "partial_words": 14,
+          "partial_words_revised": 11,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_urdu_02703_281474976889218_f1884_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Urdu",
+            "state": "Karnataka",
+            "district": "Bangalore Urban",
+            "qualification": "Post Graduate",
+            "job": "Part Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Indeed literature is genius. It is rightly said that knowledge beyond one's capacity is sheer destruction. Anything in abundance is waste. Knowledge which doesn't help us grow to be a better person is blindness",
+          "hypothesis": "Indeed, literature is genius. It is rightly said that knowledge beyond one's capacity is sheer destruction in which Anything in abundance is waste. knowledge which doesn't help us grow to be a better person is blindness.",
+          "ref_words": 34,
+          "sub": 0,
+          "del": 0,
+          "ins": 2,
+          "errors": 2,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 2.1,
+              "forced": false
+            },
+            {
+              "start": 2.8,
+              "end": 6.8999999999999995,
+              "forced": false
+            },
+            {
+              "start": 7.6,
+              "end": 8.9,
+              "forced": false
+            },
+            {
+              "start": 9.6,
+              "end": 13.7,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            2.948,
+            7.933,
+            9.846,
+            14.724
+          ],
+          "final_words": [
+            4,
+            14,
+            5,
+            13
+          ],
+          "finals_received": 4,
+          "partials_received": 14,
+          "ttfw_s": [
+            0.8153556000208482,
+            0.7391030000755565,
+            0.7609577000606809,
+            0.6311003999784592
+          ],
+          "first_partial_s": [
+            0.8153556000208482,
+            0.7391030000755565,
+            0.7609577000606809,
+            0.6311003999784592
+          ],
+          "final_latency_s": [
+            0.847683100006543,
+            1.0331166000338277,
+            0.9455937000690025,
+            1.0244950999738656
+          ],
+          "final_latency_after_hang_s": [
+            0.24768310000654303,
+            0.4331166000338277,
+            0.3455937000690025,
+            0.4244950999738656
+          ],
+          "partial_words": 35,
+          "partial_words_revised": 12,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 4,
+          "worker": 0
+        }
+      ]
+    }
+  ]
+}

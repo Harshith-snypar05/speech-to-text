@@ -1,0 +1,1061 @@
+{
+  "meta": {
+    "when": "2026-11-06T23:52:09",
+    "host": "Windows-11-10.0.26300-SP0",
+    "python": "3.13.5",
+    "url": "ws://localhost:8768/?role=speaker",
+    "note": "B: STT_ADAPTIVE_NOISE_FLOOR=1 mult=2.5",
+    "chunk_ms": 100,
+    "tail_s": 1.5,
+    "hang_s_assumed": 0.6,
+    "warmup": 1,
+    "manifest": "benchmarks/corpus_smoke/manifest.json",
+    "caveat": "latency = audio captured -> text received by this client; excludes mic, UI, tunnel"
+  },
+  "levels": [
+    {
+      "concurrency": 1,
+      "wall_s": 50.04355239868164,
+      "errors": [],
+      "resources": {
+        "gpu_mem_mb": {
+          "mean": 103.0,
+          "max": 103.0
+        },
+        "gpu_util": {
+          "mean": 0.0,
+          "max": 0.0
+        },
+        "relay_cpu": {
+          "mean": 167.0772727272727,
+          "max": 383.5
+        },
+        "relay_rss_mb": {
+          "mean": 747.8620159999999,
+          "max": 780.632064
+        },
+        "sys_cpu": {
+          "mean": 10.125,
+          "max": 18.7
+        },
+        "_samples": 44
+      },
+      "summary": {
+        "clips": 4,
+        "wer": {
+          "wer": 0.09090909090909091,
+          "ci95": null,
+          "clips": 4,
+          "ref_words": 88
+        },
+        "ttfw_s": {
+          "n": 10,
+          "p50": 0.7876514500239867,
+          "p95": 1.1128273550129966,
+          "max": 1.1175649999408055,
+          "mean": 0.7812153000175023
+        },
+        "first_partial_s": {
+          "n": 10,
+          "p50": 0.7876514500239867,
+          "p95": 1.1128273550129966,
+          "max": 1.1175649999408055,
+          "mean": 0.7812153000175023
+        },
+        "final_latency_s": {
+          "n": 10,
+          "p50": 0.8630614499910734,
+          "p95": 0.9765480600215963,
+          "max": 1.0233567000366754,
+          "mean": 0.8197436900110917
+        },
+        "final_latency_after_hang_s": {
+          "n": 10,
+          "p50": 0.2630614499910734,
+          "p95": 0.37654806002159635,
+          "max": 0.42335670003667547,
+          "mean": 0.2197436900110917
+        },
+        "partial_revision_rate": 0.2191780821917808,
+        "partial_prefix_stable_rate": 0.3,
+        "segment_mismatch_clips": 0,
+        "hang_s_assumed": 0.6,
+        "wer_by_tag": {
+          "noise": {
+            "clean": {
+              "wer": 0.0,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 22
+            },
+            "snr-5dB_white": {
+              "wer": 0.2727272727272727,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 22
+            },
+            "snr0dB_white": {
+              "wer": 0.09090909090909091,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 22
+            },
+            "snr10dB_white": {
+              "wer": 0.0,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 22
+            }
+          },
+          "speed": {
+            "1.0": {
+              "wer": 0.09090909090909091,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 88
+            }
+          },
+          "speaker": {
+            "jfk": {
+              "wer": 0.09090909090909091,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 88
+            }
+          },
+          "accent": {
+            "us_english": {
+              "wer": 0.09090909090909091,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 88
+            }
+          }
+        }
+      },
+      "clips": [
+        {
+          "id": "jfk",
+          "tags": {
+            "noise": "clean",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans. Ask not What your country can do for you. Ask what you can do for your country.",
+          "ref_words": 22,
+          "sub": 0,
+          "del": 0,
+          "ins": 0,
+          "errors": 0,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 2.2,
+              "forced": false
+            },
+            {
+              "start": 3.2,
+              "end": 4.3,
+              "forced": false
+            },
+            {
+              "start": 5.4,
+              "end": 7.5,
+              "forced": false
+            },
+            {
+              "start": 8.2,
+              "end": 10.2,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.04,
+            5.083,
+            8.386,
+            11.223
+          ],
+          "final_words": [
+            5,
+            2,
+            7,
+            8
+          ],
+          "finals_received": 4,
+          "partials_received": 10,
+          "ttfw_s": [
+            0.8038086999906227,
+            0.8891248000552876,
+            0.42966030004899913,
+            0.7714942000573508
+          ],
+          "first_partial_s": [
+            0.8038086999906227,
+            0.8891248000552876,
+            0.42966030004899913,
+            0.7714942000573508
+          ],
+          "final_latency_s": [
+            0.8396747000049798,
+            0.7832638000138106,
+            0.886448199977167,
+            1.0233567000366754
+          ],
+          "final_latency_after_hang_s": [
+            0.2396747000049798,
+            0.1832638000138106,
+            0.286448199977167,
+            0.42335670003667547
+          ],
+          "partial_words": 21,
+          "partial_words_revised": 3,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "jfk__snr10",
+          "tags": {
+            "noise": "snr10dB_white",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans, ask not what your country can do for you. Ask what you can do for your country.",
+          "ref_words": 22,
+          "sub": 0,
+          "del": 0,
+          "ins": 0,
+          "errors": 0,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.697,
+            11.916
+          ],
+          "final_words": [
+            14,
+            8
+          ],
+          "finals_received": 2,
+          "partials_received": 10,
+          "ttfw_s": [
+            0.5512264999561012,
+            1.0182903000153605
+          ],
+          "first_partial_s": [
+            0.5512264999561012,
+            1.0182903000153605
+          ],
+          "final_latency_s": [
+            0.5969429999589924,
+            0.9159146000165492
+          ],
+          "final_latency_after_hang_s": [
+            -0.003057000041007618,
+            0.31591460001654925
+          ],
+          "partial_words": 18,
+          "partial_words_revised": 2,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "jfk__snr0",
+          "tags": {
+            "noise": "snr0dB_white",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans, ask not what your country can do to you. Care what you can do for your country.",
+          "ref_words": 22,
+          "sub": 2,
+          "del": 0,
+          "ins": 0,
+          "errors": 2,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.756,
+            11.91
+          ],
+          "final_words": [
+            14,
+            8
+          ],
+          "finals_received": 2,
+          "partials_received": 10,
+          "ttfw_s": [
+            0.5618116999976337,
+            1.10703690010123
+          ],
+          "first_partial_s": [
+            0.5618116999976337,
+            1.10703690010123
+          ],
+          "final_latency_s": [
+            0.6560316000599418,
+            0.9095000000670552
+          ],
+          "final_latency_after_hang_s": [
+            0.05603160005994179,
+            0.30950000006705525
+          ],
+          "partial_words": 18,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "jfk__snr-5",
+          "tags": {
+            "noise": "snr-5dB_white",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans, ask not what your country can do to you. Yeah, but you can do that.",
+          "ref_words": 22,
+          "sub": 4,
+          "del": 2,
+          "ins": 0,
+          "errors": 6,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.767,
+            11.919
+          ],
+          "final_words": [
+            14,
+            6
+          ],
+          "finals_received": 2,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.5621346000116318,
+            1.1175649999408055
+          ],
+          "first_partial_s": [
+            0.5621346000116318,
+            1.1175649999408055
+          ],
+          "final_latency_s": [
+            0.6669667999725792,
+            0.9193375000031665
+          ],
+          "final_latency_after_hang_s": [
+            0.06696679997257926,
+            0.3193375000031665
+          ],
+          "partial_words": 16,
+          "partial_words_revised": 7,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        }
+      ]
+    },
+    {
+      "concurrency": 2,
+      "wall_s": 50.89413142204285,
+      "errors": [],
+      "resources": {
+        "gpu_mem_mb": {
+          "mean": 103.0,
+          "max": 103.0
+        },
+        "gpu_util": {
+          "mean": 0.0,
+          "max": 0.0
+        },
+        "relay_cpu": {
+          "mean": 293.0266666666667,
+          "max": 406.9
+        },
+        "relay_rss_mb": {
+          "mean": 751.3120767999998,
+          "max": 781.877248
+        },
+        "sys_cpu": {
+          "mean": 15.46444444444444,
+          "max": 29.1
+        },
+        "_samples": 45
+      },
+      "summary": {
+        "clips": 8,
+        "wer": {
+          "wer": 0.09090909090909091,
+          "ci95": [
+            0.022727272727272728,
+            0.17045454545454544
+          ],
+          "clips": 8,
+          "ref_words": 176
+        },
+        "ttfw_s": {
+          "n": 20,
+          "p50": 0.9279151500319127,
+          "p95": 2.5243363499117555,
+          "max": 2.5877764000091705,
+          "mean": 1.2080993249744645
+        },
+        "first_partial_s": {
+          "n": 20,
+          "p50": 0.9279151500319127,
+          "p95": 2.5243363499117555,
+          "max": 2.5877764000091705,
+          "mean": 1.2080993249744645
+        },
+        "final_latency_s": {
+          "n": 20,
+          "p50": 1.0972799500101247,
+          "p95": 2.053000075027813,
+          "max": 2.125957699958235,
+          "mean": 1.229555899993284
+        },
+        "final_latency_after_hang_s": {
+          "n": 20,
+          "p50": 0.4972799500101247,
+          "p95": 1.4530000750278125,
+          "max": 1.525957699958235,
+          "mean": 0.6295558999932839
+        },
+        "partial_revision_rate": 0.22972972972972974,
+        "partial_prefix_stable_rate": 0.2,
+        "segment_mismatch_clips": 0,
+        "hang_s_assumed": 0.6,
+        "wer_by_tag": {
+          "noise": {
+            "clean": {
+              "wer": 0.0,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 44
+            },
+            "snr-5dB_white": {
+              "wer": 0.2727272727272727,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 44
+            },
+            "snr0dB_white": {
+              "wer": 0.09090909090909091,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 44
+            },
+            "snr10dB_white": {
+              "wer": 0.0,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 44
+            }
+          },
+          "speed": {
+            "1.0": {
+              "wer": 0.09090909090909091,
+              "ci95": [
+                0.022727272727272728,
+                0.17045454545454544
+              ],
+              "clips": 8,
+              "ref_words": 176
+            }
+          },
+          "speaker": {
+            "jfk": {
+              "wer": 0.09090909090909091,
+              "ci95": [
+                0.022727272727272728,
+                0.17045454545454544
+              ],
+              "clips": 8,
+              "ref_words": 176
+            }
+          },
+          "accent": {
+            "us_english": {
+              "wer": 0.09090909090909091,
+              "ci95": [
+                0.022727272727272728,
+                0.17045454545454544
+              ],
+              "clips": 8,
+              "ref_words": 176
+            }
+          }
+        }
+      },
+      "clips": [
+        {
+          "id": "jfk__snr10",
+          "tags": {
+            "noise": "snr10dB_white",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans, ask not what your country can do for you. Ask what you can do for your country.",
+          "ref_words": 22,
+          "sub": 0,
+          "del": 0,
+          "ins": 0,
+          "errors": 0,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            9.155,
+            12.054
+          ],
+          "final_words": [
+            14,
+            8
+          ],
+          "finals_received": 2,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.5578791999723762,
+            1.4416669000405822
+          ],
+          "first_partial_s": [
+            0.5578791999723762,
+            1.4416669000405822
+          ],
+          "final_latency_s": [
+            1.0549922000849623,
+            1.0543979000067338
+          ],
+          "final_latency_after_hang_s": [
+            0.45499220008496233,
+            0.45439790000673386
+          ],
+          "partial_words": 18,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 1
+        },
+        {
+          "id": "jfk",
+          "tags": {
+            "noise": "clean",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans. Ask not What your country can do for you. Ask what you can do for your country.",
+          "ref_words": 22,
+          "sub": 0,
+          "del": 0,
+          "ins": 0,
+          "errors": 0,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 2.2,
+              "forced": false
+            },
+            {
+              "start": 3.2,
+              "end": 4.3,
+              "forced": false
+            },
+            {
+              "start": 5.4,
+              "end": 7.5,
+              "forced": false
+            },
+            {
+              "start": 8.2,
+              "end": 10.2,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.051,
+            5.394,
+            9.354,
+            11.113
+          ],
+          "final_words": [
+            5,
+            2,
+            7,
+            8
+          ],
+          "finals_received": 4,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.8729358999291434,
+            0.5092774999327956,
+            0.9350260000443082,
+            1.3817200000165037
+          ],
+          "first_partial_s": [
+            0.8729358999291434,
+            0.5092774999327956,
+            0.9350260000443082,
+            1.3817200000165037
+          ],
+          "final_latency_s": [
+            0.8512433999683706,
+            1.0940092000411825,
+            1.8537286999635398,
+            0.9125513999722905
+          ],
+          "final_latency_after_hang_s": [
+            0.25124339996837064,
+            0.49400920004118254,
+            1.2537286999635397,
+            0.31255139997229053
+          ],
+          "partial_words": 19,
+          "partial_words_revised": 3,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "jfk__snr0",
+          "tags": {
+            "noise": "snr0dB_white",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans, ask not what your country can do to you. Care what you can do for your country.",
+          "ref_words": 22,
+          "sub": 2,
+          "del": 0,
+          "ins": 0,
+          "errors": 2,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.875,
+            12.179
+          ],
+          "final_words": [
+            14,
+            8
+          ],
+          "finals_received": 2,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.5591542999027297,
+            2.233254699944519
+          ],
+          "first_partial_s": [
+            0.5591542999027297,
+            2.233254699944519
+          ],
+          "final_latency_s": [
+            0.7753958999877799,
+            1.1787947999546304
+          ],
+          "final_latency_after_hang_s": [
+            0.17539589998777994,
+            0.5787947999546305
+          ],
+          "partial_words": 18,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 1
+        },
+        {
+          "id": "jfk__snr10",
+          "tags": {
+            "noise": "snr10dB_white",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans, ask not what your country can do for you. Ask what you can do for your country.",
+          "ref_words": 22,
+          "sub": 0,
+          "del": 0,
+          "ins": 0,
+          "errors": 0,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            10.149,
+            12.404
+          ],
+          "final_words": [
+            14,
+            8
+          ],
+          "finals_received": 2,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.5575499000260606,
+            2.5877764000091705
+          ],
+          "first_partial_s": [
+            0.5575499000260606,
+            2.5877764000091705
+          ],
+          "final_latency_s": [
+            2.0491602000314746,
+            1.4039727000053972
+          ],
+          "final_latency_after_hang_s": [
+            1.4491602000314745,
+            0.8039727000053972
+          ],
+          "partial_words": 20,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "jfk__snr-5",
+          "tags": {
+            "noise": "snr-5dB_white",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans, ask not what your country can do to you. Yeah, but you can do that.",
+          "ref_words": 22,
+          "sub": 4,
+          "del": 2,
+          "ins": 0,
+          "errors": 6,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.816,
+            12.101
+          ],
+          "final_words": [
+            14,
+            6
+          ],
+          "finals_received": 2,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.5599551999475807,
+            2.161286400025711
+          ],
+          "first_partial_s": [
+            0.5599551999475807,
+            2.161286400025711
+          ],
+          "final_latency_s": [
+            0.7158591999672357,
+            1.1005506999790668
+          ],
+          "final_latency_after_hang_s": [
+            0.1158591999672357,
+            0.5005506999790669
+          ],
+          "partial_words": 16,
+          "partial_words_revised": 6,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 1
+        },
+        {
+          "id": "jfk__snr0",
+          "tags": {
+            "noise": "snr0dB_white",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans, ask not what your country can do to you. Care what you can do for your country.",
+          "ref_words": 22,
+          "sub": 2,
+          "del": 0,
+          "ins": 0,
+          "errors": 2,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            10.082,
+            12.327
+          ],
+          "final_words": [
+            14,
+            8
+          ],
+          "finals_received": 2,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.5582183999940753,
+            2.520997399906628
+          ],
+          "first_partial_s": [
+            0.5582183999940753,
+            2.520997399906628
+          ],
+          "final_latency_s": [
+            1.9821569999679927,
+            1.327360499999486
+          ],
+          "final_latency_after_hang_s": [
+            1.3821569999679926,
+            0.7273604999994859
+          ],
+          "partial_words": 20,
+          "partial_words_revised": 5,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "jfk",
+          "tags": {
+            "noise": "clean",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans. Ask not What your country can do for you. Ask what you can do for your country.",
+          "ref_words": 22,
+          "sub": 0,
+          "del": 0,
+          "ins": 0,
+          "errors": 0,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 2.2,
+              "forced": false
+            },
+            {
+              "start": 3.2,
+              "end": 4.3,
+              "forced": false
+            },
+            {
+              "start": 5.4,
+              "end": 7.5,
+              "forced": false
+            },
+            {
+              "start": 8.2,
+              "end": 10.2,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.044,
+            5.596,
+            9.626,
+            11.07
+          ],
+          "final_words": [
+            5,
+            2,
+            7,
+            8
+          ],
+          "finals_received": 4,
+          "partials_received": 8,
+          "ttfw_s": [
+            0.8169192999368533,
+            1.171949299937114,
+            0.9208043000195172,
+            1.6853408999275423
+          ],
+          "first_partial_s": [
+            0.8169192999368533,
+            1.171949299937114,
+            0.9208043000195172,
+            1.6853408999275423
+          ],
+          "final_latency_s": [
+            0.8438955000136046,
+            1.2955383999971675,
+            2.125957699958235,
+            0.8704856999218471
+          ],
+          "final_latency_after_hang_s": [
+            0.2438955000136046,
+            0.6955383999971675,
+            1.525957699958235,
+            0.2704856999218471
+          ],
+          "partial_words": 19,
+          "partial_words_revised": 2,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 4,
+          "worker": 1
+        },
+        {
+          "id": "jfk__snr-5",
+          "tags": {
+            "noise": "snr-5dB_white",
+            "speed": "1.0",
+            "speaker": "jfk",
+            "accent": "us_english"
+          },
+          "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+          "hypothesis": "And so, my fellow Americans, ask not what your country can do to you. Yeah, but you can do that.",
+          "ref_words": 22,
+          "sub": 4,
+          "del": 2,
+          "ins": 0,
+          "errors": 6,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            9.271,
+            11.93
+          ],
+          "final_words": [
+            14,
+            6
+          ],
+          "finals_received": 2,
+          "partials_received": 10,
+          "ttfw_s": [
+            0.5618434000061825,
+            1.568431099969894
+          ],
+          "first_partial_s": [
+            0.5618434000061825,
+            1.568431099969894
+          ],
+          "final_latency_s": [
+            1.1712279000552375,
+            0.9298389999894425
+          ],
+          "final_latency_after_hang_s": [
+            0.5712279000552375,
+            0.32983899998944255
+          ],
+          "partial_words": 18,
+          "partial_words_revised": 6,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+INFO:parakeet_relay:using StreamingWorkerEngine model=eou120m (nvidia/parakeet_realtime_eou_120m-v1)
+INFO:websockets.server:server listening on 127.0.0.1:8772
+INFO:websockets.server:server listening on [::1]:8772
+INFO:parakeet_relay:Parakeet relay listening on ws://localhost:8772
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_2dfcc5181b7441bd, model=eou120m)
+INFO:core.mongo_mirror:MongoDB mirror connected (db=scriptliv_staging)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_2dfcc5181b7441bd)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_2c9d862a829d45aa, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_2c9d862a829d45aa)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_4db0f3b5941f4a39, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_4db0f3b5941f4a39)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_741a7b67f3944a2e, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_741a7b67f3944a2e)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_f6bbcd59f7eb459b, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_f6bbcd59f7eb459b)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_5d7cf39158874703, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_5d7cf39158874703)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_0e7971cd58ac4bf6, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_0e7971cd58ac4bf6)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_28e5906a1b1e4053, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_28e5906a1b1e4053)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_792e24594f6b47fc, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_792e24594f6b47fc)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_06654e156a984895, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_06654e156a984895)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_1a4aaa4d1f9d46d3, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_1a4aaa4d1f9d46d3)
+INFO:websockets.server:connection open
+INFO:core.streaming_session:Streaming speaker connected (session=sess_50456aa57eaa4c11, model=eou120m)
+INFO:websockets.server:connection closed
+INFO:core.streaming_session:Streaming speaker disconnected (session=sess_50456aa57eaa4c11)
+INFO:websockets.server:connection open
+INFO:websockets.server:connection closed
+INFO:websockets.server:HTTP response sent (404 Not Found)
+INFO:websockets.server:connection closed

@@ -1,0 +1,93 @@
+{
+ "rec01": {
+  "clips": 3,
+  "utterances_expected": 15,
+  "finals_received": 15,
+  "forced_cap_flushes_expected": 1,
+  "clips_expected_ne_received": 0,
+  "hyp_words": 103,
+  "ttfw_p50": 1.23,
+  "ttfw_p95": 4.305,
+  "final_p50": 0.976,
+  "final_p95": 1.227,
+  "partial_revision_rate": 0.476
+ },
+ "rec02": {
+  "clips": 3,
+  "utterances_expected": 22,
+  "finals_received": 21,
+  "forced_cap_flushes_expected": 3,
+  "clips_expected_ne_received": 1,
+  "hyp_words": 197,
+  "ttfw_p50": 0.766,
+  "ttfw_p95": 1.577,
+  "final_p50": 0.944,
+  "final_p95": 1.221,
+  "partial_revision_rate": 0.25
+ },
+ "rec03": {
+  "clips": 3,
+  "utterances_expected": 21,
+  "finals_received": 20,
+  "forced_cap_flushes_expected": 3,
+  "clips_expected_ne_received": 1,
+  "hyp_words": 206,
+  "ttfw_p50": 1.407,
+  "ttfw_p95": 8.252,
+  "final_p50": 1.049,
+  "final_p95": 6.005,
+  "partial_revision_rate": 0.393
+ },
+ "rec04": {
+  "clips": 3,
+  "utterances_expected": 16,
+  "finals_received": 16,
+  "forced_cap_flushes_expected": 5,
+  "clips_expected_ne_received": 0,
+  "hyp_words": 151,
+  "ttfw_p50": 0.903,
+  "ttfw_p95": 2.527,
+  "final_p50": 0.878,
+  "final_p95": 1.292,
+  "partial_revision_rate": 0.261
+ },
+ "rec05": {
+  "clips": 2,
+  "utterances_expected": 10,
+  "finals_received": 9,
+  "forced_cap_flushes_expected": 8,
+  "clips_expected_ne_received": 1,
+  "hyp_words": 198,
+  "ttfw_p50": 1.003,
+  "ttfw_p95": 1.306,
+  "final_p50": 0.566,
+  "final_p95": 1.23,
+  "partial_revision_rate": 0.318
+ },
+ "rec06": {
+  "clips": 3,
+  "utterances_expected": 15,
+  "finals_received": 15,
+  "forced_cap_flushes_expected": 8,
+  "clips_expected_ne_received": 0,
+  "hyp_words": 160,
+  "ttfw_p50": 0.916,
+  "ttfw_p95": 1.22,
+  "final_p50": 0.766,
+  "final_p95": 1.456,
+  "partial_revision_rate": 0.483
+ },
+ "rec07": {
+  "clips": 3,
+  "utterances_expected": 16,
+  "finals_received": 14,
+  "forced_cap_flushes_expected": 8,
+  "clips_expected_ne_received": 2,
+  "hyp_words": 204,
+  "ttfw_p50": 2.637,
+  "ttfw_p95": 8.759,
+  "final_p50": 0.873,
+  "final_p95": 5.378,
+  "partial_revision_rate": 0.221
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "jobs": 659,
+ "final": {
+  "requested_jobs": 159,
+  "dispatched": 159,
+  "completed": 159,
+  "never_started": 0,
+  "states": {
+   "completed": 159
+  },
+  "queue_wait_s": {
+   "n": 159,
+   "p50": 0.6654,
+   "p95": 1.5543,
+   "max": 2.2998
+  },
+  "inference_s": {
+   "n": 159,
+   "p50": 0.3133,
+   "p95": 0.6872,
+   "max": 0.7121
+  },
+  "total_s": {
+   "n": 159,
+   "p50": 0.9521,
+   "p95": 2.0897,
+   "max": 2.9822
+  },
+  "inference_rtf_p50": 0.0856,
+  "busy_s": 59.5,
+  "wasted_busy_s_abandoned": 0
+ },
+ "partial": {
+  "requested_jobs": 500,
+  "dispatched": 500,
+  "completed": 500,
+  "never_started": 0,
+  "states": {
+   "completed": 500
+  },
+  "queue_wait_s": {
+   "n": 500,
+   "p50": 0.3719,
+   "p95": 1.3015,
+   "max": 2.6444
+  },
+  "inference_s": {
+   "n": 500,
+   "p50": 0.2246,
+   "p95": 0.5619,
+   "max": 0.7265
+  },
+  "total_s": {
+   "n": 500,
+   "p50": 0.6218,
+   "p95": 1.5826,
+   "max": 2.8457
+  },
+  "inference_rtf_p50": 0.0873,
+  "busy_s": 127.97,
+  "wasted_busy_s_abandoned": 0
+ },
+ "wall_s": 196.3,
+ "worker_utilisation": 0.955,
+ "partial_share_of_busy": 0.683,
+ "finals_that_waited_behind_a_partial": {
+  "n": 152,
+  "of": 159
+ }
+}

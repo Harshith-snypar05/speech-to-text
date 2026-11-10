@@ -25,6 +25,7 @@ class TranscriptionClient {
   final String sessionId;
   final String? micDeviceId;
   final String? accessCode;
+  final String? authToken;
   final int maxRetries;
   final Duration connectTimeout;
 
@@ -33,6 +34,7 @@ class TranscriptionClient {
     required this.sessionId,
     this.micDeviceId,
     this.accessCode,
+    this.authToken,
     this.maxRetries = 5,
     this.connectTimeout = const Duration(seconds: 8),
   });
@@ -43,7 +45,9 @@ class TranscriptionClient {
   StreamSubscription? _socketSub;
   final _textController = StreamController<String>.broadcast();
   final _partialController = StreamController<String>.broadcast();
+  final _refineController = StreamController<({String original, String refined})>.broadcast();
   final _statusController = StreamController<ConnectionStatus>.broadcast();
+  final _levelController = StreamController<double>.broadcast();
   final _parser = LiveTranscriptParser();
 
   ConnectionStatus _status = ConnectionStatus.connecting;
@@ -56,9 +60,15 @@ class TranscriptionClient {
   /// callers accumulate if they want the full transcript).
   Stream<String> get onText => _textController.stream;
 
+  /// A refined version of an already delivered line (match it by [original]); lines are never added or removed by it.
+  Stream<({String original, String refined})> get onRefine => _refineController.stream;
+
   /// The current in-progress utterance, growing word-by-word. Clears
   /// (empty string) right before the matching final lands on [onText].
   Stream<String> get onPartial => _partialController.stream;
+
+  /// Real microphone level, 0..1 (RMS of each captured PCM16 chunk). Drives the waveform; never synthetic.
+  Stream<double> get onLevel => _levelController.stream;
 
   /// Connection lifecycle -- drives the UI's status indicator.
   Stream<ConnectionStatus> get onStatus => _statusController.stream;
@@ -98,7 +108,10 @@ class TranscriptionClient {
       numChannels: 1,
       device: device,
     ));
-    _audioSub = audioStream.listen((chunk) => _channel?.sink.add(chunk));
+    _audioSub = audioStream.listen((chunk) {
+      _channel?.sink.add(chunk);
+      if (!_levelController.isClosed) _levelController.add(pcm16Rms(chunk));
+    });
   }
 
   Future<void> _connect(int myGen, {required bool isInitial}) async {
@@ -108,6 +121,7 @@ class TranscriptionClient {
       'role': 'speaker',
       'session': sessionId,
       if (accessCode != null) 'code': accessCode,
+      if (authToken != null) 'token': authToken!,
     });
     final channel = WebSocketChannel.connect(uri);
     try {
@@ -145,6 +159,9 @@ class TranscriptionClient {
         _currentPartial = '';
         if (!_textController.isClosed) _textController.add(text);
       },
+      onRefine: (original, refined) {
+        if (!_refineController.isClosed) _refineController.add((original: original, refined: refined));
+      },
       onPartial: (text) {
         _currentPartial = text;
         if (!_partialController.isClosed) _partialController.add(text);
@@ -153,9 +170,25 @@ class TranscriptionClient {
     );
   }
 
+  /// Reason text of the last relay close (e.g. `quota_exhausted`, `allowance_reserved`, `payment_required`).
+  String? closeReason;
+
   void _onSocketGone(int myGen) {
     if (_userStopped || myGen != _generation) return;
     final closeCode = _channel?.closeCode;
+    closeReason = _channel?.closeReason;
+    if (closeCode == 4402) {
+      _setStatus(ConnectionStatus.outOfMinutes);
+      return;
+    }
+    if (closeCode == 4403) {
+      _setStatus(ConnectionStatus.emailNotVerified);
+      return;
+    }
+    if (closeCode == 4409) {
+      _setStatus(ConnectionStatus.superseded);
+      return;
+    }
     if (closeCode == 4400 || closeCode == 4401) {
       // Server rejected the connection outright (bad access code /
       // malformed params) -- retrying with the same credentials would
@@ -217,6 +250,21 @@ class TranscriptionClient {
     _recorder.dispose();
     _textController.close();
     _partialController.close();
+    _refineController.close();
     _statusController.close();
+    _levelController.close();
   }
+}
+
+/// RMS of little-endian PCM16 samples, normalised to 0..1 (0 for empty input).
+double pcm16Rms(List<int> bytes) {
+  final n = bytes.length ~/ 2;
+  if (n == 0) return 0;
+  double acc = 0;
+  for (var i = 0; i < n; i++) {
+    var v = bytes[2 * i] | (bytes[2 * i + 1] << 8);
+    if (v >= 0x8000) v -= 0x10000;
+    acc += v * v;
+  }
+  return (sqrt(acc / n) / 32768.0).clamp(0.0, 1.0);
 }

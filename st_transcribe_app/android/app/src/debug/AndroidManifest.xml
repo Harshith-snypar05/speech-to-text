@@ -4,4 +4,7 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Debug builds only: lets the app reach the plain http/ws staging relay on a LAN host.
+         Release builds keep Android's default (cleartext blocked); use TLS (https/wss) there. -->
+    <application android:usesCleartextTraffic="true" />
 </manifest>

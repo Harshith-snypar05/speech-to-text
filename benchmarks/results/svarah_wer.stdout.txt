@@ -1,0 +1,124 @@
+== concurrency 1: 60 clips x 1 sessions ==
+
+| N | clips | WER | p50 TTFW s | p95 TTFW s | p50 final s | p95 final s | p95 final-after-hang s | revision rate | errors | GPU util mean/max | relay CPU mean/max |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 60 | 23.07% [17.9-29.5] | 0.891 | 2.172 | 0.909 | 1.500 | 0.900 | 0.361 | 0 | 0/5 | 164/401 |
+
+WER by `corpus` (N=1):
+  svarah             23.07% [17.9-29.5]  (60 clips, 1630 words)
+
+WER by `gender` (N=1):
+  Female             24.49% [17.3-33.7]  (37 clips, 1037 words)
+  Male               20.57% [13.6-29.8]  (23 clips, 593 words)
+
+WER by `age_group` (N=1):
+  18-30              25.12% [17.0-34.6]  (23 clips, 629 words)
+  30-45              28.59% [19.3-41.7]  (24 clips, 640 words)
+  45-60              11.62% [5.1-21.5]  (9 clips, 241 words)
+  60+                5.83%  (4 clips, 120 words)
+
+WER by `l1` (N=1):
+  Assamese           35.78%  (4 clips, 109 words)
+  Bengali            12.50%  (4 clips, 120 words)
+  Bodo               35.11%  (4 clips, 94 words)
+  Dogri              17.28%  (3 clips, 81 words)
+  Gujarati           26.00%  (3 clips, 50 words)
+  Hindi              25.69%  (3 clips, 109 words)
+  Kannada            9.46%  (3 clips, 74 words)
+  Kashmiri           19.47%  (3 clips, 113 words)
+  Konkani            45.10%  (3 clips, 51 words)
+  Maithili           22.08%  (3 clips, 77 words)
+  Malayalam          56.41%  (3 clips, 39 words)
+  Marathi            20.91%  (3 clips, 110 words)
+  Nepali             24.00%  (3 clips, 50 words)
+  Odia               23.53%  (3 clips, 85 words)
+  Punjabi            20.65%  (3 clips, 92 words)
+  Sindhi             42.31%  (3 clips, 78 words)
+  Tamil              18.92%  (3 clips, 74 words)
+  Telugu             7.59%  (3 clips, 145 words)
+  Urdu               13.92%  (3 clips, 79 words)
+
+WER by `state` (N=1):
+  Andhra Pradesh     9.52%  (1 clips, 21 words)
+  Assam              35.47% [23.5-48.3]  (8 clips, 203 words)
+  Bihar              22.08%  (3 clips, 77 words)
+  Goa                45.10%  (3 clips, 51 words)
+  Gujarat            31.82% [13.6-55.7]  (8 clips, 198 words)
+  Jammu Kashmir      18.56% [9.3-32.0]  (6 clips, 194 words)
+  Karnataka          9.30%  (3 clips, 86 words)
+  Kerala             56.41%  (3 clips, 39 words)
+  Madhya Pradesh     43.48%  (1 clips, 23 words)
+  Maharashtra        24.39%  (4 clips, 123 words)
+  Meghalaya          10.34%  (2 clips, 29 words)
+  Odisha             18.83%  (4 clips, 154 words)
+  Punjab             20.65%  (3 clips, 92 words)
+  Rajasthan          6.25%  (1 clips, 48 words)
+  Tamil Nadu         18.92%  (3 clips, 74 words)
+  Telangana          1.30%  (2 clips, 77 words)
+  West Bengal        17.02% [6.3-33.3]  (5 clips, 141 words)
+
+WER by `district` (N=1):
+  Ahmedabad          31.82%  (4 clips, 110 words)
+  Ajmer              6.25%  (1 clips, 48 words)
+  Amreli             17.95%  (2 clips, 39 words)
+  Bangalore Urban    6.45%  (2 clips, 62 words)
+  Biswanath          55.56%  (1 clips, 18 words)
+  Chennai            5.00%  (1 clips, 20 words)
+  Cuttack            20.69%  (1 clips, 29 words)
+  Darbhanga          22.08%  (3 clips, 77 words)
+  Guntur             9.52%  (1 clips, 21 words)
+  Hassan             16.67%  (1 clips, 24 words)
+  Hyderabad          1.30%  (2 clips, 77 words)
+  Jammu              17.28%  (3 clips, 81 words)
+  Kalimpong          42.86%  (1 clips, 21 words)
+  Khandwa            43.48%  (1 clips, 23 words)
+  Kokrajhar          35.11%  (4 clips, 94 words)
+  Kolkata            13.79%  (1 clips, 29 words)
+  Lakhimpur          3.85%  (1 clips, 26 words)
+  Mansa              116.67%  (1 clips, 12 words)
+  Nalbari            43.08%  (2 clips, 65 words)
+  North Goa          5.56%  (1 clips, 18 words)
+  Palakkad           92.31%  (1 clips, 13 words)
+  Pathanamthitta     38.46%  (2 clips, 26 words)
+  Pune               45.45%  (1 clips, 33 words)
+  Raigad             10.39%  (2 clips, 77 words)
+  Ri Bhoi            10.34%  (2 clips, 29 words)
+  Rupnagar           6.25%  (2 clips, 80 words)
+  Sabarkantha        54.55%  (1 clips, 11 words)
+  Sambalpur          13.04%  (1 clips, 69 words)
+  Satara             53.85%  (1 clips, 13 words)
+  South 24 Parganas  12.09%  (3 clips, 91 words)
+  South Goa          66.67%  (2 clips, 33 words)
+  Srinagar           19.47%  (3 clips, 113 words)
+  Sundergarh         25.00%  (2 clips, 56 words)
+  Vadodara           39.47%  (1 clips, 38 words)
+  Virudhunagar       24.07%  (2 clips, 54 words)
+
+WER by `qualification` (N=1):
+  Doctoral (PhD) or higher level 18.42%  (2 clips, 76 words)
+  Graduate           14.60% [9.1-21.7]  (12 clips, 363 words)
+  Post Graduate      27.41% [20.2-35.9]  (44 clips, 1109 words)
+  Under Graduate Student 6.10%  (2 clips, 82 words)
+
+WER by `job` (N=1):
+  Freelance          24.27%  (4 clips, 103 words)
+  Full Time          25.05% [17.4-35.0]  (37 clips, 1002 words)
+  Other              19.91% [12.1-32.5]  (15 clips, 442 words)
+  Part Time          14.46%  (4 clips, 83 words)
+
+WER by `domain` (N=1):
+  Education and Research 19.75% [13.9-26.5]  (30 clips, 886 words)
+  Entertainment      13.79%  (1 clips, 29 words)
+  Financial Services (Banking and Insurance) 37.50%  (3 clips, 40 words)
+  Government         36.63%  (4 clips, 101 words)
+  Healthcare (Medical &amp; Pharma) 20.69%  (1 clips, 29 words)
+  Information and Media 30.83% [15.0-52.8]  (9 clips, 266 words)
+  Technology and Services 20.43% [11.4-31.8]  (12 clips, 279 words)
+
+WER by `accent` (N=1):
+  indian_english     23.07% [17.9-29.5]  (60 clips, 1630 words)
+
+WER by `source` (N=1):
+  svarah             23.07% [17.9-29.5]  (60 clips, 1630 words)
+
+full results: results\svarah_wer.json

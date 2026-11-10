@@ -1,0 +1,1973 @@
+{
+  "source": "results/svarah_wer.json (read-only; byte-identical after this script)",
+  "note": "Normalized WER is a diagnostic estimate of formatting-related scoring differences. It does not represent improved recognition accuracy; the transcripts are unchanged. Raw WER (wer_raw) is the baseline.",
+  "wer_raw": {
+    "wer": 0.23067484662576687,
+    "ci95": [
+      0.17867014859272154,
+      0.29528046036928307
+    ],
+    "ref_words": 1630,
+    "sub": 134,
+    "del": 44,
+    "ins": 198,
+    "errors": 376
+  },
+  "wer_number_normalized": {
+    "wer": 0.1726044226044226,
+    "ci95": [
+      0.13748810602898817,
+      0.2165478137669389
+    ],
+    "ref_words": 1628,
+    "sub": 119,
+    "del": 47,
+    "ins": 115,
+    "errors": 281
+  },
+  "wer_compound_normalized": {
+    "wer": 0.16564039408866996,
+    "ci95": [
+      0.13066835570180535,
+      0.20860419756471454
+    ],
+    "ref_words": 1624,
+    "sub": 113,
+    "del": 43,
+    "ins": 113,
+    "errors": 269
+  },
+  "policies": {
+    "raw": "wer.normalize (baseline)",
+    "number": "Phase 3 policy C",
+    "compound": "Phase 3 policy D (C plus compound join)"
+  },
+  "latency_timestamp_matched": {
+    "matched_pairs": 196,
+    "unmatched_expected": [
+      {
+        "clip": "svarah_assamese_03817_281474976885867_f1767_ch",
+        "expected_index": 2,
+        "start_s": 16.2,
+        "end_s": 19.1,
+        "forced": false,
+        "flush_ref_s": 19.700000000000003
+      },
+      {
+        "clip": "svarah_assamese_06152_281474976901758_f990_chu",
+        "expected_index": 1,
+        "start_s": 8.1,
+        "end_s": 10.299999999999999,
+        "forced": false,
+        "flush_ref_s": 10.899999999999999
+      },
+      {
+        "clip": "svarah_bodo_03621_281474976893846_f3264_ch",
+        "expected_index": 6,
+        "start_s": 16.3,
+        "end_s": 18.0,
+        "forced": false,
+        "flush_ref_s": 18.6
+      },
+      {
+        "clip": "svarah_kannada_00197_281474976884629_f2039_ch",
+        "expected_index": 1,
+        "start_s": 8.1,
+        "end_s": 10.2,
+        "forced": false,
+        "flush_ref_s": 10.799999999999999
+      },
+      {
+        "clip": "svarah_kashmiri_03111_281474976891473_f1165_ch",
+        "expected_index": 1,
+        "start_s": 8.2,
+        "end_s": 10.799999999999999,
+        "forced": false,
+        "flush_ref_s": 11.399999999999999
+      }
+    ],
+    "extra_finals": [
+      {
+        "clip": "svarah_bengali_01831_281474976896941_f53_chun",
+        "final_index": 1,
+        "time_s": 8.993,
+        "reason": "expected_0_already_matched_to_final_0"
+      }
+    ],
+    "final_minus_utterance_end_s": {
+      "n": 196,
+      "p50": 0.911,
+      "p95": 1.5,
+      "max": 1.89
+    },
+    "final_minus_flush_reference_s": {
+      "n": 196,
+      "p50": 0.413,
+      "p95": 1.036,
+      "max": 1.563
+    },
+    "ttfw": "not recomputed: baseline did not store partial message times (Phase 3 reconstructed it separately)"
+  },
+  "clips": [
+    {
+      "id": "svarah_assamese_01954_281474976906794_f3277_ch",
+      "wer_raw": {
+        "ref_words": 26,
+        "sub": 0,
+        "del": 1,
+        "ins": 0,
+        "errors": 1
+      },
+      "wer_number_normalized": {
+        "ref_words": 26,
+        "sub": 0,
+        "del": 1,
+        "ins": 0,
+        "errors": 1
+      },
+      "wer_compound_normalized": {
+        "ref_words": 26,
+        "sub": 0,
+        "del": 1,
+        "ins": 0,
+        "errors": 1
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 3,
+        "matched": 3,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_assamese_03817_281474976885867_f1767_ch",
+      "wer_raw": {
+        "ref_words": 40,
+        "sub": 6,
+        "del": 7,
+        "ins": 4,
+        "errors": 17
+      },
+      "wer_number_normalized": {
+        "ref_words": 40,
+        "sub": 6,
+        "del": 7,
+        "ins": 4,
+        "errors": 17
+      },
+      "wer_compound_normalized": {
+        "ref_words": 40,
+        "sub": 6,
+        "del": 7,
+        "ins": 4,
+        "errors": 17
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 1,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_assamese_05643_281474976885848_f972_chu",
+      "wer_raw": {
+        "ref_words": 25,
+        "sub": 1,
+        "del": 0,
+        "ins": 10,
+        "errors": 11
+      },
+      "wer_number_normalized": {
+        "ref_words": 25,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "wer_compound_normalized": {
+        "ref_words": 25,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_assamese_06152_281474976901758_f990_chu",
+      "wer_raw": {
+        "ref_words": 18,
+        "sub": 6,
+        "del": 3,
+        "ins": 1,
+        "errors": 10
+      },
+      "wer_number_normalized": {
+        "ref_words": 18,
+        "sub": 3,
+        "del": 4,
+        "ins": 0,
+        "errors": 7
+      },
+      "wer_compound_normalized": {
+        "ref_words": 18,
+        "sub": 3,
+        "del": 4,
+        "ins": 0,
+        "errors": 7
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 1,
+        "matched": 1,
+        "unmatched_expected": 1,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_bengali_00427_281474976899542_f1195_ch",
+      "wer_raw": {
+        "ref_words": 12,
+        "sub": 3,
+        "del": 0,
+        "ins": 1,
+        "errors": 4
+      },
+      "wer_number_normalized": {
+        "ref_words": 12,
+        "sub": 3,
+        "del": 0,
+        "ins": 0,
+        "errors": 3
+      },
+      "wer_compound_normalized": {
+        "ref_words": 12,
+        "sub": 3,
+        "del": 0,
+        "ins": 0,
+        "errors": 3
+      },
+      "match_counts": {
+        "expected": 1,
+        "finals": 1,
+        "matched": 1,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_bengali_01831_281474976896941_f53_chun",
+      "wer_raw": {
+        "ref_words": 29,
+        "sub": 2,
+        "del": 0,
+        "ins": 2,
+        "errors": 4
+      },
+      "wer_number_normalized": {
+        "ref_words": 29,
+        "sub": 2,
+        "del": 0,
+        "ins": 2,
+        "errors": 4
+      },
+      "wer_compound_normalized": {
+        "ref_words": 29,
+        "sub": 1,
+        "del": 0,
+        "ins": 1,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 3,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 1
+      }
+    },
+    {
+      "id": "svarah_bengali_04742_281474976895139_f2137_ch",
+      "wer_raw": {
+        "ref_words": 45,
+        "sub": 6,
+        "del": 1,
+        "ins": 0,
+        "errors": 7
+      },
+      "wer_number_normalized": {
+        "ref_words": 44,
+        "sub": 3,
+        "del": 1,
+        "ins": 0,
+        "errors": 4
+      },
+      "wer_compound_normalized": {
+        "ref_words": 44,
+        "sub": 3,
+        "del": 1,
+        "ins": 0,
+        "errors": 4
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 3,
+        "matched": 3,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_bengali_06105_281474976895133_f2183_ch",
+      "wer_raw": {
+        "ref_words": 34,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "wer_number_normalized": {
+        "ref_words": 34,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "wer_compound_normalized": {
+        "ref_words": 34,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "match_counts": {
+        "expected": 4,
+        "finals": 4,
+        "matched": 4,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_bodo_00437_281474976893845_f1948_ch",
+      "wer_raw": {
+        "ref_words": 31,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "wer_number_normalized": {
+        "ref_words": 31,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 31,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 6,
+        "finals": 6,
+        "matched": 6,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_bodo_03478_281474976893852_f1949_ch",
+      "wer_raw": {
+        "ref_words": 24,
+        "sub": 7,
+        "del": 2,
+        "ins": 2,
+        "errors": 11
+      },
+      "wer_number_normalized": {
+        "ref_words": 24,
+        "sub": 7,
+        "del": 2,
+        "ins": 2,
+        "errors": 11
+      },
+      "wer_compound_normalized": {
+        "ref_words": 24,
+        "sub": 7,
+        "del": 2,
+        "ins": 2,
+        "errors": 11
+      },
+      "match_counts": {
+        "expected": 8,
+        "finals": 8,
+        "matched": 8,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_bodo_03621_281474976893846_f3264_ch",
+      "wer_raw": {
+        "ref_words": 23,
+        "sub": 0,
+        "del": 2,
+        "ins": 9,
+        "errors": 11
+      },
+      "wer_number_normalized": {
+        "ref_words": 23,
+        "sub": 0,
+        "del": 2,
+        "ins": 9,
+        "errors": 11
+      },
+      "wer_compound_normalized": {
+        "ref_words": 23,
+        "sub": 0,
+        "del": 2,
+        "ins": 9,
+        "errors": 11
+      },
+      "match_counts": {
+        "expected": 7,
+        "finals": 6,
+        "matched": 6,
+        "unmatched_expected": 1,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_bodo_06287_281474976893847_f2044_ch",
+      "wer_raw": {
+        "ref_words": 16,
+        "sub": 3,
+        "del": 0,
+        "ins": 6,
+        "errors": 9
+      },
+      "wer_number_normalized": {
+        "ref_words": 16,
+        "sub": 3,
+        "del": 0,
+        "ins": 6,
+        "errors": 9
+      },
+      "wer_compound_normalized": {
+        "ref_words": 16,
+        "sub": 3,
+        "del": 0,
+        "ins": 6,
+        "errors": 9
+      },
+      "match_counts": {
+        "expected": 5,
+        "finals": 5,
+        "matched": 5,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_dogri_00937_281474976889906_f3211_ch",
+      "wer_raw": {
+        "ref_words": 34,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "wer_number_normalized": {
+        "ref_words": 34,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 34,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_dogri_01112_281474976925739_f3299_ch",
+      "wer_raw": {
+        "ref_words": 22,
+        "sub": 0,
+        "del": 1,
+        "ins": 2,
+        "errors": 3
+      },
+      "wer_number_normalized": {
+        "ref_words": 22,
+        "sub": 0,
+        "del": 1,
+        "ins": 2,
+        "errors": 3
+      },
+      "wer_compound_normalized": {
+        "ref_words": 22,
+        "sub": 0,
+        "del": 1,
+        "ins": 2,
+        "errors": 3
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 3,
+        "matched": 3,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_dogri_04159_281474976892331_f1842_ch",
+      "wer_raw": {
+        "ref_words": 25,
+        "sub": 8,
+        "del": 0,
+        "ins": 1,
+        "errors": 9
+      },
+      "wer_number_normalized": {
+        "ref_words": 25,
+        "sub": 8,
+        "del": 0,
+        "ins": 1,
+        "errors": 9
+      },
+      "wer_compound_normalized": {
+        "ref_words": 25,
+        "sub": 8,
+        "del": 0,
+        "ins": 1,
+        "errors": 9
+      },
+      "match_counts": {
+        "expected": 7,
+        "finals": 7,
+        "matched": 7,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_gujarati_01860_281474976887082_f3312_ch",
+      "wer_raw": {
+        "ref_words": 21,
+        "sub": 2,
+        "del": 2,
+        "ins": 0,
+        "errors": 4
+      },
+      "wer_number_normalized": {
+        "ref_words": 21,
+        "sub": 2,
+        "del": 2,
+        "ins": 0,
+        "errors": 4
+      },
+      "wer_compound_normalized": {
+        "ref_words": 19,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_gujarati_02313_281474976887687_f685_chu",
+      "wer_raw": {
+        "ref_words": 11,
+        "sub": 1,
+        "del": 0,
+        "ins": 5,
+        "errors": 6
+      },
+      "wer_number_normalized": {
+        "ref_words": 11,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "wer_compound_normalized": {
+        "ref_words": 11,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_gujarati_03802_281474976895927_f289_chu",
+      "wer_raw": {
+        "ref_words": 18,
+        "sub": 3,
+        "del": 0,
+        "ins": 0,
+        "errors": 3
+      },
+      "wer_number_normalized": {
+        "ref_words": 18,
+        "sub": 3,
+        "del": 0,
+        "ins": 0,
+        "errors": 3
+      },
+      "wer_compound_normalized": {
+        "ref_words": 18,
+        "sub": 3,
+        "del": 0,
+        "ins": 0,
+        "errors": 3
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_hindi_03150_281474976884039_f1853_ch",
+      "wer_raw": {
+        "ref_words": 38,
+        "sub": 1,
+        "del": 1,
+        "ins": 13,
+        "errors": 15
+      },
+      "wer_number_normalized": {
+        "ref_words": 38,
+        "sub": 1,
+        "del": 1,
+        "ins": 13,
+        "errors": 15
+      },
+      "wer_compound_normalized": {
+        "ref_words": 38,
+        "sub": 1,
+        "del": 1,
+        "ins": 13,
+        "errors": 15
+      },
+      "match_counts": {
+        "expected": 5,
+        "finals": 5,
+        "matched": 5,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_hindi_03253_281474976879629_f1172_ch",
+      "wer_raw": {
+        "ref_words": 23,
+        "sub": 6,
+        "del": 1,
+        "ins": 3,
+        "errors": 10
+      },
+      "wer_number_normalized": {
+        "ref_words": 23,
+        "sub": 5,
+        "del": 1,
+        "ins": 3,
+        "errors": 9
+      },
+      "wer_compound_normalized": {
+        "ref_words": 23,
+        "sub": 5,
+        "del": 1,
+        "ins": 3,
+        "errors": 9
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_hindi_04506_281474976897588_f1724_ch",
+      "wer_raw": {
+        "ref_words": 48,
+        "sub": 2,
+        "del": 0,
+        "ins": 1,
+        "errors": 3
+      },
+      "wer_number_normalized": {
+        "ref_words": 48,
+        "sub": 2,
+        "del": 0,
+        "ins": 1,
+        "errors": 3
+      },
+      "wer_compound_normalized": {
+        "ref_words": 48,
+        "sub": 2,
+        "del": 0,
+        "ins": 1,
+        "errors": 3
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 3,
+        "matched": 3,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_kannada_00197_281474976884629_f2039_ch",
+      "wer_raw": {
+        "ref_words": 24,
+        "sub": 0,
+        "del": 4,
+        "ins": 0,
+        "errors": 4
+      },
+      "wer_number_normalized": {
+        "ref_words": 24,
+        "sub": 0,
+        "del": 4,
+        "ins": 0,
+        "errors": 4
+      },
+      "wer_compound_normalized": {
+        "ref_words": 24,
+        "sub": 0,
+        "del": 4,
+        "ins": 0,
+        "errors": 4
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 1,
+        "matched": 1,
+        "unmatched_expected": 1,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_kannada_04106_281474976887436_f128_chu",
+      "wer_raw": {
+        "ref_words": 28,
+        "sub": 1,
+        "del": 0,
+        "ins": 1,
+        "errors": 2
+      },
+      "wer_number_normalized": {
+        "ref_words": 28,
+        "sub": 1,
+        "del": 0,
+        "ins": 1,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 28,
+        "sub": 1,
+        "del": 0,
+        "ins": 1,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_kannada_06343_281474976896163_f378_chu",
+      "wer_raw": {
+        "ref_words": 22,
+        "sub": 1,
+        "del": 0,
+        "ins": 0,
+        "errors": 1
+      },
+      "wer_number_normalized": {
+        "ref_words": 22,
+        "sub": 1,
+        "del": 0,
+        "ins": 0,
+        "errors": 1
+      },
+      "wer_compound_normalized": {
+        "ref_words": 22,
+        "sub": 1,
+        "del": 0,
+        "ins": 0,
+        "errors": 1
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_kashmiri_03111_281474976891473_f1165_ch",
+      "wer_raw": {
+        "ref_words": 25,
+        "sub": 3,
+        "del": 8,
+        "ins": 0,
+        "errors": 11
+      },
+      "wer_number_normalized": {
+        "ref_words": 25,
+        "sub": 3,
+        "del": 8,
+        "ins": 0,
+        "errors": 11
+      },
+      "wer_compound_normalized": {
+        "ref_words": 25,
+        "sub": 3,
+        "del": 8,
+        "ins": 0,
+        "errors": 11
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 1,
+        "matched": 1,
+        "unmatched_expected": 1,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_kashmiri_03131_281474976891498_f2075_ch",
+      "wer_raw": {
+        "ref_words": 30,
+        "sub": 3,
+        "del": 1,
+        "ins": 3,
+        "errors": 7
+      },
+      "wer_number_normalized": {
+        "ref_words": 30,
+        "sub": 3,
+        "del": 1,
+        "ins": 3,
+        "errors": 7
+      },
+      "wer_compound_normalized": {
+        "ref_words": 30,
+        "sub": 3,
+        "del": 1,
+        "ins": 3,
+        "errors": 7
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 3,
+        "matched": 3,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_kashmiri_05623_281474976894270_f2003_ch",
+      "wer_raw": {
+        "ref_words": 58,
+        "sub": 3,
+        "del": 0,
+        "ins": 1,
+        "errors": 4
+      },
+      "wer_number_normalized": {
+        "ref_words": 58,
+        "sub": 2,
+        "del": 0,
+        "ins": 0,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 58,
+        "sub": 2,
+        "del": 0,
+        "ins": 0,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 4,
+        "finals": 4,
+        "matched": 4,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_konkani_02421_281474976895431_f2105_ch",
+      "wer_raw": {
+        "ref_words": 24,
+        "sub": 3,
+        "del": 1,
+        "ins": 0,
+        "errors": 4
+      },
+      "wer_number_normalized": {
+        "ref_words": 24,
+        "sub": 3,
+        "del": 1,
+        "ins": 0,
+        "errors": 4
+      },
+      "wer_compound_normalized": {
+        "ref_words": 24,
+        "sub": 3,
+        "del": 1,
+        "ins": 0,
+        "errors": 4
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 3,
+        "matched": 3,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_konkani_05399_281474976887658_f3219_ch",
+      "wer_raw": {
+        "ref_words": 18,
+        "sub": 1,
+        "del": 0,
+        "ins": 0,
+        "errors": 1
+      },
+      "wer_number_normalized": {
+        "ref_words": 18,
+        "sub": 1,
+        "del": 0,
+        "ins": 0,
+        "errors": 1
+      },
+      "wer_compound_normalized": {
+        "ref_words": 18,
+        "sub": 1,
+        "del": 0,
+        "ins": 0,
+        "errors": 1
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 3,
+        "matched": 3,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_konkani_05655_281474976888936_f1603_ch",
+      "wer_raw": {
+        "ref_words": 9,
+        "sub": 2,
+        "del": 0,
+        "ins": 16,
+        "errors": 18
+      },
+      "wer_number_normalized": {
+        "ref_words": 9,
+        "sub": 1,
+        "del": 0,
+        "ins": 4,
+        "errors": 5
+      },
+      "wer_compound_normalized": {
+        "ref_words": 9,
+        "sub": 1,
+        "del": 0,
+        "ins": 4,
+        "errors": 5
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_maithili_01206_281474976901158_f1892_ch",
+      "wer_raw": {
+        "ref_words": 24,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "wer_number_normalized": {
+        "ref_words": 24,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "wer_compound_normalized": {
+        "ref_words": 24,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 3,
+        "matched": 3,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_maithili_04379_281474976901605_f2022_ch",
+      "wer_raw": {
+        "ref_words": 34,
+        "sub": 2,
+        "del": 1,
+        "ins": 1,
+        "errors": 4
+      },
+      "wer_number_normalized": {
+        "ref_words": 34,
+        "sub": 2,
+        "del": 1,
+        "ins": 1,
+        "errors": 4
+      },
+      "wer_compound_normalized": {
+        "ref_words": 34,
+        "sub": 2,
+        "del": 1,
+        "ins": 1,
+        "errors": 4
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_maithili_04468_281474976901572_f2765_ch",
+      "wer_raw": {
+        "ref_words": 19,
+        "sub": 2,
+        "del": 0,
+        "ins": 11,
+        "errors": 13
+      },
+      "wer_number_normalized": {
+        "ref_words": 19,
+        "sub": 2,
+        "del": 0,
+        "ins": 3,
+        "errors": 5
+      },
+      "wer_compound_normalized": {
+        "ref_words": 19,
+        "sub": 2,
+        "del": 0,
+        "ins": 3,
+        "errors": 5
+      },
+      "match_counts": {
+        "expected": 7,
+        "finals": 7,
+        "matched": 7,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_malayalam_00226_281474976883951_f2089_ch",
+      "wer_raw": {
+        "ref_words": 16,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "wer_number_normalized": {
+        "ref_words": 16,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "wer_compound_normalized": {
+        "ref_words": 16,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 3,
+        "matched": 3,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_malayalam_03654_281474976893601_f1422_ch",
+      "wer_raw": {
+        "ref_words": 13,
+        "sub": 7,
+        "del": 0,
+        "ins": 5,
+        "errors": 12
+      },
+      "wer_number_normalized": {
+        "ref_words": 12,
+        "sub": 4,
+        "del": 2,
+        "ins": 0,
+        "errors": 6
+      },
+      "wer_compound_normalized": {
+        "ref_words": 12,
+        "sub": 4,
+        "del": 2,
+        "ins": 0,
+        "errors": 6
+      },
+      "match_counts": {
+        "expected": 7,
+        "finals": 7,
+        "matched": 7,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_malayalam_06468_281474976894903_f296_chu",
+      "wer_raw": {
+        "ref_words": 10,
+        "sub": 2,
+        "del": 0,
+        "ins": 8,
+        "errors": 10
+      },
+      "wer_number_normalized": {
+        "ref_words": 10,
+        "sub": 2,
+        "del": 0,
+        "ins": 0,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 10,
+        "sub": 2,
+        "del": 0,
+        "ins": 0,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 5,
+        "finals": 5,
+        "matched": 5,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_marathi_02487_281474976883763_f2304_ch",
+      "wer_raw": {
+        "ref_words": 54,
+        "sub": 1,
+        "del": 0,
+        "ins": 2,
+        "errors": 3
+      },
+      "wer_number_normalized": {
+        "ref_words": 54,
+        "sub": 1,
+        "del": 0,
+        "ins": 2,
+        "errors": 3
+      },
+      "wer_compound_normalized": {
+        "ref_words": 54,
+        "sub": 1,
+        "del": 0,
+        "ins": 2,
+        "errors": 3
+      },
+      "match_counts": {
+        "expected": 5,
+        "finals": 5,
+        "matched": 5,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_marathi_02701_281474976899455_f1986_ch",
+      "wer_raw": {
+        "ref_words": 33,
+        "sub": 9,
+        "del": 1,
+        "ins": 5,
+        "errors": 15
+      },
+      "wer_number_normalized": {
+        "ref_words": 33,
+        "sub": 9,
+        "del": 1,
+        "ins": 5,
+        "errors": 15
+      },
+      "wer_compound_normalized": {
+        "ref_words": 33,
+        "sub": 9,
+        "del": 1,
+        "ins": 5,
+        "errors": 15
+      },
+      "match_counts": {
+        "expected": 4,
+        "finals": 4,
+        "matched": 4,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_marathi_03771_281474976883736_f2614_ch",
+      "wer_raw": {
+        "ref_words": 23,
+        "sub": 3,
+        "del": 0,
+        "ins": 2,
+        "errors": 5
+      },
+      "wer_number_normalized": {
+        "ref_words": 23,
+        "sub": 3,
+        "del": 0,
+        "ins": 2,
+        "errors": 5
+      },
+      "wer_compound_normalized": {
+        "ref_words": 23,
+        "sub": 2,
+        "del": 0,
+        "ins": 1,
+        "errors": 3
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_nepali_01420_281474976883853_f3233_ch",
+      "wer_raw": {
+        "ref_words": 18,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "wer_number_normalized": {
+        "ref_words": 18,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 18,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 4,
+        "finals": 4,
+        "matched": 4,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_nepali_03998_281474976894746_f342_chu",
+      "wer_raw": {
+        "ref_words": 21,
+        "sub": 7,
+        "del": 2,
+        "ins": 0,
+        "errors": 9
+      },
+      "wer_number_normalized": {
+        "ref_words": 21,
+        "sub": 7,
+        "del": 2,
+        "ins": 0,
+        "errors": 9
+      },
+      "wer_compound_normalized": {
+        "ref_words": 20,
+        "sub": 6,
+        "del": 1,
+        "ins": 0,
+        "errors": 7
+      },
+      "match_counts": {
+        "expected": 5,
+        "finals": 5,
+        "matched": 5,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_nepali_04984_281474976883853_f3233_ch",
+      "wer_raw": {
+        "ref_words": 11,
+        "sub": 0,
+        "del": 0,
+        "ins": 1,
+        "errors": 1
+      },
+      "wer_number_normalized": {
+        "ref_words": 11,
+        "sub": 0,
+        "del": 0,
+        "ins": 1,
+        "errors": 1
+      },
+      "wer_compound_normalized": {
+        "ref_words": 11,
+        "sub": 0,
+        "del": 0,
+        "ins": 1,
+        "errors": 1
+      },
+      "match_counts": {
+        "expected": 3,
+        "finals": 3,
+        "matched": 3,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_odia_00139_281474976899793_f1792_ch",
+      "wer_raw": {
+        "ref_words": 29,
+        "sub": 2,
+        "del": 4,
+        "ins": 0,
+        "errors": 6
+      },
+      "wer_number_normalized": {
+        "ref_words": 29,
+        "sub": 2,
+        "del": 4,
+        "ins": 0,
+        "errors": 6
+      },
+      "wer_compound_normalized": {
+        "ref_words": 29,
+        "sub": 2,
+        "del": 4,
+        "ins": 0,
+        "errors": 6
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_odia_02272_281474976897398_f3281_ch",
+      "wer_raw": {
+        "ref_words": 26,
+        "sub": 0,
+        "del": 0,
+        "ins": 7,
+        "errors": 7
+      },
+      "wer_number_normalized": {
+        "ref_words": 26,
+        "sub": 0,
+        "del": 0,
+        "ins": 7,
+        "errors": 7
+      },
+      "wer_compound_normalized": {
+        "ref_words": 26,
+        "sub": 0,
+        "del": 0,
+        "ins": 7,
+        "errors": 7
+      },
+      "match_counts": {
+        "expected": 5,
+        "finals": 5,
+        "matched": 5,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_odia_02839_281474976897399_f2215_ch",
+      "wer_raw": {
+        "ref_words": 30,
+        "sub": 5,
+        "del": 0,
+        "ins": 2,
+        "errors": 7
+      },
+      "wer_number_normalized": {
+        "ref_words": 30,
+        "sub": 5,
+        "del": 0,
+        "ins": 2,
+        "errors": 7
+      },
+      "wer_compound_normalized": {
+        "ref_words": 30,
+        "sub": 5,
+        "del": 0,
+        "ins": 2,
+        "errors": 7
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_punjabi_00253_281474976893747_f1552_ch",
+      "wer_raw": {
+        "ref_words": 12,
+        "sub": 2,
+        "del": 0,
+        "ins": 12,
+        "errors": 14
+      },
+      "wer_number_normalized": {
+        "ref_words": 12,
+        "sub": 2,
+        "del": 0,
+        "ins": 0,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 12,
+        "sub": 2,
+        "del": 0,
+        "ins": 0,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_punjabi_02511_281474976884179_f1751_ch",
+      "wer_raw": {
+        "ref_words": 31,
+        "sub": 1,
+        "del": 1,
+        "ins": 2,
+        "errors": 4
+      },
+      "wer_number_normalized": {
+        "ref_words": 31,
+        "sub": 1,
+        "del": 1,
+        "ins": 2,
+        "errors": 4
+      },
+      "wer_compound_normalized": {
+        "ref_words": 30,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 4,
+        "finals": 4,
+        "matched": 4,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_punjabi_05227_281474976884174_f1972_ch",
+      "wer_raw": {
+        "ref_words": 49,
+        "sub": 0,
+        "del": 0,
+        "ins": 1,
+        "errors": 1
+      },
+      "wer_number_normalized": {
+        "ref_words": 49,
+        "sub": 0,
+        "del": 0,
+        "ins": 1,
+        "errors": 1
+      },
+      "wer_compound_normalized": {
+        "ref_words": 49,
+        "sub": 0,
+        "del": 0,
+        "ins": 1,
+        "errors": 1
+      },
+      "match_counts": {
+        "expected": 4,
+        "finals": 4,
+        "matched": 4,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_sindhi_00186_281474976896763_f1815_ch",
+      "wer_raw": {
+        "ref_words": 28,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "wer_number_normalized": {
+        "ref_words": 28,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 28,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_sindhi_03349_281474976896761_f1924_ch",
+      "wer_raw": {
+        "ref_words": 25,
+        "sub": 1,
+        "del": 0,
+        "ins": 4,
+        "errors": 5
+      },
+      "wer_number_normalized": {
+        "ref_words": 25,
+        "sub": 1,
+        "del": 0,
+        "ins": 4,
+        "errors": 5
+      },
+      "wer_compound_normalized": {
+        "ref_words": 25,
+        "sub": 1,
+        "del": 0,
+        "ins": 4,
+        "errors": 5
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_sindhi_04981_281474976896729_f1038_ch",
+      "wer_raw": {
+        "ref_words": 25,
+        "sub": 5,
+        "del": 0,
+        "ins": 21,
+        "errors": 26
+      },
+      "wer_number_normalized": {
+        "ref_words": 25,
+        "sub": 4,
+        "del": 0,
+        "ins": 1,
+        "errors": 5
+      },
+      "wer_compound_normalized": {
+        "ref_words": 25,
+        "sub": 4,
+        "del": 0,
+        "ins": 1,
+        "errors": 5
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_tamil_01242_281474976886814_f1691_ch",
+      "wer_raw": {
+        "ref_words": 21,
+        "sub": 0,
+        "del": 0,
+        "ins": 5,
+        "errors": 5
+      },
+      "wer_number_normalized": {
+        "ref_words": 21,
+        "sub": 0,
+        "del": 0,
+        "ins": 5,
+        "errors": 5
+      },
+      "wer_compound_normalized": {
+        "ref_words": 21,
+        "sub": 0,
+        "del": 0,
+        "ins": 5,
+        "errors": 5
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_tamil_03855_281474976886823_f1784_ch",
+      "wer_raw": {
+        "ref_words": 33,
+        "sub": 3,
+        "del": 0,
+        "ins": 5,
+        "errors": 8
+      },
+      "wer_number_normalized": {
+        "ref_words": 33,
+        "sub": 3,
+        "del": 0,
+        "ins": 5,
+        "errors": 8
+      },
+      "wer_compound_normalized": {
+        "ref_words": 33,
+        "sub": 3,
+        "del": 0,
+        "ins": 5,
+        "errors": 8
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_tamil_06305_281474976886911_f847_chu",
+      "wer_raw": {
+        "ref_words": 20,
+        "sub": 1,
+        "del": 0,
+        "ins": 0,
+        "errors": 1
+      },
+      "wer_number_normalized": {
+        "ref_words": 20,
+        "sub": 1,
+        "del": 0,
+        "ins": 0,
+        "errors": 1
+      },
+      "wer_compound_normalized": {
+        "ref_words": 20,
+        "sub": 1,
+        "del": 0,
+        "ins": 0,
+        "errors": 1
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_telugu_00331_281474976886701_f1840_ch",
+      "wer_raw": {
+        "ref_words": 69,
+        "sub": 0,
+        "del": 0,
+        "ins": 9,
+        "errors": 9
+      },
+      "wer_number_normalized": {
+        "ref_words": 69,
+        "sub": 0,
+        "del": 0,
+        "ins": 9,
+        "errors": 9
+      },
+      "wer_compound_normalized": {
+        "ref_words": 69,
+        "sub": 0,
+        "del": 0,
+        "ins": 9,
+        "errors": 9
+      },
+      "match_counts": {
+        "expected": 5,
+        "finals": 5,
+        "matched": 5,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_telugu_00871_281474976886979_f1251_ch",
+      "wer_raw": {
+        "ref_words": 21,
+        "sub": 1,
+        "del": 0,
+        "ins": 1,
+        "errors": 2
+      },
+      "wer_number_normalized": {
+        "ref_words": 21,
+        "sub": 1,
+        "del": 0,
+        "ins": 1,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 21,
+        "sub": 1,
+        "del": 0,
+        "ins": 1,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_telugu_02772_281474976897600_f2042_ch",
+      "wer_raw": {
+        "ref_words": 55,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "wer_number_normalized": {
+        "ref_words": 55,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "wer_compound_normalized": {
+        "ref_words": 55,
+        "sub": 0,
+        "del": 0,
+        "ins": 0,
+        "errors": 0
+      },
+      "match_counts": {
+        "expected": 4,
+        "finals": 4,
+        "matched": 4,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_urdu_01483_281474976900644_f2038_ch",
+      "wer_raw": {
+        "ref_words": 32,
+        "sub": 2,
+        "del": 0,
+        "ins": 0,
+        "errors": 2
+      },
+      "wer_number_normalized": {
+        "ref_words": 32,
+        "sub": 2,
+        "del": 0,
+        "ins": 0,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 32,
+        "sub": 2,
+        "del": 0,
+        "ins": 0,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 6,
+        "finals": 6,
+        "matched": 6,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_urdu_01750_281474976902147_f2503_ch",
+      "wer_raw": {
+        "ref_words": 13,
+        "sub": 4,
+        "del": 0,
+        "ins": 3,
+        "errors": 7
+      },
+      "wer_number_normalized": {
+        "ref_words": 13,
+        "sub": 4,
+        "del": 0,
+        "ins": 3,
+        "errors": 7
+      },
+      "wer_compound_normalized": {
+        "ref_words": 13,
+        "sub": 4,
+        "del": 0,
+        "ins": 3,
+        "errors": 7
+      },
+      "match_counts": {
+        "expected": 2,
+        "finals": 2,
+        "matched": 2,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    },
+    {
+      "id": "svarah_urdu_02703_281474976889218_f1884_ch",
+      "wer_raw": {
+        "ref_words": 34,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "wer_number_normalized": {
+        "ref_words": 34,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "wer_compound_normalized": {
+        "ref_words": 34,
+        "sub": 0,
+        "del": 0,
+        "ins": 2,
+        "errors": 2
+      },
+      "match_counts": {
+        "expected": 4,
+        "finals": 4,
+        "matched": 4,
+        "unmatched_expected": 0,
+        "extra_finals": 0
+      }
+    }
+  ]
+}

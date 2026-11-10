@@ -1,0 +1,1464 @@
+{
+ "engine": "ParakeetNativeEngine (production class, default params)",
+ "model": "C:\\Users\\sriha\\snypar\\stt\\speech-to-text\\whisper.cpp\\models\\ggml-parakeet-tdt-0.6b-v3-q8_0.bin",
+ "phase5_boundaries_identical_across_runs": true,
+ "reps": 3,
+ "conditions": {
+  "A": 0.0,
+  "B": 0.5,
+  "C": 1.0,
+  "D": 2.0
+ },
+ "clips": [
+  {
+   "clip": "svarah_assamese_03817_281474976885867_f1767_ch",
+   "phase5_conn_run1": 2,
+   "phase3_fullclip_text": "Yes, I have some uh favorite not favourite, but I like some uh idioms and proverbs uh like um Don't judge a book by its cover, Action Speak Louded in Words, Once in a Blue Moon, True Thick and Thin, Spill the Bins, etcetera",
+   "phase3_fullclip_duration_s": 19.5056875,
+   "flush_table": [
+    {
+     "seq": 1,
+     "outcome": "final_sent",
+     "reason": "forced_cap",
+     "start_sample": 0,
+     "end_sample": 128000,
+     "buffer_samples": 128000,
+     "speech_s": 6.8,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 2,
+     "outcome": "final_sent",
+     "reason": "forced_cap",
+     "start_sample": 128000,
+     "end_sample": 256000,
+     "buffer_samples": 128000,
+     "speech_s": 6.6,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 3,
+     "outcome": "dropped_empty_text",
+     "reason": "silence_hang",
+     "start_sample": 256000,
+     "end_sample": 315200,
+     "buffer_samples": 59200,
+     "speech_s": 2.3,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 4,
+     "outcome": "dropped_not_pending",
+     "reason": "disconnect",
+     "start_sample": 315205,
+     "end_sample": 336096,
+     "buffer_samples": 20891,
+     "speech_s": 0.0,
+     "checks": {
+      "end_multiple_of_chunk": false,
+      "start_equals_previous_end": false,
+      "within_stream": false
+     }
+    }
+   ],
+   "dropped": {
+    "seq": 3,
+    "reason": "silence_hang",
+    "start_sample": 256000,
+    "end_sample": 315200,
+    "start_s": 16.0,
+    "end_s": 19.7,
+    "buffer_samples": 59200,
+    "verification": {
+     "sample_count_matches_buffer_samples": true,
+     "sample_rate": 16000,
+     "duration_matches_buffer_s": true,
+     "vad_replay_speech_s": 2.3,
+     "recorded_speech_s": 2.3,
+     "vad_replay_silence_s": 0.6,
+     "recorded_silence_s": 0.6,
+     "vad_matches_record": true,
+     "boundary_checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    "conditions": {
+     "A": {
+      "tag": "dropped_A",
+      "wav": "audio\\assamese_03817_dropped_A.wav",
+      "start_sample": 256000,
+      "end_sample": 315200,
+      "context_samples": 0,
+      "sample_count": 59200,
+      "duration_s": 3.7,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.3345
+       },
+       {
+        "rep": 2,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.3304
+       },
+       {
+        "rep": 3,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.3243
+       }
+      ]
+     },
+     "B": {
+      "tag": "dropped_B",
+      "wav": "audio\\assamese_03817_dropped_B.wav",
+      "start_sample": 248000,
+      "end_sample": 315200,
+      "context_samples": 8000,
+      "sample_count": 67200,
+      "duration_s": 4.2,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "through thick and thin, spill the beans, etc.",
+        "empty": false,
+        "decode_s": 0.37
+       },
+       {
+        "rep": 2,
+        "text": "through thick and thin, spill the beans, etc.",
+        "empty": false,
+        "decode_s": 0.359
+       },
+       {
+        "rep": 3,
+        "text": "through thick and thin, spill the beans, etc.",
+        "empty": false,
+        "decode_s": 0.3637
+       }
+      ]
+     },
+     "C": {
+      "tag": "dropped_C",
+      "wav": "audio\\assamese_03817_dropped_C.wav",
+      "start_sample": 240000,
+      "end_sample": 315200,
+      "context_samples": 16000,
+      "sample_count": 75200,
+      "duration_s": 4.7,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.4013
+       },
+       {
+        "rep": 2,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.4097
+       },
+       {
+        "rep": 3,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.4128
+       }
+      ]
+     },
+     "D": {
+      "tag": "dropped_D",
+      "wav": "audio\\assamese_03817_dropped_D.wav",
+      "start_sample": 224000,
+      "end_sample": 315200,
+      "context_samples": 32000,
+      "sample_count": 91200,
+      "duration_s": 5.7,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "Once in a blue moon, through thick and thin, spill the winds, etc.",
+        "empty": false,
+        "decode_s": 0.4823
+       },
+       {
+        "rep": 2,
+        "text": "Once in a blue moon, through thick and thin, spill the winds, etc.",
+        "empty": false,
+        "decode_s": 0.4779
+       },
+       {
+        "rep": 3,
+        "text": "Once in a blue moon, through thick and thin, spill the winds, etc.",
+        "empty": false,
+        "decode_s": 0.5127
+       }
+      ]
+     }
+    }
+   },
+   "controls": [
+    {
+     "tag": "control_seq1_A",
+     "wav": "audio\\assamese_03817_control_seq1_A.wav",
+     "start_sample": 0,
+     "end_sample": 128000,
+     "context_samples": 0,
+     "sample_count": 128000,
+     "duration_s": 8.0,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like",
+       "empty": false,
+       "decode_s": 0.7056
+      },
+      {
+       "rep": 2,
+       "text": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like",
+       "empty": false,
+       "decode_s": 0.7089
+      },
+      {
+       "rep": 3,
+       "text": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like",
+       "empty": false,
+       "decode_s": 0.6962
+      }
+     ],
+     "seq": 1,
+     "recorded_text_len": 90,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "tag": "control_seq2_A",
+     "wav": "audio\\assamese_03817_control_seq2_A.wav",
+     "start_sample": 128000,
+     "end_sample": 256000,
+     "context_samples": 0,
+     "sample_count": 128000,
+     "duration_s": 8.0,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+       "empty": false,
+       "decode_s": 0.6812
+      },
+      {
+       "rep": 2,
+       "text": "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+       "empty": false,
+       "decode_s": 0.6955
+      },
+      {
+       "rep": 3,
+       "text": "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+       "empty": false,
+       "decode_s": 0.687
+      }
+     ],
+     "seq": 2,
+     "recorded_text_len": 94,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    }
+   ]
+  },
+  {
+   "clip": "svarah_assamese_06152_281474976901758_f990_chu",
+   "phase5_conn_run1": 3,
+   "phase3_fullclip_text": "Can you stop automatically sending Ghanim Rs three hundred bi weekly and send Rs sixty thousand instead on Yono SBI?",
+   "phase3_fullclip_duration_s": 10.6673125,
+   "flush_table": [
+    {
+     "seq": 1,
+     "outcome": "final_sent",
+     "reason": "forced_cap",
+     "start_sample": 0,
+     "end_sample": 128000,
+     "buffer_samples": 128000,
+     "speech_s": 6.3,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 2,
+     "outcome": "dropped_empty_text",
+     "reason": "silence_hang",
+     "start_sample": 128000,
+     "end_sample": 174400,
+     "buffer_samples": 46400,
+     "speech_s": 1.9,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 3,
+     "outcome": "dropped_not_pending",
+     "reason": "disconnect",
+     "start_sample": 174395,
+     "end_sample": 194672,
+     "buffer_samples": 20277,
+     "speech_s": 0.0,
+     "checks": {
+      "end_multiple_of_chunk": false,
+      "start_equals_previous_end": false,
+      "within_stream": true
+     }
+    }
+   ],
+   "dropped": {
+    "seq": 2,
+    "reason": "silence_hang",
+    "start_sample": 128000,
+    "end_sample": 174400,
+    "start_s": 8.0,
+    "end_s": 10.9,
+    "buffer_samples": 46400,
+    "verification": {
+     "sample_count_matches_buffer_samples": true,
+     "sample_rate": 16000,
+     "duration_matches_buffer_s": true,
+     "vad_replay_speech_s": 1.9,
+     "recorded_speech_s": 1.9,
+     "vad_replay_silence_s": 0.6,
+     "recorded_silence_s": 0.6,
+     "vad_matches_record": true,
+     "boundary_checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    "conditions": {
+     "A": {
+      "tag": "dropped_A",
+      "wav": "audio\\assamese_06152_dropped_A.wav",
+      "start_sample": 128000,
+      "end_sample": 174400,
+      "context_samples": 0,
+      "sample_count": 46400,
+      "duration_s": 2.9,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2523
+       },
+       {
+        "rep": 2,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2509
+       },
+       {
+        "rep": 3,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2652
+       }
+      ]
+     },
+     "B": {
+      "tag": "dropped_B",
+      "wav": "audio\\assamese_06152_dropped_B.wav",
+      "start_sample": 120000,
+      "end_sample": 174400,
+      "context_samples": 8000,
+      "sample_count": 54400,
+      "duration_s": 3.4,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "sixty thousand instead on your no SPI?",
+        "empty": false,
+        "decode_s": 0.3114
+       },
+       {
+        "rep": 2,
+        "text": "sixty thousand instead on your no SPI?",
+        "empty": false,
+        "decode_s": 0.2878
+       },
+       {
+        "rep": 3,
+        "text": "sixty thousand instead on your no SPI?",
+        "empty": false,
+        "decode_s": 0.2924
+       }
+      ]
+     },
+     "C": {
+      "tag": "dropped_C",
+      "wav": "audio\\assamese_06152_dropped_C.wav",
+      "start_sample": 112000,
+      "end_sample": 174400,
+      "context_samples": 16000,
+      "sample_count": 62400,
+      "duration_s": 3.9,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "Rupees sixty thousand instead on Yono Spi?",
+        "empty": false,
+        "decode_s": 0.358
+       },
+       {
+        "rep": 2,
+        "text": "Rupees sixty thousand instead on Yono Spi?",
+        "empty": false,
+        "decode_s": 0.3541
+       },
+       {
+        "rep": 3,
+        "text": "Rupees sixty thousand instead on Yono Spi?",
+        "empty": false,
+        "decode_s": 0.3569
+       }
+      ]
+     },
+     "D": {
+      "tag": "dropped_D",
+      "wav": "audio\\assamese_06152_dropped_D.wav",
+      "start_sample": 96000,
+      "end_sample": 174400,
+      "context_samples": 32000,
+      "sample_count": 78400,
+      "duration_s": 4.9,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "And sent Rs sixty thousand instead on Yono SPI?",
+        "empty": false,
+        "decode_s": 0.4504
+       },
+       {
+        "rep": 2,
+        "text": "And sent Rs sixty thousand instead on Yono SPI?",
+        "empty": false,
+        "decode_s": 0.4247
+       },
+       {
+        "rep": 3,
+        "text": "And sent Rs sixty thousand instead on Yono SPI?",
+        "empty": false,
+        "decode_s": 0.4207
+       }
+      ]
+     }
+    }
+   },
+   "controls": [
+    {
+     "tag": "control_seq1_A",
+     "wav": "audio\\assamese_06152_control_seq1_A.wav",
+     "start_sample": 0,
+     "end_sample": 128000,
+     "context_samples": 0,
+     "sample_count": 128000,
+     "duration_s": 8.0,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+       "empty": false,
+       "decode_s": 0.6878
+      },
+      {
+       "rep": 2,
+       "text": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+       "empty": false,
+       "decode_s": 0.6814
+      },
+      {
+       "rep": 3,
+       "text": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+       "empty": false,
+       "decode_s": 0.7023
+      }
+     ],
+     "seq": 1,
+     "recorded_text_len": 101,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    }
+   ]
+  },
+  {
+   "clip": "svarah_kannada_00197_281474976884629_f2039_ch",
+   "phase5_conn_run1": 6,
+   "phase3_fullclip_text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials,",
+   "phase3_fullclip_duration_s": 10.1995,
+   "flush_table": [
+    {
+     "seq": 1,
+     "outcome": "final_sent",
+     "reason": "forced_cap",
+     "start_sample": 0,
+     "end_sample": 128000,
+     "buffer_samples": 128000,
+     "speech_s": 7.4,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 2,
+     "outcome": "dropped_empty_text",
+     "reason": "silence_hang",
+     "start_sample": 128000,
+     "end_sample": 172800,
+     "buffer_samples": 44800,
+     "speech_s": 1.8,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 3,
+     "outcome": "dropped_not_pending",
+     "reason": "disconnect",
+     "start_sample": 172808,
+     "end_sample": 187200,
+     "buffer_samples": 14392,
+     "speech_s": 0.0,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": false,
+      "within_stream": false
+     }
+    }
+   ],
+   "dropped": {
+    "seq": 2,
+    "reason": "silence_hang",
+    "start_sample": 128000,
+    "end_sample": 172800,
+    "start_s": 8.0,
+    "end_s": 10.8,
+    "buffer_samples": 44800,
+    "verification": {
+     "sample_count_matches_buffer_samples": true,
+     "sample_rate": 16000,
+     "duration_matches_buffer_s": true,
+     "vad_replay_speech_s": 1.8,
+     "recorded_speech_s": 1.8,
+     "vad_replay_silence_s": 0.6,
+     "recorded_silence_s": 0.6,
+     "vad_matches_record": true,
+     "boundary_checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    "conditions": {
+     "A": {
+      "tag": "dropped_A",
+      "wav": "audio\\kannada_00197_dropped_A.wav",
+      "start_sample": 128000,
+      "end_sample": 172800,
+      "context_samples": 0,
+      "sample_count": 44800,
+      "duration_s": 2.8,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2481
+       },
+       {
+        "rep": 2,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2523
+       },
+       {
+        "rep": 3,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2412
+       }
+      ]
+     },
+     "B": {
+      "tag": "dropped_B",
+      "wav": "audio\\kannada_00197_dropped_B.wav",
+      "start_sample": 120000,
+      "end_sample": 172800,
+      "context_samples": 8000,
+      "sample_count": 52800,
+      "duration_s": 3.3,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.287
+       },
+       {
+        "rep": 2,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.28
+       },
+       {
+        "rep": 3,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2807
+       }
+      ]
+     },
+     "C": {
+      "tag": "dropped_C",
+      "wav": "audio\\kannada_00197_dropped_C.wav",
+      "start_sample": 112000,
+      "end_sample": 172800,
+      "context_samples": 16000,
+      "sample_count": 60800,
+      "duration_s": 3.8,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.3247
+       },
+       {
+        "rep": 2,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.3225
+       },
+       {
+        "rep": 3,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.3197
+       }
+      ]
+     },
+     "D": {
+      "tag": "dropped_D",
+      "wav": "audio\\kannada_00197_dropped_D.wav",
+      "start_sample": 96000,
+      "end_sample": 172800,
+      "context_samples": 32000,
+      "sample_count": 76800,
+      "duration_s": 4.8,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.4137
+       },
+       {
+        "rep": 2,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.41
+       },
+       {
+        "rep": 3,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.4072
+       }
+      ]
+     }
+    }
+   },
+   "controls": [
+    {
+     "tag": "control_seq1_A",
+     "wav": "audio\\kannada_00197_control_seq1_A.wav",
+     "start_sample": 0,
+     "end_sample": 128000,
+     "context_samples": 0,
+     "sample_count": 128000,
+     "duration_s": 8.0,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+       "empty": false,
+       "decode_s": 0.6888
+      },
+      {
+       "rep": 2,
+       "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+       "empty": false,
+       "decode_s": 0.6951
+      },
+      {
+       "rep": 3,
+       "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+       "empty": false,
+       "decode_s": 0.682
+      }
+     ],
+     "seq": 1,
+     "recorded_text_len": 124,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    }
+   ]
+  },
+  {
+   "clip": "svarah_kashmiri_03111_281474976891473_f1165_ch",
+   "phase5_conn_run1": 7,
+   "phase3_fullclip_text": "Change your quantities of items Nestle, Munch Wafer Bar, Chai, Point Rust Cake and Lal Basin Ladu as their current quantities are out of stock.",
+   "phase3_fullclip_duration_s": 10.812375,
+   "flush_table": [
+    {
+     "seq": 1,
+     "outcome": "final_sent",
+     "reason": "forced_cap",
+     "start_sample": 0,
+     "end_sample": 128000,
+     "buffer_samples": 128000,
+     "speech_s": 6.2,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 2,
+     "outcome": "dropped_empty_text",
+     "reason": "silence_hang",
+     "start_sample": 128000,
+     "end_sample": 182400,
+     "buffer_samples": 54400,
+     "speech_s": 2.1,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 3,
+     "outcome": "dropped_not_pending",
+     "reason": "disconnect",
+     "start_sample": 182394,
+     "end_sample": 196992,
+     "buffer_samples": 14598,
+     "speech_s": 0.0,
+     "checks": {
+      "end_multiple_of_chunk": false,
+      "start_equals_previous_end": false,
+      "within_stream": true
+     }
+    }
+   ],
+   "dropped": {
+    "seq": 2,
+    "reason": "silence_hang",
+    "start_sample": 128000,
+    "end_sample": 182400,
+    "start_s": 8.0,
+    "end_s": 11.4,
+    "buffer_samples": 54400,
+    "verification": {
+     "sample_count_matches_buffer_samples": true,
+     "sample_rate": 16000,
+     "duration_matches_buffer_s": true,
+     "vad_replay_speech_s": 2.1,
+     "recorded_speech_s": 2.1,
+     "vad_replay_silence_s": 0.6,
+     "recorded_silence_s": 0.6,
+     "vad_matches_record": true,
+     "boundary_checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    "conditions": {
+     "A": {
+      "tag": "dropped_A",
+      "wav": "audio\\kashmiri_03111_dropped_A.wav",
+      "start_sample": 128000,
+      "end_sample": 182400,
+      "context_samples": 0,
+      "sample_count": 54400,
+      "duration_s": 3.4,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2924
+       },
+       {
+        "rep": 2,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2911
+       },
+       {
+        "rep": 3,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2869
+       }
+      ]
+     },
+     "B": {
+      "tag": "dropped_B",
+      "wav": "audio\\kashmiri_03111_dropped_B.wav",
+      "start_sample": 120000,
+      "end_sample": 182400,
+      "context_samples": 8000,
+      "sample_count": 62400,
+      "duration_s": 3.9,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "Basin Ladu as their current quantities are out of stock.",
+        "empty": false,
+        "decode_s": 0.3423
+       },
+       {
+        "rep": 2,
+        "text": "Basin Ladu as their current quantities are out of stock.",
+        "empty": false,
+        "decode_s": 0.3398
+       },
+       {
+        "rep": 3,
+        "text": "Basin Ladu as their current quantities are out of stock.",
+        "empty": false,
+        "decode_s": 0.3457
+       }
+      ]
+     },
+     "C": {
+      "tag": "dropped_C",
+      "wav": "audio\\kashmiri_03111_dropped_C.wav",
+      "start_sample": 112000,
+      "end_sample": 182400,
+      "context_samples": 16000,
+      "sample_count": 70400,
+      "duration_s": 4.4,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "and Lal Basin Ladu as their current quantities are out of stock.",
+        "empty": false,
+        "decode_s": 0.3895
+       },
+       {
+        "rep": 2,
+        "text": "and Lal Basin Ladu as their current quantities are out of stock.",
+        "empty": false,
+        "decode_s": 0.3793
+       },
+       {
+        "rep": 3,
+        "text": "and Lal Basin Ladu as their current quantities are out of stock.",
+        "empty": false,
+        "decode_s": 0.3802
+       }
+      ]
+     },
+     "D": {
+      "tag": "dropped_D",
+      "wav": "audio\\kashmiri_03111_dropped_D.wav",
+      "start_sample": 96000,
+      "end_sample": 182400,
+      "context_samples": 32000,
+      "sample_count": 86400,
+      "duration_s": 5.4,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "Rust cake and Lal Basin Ladu as their current quantities are out of stock.",
+        "empty": false,
+        "decode_s": 0.4544
+       },
+       {
+        "rep": 2,
+        "text": "Rust cake and Lal Basin Ladu as their current quantities are out of stock.",
+        "empty": false,
+        "decode_s": 0.4448
+       },
+       {
+        "rep": 3,
+        "text": "Rust cake and Lal Basin Ladu as their current quantities are out of stock.",
+        "empty": false,
+        "decode_s": 0.4557
+       }
+      ]
+     }
+    }
+   },
+   "controls": [
+    {
+     "tag": "control_seq1_A",
+     "wav": "audio\\kashmiri_03111_control_seq1_A.wav",
+     "start_sample": 0,
+     "end_sample": 128000,
+     "context_samples": 0,
+     "sample_count": 128000,
+     "duration_s": 8.0,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+       "empty": false,
+       "decode_s": 0.7014
+      },
+      {
+       "rep": 2,
+       "text": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+       "empty": false,
+       "decode_s": 0.6923
+      },
+      {
+       "rep": 3,
+       "text": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+       "empty": false,
+       "decode_s": 0.6932
+      }
+     ],
+     "seq": 1,
+     "recorded_text_len": 100,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    }
+   ]
+  },
+  {
+   "clip": "svarah_bodo_03621_281474976893846_f3264_ch",
+   "phase5_conn_run1": 5,
+   "phase3_fullclip_text": "clients can see the works like if you have your own website blog or social media account um dedicating to your work um like people can easily access through it and",
+   "phase3_fullclip_duration_s": 18.0,
+   "flush_table": [
+    {
+     "seq": 1,
+     "outcome": "final_sent",
+     "reason": "silence_hang",
+     "start_sample": 0,
+     "end_sample": 40000,
+     "buffer_samples": 40000,
+     "speech_s": 1.2,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 2,
+     "outcome": "final_sent",
+     "reason": "silence_hang",
+     "start_sample": 40000,
+     "end_sample": 105600,
+     "buffer_samples": 65600,
+     "speech_s": 1.8,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 3,
+     "outcome": "final_sent",
+     "reason": "silence_hang",
+     "start_sample": 105600,
+     "end_sample": 132800,
+     "buffer_samples": 27200,
+     "speech_s": 0.6,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 4,
+     "outcome": "final_sent",
+     "reason": "silence_hang",
+     "start_sample": 132800,
+     "end_sample": 153600,
+     "buffer_samples": 20800,
+     "speech_s": 0.4,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 5,
+     "outcome": "final_sent",
+     "reason": "silence_hang",
+     "start_sample": 153600,
+     "end_sample": 203200,
+     "buffer_samples": 49600,
+     "speech_s": 1.4,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 6,
+     "outcome": "final_sent",
+     "reason": "silence_hang",
+     "start_sample": 203200,
+     "end_sample": 251200,
+     "buffer_samples": 48000,
+     "speech_s": 1.3,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 7,
+     "outcome": "dropped_empty_text",
+     "reason": "silence_hang",
+     "start_sample": 251200,
+     "end_sample": 297600,
+     "buffer_samples": 46400,
+     "speech_s": 0.4,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    {
+     "seq": 8,
+     "outcome": "dropped_not_pending",
+     "reason": "disconnect",
+     "start_sample": 297600,
+     "end_sample": 312000,
+     "buffer_samples": 14400,
+     "speech_s": 0.0,
+     "checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    }
+   ],
+   "dropped": {
+    "seq": 7,
+    "reason": "silence_hang",
+    "start_sample": 251200,
+    "end_sample": 297600,
+    "start_s": 15.7,
+    "end_s": 18.6,
+    "buffer_samples": 46400,
+    "verification": {
+     "sample_count_matches_buffer_samples": true,
+     "sample_rate": 16000,
+     "duration_matches_buffer_s": true,
+     "vad_replay_speech_s": 0.4,
+     "recorded_speech_s": 0.4,
+     "vad_replay_silence_s": 0.6,
+     "recorded_silence_s": 0.6,
+     "vad_matches_record": true,
+     "boundary_checks": {
+      "end_multiple_of_chunk": true,
+      "start_equals_previous_end": true,
+      "within_stream": true
+     }
+    },
+    "conditions": {
+     "A": {
+      "tag": "dropped_A",
+      "wav": "audio\\bodo_03621_dropped_A.wav",
+      "start_sample": 251200,
+      "end_sample": 297600,
+      "context_samples": 0,
+      "sample_count": 46400,
+      "duration_s": 2.9,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2521
+       },
+       {
+        "rep": 2,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2492
+       },
+       {
+        "rep": 3,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2481
+       }
+      ]
+     },
+     "B": {
+      "tag": "dropped_B",
+      "wav": "audio\\bodo_03621_dropped_B.wav",
+      "start_sample": 243200,
+      "end_sample": 297600,
+      "context_samples": 8000,
+      "sample_count": 54400,
+      "duration_s": 3.4,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2976
+       },
+       {
+        "rep": 2,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2952
+       },
+       {
+        "rep": 3,
+        "text": "",
+        "empty": true,
+        "decode_s": 0.2867
+       }
+      ]
+     },
+     "C": {
+      "tag": "dropped_C",
+      "wav": "audio\\bodo_03621_dropped_C.wav",
+      "start_sample": 235200,
+      "end_sample": 297600,
+      "context_samples": 16000,
+      "sample_count": 62400,
+      "duration_s": 3.9,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "access through it and",
+        "empty": false,
+        "decode_s": 0.332
+       },
+       {
+        "rep": 2,
+        "text": "access through it and",
+        "empty": false,
+        "decode_s": 0.3334
+       },
+       {
+        "rep": 3,
+        "text": "access through it and",
+        "empty": false,
+        "decode_s": 0.3306
+       }
+      ]
+     },
+     "D": {
+      "tag": "dropped_D",
+      "wav": "audio\\bodo_03621_dropped_D.wav",
+      "start_sample": 219200,
+      "end_sample": 297600,
+      "context_samples": 32000,
+      "sample_count": 78400,
+      "duration_s": 4.9,
+      "reps": [
+       {
+        "rep": 1,
+        "text": "people can easily access through it.",
+        "empty": false,
+        "decode_s": 0.4289
+       },
+       {
+        "rep": 2,
+        "text": "people can easily access through it.",
+        "empty": false,
+        "decode_s": 0.4326
+       },
+       {
+        "rep": 3,
+        "text": "people can easily access through it.",
+        "empty": false,
+        "decode_s": 0.4382
+       }
+      ]
+     }
+    }
+   },
+   "controls": [
+    {
+     "tag": "control_seq1_A",
+     "wav": "audio\\bodo_03621_control_seq1_A.wav",
+     "start_sample": 0,
+     "end_sample": 40000,
+     "context_samples": 0,
+     "sample_count": 40000,
+     "duration_s": 2.5,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Online clients can see the works.",
+       "empty": false,
+       "decode_s": 0.22
+      },
+      {
+       "rep": 2,
+       "text": "Online clients can see the works.",
+       "empty": false,
+       "decode_s": 0.2183
+      },
+      {
+       "rep": 3,
+       "text": "Online clients can see the works.",
+       "empty": false,
+       "decode_s": 0.221
+      }
+     ],
+     "seq": 1,
+     "recorded_text_len": 33,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "tag": "control_seq2_A",
+     "wav": "audio\\bodo_03621_control_seq2_A.wav",
+     "start_sample": 40000,
+     "end_sample": 105600,
+     "context_samples": 0,
+     "sample_count": 65600,
+     "duration_s": 4.1,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Like if you have your own website, blog or social",
+       "empty": false,
+       "decode_s": 0.3549
+      },
+      {
+       "rep": 2,
+       "text": "Like if you have your own website, blog or social",
+       "empty": false,
+       "decode_s": 0.3558
+      },
+      {
+       "rep": 3,
+       "text": "Like if you have your own website, blog or social",
+       "empty": false,
+       "decode_s": 0.3624
+      }
+     ],
+     "seq": 2,
+     "recorded_text_len": 49,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "tag": "control_seq3_A",
+     "wav": "audio\\bodo_03621_control_seq3_A.wav",
+     "start_sample": 105600,
+     "end_sample": 132800,
+     "context_samples": 0,
+     "sample_count": 27200,
+     "duration_s": 1.7,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "social media account.",
+       "empty": false,
+       "decode_s": 0.1529
+      },
+      {
+       "rep": 2,
+       "text": "social media account.",
+       "empty": false,
+       "decode_s": 0.1492
+      },
+      {
+       "rep": 3,
+       "text": "social media account.",
+       "empty": false,
+       "decode_s": 0.1573
+      }
+     ],
+     "seq": 3,
+     "recorded_text_len": 21,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "tag": "control_seq4_A",
+     "wav": "audio\\bodo_03621_control_seq4_A.wav",
+     "start_sample": 132800,
+     "end_sample": 153600,
+     "context_samples": 0,
+     "sample_count": 20800,
+     "duration_s": 1.3,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Um",
+       "empty": false,
+       "decode_s": 0.1273
+      },
+      {
+       "rep": 2,
+       "text": "Um",
+       "empty": false,
+       "decode_s": 0.1197
+      },
+      {
+       "rep": 3,
+       "text": "Um",
+       "empty": false,
+       "decode_s": 0.121
+      }
+     ],
+     "seq": 4,
+     "recorded_text_len": 2,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "tag": "control_seq5_A",
+     "wav": "audio\\bodo_03621_control_seq5_A.wav",
+     "start_sample": 153600,
+     "end_sample": 203200,
+     "context_samples": 0,
+     "sample_count": 49600,
+     "duration_s": 3.1,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Dedicating to your verb.",
+       "empty": false,
+       "decode_s": 0.2732
+      },
+      {
+       "rep": 2,
+       "text": "Dedicating to your verb.",
+       "empty": false,
+       "decode_s": 0.2609
+      },
+      {
+       "rep": 3,
+       "text": "Dedicating to your verb.",
+       "empty": false,
+       "decode_s": 0.2615
+      }
+     ],
+     "seq": 5,
+     "recorded_text_len": 24,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "tag": "control_seq6_A",
+     "wav": "audio\\bodo_03621_control_seq6_A.wav",
+     "start_sample": 203200,
+     "end_sample": 251200,
+     "context_samples": 0,
+     "sample_count": 48000,
+     "duration_s": 3.0,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Um like people can easily access",
+       "empty": false,
+       "decode_s": 0.2796
+      },
+      {
+       "rep": 2,
+       "text": "Um like people can easily access",
+       "empty": false,
+       "decode_s": 0.2674
+      },
+      {
+       "rep": 3,
+       "text": "Um like people can easily access",
+       "empty": false,
+       "decode_s": 0.2618
+      }
+     ],
+     "seq": 6,
+     "recorded_text_len": 32,
+     "replay_text_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    }
+   ]
+  }
+ ]
+}

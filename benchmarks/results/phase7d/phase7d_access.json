@@ -1,0 +1,101 @@
+{
+ "scenario": "access",
+ "checks": [
+  {
+   "check": "3 allowlisted accounts log in",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "wrong password rejected",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "non-allowlisted account rejected",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "no token -> 401 on sessions",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "forged token -> 401",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "non-/qa path -> 404",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "ws without token refused (4401)",
+   "pass": true,
+   "detail": "(4401, 'qa login required')"
+  },
+  {
+   "check": "ws with bad token refused (4401)",
+   "pass": true,
+   "detail": "(4401, 'qa login required')"
+  },
+  {
+   "check": "ws without consent refused (4403)",
+   "pass": true,
+   "detail": "(4403, 'consent required')"
+  },
+  {
+   "check": "consent accepted tester.one@gmail.com",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "consent accepted tester.two@gmail.com",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "consent accepted tester.three@gmail.com",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "owner session produced a final",
+   "pass": true,
+   "detail": "['What are the main challenges and opportunities facing young people in your district?']"
+  },
+  {
+   "check": "other account cannot hijack session id (4403)",
+   "pass": true,
+   "detail": "(4403, 'session belongs to another account')"
+  },
+  {
+   "check": "owner downloads own audio",
+   "pass": true,
+   "detail": "486444 bytes"
+  },
+  {
+   "check": "downloaded audio == streamed audio (bit exact)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tester.two@gmail.com: other's audio 404, transcript 404, not listed",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tester.three@gmail.com: other's audio 404, transcript 404, not listed",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "traversal id -> 404",
+   "pass": true,
+   "detail": ""
+  }
+ ],
+ "sid": "p7dacc209139"
+}

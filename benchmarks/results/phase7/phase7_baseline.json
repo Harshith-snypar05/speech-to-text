@@ -1,0 +1,87 @@
+{
+  "phase": 7,
+  "title": "English-focused reliability baseline (read-only, captured before any Phase 7 change)",
+  "created_local": "2026-11-07",
+  "purpose": "Freeze the pre-Phase-7 state so any later Phase 7 result can be compared against it. No production file was modified to produce this document.",
+  "environment": {
+    "host": "Windows-11-10.0.26300-SP0",
+    "python": "3.13.5",
+    "cpu": "AMD Ryzen 9 8940HX with Radeon Graphics, 16 cores / 32 logical",
+    "ram_total_gb": 16.3,
+    "ram_available_gb_at_capture": 1.9,
+    "gpu_present": "NVIDIA GeForce RTX 5050 Laptop GPU",
+    "inference_backend": "CPU only. whisper.cpp build-shared/CMakeCache.txt: GGML_CUDA=BOOL=OFF, GGML_VULKAN=BOOL=OFF, GGML_BLAS=BOOL=OFF, CMAKE_BUILD_TYPE=Release. Relay log confirms 'no GPU found'.",
+    "model": "whisper.cpp/models/ggml-parakeet-tdt-0.6b-v3-q8_0.bin (668.5 MB, q8_0, Parakeet TDT)",
+    "engine": "relays/engines/parakeet_native_engine.py ParakeetNativeEngine -- model loaded once at relay start, single-worker ThreadPoolExecutor (thread affinity) + asyncio.Lock serializing calls"
+  },
+  "tests": {
+    "relays_before_phase7": {
+      "command": "cd speech-to-text/relays && python -m pytest -q",
+      "result": "82 passed, 1 skipped",
+      "skip": "tests/test_engines.py::test_parakeet_engine_real_transcription -- parakeet-cli subprocess binary not built (subprocess fallback engine unused)"
+    },
+    "relays_after_phase7_test_additions": {
+      "result": "106 passed, 1 skipped",
+      "new_tests": 24,
+      "new_files": [
+        "relays/tests/test_phase7_regressions.py (12, plumbing, FakeEngine)",
+        "relays/tests/test_phase7_asr.py (12, real Parakeet model)"
+      ],
+      "stable_across": "2 consecutive full-suite runs, no flakes"
+    },
+    "benchmarks_before_and_after": {
+      "command": "cd speech-to-text/benchmarks && python -m pytest tests -q",
+      "result": "34 passed",
+      "changed_by_phase7": false
+    }
+  },
+  "unchanged_historical_artifacts": {
+    "note": "md5 captured at Phase 7 start and re-verified at Phase 7 end; these files must not be rewritten by this phase.",
+    "benchmarks/results/svarah_wer.json": {
+      "md5": "ccb7fbcf1c434de7eaabd70be12ef6c4",
+      "role": "Phase 3 WER baseline (60 Svarah clips)"
+    },
+    "benchmarks/results/svarah_phase4_rescore.json": {
+      "md5": "455eb7788707b52778c864fab7dd784e",
+      "role": "Phase 4 policy rescore of the same run"
+    },
+    "benchmarks/results/phase5_flush_diag.jsonl": {
+      "md5": "cc78e3cd1f5494bd7fb2e07affe147f7",
+      "bytes": 53081,
+      "lines": 87,
+      "role": "Phase 5 diagnostics; Phase 5 relay (PID 67396, started 2026-11-07 18:03:30) still owns it and still runs on :8768. Phase 7 never appends to it."
+    }
+  },
+  "english_corpus_for_wer": {
+    "manifest": "C:\\data\\corpus_svarah\\manifest.json",
+    "clips": 60,
+    "unique_ids": 60,
+    "total_duration_s": 885.6,
+    "duration_min_s": 10.0,
+    "duration_max_s": 29.29,
+    "audio": "16 kHz mono PCM16, all files present",
+    "accent_tag": "all 60 clips accent=indian_english (single value)",
+    "corpus_tag": "all 60 clips corpus=svarah",
+    "l1_groups": 19,
+    "l1_list": ["Assamese", "Bengali", "Bodo", "Dogri", "Gujarati", "Hindi", "Kannada", "Kashmiri", "Konkani", "Maithili", "Malayalam", "Marathi", "Nepali", "Odia", "Punjabi", "Sindhi", "Tamil", "Telugu", "Urdu"],
+    "reference_availability": "60 of 60 non-empty references. Source: Svarah's own transcripts (original text preserved in meta.notes.svarah_text_original). Independent of Parakeet -- not a Parakeet draft and not a repeated Parakeet output, so WER is permitted for this corpus.",
+    "excluded_corpus": "dataset_existing (7 recordings, 250.5 min) has NO verified references -- WER must not be calculated or reported for it.",
+    "wer_policy_note": "Reference is one transcription of spontaneous speech; natural variation contributes to WER. Raw / number-normalized / compound-normalized WER are reported separately and none is called an accuracy score."
+  },
+  "phase5_defect_state_carried_into_phase7": {
+    "missing_finals": 5,
+    "cases": ["assamese_03817", "assamese_06152", "kannada_00197", "kashmiri_03111", "bodo_03621"],
+    "established": "All five were Parakeet returning empty text for the exact utterance buffers; the relay dropped the empty result and sent no final (outcome dropped_empty_text).",
+    "phase6": "Adding left context produced text for 4 of 5; kannada_00197 stayed empty even at 2 s of context. No single root cause established. Phase 6B deliberately skipped and not reopened.",
+    "still_present_after_phase7": true,
+    "why": "No relay behaviour change is made in Phase 7 without approval; the behaviour is now pinned by tests instead."
+  },
+  "phase7_output_dir": "speech-to-text/benchmarks/results/phase7/",
+  "phase7_relay": {
+    "port": 8769,
+    "pid": 40624,
+    "launcher": "benchmarks/results/phase7/start_phase7_relay.py (imports parakeet_relay and overrides LISTEN_PORT before main(); no production file edited)",
+    "diag_file": "benchmarks/results/phase7/phase7_flush_diag.jsonl",
+    "reason": "Phase 5 relay keeps :8768 and phase5_flush_diag.jsonl untouched"
+  }
+}

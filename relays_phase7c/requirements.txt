@@ -1,0 +1,5 @@
+websockets
+numpy
+pytest
+pytest-asyncio
+pymongo>=4.6

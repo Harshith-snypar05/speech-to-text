@@ -1,0 +1,2690 @@
+{
+ "meta": {
+  "engine": "ParakeetNativeEngine",
+  "model": "C:/Users/sriha/snypar/stt/speech-to-text/whisper.cpp/models/ggml-parakeet-tdt-0.6b-v3-q8_0.bin",
+  "lib_dir": "C:/Users/sriha/snypar/stt/speech-to-text/whisper.cpp/build-shared/bin",
+  "win_s": 8.0,
+  "hop_s": 6.0,
+  "relay_cfg": {
+   "thr": 0.01,
+   "hang": 0.6,
+   "min_utt": 0.3,
+   "max_utt": 8.0,
+   "adaptive": false
+  }
+ },
+ "clips": [
+  {
+   "id": "rec01_L30_0019",
+   "duration_s": 26.82,
+   "error": null,
+   "B": "So, that is again a responsibility of the operating system. Then the third category of issues that is present in a computer system is the secondary storage.",
+   "B_s": 2.5190671000164,
+   "B2": "So, that is again a responsibility of the operating system. Then the third category of issues that is present in a computer system is the secondary storage.",
+   "C": "So, that is again a responsibility of the operating system. Then the third category of issues that is present in a computer system is the secondary storage. stories.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "So, that is again a responsibility of the operating system. Then the third"
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "Then the third category of issues that is present in a computer system is the secondary storage."
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "The secondary stories."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.82,
+     "text": ""
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 3,
+     "matched": 3
+    },
+    {
+     "window": 2,
+     "dropped": 2,
+     "matched": 2
+    },
+    {
+     "window": 3,
+     "dropped": 0,
+     "matched": 0,
+     "weak_join": true
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 4.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 4.3,
+     "speech_s": 1.6000000000000003,
+     "text": "So that is again a responsibility of the operating system.",
+     "empty": false,
+     "decode_s": 0.3767913000192493
+    },
+    {
+     "t_end": 9.6,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.3,
+     "speech_s": 1.4000000000000001,
+     "text": "Then the third category of reshores.",
+     "empty": false,
+     "decode_s": 0.454847399960272
+    },
+    {
+     "t_end": 13.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.9,
+     "speech_s": 2.2000000000000006,
+     "text": "that is present in a computer system is the secondary storage.",
+     "empty": false,
+     "decode_s": 0.35249560000374913
+    },
+    {
+     "t_end": 21.5,
+     "why": "boundary",
+     "pending": false,
+     "snap_s": 8.0,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    },
+    {
+     "t_end": 28.4,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 6.82,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "So that is again a responsibility of the operating system. Then the third category of reshores. that is present in a computer system is the secondary storage."
+  },
+  {
+   "id": "rec01_L30_0048",
+   "duration_s": 24.5,
+   "error": null,
+   "B": "Okay. So effectively that means efficient utilization of resources. Now, having such a type of distributing and distributed environment, I need not have similar copies or similar resources in all the places. At different places, I can have different resources.",
+   "B_s": 2.3414616000372916,
+   "B2": "Okay. So effectively that means efficient utilization of resources. Now, having such a type of distributing and distributed environment, I need not have similar copies or similar resources in all the places. At different places, I can have different resources.",
+   "C": "So, effectively that means efficient utilization of resources. Now, having such a type of distributing and distributed environment, I need not have similar copies or similar resources in all the places. At different places, I can have different resources.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "So, effectively that means efficient utilization of resources."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "Now, having such a type of distributing and distributed environment, I need not"
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "environment, I need not have similar copies or similar resources in all the places."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 24.5,
+     "text": "In all the places. At different places, I can have different resources."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 0,
+     "matched": 1,
+     "weak_join": true
+    },
+    {
+     "window": 2,
+     "dropped": 4,
+     "matched": 4
+    },
+    {
+     "window": 3,
+     "dropped": 4,
+     "matched": 4
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 5.2,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.2,
+     "speech_s": 0.8999999999999999,
+     "text": "So, effectively that means efficient",
+     "empty": false,
+     "decode_s": 0.4443578999489546
+    },
+    {
+     "t_end": 10.8,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.6,
+     "speech_s": 1.2,
+     "text": "Now, having such a type of distributed",
+     "empty": false,
+     "decode_s": 0.49527680000755936
+    },
+    {
+     "t_end": 15.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 4.3,
+     "speech_s": 0.8999999999999999,
+     "text": "invo distributed environment, I need not have",
+     "empty": false,
+     "decode_s": 0.37500820006243885
+    },
+    {
+     "t_end": 16.8,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.7,
+     "speech_s": 0.5,
+     "text": "Similar copies.",
+     "empty": false,
+     "decode_s": 0.15280400007031858
+    },
+    {
+     "t_end": 18.2,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.4,
+     "speech_s": 0.5,
+     "text": "Or similar resources",
+     "empty": false,
+     "decode_s": 0.1261774000013247
+    },
+    {
+     "t_end": 19.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.1,
+     "speech_s": 0.30000000000000004,
+     "text": "In all the places.",
+     "empty": false,
+     "decode_s": 0.10277310002129525
+    },
+    {
+     "t_end": 23.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 4.0,
+     "speech_s": 0.7,
+     "text": "At different places I can have different",
+     "empty": false,
+     "decode_s": 0.3508217999478802
+    },
+    {
+     "t_end": 26.0,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 2.7,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "So, effectively that means efficient Now, having such a type of distributed invo distributed environment, I need not have Similar copies. Or similar resources In all the places. At different places I can have different"
+  },
+  {
+   "id": "rec01_L30_0077",
+   "duration_s": 25.58,
+   "error": null,
+   "B": "Fast come first soft type of schedule. So, here you find that because I am studying accounting here, the waiting time of job j1. So, waiting time of job J1 that is equal to 0. Waiting time of job J2.",
+   "B_s": 2.392684799968265,
+   "B2": "Fast come first soft type of schedule. So, here you find that because I am studying accounting here, the waiting time of job j1. So, waiting time of job J1 that is equal to 0. Waiting time of job J2.",
+   "C": "fast come fast soft type of schedule. Okay. So here you find that because I am studying accounting here, the waiting time of job J1. that is equal to 0. Waiting time of job J2.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "fast come fast soft type of schedule. Okay. So here you find that"
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "So, here you find that because I am studying accounting here, the waiting time of job J1."
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "So, waiting time of job J1 that is equal to 0."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 25.58,
+     "text": "That is equal to 0. Waiting time of job J2."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 2,
+     "dropped": 6,
+     "matched": 5
+    },
+    {
+     "window": 3,
+     "dropped": 5,
+     "matched": 5
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 3.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.1,
+     "speech_s": 0.7,
+     "text": "Fast come, fast soft type of",
+     "empty": false,
+     "decode_s": 0.26619249989744276
+    },
+    {
+     "t_end": 11.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 3.0000000000000013,
+     "text": "So, here you find that because I am studying accounting here, the waiting time of job.",
+     "empty": false,
+     "decode_s": 0.6872991999844089
+    },
+    {
+     "t_end": 12.6,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.5,
+     "speech_s": 0.5,
+     "text": "G one.",
+     "empty": false,
+     "decode_s": 0.14408709993585944
+    },
+    {
+     "t_end": 17.9,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.3,
+     "speech_s": 1.5000000000000002,
+     "text": "Okay. So waiting time of job G1.",
+     "empty": false,
+     "decode_s": 0.4432136999676004
+    },
+    {
+     "t_end": 25.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 7.1,
+     "speech_s": 1.6000000000000003,
+     "text": "That is equal to 0. Waiting time of job j2.",
+     "empty": false,
+     "decode_s": 0.6268733999459073
+    },
+    {
+     "t_end": 27.1,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 2.08,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "Fast come, fast soft type of So, here you find that because I am studying accounting here, the waiting time of job. G one. Okay. So waiting time of job G1. That is equal to 0. Waiting time of job j2."
+  },
+  {
+   "id": "rec02_L30_0021",
+   "duration_s": 33.86,
+   "error": null,
+   "B": "What does it deal with? And we service the architecture part. There are two things. Okay. So I will take one and then set the other against that. We can study a computer system either from the user's point of view or from the designer's point of view. Good. I think",
+   "B_s": 3.29757320007775,
+   "B2": "What does it deal with? And we service the architecture part. There are two things. Okay. So I will take one and then set the other against that. We can study a computer system either from the user's point of view or from the designer's point of view. Good. I think",
+   "C": "What does it deal with? And uh we service the architecture part. There are two things. Okay. So I'll take uh one and then set the other against the that. We can study a computer system either from the user's point of view or Good. Good. I think uh",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "What does it deal with? And uh we service the architecture part. There are two things."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "There are two things. Okay. So I'll take uh one and then set the other against the"
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "One and then set the other against that. We can study a computer system either from"
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "Either from the user's point of view or"
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 32.0,
+     "text": "Or from the designer's point of view. Good."
+    },
+    {
+     "start_s": 30.0,
+     "end_s": 33.86,
+     "text": "Good. I think uh"
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 4,
+     "matched": 4
+    },
+    {
+     "window": 2,
+     "dropped": 7,
+     "matched": 7
+    },
+    {
+     "window": 3,
+     "dropped": 2,
+     "matched": 2
+    },
+    {
+     "window": 4,
+     "dropped": 7,
+     "matched": 5
+    },
+    {
+     "window": 5,
+     "dropped": 0,
+     "matched": 1,
+     "weak_join": true
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 8.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 5.899999999999995,
+     "text": "What does it deal with? And uh we service the architecture part. There are two things.",
+     "empty": false,
+     "decode_s": 0.688740500016138
+    },
+    {
+     "t_end": 11.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.7,
+     "speech_s": 2.700000000000001,
+     "text": "Okay, so I'll take uh",
+     "empty": false,
+     "decode_s": 0.32715380005538464
+    },
+    {
+     "t_end": 15.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 4.0,
+     "speech_s": 3.2000000000000015,
+     "text": "one and then set the other against that.",
+     "empty": false,
+     "decode_s": 0.3632671000668779
+    },
+    {
+     "t_end": 20.4,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 4.7,
+     "speech_s": 3.3000000000000016,
+     "text": "We can study a computer system either from",
+     "empty": false,
+     "decode_s": 0.4112251999322325
+    },
+    {
+     "t_end": 24.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.6,
+     "speech_s": 2.400000000000001,
+     "text": "The user's point of view",
+     "empty": false,
+     "decode_s": 0.3251785000320524
+    },
+    {
+     "t_end": 27.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.1,
+     "speech_s": 1.9000000000000006,
+     "text": "Or from",
+     "empty": false,
+     "decode_s": 0.2772918998962268
+    },
+    {
+     "t_end": 32.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.0,
+     "speech_s": 3.800000000000002,
+     "text": "the designer's point of view. Good.",
+     "empty": false,
+     "decode_s": 0.43515630008187145
+    },
+    {
+     "t_end": 33.9,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.8,
+     "speech_s": 0.7999999999999999,
+     "text": "I think uh",
+     "empty": false,
+     "decode_s": 0.15924740000627935
+    },
+    {
+     "t_end": 35.4,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.46,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "What does it deal with? And uh we service the architecture part. There are two things. Okay, so I'll take uh one and then set the other against that. We can study a computer system either from The user's point of view Or from the designer's point of view. Good. I think uh"
+  },
+  {
+   "id": "rec02_L30_0052",
+   "duration_s": 33.16,
+   "error": null,
+   "B": "The technology advances in processing had also influenced the memory which has been used for storing. And so now, given that processors are quite powerful enough, now it is no more much of a problem, it is not posing much of a problem. It is storing. How much can we store? Now, in fact, issues have gone in that particular direction. Good. We will go back. Well, it all started with processing, that is the processing the numbers.",
+   "B_s": 3.2419365000678226,
+   "B2": "The technology advances in processing had also influenced the memory which has been used for storing. And so now, given that processors are quite powerful enough, now it is no more much of a problem, it is not posing much of a problem. It is storing. How much can we store? Now, in fact, issues have gone in that particular direction. Good. We will go back. Well, it all started with processing, that is the processing the numbers.",
+   "C": "The technology advances in processing had also influenced the memory which has been used for storing. And so now, given that processors are quite powerful enough, now it's no more much of a problem. It's not posing much of a problem. It is storing. How much can we store? Now, in fact, issues have gone in that particular direction. Good. We will go back. Well, it all started with processing, that is, uh the process. processing the numbers.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "The technology advances in processing had also influenced the memory which has been used for"
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "Which has been used for storing. And so now, given that processors are quite"
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "that processors are quite powerful enough, now it's no more much of a problem. It's not posing much of a problem."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "It is not posing much of a problem. It is storing. How much can we store? Now, in fact, issues have gone in that particular direction."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 32.0,
+     "text": "Have gone in that particular direction. Good. We will go back. Well, it all started with processing, that is, uh the process."
+    },
+    {
+     "start_s": 30.0,
+     "end_s": 33.16,
+     "text": "Processing that is uh the processing the numbers."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 2,
+     "dropped": 4,
+     "matched": 4
+    },
+    {
+     "window": 3,
+     "dropped": 8,
+     "matched": 6
+    },
+    {
+     "window": 4,
+     "dropped": 6,
+     "matched": 6
+    },
+    {
+     "window": 5,
+     "dropped": 5,
+     "matched": 5
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 7.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 7.3,
+     "speech_s": 5.899999999999995,
+     "text": "The technology advances in processing had also influenced the memory which has been.",
+     "empty": false,
+     "decode_s": 0.6237789000151679
+    },
+    {
+     "t_end": 9.2,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.9,
+     "speech_s": 0.8999999999999999,
+     "text": "Use for storing.",
+     "empty": false,
+     "decode_s": 0.16966180002782494
+    },
+    {
+     "t_end": 11.4,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.2,
+     "speech_s": 0.9999999999999999,
+     "text": "And so now",
+     "empty": false,
+     "decode_s": 0.19069870002567768
+    },
+    {
+     "t_end": 15.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 4.1,
+     "speech_s": 2.800000000000001,
+     "text": "Given that processors are quite powerful enough",
+     "empty": false,
+     "decode_s": 0.3585202000103891
+    },
+    {
+     "t_end": 23.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 5.899999999999995,
+     "text": "Now it's no more much of a problem. It's not posing much of a problem. It is storing. How much can we store? Now in fact,",
+     "empty": false,
+     "decode_s": 0.7167031000135466
+    },
+    {
+     "t_end": 31.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.099999999999994,
+     "text": "Issues have gone in that particular direction. Good. We will go back. Well, it all started with processing that is uh",
+     "empty": false,
+     "decode_s": 0.6953204000601545
+    },
+    {
+     "t_end": 33.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.0,
+     "speech_s": 1.3,
+     "text": "",
+     "empty": true,
+     "decode_s": 0.177974299993366
+    },
+    {
+     "t_end": 34.7,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.16,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "The technology advances in processing had also influenced the memory which has been. Use for storing. And so now Given that processors are quite powerful enough Now it's no more much of a problem. It's not posing much of a problem. It is storing. How much can we store? Now in fact, Issues have gone in that particular direction. Good. We will go back. Well, it all started with processing that is uh"
+  },
+  {
+   "id": "rec02_L30_0083",
+   "duration_s": 32.6,
+   "error": null,
+   "B": "Say 0 means it is not conducting, 1 means it is conducting. That is at the physical level of the machine, one must know what is going on. So, this is very difficult to remember, but that is hardware. The hard part of it is that. So, to soften this, one introduces other levels of codes. So, one goes out from machine code to lesser and lesser or",
+   "B_s": 3.120839999988675,
+   "B2": "Say 0 means it is not conducting, 1 means it is conducting. That is at the physical level of the machine, one must know what is going on. So, this is very difficult to remember, but that is hardware. The hard part of it is that. So, to soften this, one introduces other levels of codes. So, one goes out from machine code to lesser and lesser or",
+   "C": "Say 0 means it is not conducting, 1 means it is conducting. That is, at the physical level of the machine, one must know what is going on. So, this is very difficult to remember, but that is hard. part of it is that. So, to soften this, one introduces other levels of codes. So, one goes out from machine. code to lesser and lesser. Or",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "Say 0 means it is not conducting, 1 means it is conducting. That is, at the physical level of the machine, one"
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "Physical level of the machine, one must know what is going on. So, this is very difficult to remember, but that is hard."
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "Difficult to remember, but that is hardware. The hard part of it is that. So, to soften this, one introduces"
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "To soften this, one introduces other levels of codes. So, one goes out from machine."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 32.6,
+     "text": "Goes out from machine code to lesser and lesser. Or"
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 6,
+     "matched": 6
+    },
+    {
+     "window": 2,
+     "dropped": 9,
+     "matched": 7
+    },
+    {
+     "window": 3,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 4,
+     "dropped": 4,
+     "matched": 4
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 5.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.0,
+     "speech_s": 2.9000000000000012,
+     "text": "Say 0 means it's not conducting, 1 means it is conducting.",
+     "empty": false,
+     "decode_s": 0.43898520001675934
+    },
+    {
+     "t_end": 10.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.1,
+     "speech_s": 3.700000000000002,
+     "text": "That is at the physical level of the machine, one must know what is going on.",
+     "empty": false,
+     "decode_s": 0.42966609995346516
+    },
+    {
+     "t_end": 15.8,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.7,
+     "speech_s": 3.700000000000002,
+     "text": "So this is very difficult to remember, but that is hardware, okay.",
+     "empty": false,
+     "decode_s": 0.48143450007773936
+    },
+    {
+     "t_end": 21.2,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.4,
+     "speech_s": 4.200000000000001,
+     "text": "The hard part of it is that. So, to soften this, one introduces other.",
+     "empty": false,
+     "decode_s": 0.45562659995630383
+    },
+    {
+     "t_end": 27.4,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 6.2,
+     "speech_s": 4.000000000000002,
+     "text": "Okay, levels of codes. So one goes out from machine code.",
+     "empty": false,
+     "decode_s": 0.5228801000630483
+    },
+    {
+     "t_end": 29.9,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.5,
+     "speech_s": 1.5000000000000002,
+     "text": "Two lesser and lesser.",
+     "empty": false,
+     "decode_s": 0.21885800000745803
+    },
+    {
+     "t_end": 32.6,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.7,
+     "speech_s": 1.3,
+     "text": "Uh our um",
+     "empty": false,
+     "decode_s": 0.22816179995425045
+    },
+    {
+     "t_end": 34.1,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.5,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "Say 0 means it's not conducting, 1 means it is conducting. That is at the physical level of the machine, one must know what is going on. So this is very difficult to remember, but that is hardware, okay. The hard part of it is that. So, to soften this, one introduces other. Okay, levels of codes. So one goes out from machine code. Two lesser and lesser. Uh our um"
+  },
+  {
+   "id": "rec03_L30_0024",
+   "duration_s": 28.82,
+   "error": null,
+   "B": "And uh and one of the successors of Multics was uh Unix, right? So there was a system called Unix uh developed by uh Ken Thompson who has won a Turing award for this for his work on Unix and uh other people that were involved in this kind this work were uh Dennis Ritchie and uh and others. Right. So what was Unix? Well uh the first version of Unix uh or you know the early versions of Unix.",
+   "B_s": 2.7746604999992996,
+   "B2": "And uh and one of the successors of Multics was uh Unix, right? So there was a system called Unix uh developed by uh Ken Thompson who has won a Turing award for this for his work on Unix and uh other people that were involved in this kind this work were uh Dennis Ritchie and uh and others. Right. So what was Unix? Well uh the first version of Unix uh or you know the early versions of Unix.",
+   "C": "And uh and one of the successors of Multics was uh Unix, right? So so there was a system called Unix. uh developed by uh Ken Thompson who has won a Turing award for this for his work. on Unix and uh other people that were involved in this kind this work were uh Dennis Ritchie. and uh and others. So, what was Unix? Well, uh the first version of the U.S. early versions of Unix",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "And uh and one of the successors of Multics was uh Unix, right? So so there was a system called Unix."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "So there was a system called Unix uh developed by uh Ken Thompson who has won a Turing award for this for his work."
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "Turing Award for this for his work on Unix and uh other people that were involved in this kind this work were uh Dennis Ritchie."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "Work were uh Dennis Ritchie and uh and others. So, what was Unix? Well, uh the first version of the U.S."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 28.82,
+     "text": "Well, uh the first version of Unix, uh or you know, the early versions of Unix"
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 7,
+     "matched": 7
+    },
+    {
+     "window": 2,
+     "dropped": 7,
+     "matched": 7
+    },
+    {
+     "window": 3,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 4,
+     "dropped": 12,
+     "matched": 7
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 8.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 5.999999999999995,
+     "text": "And uh and one of the successors of Multics was uh Unix, right? So so there was a system called Unix.",
+     "empty": false,
+     "decode_s": 0.6988651000428945
+    },
+    {
+     "t_end": 16.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.999999999999991,
+     "text": "Unix uh developed by uh Ken Thompson, who has won a Turing Award for this for his work on Unix and uh",
+     "empty": false,
+     "decode_s": 0.6967354000080377
+    },
+    {
+     "t_end": 21.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.7,
+     "speech_s": 4.699999999999999,
+     "text": "Other people that were involved in this kind this work were uh Dennis Ritchie and uh and others.",
+     "empty": false,
+     "decode_s": 0.4835338999982923
+    },
+    {
+     "t_end": 24.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.3,
+     "speech_s": 1.0999999999999999,
+     "text": "All right, so what was Unix?",
+     "empty": false,
+     "decode_s": 0.20952539995778352
+    },
+    {
+     "t_end": 29.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.1,
+     "speech_s": 4.200000000000001,
+     "text": "Well, uh the first version of Unix, uh or you know, the early versions of Unix",
+     "empty": false,
+     "decode_s": 0.4315332000842318
+    },
+    {
+     "t_end": 30.4,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.22,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "And uh and one of the successors of Multics was uh Unix, right? So so there was a system called Unix. Unix uh developed by uh Ken Thompson, who has won a Turing Award for this for his work on Unix and uh Other people that were involved in this kind this work were uh Dennis Ritchie and uh and others. All right, so what was Unix? Well, uh the first version of Unix, uh or you know, the early versions of Unix"
+  },
+  {
+   "id": "rec03_L30_0059",
+   "duration_s": 29.72,
+   "error": null,
+   "B": "And the operating system provides certain interfaces to allow the shell to start another browser program. Okay. So what are these interfaces? Um so Unix provides a system call called FOK and another system call called exec. So and these these system calls are used to start a new program.",
+   "B_s": 2.855338399996981,
+   "B2": "And the operating system provides certain interfaces to allow the shell to start another browser program. Okay. So what are these interfaces? Um so Unix provides a system call called FOK and another system call called exec. So and these these system calls are used to start a new program.",
+   "C": "And uh the operating system provides certain interfaces to allow the shell to start another brow uh program. Okay. browser program. So what are these interfaces? So Unix provides a system call called folk and another these are the same things. So and these these system calls are used to start a new program.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "And uh the operating system provides certain interfaces to allow the shell to start another brow uh program. Okay."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "browser program. So what are these interfaces? So Unix provides"
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "So Unix provides a system call called folk and another"
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "And another system call called exec. So and these are the same things."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 29.72,
+     "text": "So and these these system calls are used to start a new program."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 0,
+     "matched": 1,
+     "weak_join": true
+    },
+    {
+     "window": 2,
+     "dropped": 3,
+     "matched": 3
+    },
+    {
+     "window": 3,
+     "dropped": 8,
+     "matched": 4
+    },
+    {
+     "window": 4,
+     "dropped": 0,
+     "matched": 1,
+     "weak_join": true
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 5.2,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.2,
+     "speech_s": 3.800000000000002,
+     "text": "And uh the operating system provides certain interfaces to allow the shell",
+     "empty": false,
+     "decode_s": 0.4410839000483975
+    },
+    {
+     "t_end": 7.4,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.2,
+     "speech_s": 1.4000000000000001,
+     "text": "to start another brow uh program.",
+     "empty": false,
+     "decode_s": 0.1955288000172004
+    },
+    {
+     "t_end": 10.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.7,
+     "speech_s": 1.2,
+     "text": "Okay. So what are these interfaces?",
+     "empty": false,
+     "decode_s": 0.23718420008663088
+    },
+    {
+     "t_end": 11.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.6,
+     "speech_s": 0.5,
+     "text": "Um",
+     "empty": false,
+     "decode_s": 0.15914090001024306
+    },
+    {
+     "t_end": 13.4,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.7,
+     "speech_s": 0.7,
+     "text": "So Unex",
+     "empty": false,
+     "decode_s": 0.15693589998409152
+    },
+    {
+     "t_end": 16.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.3,
+     "speech_s": 2.1000000000000005,
+     "text": "provides a system call called folk.",
+     "empty": false,
+     "decode_s": 0.2911718999966979
+    },
+    {
+     "t_end": 22.6,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.9,
+     "speech_s": 2.2000000000000006,
+     "text": "And another system call called exec.",
+     "empty": false,
+     "decode_s": 0.5017951999325305
+    },
+    {
+     "t_end": 30.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 7.4,
+     "speech_s": 3.800000000000002,
+     "text": "So, and these these system calls are used to start a new program.",
+     "empty": false,
+     "decode_s": 0.630181199987419
+    },
+    {
+     "t_end": 31.3,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.22,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "And uh the operating system provides certain interfaces to allow the shell to start another brow uh program. Okay. So what are these interfaces? Um So Unex provides a system call called folk. And another system call called exec. So, and these these system calls are used to start a new program."
+  },
+  {
+   "id": "rec03_L30_0094",
+   "duration_s": 31.44,
+   "error": null,
+   "B": "Are mediated by the operating system. And in general, any resource that is a shared resource which needs to be shared across multiple applications is usually mediated by the operating system kernel, right? Because if anything is shared, then the operating system needs to make sure that uh there are no concurrent accesses by multiple applications that are you know st there different applications are not stepping on each other's toes, for example.",
+   "B_s": 3.00383420009166,
+   "B2": "Are mediated by the operating system. And in general, any resource that is a shared resource which needs to be shared across multiple applications is usually mediated by the operating system kernel, right? Because if anything is shared, then the operating system needs to make sure that uh there are no concurrent accesses by multiple applications that are you know st there different applications are not stepping on each other's toes, for example.",
+   "C": "are mediated by the operating system. Um and in general, any resource that is a shared resource uh which needs to be shared across multiple applications. is usually mediated by the operating system kernel, right? Because if anything is shared, then the operating system needs to make sure that uh there are no concurrent accesses by multiple applications. that are, you know, st different applications are not stepping on each other's toes, for example.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "are mediated by the operating system. Um and in general, any"
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "In general, any resource that is a shared resource uh which needs to be shared across multiple applications."
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "To be shared across multiple applications is usually mediated by the operating system kernel, right? Because if anything is shared,"
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "Because if anything is shared, then the operating system needs to make sure that uh there are no concurrent accesses by multiple applications."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 31.44,
+     "text": "No concurrent accesses by multiple applications that are, you know, st different applications are not stepping on each other's toes, for example."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 3,
+     "matched": 3
+    },
+    {
+     "window": 2,
+     "dropped": 6,
+     "matched": 6
+    },
+    {
+     "window": 3,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 4,
+     "dropped": 6,
+     "matched": 6
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 3.2,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.2,
+     "speech_s": 1.6000000000000003,
+     "text": "Are mediated by the operating system.",
+     "empty": false,
+     "decode_s": 0.2843310000607744
+    },
+    {
+     "t_end": 6.4,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.2,
+     "speech_s": 1.2,
+     "text": "",
+     "empty": true,
+     "decode_s": 0.27440720004960895
+    },
+    {
+     "t_end": 9.6,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.2,
+     "speech_s": 1.7000000000000004,
+     "text": "In general, any resource",
+     "empty": false,
+     "decode_s": 0.27888540003914386
+    },
+    {
+     "t_end": 14.4,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 4.8,
+     "speech_s": 3.700000000000002,
+     "text": "That is a shared resource which needs to be shared across multiple applications.",
+     "empty": false,
+     "decode_s": 0.42032719997223467
+    },
+    {
+     "t_end": 18.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 4.3,
+     "speech_s": 2.400000000000001,
+     "text": "is usually mediated by the operating system kernel, right?",
+     "empty": false,
+     "decode_s": 0.37274659995455295
+    },
+    {
+     "t_end": 20.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.0,
+     "speech_s": 1.4000000000000001,
+     "text": "Because if anything is shared.",
+     "empty": false,
+     "decode_s": 0.17936439998447895
+    },
+    {
+     "t_end": 28.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.099999999999991,
+     "text": "then the operating system needs to make sure that uh there are no concurrent accesses by multiple applications that are you know st different",
+     "empty": false,
+     "decode_s": 0.6881791000487283
+    },
+    {
+     "t_end": 31.8,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.1,
+     "speech_s": 2.3000000000000007,
+     "text": "applications are not stepping on each other's toes, for example.",
+     "empty": false,
+     "decode_s": 0.275627400027588
+    },
+    {
+     "t_end": 33.0,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.14,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "Are mediated by the operating system. In general, any resource That is a shared resource which needs to be shared across multiple applications. is usually mediated by the operating system kernel, right? Because if anything is shared. then the operating system needs to make sure that uh there are no concurrent accesses by multiple applications that are you know st different applications are not stepping on each other's toes, for example."
+  },
+  {
+   "id": "rec04_L30_0024",
+   "duration_s": 31.46,
+   "error": null,
+   "B": "Which is either true or false, but not both. So, you must be able to associate a truth value with an assertion. Truth value, the truth value will be false or true. Usually you denote it by false by 0 and true by 1.",
+   "B_s": 3.020241199992597,
+   "B2": "Which is either true or false, but not both. So, you must be able to associate a truth value with an assertion. Truth value, the truth value will be false or true. Usually you denote it by false by 0 and true by 1.",
+   "C": "Which is either true or false, but not both. So, you must be able to associate a truth value with an assertion. The truth value will be false or true. Usually you do not have to be a good thing. denote it by false by 0 and true by 1.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "Which is either true or false, but not both. So, you must be able to"
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "So, you must be able to associate a truth value with an assertion."
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "Truth value. The truth value will be"
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "The truth value will be false or true. Usually you do not have to be a good thing."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 31.46,
+     "text": "Usually you denote it by false by 0 and true by 1."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 6,
+     "matched": 6
+    },
+    {
+     "window": 2,
+     "dropped": 2,
+     "matched": 2
+    },
+    {
+     "window": 3,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 4,
+     "dropped": 2,
+     "matched": 2
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 8.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.499999999999993,
+     "text": "Which is either true or false, but not both. So, you must be able to",
+     "empty": false,
+     "decode_s": 0.6914010999025777
+    },
+    {
+     "t_end": 16.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.999999999999991,
+     "text": "So associate a truth value with an assertion. Truth",
+     "empty": false,
+     "decode_s": 0.701440199976787
+    },
+    {
+     "t_end": 17.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.5,
+     "speech_s": 0.8999999999999999,
+     "text": "Value.",
+     "empty": false,
+     "decode_s": 0.13733629998750985
+    },
+    {
+     "t_end": 20.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.5,
+     "speech_s": 1.6000000000000003,
+     "text": "The truth value will be",
+     "empty": false,
+     "decode_s": 0.2173941999208182
+    },
+    {
+     "t_end": 27.4,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 7.4,
+     "speech_s": 5.699999999999996,
+     "text": "False or true, usually you denote it by",
+     "empty": false,
+     "decode_s": 0.634559299913235
+    },
+    {
+     "t_end": 30.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.1,
+     "speech_s": 2.2000000000000006,
+     "text": "false by zero and true by",
+     "empty": false,
+     "decode_s": 0.26995930005796254
+    },
+    {
+     "t_end": 31.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.2,
+     "speech_s": 0.30000000000000004,
+     "text": "One.",
+     "empty": false,
+     "decode_s": 0.11289829993620515
+    },
+    {
+     "t_end": 33.0,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.26,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "Which is either true or false, but not both. So, you must be able to So associate a truth value with an assertion. Truth Value. The truth value will be False or true, usually you denote it by false by zero and true by One."
+  },
+  {
+   "id": "rec04_L30_0059",
+   "duration_s": 24.7,
+   "error": null,
+   "B": "Usually, as the antecedent and the consequence will be related. For example, something like this: this you can very easily see if I fall into the lake, I will get wet. Obviously, the premise and the conclusion or the consequence are related, and you can see the correspondence between them. But generally, in the truth table, you must also",
+   "B_s": 2.3257587999105453,
+   "B2": "Usually, as the antecedent and the consequence will be related. For example, something like this: this you can very easily see if I fall into the lake, I will get wet. Obviously, the premise and the conclusion or the consequence are related, and you can see the correspondence between them. But generally, in the truth table, you must also",
+   "C": "Usually, as the antecedent and the consequence will be related. For example, something like this, this you can very easily see. If I fall into the lake I will get wet. Obviously, the premise and the conclusion or the consequence are related, and you can see the correspondence between them. But generally in the truth table, you must also",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "Usually, as the antecedent and the consequence will be related. For example, something like this, this you can very easily see. If I"
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "This you can very easily see if I fall into the lake I will get wet. Obviously, the premise and the"
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "The premise and the conclusion or the consequence are related, and you can see the correspondence between them."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 24.7,
+     "text": "correspondence between them. But generally in the truth table, you must also"
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 8,
+     "matched": 8
+    },
+    {
+     "window": 2,
+     "dropped": 4,
+     "matched": 4
+    },
+    {
+     "window": 3,
+     "dropped": 3,
+     "matched": 3
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 2.8,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.8,
+     "speech_s": 1.9000000000000006,
+     "text": "Usually as an antecedent and the",
+     "empty": false,
+     "decode_s": 0.26995059999171644
+    },
+    {
+     "t_end": 10.8,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.799999999999992,
+     "text": "Consequence will be related. For example, something like this, this you can very easily see, if I fall into the lake, I will get wet.",
+     "empty": false,
+     "decode_s": 0.7241800000192598
+    },
+    {
+     "t_end": 14.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.3,
+     "speech_s": 2.500000000000001,
+     "text": "Obviously the premise and the",
+     "empty": false,
+     "decode_s": 0.3213325999677181
+    },
+    {
+     "t_end": 22.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.099999999999991,
+     "text": "Conclusion or the consequence are related, and you can see the correspondence between them. But generally, in the truth table,",
+     "empty": false,
+     "decode_s": 0.7381554000312462
+    },
+    {
+     "t_end": 24.9,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.8,
+     "speech_s": 1.3,
+     "text": "You must also",
+     "empty": false,
+     "decode_s": 0.25260630005504936
+    },
+    {
+     "t_end": 26.2,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.3,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "Usually as an antecedent and the Consequence will be related. For example, something like this, this you can very easily see, if I fall into the lake, I will get wet. Obviously the premise and the Conclusion or the consequence are related, and you can see the correspondence between them. But generally, in the truth table, You must also"
+  },
+  {
+   "id": "rec04_L30_0092",
+   "duration_s": 25.84,
+   "error": null,
+   "B": "Find out when the whole expression will be true and when the whole expression will be false, and so on. Now, a tautology is a propositional form whose truth value is true for all possible values of its proportional variables. Sometimes an expression may be such that.",
+   "B_s": 2.480526400031522,
+   "B2": "Find out when the whole expression will be true and when the whole expression will be false, and so on. Now, a tautology is a propositional form whose truth value is true for all possible values of its proportional variables. Sometimes an expression may be such that.",
+   "C": "Find out when the whole expression will be true and when the whole expression will be false and so on. Now a tautology is a proposition propositional form whose truth value is true for all possible values. of its proportional variables. Sometimes an expression may be such that.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "Find out when the whole expression will be true and when the whole expression will be false and so on."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "be false and so on. Now a tautology is a proposition"
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "Tautology is a propositional form whose truth value is true for all possible values."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 25.84,
+     "text": "For all possible values of its proportional variables. Sometimes an expression may be such that."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 2,
+     "dropped": 3,
+     "matched": 3
+    },
+    {
+     "window": 3,
+     "dropped": 4,
+     "matched": 4
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 8.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 5.899999999999995,
+     "text": "Find out when the whole expression will be true and when the whole expression will be false and so on.",
+     "empty": false,
+     "decode_s": 0.861403200076893
+    },
+    {
+     "t_end": 15.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 7.5,
+     "speech_s": 5.899999999999995,
+     "text": "Now, a tautology is a propositional form.",
+     "empty": false,
+     "decode_s": 0.7079909999156371
+    },
+    {
+     "t_end": 18.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.2,
+     "speech_s": 1.9000000000000006,
+     "text": "Whose truth value is true.",
+     "empty": false,
+     "decode_s": 0.29525580001063645
+    },
+    {
+     "t_end": 25.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 6.8,
+     "speech_s": 5.4999999999999964,
+     "text": "For all possible values of its proportional variables. Sometimes an expression may be such that",
+     "empty": false,
+     "decode_s": 0.5911052000010386
+    },
+    {
+     "t_end": 27.4,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.84,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "Find out when the whole expression will be true and when the whole expression will be false and so on. Now, a tautology is a propositional form. Whose truth value is true. For all possible values of its proportional variables. Sometimes an expression may be such that"
+  },
+  {
+   "id": "rec05_L30_0004",
+   "duration_s": 34.58,
+   "error": null,
+   "B": "Because uh they I think they are like not that good. It looks like they're spitting. I think uh sorry. Sorry, not offensive. It looks like they're spitting and I think our accent is better, yeah. No. No. I think they need to learn English from us. It is like when we hear them we find it funny. It's lame, I don't really care what they think. Like I can speak English and I can like you know make other people understand what I want to say. That's not I don't really care what they think.",
+   "B_s": 3.41038340004161,
+   "B2": "Because uh they I think they are like not that good. It looks like they're spitting. I think uh sorry. Sorry, not offensive. It looks like they're spitting and I think our accent is better, yeah. No. No. I think they need to learn English from us. It is like when we hear them we find it funny. It's lame, I don't really care what they think. Like I can speak English and I can like you know make other people understand what I want to say. That's not I don't really care what they think.",
+   "C": "Because uh they I think they are like not that good. It looks like they're spitting. I think uh sorry? Sorry, not offensive. It looks like they're spitting. and I think our accent is better, yeah. No. No. like when we hear them we find it funny. It's lame. I don't really care what they think. Like I can speak it. English and I can like you know make other people understand what I want to say, that's enough. I don't really care what they think. For the Indian characters like Apu from The Simpsons.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "Because uh they I think they are like not that good. It looks like they're spitting. I think uh sorry? Sorry, not offensive. It looks like they're spitting."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "Sorry not offensive. It looks like they're spitting and I think our accent is better, yeah. No. No."
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "No. I think they need to learn English from us. It is like when we"
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "It is like when we hear them we find it funny. It's lame. I don't really care what they think. Like I can speak it."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 32.0,
+     "text": "Like I can speak English and I can like you know make other people understand what I want to say, that's enough. I don't really care what they think."
+    },
+    {
+     "start_s": 30.0,
+     "end_s": 34.58,
+     "text": "For the Indian characters like Apu from The Simpsons."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 8,
+     "matched": 8
+    },
+    {
+     "window": 2,
+     "dropped": 12,
+     "matched": 3
+    },
+    {
+     "window": 3,
+     "dropped": 5,
+     "matched": 4
+    },
+    {
+     "window": 4,
+     "dropped": 4,
+     "matched": 4
+    },
+    {
+     "window": 5,
+     "dropped": 0,
+     "matched": 0,
+     "weak_join": true
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 8.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.999999999999988,
+     "text": "Because uh they I think they are like not that good. It looks like they're spitting. I think uh sorry? Sorry, not offensive. It looks like they're spitting.",
+     "empty": false,
+     "decode_s": 0.7093381000449881
+    },
+    {
+     "t_end": 16.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.999999999999988,
+     "text": "and I think our accent is better, yeah. No. No. I think",
+     "empty": false,
+     "decode_s": 0.6847543000476435
+    },
+    {
+     "t_end": 24.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.999999999999988,
+     "text": "They need to learn English from us. It is like when we hear them, we find it funny. It's live, I don't really care what they think.",
+     "empty": false,
+     "decode_s": 0.6807164999190718
+    },
+    {
+     "t_end": 32.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.699999999999989,
+     "text": "Like I can speak English and I can like you know make other people understand what I want to say, that's enough. I don't really care what they think.",
+     "empty": false,
+     "decode_s": 0.6854096999159083
+    },
+    {
+     "t_end": 35.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.0,
+     "speech_s": 2.2000000000000006,
+     "text": "",
+     "empty": true,
+     "decode_s": 0.2581658000126481
+    },
+    {
+     "t_end": 36.1,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.08,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "Because uh they I think they are like not that good. It looks like they're spitting. I think uh sorry? Sorry, not offensive. It looks like they're spitting. and I think our accent is better, yeah. No. No. I think They need to learn English from us. It is like when we hear them, we find it funny. It's live, I don't really care what they think. Like I can speak English and I can like you know make other people understand what I want to say, that's enough. I don't really care what they think."
+  },
+  {
+   "id": "rec05_L30_0011",
+   "duration_s": 38.76,
+   "error": null,
+   "B": "Fluent English, do people treat you better? Yeah, in India, yes. I have seen that. Yeah, I guess so, yeah. When you just come across someone, you have a sort of mindset towards them. As soon as they start speaking, your mindset changes. Like, okay, they can speak English, yeah, okay, they must be like cool, I guess. And if you're talking before a girl, she's going to be impressed by you. That's the most important thing about talking English. When you start talking in English and especially when you're talking really fluently. Yeah. They they'll just they give you much more respect than they usually give to other people who are talking in other languages. Cause English is becoming",
+   "B_s": 3.9290123999817297,
+   "B2": "Fluent English, do people treat you better? Yeah, in India, yes. I have seen that. Yeah, I guess so, yeah. When you just come across someone, you have a sort of mindset towards them. As soon as they start speaking, your mindset changes. Like, okay, they can speak English, yeah, okay, they must be like cool, I guess. And if you're talking before a girl, she's going to be impressed by you. That's the most important thing about talking English. When you start talking in English and especially when you're talking really fluently. Yeah. They they'll just they give you much more respect than they usually give to other people who are talking in other languages. Cause English is becoming",
+   "C": "Fluent English do people treat you better? Yeah, in India yes. I have seen that. Yeah, I guess so. yeah. When you just come across someone you have a sort of mindset towards them. As soon as they start speaking, your mindset changes. Like okay, they can speak English, yeah, okay, they must be like cool, I guess. And if you're talking before a girl, she's going to be impressed by you. That's the most important thing about talking English. When you start talking in English, and especially when you're talking really fluently, they they give you much more respect than they usually give to other people who are talking in other languages. Because English is becoming",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "Fluent English do people treat you better? Yeah, in India yes. I have seen that. Yeah, I guess so."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "Yeah, I guess so, yeah. When you just come across someone you have a sort of mindset towards them."
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "Mindset towards them. As soon as they start speaking, your mindset changes. Like okay, they can speak English, yeah, okay, they must be like cool, I guess."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "Okay, they must be like cool, I guess. And if you're talking before a girl, she's going to be impressed by you. That's the most important thing about talking English."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 32.0,
+     "text": "That's the most important thing about talking English. When you start talking in English, and especially when you're talking really fluently, they they"
+    },
+    {
+     "start_s": 30.0,
+     "end_s": 38.76,
+     "text": "Yeah. They they'll just they give you much more respect than they usually give to other people who are talking in other languages. Because English is becoming"
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 4,
+     "matched": 4
+    },
+    {
+     "window": 2,
+     "dropped": 3,
+     "matched": 3
+    },
+    {
+     "window": 3,
+     "dropped": 8,
+     "matched": 8
+    },
+    {
+     "window": 4,
+     "dropped": 8,
+     "matched": 8
+    },
+    {
+     "window": 5,
+     "dropped": 5,
+     "matched": 2
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 8.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.899999999999988,
+     "text": "Fluent English do people treat you better? Yeah, in India yes. I have seen that. Yeah, I guess so.",
+     "empty": false,
+     "decode_s": 0.7219407000811771
+    },
+    {
+     "t_end": 16.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.999999999999988,
+     "text": "Oh yeah. When you just come across someone, you have a sort of mindset towards them. As soon as they start speaking, your mindset",
+     "empty": false,
+     "decode_s": 0.6932810998987406
+    },
+    {
+     "t_end": 22.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 6.3,
+     "speech_s": 5.699999999999996,
+     "text": "And if you're talking before a girl.",
+     "empty": false,
+     "decode_s": 0.5327026000013575
+    },
+    {
+     "t_end": 30.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.999999999999991,
+     "text": "She's going to be impressed by you. That's the most important thing about talking English. But when you start talking in English and especially when you're talking really fluently.",
+     "empty": false,
+     "decode_s": 0.6986265999730676
+    },
+    {
+     "t_end": 38.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.899999999999988,
+     "text": "Yeah. They they'll just they give you much more respect than they usually give to other people who are talking in other languages.",
+     "empty": false,
+     "decode_s": 0.6858070999151096
+    },
+    {
+     "t_end": 39.2,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 0.9,
+     "speech_s": 0.30000000000000004,
+     "text": "",
+     "empty": true,
+     "decode_s": 0.08807429997250438
+    },
+    {
+     "t_end": 40.3,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.06,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "Fluent English do people treat you better? Yeah, in India yes. I have seen that. Yeah, I guess so. Oh yeah. When you just come across someone, you have a sort of mindset towards them. As soon as they start speaking, your mindset And if you're talking before a girl. She's going to be impressed by you. That's the most important thing about talking English. But when you start talking in English and especially when you're talking really fluently. Yeah. They they'll just they give you much more respect than they usually give to other people who are talking in other languages."
+  },
+  {
+   "id": "rec06_L30_0006",
+   "duration_s": 25.5,
+   "error": null,
+   "B": "Arya? Come here. Idarao, Idharao. So here's my cousins, uh cousin sister. Jojo, can you talk to him? Bhadkaru si? Hi Sam. Try to talk him English. In English. Hi Sam, how are you?",
+   "B_s": 2.4224600000306964,
+   "B2": "Arya? Come here. Idarao, Idharao. So here's my cousins, uh cousin sister. Jojo, can you talk to him? Bhadkaru si? Hi Sam. Try to talk him English. In English. Hi Sam, how are you?",
+   "C": "Arya? Come here. Idaho, Idaho. I just gave the chair. So here's my cousin's uh cousin sister. Jojo, can you talk to him? But Bhadkaru said? Try to talk him English. In English. Hi Sam, how are you?",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "Arya? Come here. Idaho, Idaho. I just gave the chair."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "So here's my cousin's uh cousin sister. Jojo, can you talk to him? But"
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "Can you talk to him? Bhadkaru said?"
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 25.5,
+     "text": "Try to talk him English. In English. Hi Sam, how are you?"
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 0,
+     "matched": 0,
+     "weak_join": true
+    },
+    {
+     "window": 2,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 3,
+     "dropped": 0,
+     "matched": 1,
+     "weak_join": true
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 2.4,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.4,
+     "speech_s": 1.0999999999999999,
+     "text": "Hola.",
+     "empty": false,
+     "decode_s": 0.21234790002927184
+    },
+    {
+     "t_end": 4.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 1.9,
+     "speech_s": 0.7,
+     "text": "Come here.",
+     "empty": false,
+     "decode_s": 0.16395429999101907
+    },
+    {
+     "t_end": 12.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.8999999999999915,
+     "text": "Idaho, Ida Rao. So here's my cousins, uh cousin sister. Jo Jo, can you talk?",
+     "empty": false,
+     "decode_s": 0.7071618000045419
+    },
+    {
+     "t_end": 20.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.999999999999988,
+     "text": "Talk to him, Bhadkaru said.",
+     "empty": false,
+     "decode_s": 0.6761209000833333
+    },
+    {
+     "t_end": 25.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.2,
+     "speech_s": 4.6,
+     "text": "Talk him English in English. Hi Sam, how are you?",
+     "empty": false,
+     "decode_s": 0.44165970000904053
+    },
+    {
+     "t_end": 27.0,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.5,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "Hola. Come here. Idaho, Ida Rao. So here's my cousins, uh cousin sister. Jo Jo, can you talk? Talk to him, Bhadkaru said. Talk him English in English. Hi Sam, how are you?"
+  },
+  {
+   "id": "rec06_L30_0015",
+   "duration_s": 32.76,
+   "error": null,
+   "B": "See? So what's your mother's name? Mammi Kanamka? Pooja. Pooja? Okay. But your sandy looks so beautiful. Just like a coconut tree. Papa ka. Papa ka? And m what's your father's name? Papa nambatao. Father's name. Papa? Sandip. Sandip moratu is my brother's name now. She's gonna confuse.",
+   "B_s": 3.1597617000807077,
+   "B2": "See? So what's your mother's name? Mammi Kanamka? Pooja. Pooja? Okay. But your sandy looks so beautiful. Just like a coconut tree. Papa ka. Papa ka? And m what's your father's name? Papa nambatao. Father's name. Papa? Sandip. Sandip moratu is my brother's name now. She's gonna confuse.",
+   "C": "So what's your mother's name? Mammi Kanamka? Papa Ganambata Du. Father's name. Papa Ganambatahura. Sandeep. Sandeep Moratu, my brother. Sandy Moratsu, my brother's name now. She's gonna confuse.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "So what's your mother's name? Mammi Kanamka?"
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": ""
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "So beautiful just like a coconut tree. And what's your father's name?"
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "What's your father's name? Papa Ganambata Du. Father's name. Papa Ganambatahura. Sandeep. Sandeep Moratu, my brother."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 32.76,
+     "text": "Sandy Moratsu, my brother's name now. She's gonna confuse."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 0,
+     "matched": 0,
+     "weak_join": true
+    },
+    {
+     "window": 2,
+     "dropped": 12,
+     "matched": 4
+    },
+    {
+     "window": 3,
+     "dropped": 4,
+     "matched": 3
+    },
+    {
+     "window": 4,
+     "dropped": 0,
+     "matched": 1,
+     "weak_join": true
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 8.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.099999999999994,
+     "text": "So what's your mother's name? Mammi Kanamka?",
+     "empty": false,
+     "decode_s": 0.6850448000477627
+    },
+    {
+     "t_end": 16.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.5999999999999925,
+     "text": "Puja. Puja? Okay. But your sandal looks so beautiful. Just like a coconut tree.",
+     "empty": false,
+     "decode_s": 0.685415199957788
+    },
+    {
+     "t_end": 22.2,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 6.2,
+     "speech_s": 3.2000000000000015,
+     "text": "Papa ka And what's your father's name? Papa Tadu?",
+     "empty": false,
+     "decode_s": 0.5313194999471307
+    },
+    {
+     "t_end": 27.5,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.3,
+     "speech_s": 4.000000000000002,
+     "text": "Papa ka nambutao Sandy. Sandy Moratsu, my brother's name na",
+     "empty": false,
+     "decode_s": 0.4587972000008449
+    },
+    {
+     "t_end": 32.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 4.6,
+     "speech_s": 3.3000000000000016,
+     "text": "She gonna confuse the other thing.",
+     "empty": false,
+     "decode_s": 0.3964913999661803
+    },
+    {
+     "t_end": 34.3,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 2.16,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "So what's your mother's name? Mammi Kanamka? Puja. Puja? Okay. But your sandal looks so beautiful. Just like a coconut tree. Papa ka And what's your father's name? Papa Tadu? Papa ka nambutao Sandy. Sandy Moratsu, my brother's name na She gonna confuse the other thing."
+  },
+  {
+   "id": "rec06_L30_0023",
+   "duration_s": 35.68,
+   "error": null,
+   "B": "I don't have a camera stand. So my sister became my cameraman. Didi, you are my cameraman now? Yeah. And you know what? Someone asked me, Shadow. Just tell me when I'll be your cameraman. So definitely I'll become a confident person and English speaker. Yeah, of course. If you want to be my cameraman, just let me know in the comments. Cameraman. I'm eagerly to see who wants to be my cameraman. So it's a beautiful greenish area.",
+   "B_s": 3.577627799939364,
+   "B2": "I don't have a camera stand. So my sister became my cameraman. Didi, you are my cameraman now? Yeah. And you know what? Someone asked me, Shadow. Just tell me when I'll be your cameraman. So definitely I'll become a confident person and English speaker. Yeah, of course. If you want to be my cameraman, just let me know in the comments. Cameraman. I'm eagerly to see who wants to be my cameraman. So it's a beautiful greenish area.",
+   "C": "I don't have a camera stand. So my sister became my cameraman. Didi, you are a my cameraman now? Yeah. and you know what someone asked me shut up just tell me when I I'll be your cameraman. So definitely I'll become a confident person and English speaker. Yeah, of course. If you want to be my cameraman, just let me know in the comments. Cameraman. So it's a beautiful greenish area.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "I don't have a camera stand. So my sister became my cameraman. Didi, you are a my cameraman now? Yeah."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "my cameraman now yeah and you know what someone asked me shut up just tell me when I"
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "Just tell me when I'll be your cameraman. So definitely I'll become a confident person and English speaker."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "Confident person and English speaker? Yeah, of course. If you want to be my cameraman, just let me know in the comments. Cameraman."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 32.0,
+     "text": "comments cameraman I'm eagerly to see who want to be my cameraman"
+    },
+    {
+     "start_s": 30.0,
+     "end_s": 35.68,
+     "text": "So it's a beautiful greenish area."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 4,
+     "matched": 4
+    },
+    {
+     "window": 2,
+     "dropped": 4,
+     "matched": 4
+    },
+    {
+     "window": 3,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 4,
+     "dropped": 12,
+     "matched": 4
+    },
+    {
+     "window": 5,
+     "dropped": 0,
+     "matched": 0,
+     "weak_join": true
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 8.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.999999999999988,
+     "text": "I don't have a camera stand. So my sister became my cameraman. Didi, you are a my cameraman now? Yeah.",
+     "empty": false,
+     "decode_s": 0.6914364999393001
+    },
+    {
+     "t_end": 16.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.999999999999988,
+     "text": "And you know what? Someone asked me, shut up. Just tell me when I'll be your cameraman.",
+     "empty": false,
+     "decode_s": 0.6964403999736533
+    },
+    {
+     "t_end": 24.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.999999999999988,
+     "text": "So definitely I'll become a confident person and English speaker. Yeah of course. If you want to be my cameraman, just let me know in the",
+     "empty": false,
+     "decode_s": 0.6846018999349326
+    },
+    {
+     "t_end": 32.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.999999999999988,
+     "text": "comments cameraman I'm eagerly to see who want to be my cameraman",
+     "empty": false,
+     "decode_s": 0.677242900012061
+    },
+    {
+     "t_end": 35.9,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.9,
+     "speech_s": 3.0000000000000013,
+     "text": "So it's a beautiful greenish area.",
+     "empty": false,
+     "decode_s": 0.34082229994237423
+    },
+    {
+     "t_end": 37.2,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.28,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "I don't have a camera stand. So my sister became my cameraman. Didi, you are a my cameraman now? Yeah. And you know what? Someone asked me, shut up. Just tell me when I'll be your cameraman. So definitely I'll become a confident person and English speaker. Yeah of course. If you want to be my cameraman, just let me know in the comments cameraman I'm eagerly to see who want to be my cameraman So it's a beautiful greenish area."
+  },
+  {
+   "id": "rec07_L30_0007",
+   "duration_s": 33.94,
+   "error": null,
+   "B": "So I'm at my maiden home right now and honestly speaking I'm feeling a bit lethargic. That could be because of the weather. It's been raining on and off since morning and it has again started drizzling. So yes, we have to take a shelter now. And uh actually I was waiting for the rain to stop before stepping out to shoot this video because while talking to you I also wanted to show",
+   "B_s": 3.3498060000129044,
+   "B2": "So I'm at my maiden home right now and honestly speaking I'm feeling a bit lethargic. That could be because of the weather. It's been raining on and off since morning and it has again started drizzling. So yes, we have to take a shelter now. And uh actually I was waiting for the rain to stop before stepping out to shoot this video because while talking to you I also wanted to show",
+   "C": "So I'm at the same time. my maiden home right now and honestly speaking I'm feeling a bit lethargic. That could be because of the weather. It's been raining on and off since morning and it has again started drizzling. So yes, we have to take a shelter now. And actually, I was waiting for the rain to stop before stepping out to shoot this video because while talking to you, I also wanted to show",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "So I'm at the same time."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "So I'm at my maiden home right now and honestly speaking I'm feeling a bit lethargic. That could be"
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "A bit lethargic. That could be because of the weather. It's been raining on and off since morning and it has again started drizzling."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "Again started drizzling. So yes, we have to take a shelter now."
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 32.0,
+     "text": "And actually, I was waiting for the rain to stop before stepping out to shoot this video because while talking to you, I"
+    },
+    {
+     "start_s": 30.0,
+     "end_s": 33.94,
+     "text": "video because while talking to you I also wanted to show"
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 3,
+     "matched": 3
+    },
+    {
+     "window": 2,
+     "dropped": 6,
+     "matched": 6
+    },
+    {
+     "window": 3,
+     "dropped": 3,
+     "matched": 3
+    },
+    {
+     "window": 4,
+     "dropped": 0,
+     "matched": 1,
+     "weak_join": true
+    },
+    {
+     "window": 5,
+     "dropped": 7,
+     "matched": 7
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 8.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.699999999999989,
+     "text": "So I'm at the same time.",
+     "empty": false,
+     "decode_s": 0.6851091000717133
+    },
+    {
+     "t_end": 16.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.999999999999988,
+     "text": "My maiden home right now, and honestly speaking, I'm feeling a bit lethargic. That could be because of the weather. It's been raining on",
+     "empty": false,
+     "decode_s": 0.6810732999583706
+    },
+    {
+     "t_end": 21.9,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.9,
+     "speech_s": 4.799999999999999,
+     "text": "On and off since morning and it has again started drizzling. So yes.",
+     "empty": false,
+     "decode_s": 0.49523109989240766
+    },
+    {
+     "t_end": 24.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.4,
+     "speech_s": 1.8000000000000005,
+     "text": "",
+     "empty": true,
+     "decode_s": 0.2203617999330163
+    },
+    {
+     "t_end": 32.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.599999999999989,
+     "text": "And uh actually I was waiting for the rain to stop before stepping out to shoot this video because while talking to you I",
+     "empty": false,
+     "decode_s": 0.6951403999701142
+    },
+    {
+     "t_end": 34.4,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.1,
+     "speech_s": 1.2,
+     "text": "Also wanted to show you.",
+     "empty": false,
+     "decode_s": 0.18563939991872758
+    },
+    {
+     "t_end": 35.5,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.04,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "So I'm at the same time. My maiden home right now, and honestly speaking, I'm feeling a bit lethargic. That could be because of the weather. It's been raining on On and off since morning and it has again started drizzling. So yes. And uh actually I was waiting for the rain to stop before stepping out to shoot this video because while talking to you I Also wanted to show you."
+  },
+  {
+   "id": "rec07_L30_0016",
+   "duration_s": 29.94,
+   "error": null,
+   "B": "Because everyone was coming up with new topics, new thought process. So there was a need to keep myself updated to have a healthy conversation with people, I would say. In that direction I started watching English content, English podcast, you can say, while rolling chapatis in the kitchen or while doing laundries. So this is one small shift that I have made to my lifestyle, I would say. That has",
+   "B_s": 2.906361100031063,
+   "B2": "Because everyone was coming up with new topics, new thought process. So there was a need to keep myself updated to have a healthy conversation with people, I would say. In that direction I started watching English content, English podcast, you can say, while rolling chapatis in the kitchen or while doing laundries. So this is one small shift that I have made to my lifestyle, I would say. That has",
+   "C": "Because everyone was coming up with new topics, new thought process, so there was a need. to keep myself updated to have a healthy conversation with people I would say. English podcast, you can say, while rolling chapatis in the kitchen or while doing laundries. So this is one small shift that I have made to my lifestyle, I would say that has",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "Because everyone was coming up with new topics, new thought process, so there was a need."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "So there was a need to keep myself updated to have a healthy conversation with people I would say."
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "I started watching English content, English podcast. You can say"
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 26.0,
+     "text": "English podcast, you can say, while rolling chapatis in the kitchen or while doing laundries. So this is one small"
+    },
+    {
+     "start_s": 24.0,
+     "end_s": 29.94,
+     "text": "So this is one small shift that I have made to my lifestyle, I would say that has"
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 2,
+     "dropped": 10,
+     "matched": 2
+    },
+    {
+     "window": 3,
+     "dropped": 0,
+     "matched": 1,
+     "weak_join": true
+    },
+    {
+     "window": 4,
+     "dropped": 5,
+     "matched": 5
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 8.0,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.499999999999989,
+     "text": "Because everyone was coming up with new topics, new thought process, so there was a need.",
+     "empty": false,
+     "decode_s": 0.6848511000862345
+    },
+    {
+     "t_end": 10.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.7,
+     "speech_s": 2.0000000000000004,
+     "text": "to keep myself updated.",
+     "empty": false,
+     "decode_s": 0.23318029998335987
+    },
+    {
+     "t_end": 18.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 7.39999999999999,
+     "text": "To have a healthy conversation with people, I would say. In that direction I started watching English content, English",
+     "empty": false,
+     "decode_s": 0.6908131999662146
+    },
+    {
+     "t_end": 26.7,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.8999999999999915,
+     "text": "Podcast you can say while rolling chapatis in kitchen or while doing laundries. So this is one small shift",
+     "empty": false,
+     "decode_s": 0.6886192000238225
+    },
+    {
+     "t_end": 30.3,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 3.6,
+     "speech_s": 2.800000000000001,
+     "text": "That I have made to my lifestyle I would say that has",
+     "empty": false,
+     "decode_s": 0.3236094999592751
+    },
+    {
+     "t_end": 31.5,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.14,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "Because everyone was coming up with new topics, new thought process, so there was a need. to keep myself updated. To have a healthy conversation with people, I would say. In that direction I started watching English content, English Podcast you can say while rolling chapatis in kitchen or while doing laundries. So this is one small shift That I have made to my lifestyle I would say that has"
+  },
+  {
+   "id": "rec07_L30_0026",
+   "duration_s": 25.66,
+   "error": null,
+   "B": "There was this main character in my story that never left my sight. You know who I am talking about? Yes, the Chat GPT. It has played a big, big role in improving my English, I must say. Whenever I felt stuck, I would directly go to ChatGPT, ask all sorts of doubts, clarify grammar concepts, and dig deeper into concepts until I truly understood.",
+   "B_s": 2.3397844000719488,
+   "B2": "There was this main character in my story that never left my sight. You know who I am talking about? Yes, the Chat GPT. It has played a big, big role in improving my English, I must say. Whenever I felt stuck, I would directly go to ChatGPT, ask all sorts of doubts, clarify grammar concepts, and dig deeper into concepts until I truly understood.",
+   "C": "There was this main character in my story that never left my sight. You know who I am talking about? Yes. the Chat GPT. It has played a big, big role in improving my English, I must say. Whenever I felt stuck, I would directly go to Chat GPT, ask all sorts of doubts, click on the channel. clarify grammar concepts and dig deeper into concepts until I truly understood.",
+   "C_windows": [
+    {
+     "start_s": 0.0,
+     "end_s": 8.0,
+     "text": "There was this main character in my story that never left my sight. You know who I am talking about? Yes."
+    },
+    {
+     "start_s": 6.0,
+     "end_s": 14.0,
+     "text": "Talking about? Yes, the Chat GPT. It has played a big, big role in improving my English, I must say."
+    },
+    {
+     "start_s": 12.0,
+     "end_s": 20.0,
+     "text": "My English, I must say. Whenever I felt stuck, I would directly go to Chat GPT, ask all sorts of doubts, click on the channel."
+    },
+    {
+     "start_s": 18.0,
+     "end_s": 25.66,
+     "text": "All sorts of doubts, clarify grammar concepts and dig deeper into concepts until I truly understood."
+    }
+   ],
+   "C_merge": [
+    {
+     "window": 0,
+     "dropped": 0,
+     "matched": null
+    },
+    {
+     "window": 1,
+     "dropped": 3,
+     "matched": 3
+    },
+    {
+     "window": 2,
+     "dropped": 5,
+     "matched": 5
+    },
+    {
+     "window": 3,
+     "dropped": 4,
+     "matched": 4
+    }
+   ],
+   "D_flushes": [
+    {
+     "t_end": 5.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 5.1,
+     "speech_s": 3.800000000000002,
+     "text": "There was this main character in my story that never left my sight.",
+     "empty": false,
+     "decode_s": 0.42511359998025
+    },
+    {
+     "t_end": 13.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.699999999999992,
+     "text": "You know who I am talking about? Yes the Chat GPT. It has played a big, big role in improving my English, I must say.",
+     "empty": false,
+     "decode_s": 0.6941281000617892
+    },
+    {
+     "t_end": 21.1,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 8.0,
+     "speech_s": 6.499999999999993,
+     "text": "Say. Whenever I felt stuck, I would directly go to Chat GPT, ask all sorts of doubts, clarify grammar concepts.",
+     "empty": false,
+     "decode_s": 0.683338199974969
+    },
+    {
+     "t_end": 23.6,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.5,
+     "speech_s": 1.9000000000000006,
+     "text": "",
+     "empty": true,
+     "decode_s": 0.21699660003650934
+    },
+    {
+     "t_end": 25.9,
+     "why": "boundary",
+     "pending": true,
+     "snap_s": 2.3,
+     "speech_s": 1.4000000000000001,
+     "text": "Until I truly understood.",
+     "empty": false,
+     "decode_s": 0.20716770004946738
+    },
+    {
+     "t_end": 27.2,
+     "why": "disconnect",
+     "pending": false,
+     "snap_s": 1.26,
+     "speech_s": 0.0,
+     "text": null,
+     "decode_s": null
+    }
+   ],
+   "D": "There was this main character in my story that never left my sight. You know who I am talking about? Yes the Chat GPT. It has played a big, big role in improving my English, I must say. Say. Whenever I felt stuck, I would directly go to Chat GPT, ask all sorts of doubts, clarify grammar concepts. Until I truly understood."
+  }
+ ]
+}

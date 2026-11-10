@@ -1,14 +1,17 @@
 import 'dart:ui' show PointerDeviceKind;
 
 import 'package:flutter/material.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../services/app_settings.dart';
+import '../services/auth_service.dart';
 import '../services/connection_status.dart';
 import '../services/session_id.dart' show generateSessionId, generateAccessCode;
 import '../services/transcription_client.dart';
 import '../services/transcript_storage.dart';
 import '../theme.dart';
-import '../widgets/st_logo.dart';
+import '../widgets/brand.dart';
+import '../widgets/waveform.dart';
 import '../widgets/share_link_sheet.dart';
 
 class SessionScreen extends StatefulWidget {
@@ -26,6 +29,7 @@ class _SessionScreenState extends State<SessionScreen>
   ConnectionStatus _connStatus = ConnectionStatus.stopped;
   final List<String> _utterances = [];
   String _currentPartial = '';
+  final List<double> _levels = [];
   TranscriptionClient? _client;
   late final AnimationController _pulse;
   late final String _sessionId;
@@ -65,18 +69,32 @@ class _SessionScreenState extends State<SessionScreen>
       _error = null;
       _utterances.clear();
       _currentPartial = '';
+      _levels.clear();
     });
     final client = TranscriptionClient(
       wsUrl: AppSettings.backendUrl.value,
       sessionId: _sessionId,
       micDeviceId: AppSettings.micDeviceId.value,
       accessCode: _accessCode,
+      authToken: AuthService.token,
     );
     client.onText.listen((text) {
       if (mounted) setState(() => _utterances.add(text));
     });
     client.onPartial.listen((text) {
       if (mounted) setState(() => _currentPartial = text);
+    });
+    client.onRefine.listen((r) {
+      if (!mounted) return;
+      final i = _utterances.lastIndexOf(r.original);
+      if (i >= 0) setState(() => _utterances[i] = r.refined);
+    });
+    client.onLevel.listen((v) {
+      if (!mounted) return;
+      setState(() {
+        _levels.add(v);
+        if (_levels.length > 160) _levels.removeRange(0, _levels.length - 80);
+      });
     });
     client.onStatus.listen((status) {
       if (!mounted) return;
@@ -92,6 +110,7 @@ class _SessionScreenState extends State<SessionScreen>
         _recording = true;
         _connecting = false;
       });
+      if (AppSettings.preventAutoLock.value) WakelockPlus.enable().catchError((_) {});
     } catch (e) {
       setState(() {
         _error = client.status == ConnectionStatus.backendUnavailable
@@ -106,12 +125,14 @@ class _SessionScreenState extends State<SessionScreen>
   void _retryConnection() => _client?.retry();
 
   Future<void> _stop() async {
+    WakelockPlus.disable().catchError((_) {});
     await _client?.stop();
     final saved = await TranscriptStorage.save(_transcript);
     setState(() {
       _recording = false;
       _client = null;
       _currentPartial = '';
+      _levels.clear();
       _connStatus = ConnectionStatus.stopped;
     });
     if (mounted && saved != null) {
@@ -213,11 +234,16 @@ class _SessionScreenState extends State<SessionScreen>
                   ],
                 ),
               ),
-              const IgnorePointer(child: StLogo(size: 72)),
+              const IgnorePointer(child: ScriptLivMark(size: 64)),
             ],
           ),
         ),
-        const SizedBox(height: 32),
+        const SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Waveform(levels: _levels, active: _recording && _connStatus == ConnectionStatus.connected),
+        ),
+        const SizedBox(height: 16),
         GestureDetector(
           onTap: _connecting ? null : _toggle,
           child: AnimatedBuilder(
@@ -357,6 +383,21 @@ class _SessionScreenState extends State<SessionScreen>
         return 'Transcription server unavailable.';
       case ConnectionStatus.unauthorized:
         return 'Rejected by the server (access code issue). Recording has stopped transcribing.';
+      case ConnectionStatus.outOfMinutes:
+        switch (_client?.closeReason) {
+          case 'allowance_reserved':
+            return 'Your minutes are in use by another recording. Stop it, then start again.';
+          case 'payment_required':
+            return 'Payment required. Your last payment failed, so paid minutes are paused. Update your payment method on the website, then retry.';
+          case 'personal_limit':
+            return 'You reached your personal limit. Recording stopped. Raise the limit in Settings to continue.';
+          default:
+            return 'You are out of minutes. Recording stopped exactly when your balance ran out; add minutes or upgrade to continue.';
+        }
+      case ConnectionStatus.emailNotVerified:
+        return 'Verify your email to record. Open the verification link we sent you, or request a new one in Settings.';
+      case ConnectionStatus.superseded:
+        return 'This recording continued on another connection. Your transcript so far is saved.';
       default:
         return '';
     }

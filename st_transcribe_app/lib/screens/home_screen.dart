@@ -1,107 +1,89 @@
 import 'package:flutter/material.dart';
+
+import '../config/app_config.dart';
 import '../models/transcript.dart';
+import '../services/auth_service.dart';
+import '../services/platform_api.dart';
 import '../services/transcript_storage.dart';
 import '../theme.dart';
-import '../widgets/st_logo.dart';
+import 'history_screen.dart';
 
+/// Home tab: greeting, start card, recent transcripts. In platform mode the list comes from the backend
+/// (the signed-in account's own sessions); otherwise from local storage.
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback? onStartRecording;
+  final VoidCallback? onSeeAll;
+  const HomeScreen({super.key, this.onStartRecording, this.onSeeAll});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<TranscriptMeta>> _transcripts;
+  late Future<List<HistoryItem>> _items;
+  Future<UsageInfo>? _usage;
 
   @override
   void initState() {
     super.initState();
-    _transcripts = _load();
+    _items = loadHistory();
+    if (AppConfig.platformMode) _usage = PlatformApi.usage();
   }
 
-  Future<List<TranscriptMeta>> _load() => TranscriptStorage.listMeta();
-
   Future<void> _refresh() async {
-    final next = _load();
-    await next;
-    setState(() => _transcripts = next);
+    final next = loadHistory();
+    setState(() {
+      _items = next;
+      if (AppConfig.platformMode) _usage = PlatformApi.usage();
+    });
+    try {
+      await next;
+    } catch (_) {}
+  }
+
+  String get _name {
+    final e = AuthService.currentEmail.value ?? '';
+    final local = e.split('@').first.replaceAll(RegExp(r'[._]'), ' ').trim();
+    if (local.isEmpty) return 'there';
+    return local.split(' ').map((w) => w.isEmpty ? w : '${w[0].toUpperCase()}${w.substring(1)}').join(' ');
   }
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+    final c = AppColors.of(context);
+    return SafeArea(
+      child: RefreshIndicator(
+        onRefresh: _refresh,
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 100),
           children: [
-            Container(
-              color: colors.header,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-              child: Row(
-                children: [
-                  const StLogo(size: 28),
-                  const SizedBox(width: 8),
-                  const Text(
-                    'Transcribe',
-                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(Icons.settings_outlined, color: Colors.white),
-                    onPressed: () => Navigator.of(context).pushNamed('/settings'),
-                  ),
-                ],
-              ),
+            Text('Hello, $_name', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: c.textPrimary)),
+            const SizedBox(height: 4),
+            Text('Ready to transcribe?', style: TextStyle(color: c.textSecondary)),
+            const SizedBox(height: 20),
+            _StartCard(onTap: widget.onStartRecording),
+            if (_usage != null) ...[const SizedBox(height: 16), UsageCard(future: _usage!)],
+            const SizedBox(height: 28),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Recent transcripts', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: c.textPrimary)),
+                TextButton(onPressed: widget.onSeeAll, child: const Text('See all')),
+              ],
             ),
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: _refresh,
-                child: FutureBuilder<List<TranscriptMeta>>(
-                  future: _transcripts,
-                  builder: (context, snapshot) {
-                    final transcripts = snapshot.data ?? [];
-                    return ListView(
-                      padding: const EdgeInsets.all(16),
-                      children: [
-                        _StartSessionButton(
-                          onTap: () async {
-                            await Navigator.of(context).pushNamed('/session');
-                            _refresh();
-                          },
-                        ),
-                        const SizedBox(height: 24),
-                        Text('Recent Transcripts',
-                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: colors.textPrimary)),
-                        const SizedBox(height: 12),
-                        if (snapshot.connectionState == ConnectionState.waiting)
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 32),
-                            child: Center(child: CircularProgressIndicator()),
-                          )
-                        else if (transcripts.isEmpty)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 32),
-                            child: Center(
-                              child: Text('No transcripts yet. Start a session to create one.',
-                                  style: TextStyle(color: colors.textSecondary)),
-                            ),
-                          )
-                        else
-                          for (final t in transcripts)
-                            _TranscriptTile(
-                              title: t.title,
-                              preview: t.preview,
-                              date: t.dateLabel,
-                              onTap: () => Navigator.of(context).pushNamed('/transcript', arguments: t),
-                              onDownload: () => TranscriptStorage.export(t),
-                            ),
-                      ],
-                    );
-                  },
-                ),
-              ),
+            FutureBuilder<List<HistoryItem>>(
+              future: _items,
+              builder: (context, snap) {
+                if (snap.connectionState != ConnectionState.done) {
+                  return const Padding(padding: EdgeInsets.all(32), child: Center(child: CircularProgressIndicator()));
+                }
+                if (snap.hasError) {
+                  return _Note(text: 'Could not load your transcripts. Pull down to retry. Your data is unchanged.', color: c.recordRed);
+                }
+                final items = snap.data ?? const <HistoryItem>[];
+                if (items.isEmpty) return _Note(text: 'No transcripts yet. Tap the microphone to record your first one.', color: c.textSecondary);
+                return Column(children: [for (final i in items.take(4)) HistoryTile(item: i)]);
+              },
             ),
           ],
         ),
@@ -110,29 +92,43 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class _StartSessionButton extends StatelessWidget {
-  final VoidCallback onTap;
-  const _StartSessionButton({required this.onTap});
+class _Note extends StatelessWidget {
+  final String text;
+  final Color color;
+  const _Note({required this.text, required this.color});
+  @override
+  Widget build(BuildContext context) =>
+      Padding(padding: const EdgeInsets.symmetric(vertical: 28), child: Center(child: Text(text, textAlign: TextAlign.center, style: TextStyle(color: color))));
+}
 
+class _StartCard extends StatelessWidget {
+  final VoidCallback? onTap;
+  const _StartCard({this.onTap});
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.of(context).primaryBlue,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: onTap,
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-          child: Row(
-            children: [
-              Icon(Icons.mic, color: Colors.white),
-              SizedBox(width: 12),
-              Text('Start New Session',
-                  style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700)),
-              Spacer(),
-              Icon(Icons.chevron_right, color: Colors.white),
-            ],
+      color: Colors.transparent,
+      child: Ink(
+        decoration: BoxDecoration(gradient: brandGradient, borderRadius: BorderRadius.circular(20)),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: onTap,
+          child: const Padding(
+            padding: EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Icon(Icons.mic, color: Colors.white, size: 32),
+                SizedBox(width: 14),
+                Expanded(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Text('Start recording', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800)),
+                    SizedBox(height: 2),
+                    Text('The microphone is used only while you record.', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                  ]),
+                ),
+                Icon(Icons.chevron_right, color: Colors.white),
+              ],
+            ),
           ),
         ),
       ),
@@ -140,73 +136,77 @@ class _StartSessionButton extends StatelessWidget {
   }
 }
 
-class _TranscriptTile extends StatelessWidget {
+/// One row in a transcripts list; either a platform session or a local transcript.
+class HistoryItem {
+  final String id;
   final String title;
-  final String preview;
-  final String date;
-  final VoidCallback onTap;
-  final VoidCallback onDownload;
+  final String subtitle;
+  final TranscriptMeta? local;
+  final SessionItem? platform;
+  const HistoryItem({required this.id, required this.title, required this.subtitle, this.local, this.platform});
+}
 
-  const _TranscriptTile({
-    required this.title,
-    required this.preview,
-    required this.date,
-    required this.onTap,
-    required this.onDownload,
-  });
+String _fmtMin(double seconds) {
+  final m = (seconds / 60).floor();
+  return '$m min';
+}
 
+/// Plan, remaining minutes, add-on balance, reset date and any usage warnings.
+class UsageCard extends StatelessWidget {
+  final Future<UsageInfo> future;
+  const UsageCard({super.key, required this.future});
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 36,
-              height: 36,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(color: colors.lightBlueBg, borderRadius: BorderRadius.circular(8)),
-              child: Icon(Icons.description_outlined, size: 18, color: colors.primaryBlue),
+    final c = AppColors.of(context);
+    return FutureBuilder<UsageInfo>(
+      future: future,
+      builder: (context, snap) {
+        if (snap.connectionState != ConnectionState.done) return const SizedBox(height: 90, child: Center(child: CircularProgressIndicator()));
+        if (snap.hasError) return Text('Usage is unavailable right now. Pull down to retry.', style: TextStyle(color: c.textSecondary, fontSize: 13));
+        final u = snap.data!;
+        final reset = '${u.resetAt.year}-${_two(u.resetAt.month)}-${_two(u.resetAt.day)}';
+        return Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(color: c.surface, borderRadius: BorderRadius.circular(16), border: Border.all(color: c.cardBorder)),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text('${u.planName} plan', style: TextStyle(fontWeight: FontWeight.w700, color: c.textPrimary)),
+              Text('Resets $reset', style: TextStyle(color: c.textSecondary, fontSize: 12)),
+            ]),
+            const SizedBox(height: 10),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: LinearProgressIndicator(value: (u.percentUsed / 100).clamp(0, 1).toDouble(), minHeight: 8),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15, color: colors.textPrimary)),
-                  const SizedBox(height: 2),
-                  Text(preview,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: colors.textSecondary, fontSize: 13)),
-                  const SizedBox(height: 2),
-                  Text(date, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
-                ],
-              ),
-            ),
-            PopupMenuButton<void>(
-              icon: Icon(Icons.more_horiz, color: colors.textSecondary),
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  onTap: onDownload,
-                  child: Row(
-                    children: [
-                      Icon(Icons.download_outlined, size: 18, color: colors.textPrimary),
-                      const SizedBox(width: 10),
-                      const Text('Download'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+            const SizedBox(height: 8),
+            Text('${_fmtMin(u.includedRemainingSeconds)} of ${u.includedMinutes} min left'
+                '${u.addonRemainingSeconds > 0 ? ' · add-on ${_fmtMin(u.addonRemainingSeconds)}' : ''}',
+                style: TextStyle(color: c.textSecondary, fontSize: 13)),
+            for (final w in u.warnings) Padding(padding: const EdgeInsets.only(top: 6), child: Text(w, style: TextStyle(color: c.recordRed, fontSize: 13))),
+          ]),
+        );
+      },
     );
   }
+}
+
+String _two(int n) => n.toString().padLeft(2, '0');
+
+String formatWhen(DateTime t) => '${formatDateLabel(t)}, ${_two(t.hour)}:${_two(t.minute)}';
+
+Future<List<HistoryItem>> loadHistory() async {
+  if (AppConfig.platformMode) {
+    final s = await PlatformApi.sessions();
+    return [
+      for (final x in s)
+        HistoryItem(
+          id: x.id,
+          title: x.title.isNotEmpty ? x.title : (x.startedAt != null ? formatWhen(x.startedAt!) : 'Session'),
+          subtitle: '${x.startedAt != null ? formatWhen(x.startedAt!) : ''}${x.endedAt == null ? ' · in progress' : ''}${x.sharing ? ' · shared' : ''}',
+          platform: x,
+        ),
+    ];
+  }
+  final l = await TranscriptStorage.listMeta();
+  return [for (final m in l) HistoryItem(id: m.id, title: m.title, subtitle: '${m.dateLabel} · ${m.preview}', local: m)];
 }

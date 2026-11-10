@@ -11,9 +11,17 @@ default build is static-only): from whisper.cpp/,
     cmake -B build-shared -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
         -DWHISPER_BUILD_EXAMPLES=OFF -DWHISPER_BUILD_TESTS=OFF
     cmake --build build-shared --target parakeet -j 8
+
+Windows: same commands from a "x64 Native Tools" prompt (or after
+vcvars64.bat) with `-G Ninja`; the result is parakeet.dll + ggml*.dll in
+build-shared/bin. Add a GPU backend at configure time, e.g.
+`-DGGML_CUDA=ON` (needs the CUDA Toolkit) or `-DGGML_VULKAN=ON` (needs the
+Vulkan SDK). With neither, it runs CPU-only (still model-loaded-once).
 """
 import asyncio
 import ctypes
+import os
+import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -48,19 +56,49 @@ class _ParakeetFullParams(ctypes.Structure):
 
 _SAMPLING_GREEDY = 0
 
-# Load order matters: dependencies before the library that needs them,
-# RTLD_GLOBAL so libparakeet's @rpath-relative lookups resolve against
-# the already-loaded images rather than failing.
-_DEPENDENCY_LIBS = [
+def library_filename() -> str:
+    """Platform's shared-library name for the parakeet target. MSVC/Windows
+    drops the `lib` prefix (parakeet.dll); macOS is .dylib; Linux .so."""
+    if sys.platform == "win32":
+        return "parakeet.dll"
+    if sys.platform == "darwin":
+        return "libparakeet.dylib"
+    return "libparakeet.so"
+
+
+def find_library(build_dir: Path) -> Path | None:
+    """Locates the built library. Searches build_dir and, for multi-config
+    generators (Visual Studio), its Release/ subfolder. None if not built."""
+    for d in (build_dir, build_dir / "Release"):
+        p = d / library_filename()
+        if p.exists():
+            return p
+    return None
+
+
+# macOS only: load order matters -- dependencies before the library that
+# needs them, RTLD_GLOBAL so libparakeet's @rpath-relative lookups resolve
+# against the already-loaded images rather than failing. Windows resolves
+# sibling DLLs via os.add_dll_directory instead; Linux via RPATH/$ORIGIN.
+_MACOS_DEPENDENCY_LIBS = [
     "libggml-base.dylib", "libggml-cpu.dylib", "libggml-blas.dylib",
     "libggml-metal.dylib", "libggml.dylib",
 ]
 
 
-def _load_library(build_dir: Path):
-    for name in _DEPENDENCY_LIBS:
-        ctypes.CDLL(str(build_dir / name), mode=ctypes.RTLD_GLOBAL)
-    lib = ctypes.CDLL(str(build_dir / "libparakeet.dylib"), mode=ctypes.RTLD_GLOBAL)
+def _load_library(lib_path: Path):
+    lib_dir = lib_path.parent
+    if sys.platform == "win32":
+        # Python >= 3.8 no longer searches PATH for dependent DLLs; the
+        # ggml*.dll / CUDA runtime DLLs next to parakeet.dll must be
+        # registered explicitly. Keep the handle alive for the process.
+        _load_library._dll_dir = os.add_dll_directory(str(lib_dir))
+        lib = ctypes.CDLL(str(lib_path))
+    else:
+        if sys.platform == "darwin":
+            for name in _MACOS_DEPENDENCY_LIBS:
+                ctypes.CDLL(str(lib_dir / name), mode=ctypes.RTLD_GLOBAL)
+        lib = ctypes.CDLL(str(lib_path), mode=ctypes.RTLD_GLOBAL)
 
     lib.parakeet_context_default_params.restype = _ParakeetContextParams
     lib.parakeet_init_from_file_with_params.restype = ctypes.c_void_p
@@ -91,15 +129,16 @@ class ParakeetNativeEngine(TranscriptionEngine):
     supports_partial = True
 
     def __init__(self, build_dir: Path, model: Path, use_gpu: bool = True):
-        if not (build_dir / "libparakeet.dylib").exists():
+        lib_path = find_library(build_dir)
+        if lib_path is None:
             raise SystemExit(
-                f"libparakeet.dylib not found in {build_dir} -- build it first "
+                f"{library_filename()} not found in {build_dir} -- build it first "
                 f"(cmake -B build-shared -DBUILD_SHARED_LIBS=ON ...; see this file's docstring)"
             )
         if not model.exists():
             raise SystemExit(f"model not found at {model}")
 
-        self._lib = _load_library(build_dir)
+        self._lib = _load_library(lib_path)
         # GGML's Metal backend scheduler crashed (GGML_ASSERT(!sched->is_alloc))
         # when parakeet_full() was called from whatever worker thread
         # Python's shared default executor happened to pick per call --

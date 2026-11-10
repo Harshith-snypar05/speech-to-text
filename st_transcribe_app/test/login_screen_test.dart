@@ -8,32 +8,21 @@ void main() {
     AuthService.currentEmail.value = null;
   });
 
-  testWidgets('wrong credentials show an error and do not log in', (tester) async {
+  testWidgets('sign-in without a configured server shows an error and does not log in', (tester) async {
     await tester.pumpWidget(const MaterialApp(home: LoginScreen()));
-    await tester.enterText(find.widgetWithText(TextField, 'Email'), 'tester.one@gmail.com');
+    await tester.enterText(find.widgetWithText(TextField, 'Email'), 'ann@example.com');
     await tester.enterText(find.widgetWithText(TextField, 'Password'), 'wrong');
     await tester.tap(find.text('Log In'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Incorrect email or password.'), findsOneWidget);
+    expect(find.text('This build is not connected to a ScriptLiv server.'), findsOneWidget);
     expect(AuthService.isLoggedIn, isFalse);
   });
 
-  testWidgets('correct test-account credentials log in', (tester) async {
+  testWidgets('login screen offers account creation', (tester) async {
     await tester.pumpWidget(const MaterialApp(home: LoginScreen()));
-    await tester.enterText(find.widgetWithText(TextField, 'Email'), 'tester.two@gmail.com');
-    await tester.enterText(find.widgetWithText(TextField, 'Password'), 'Nimbus#82Delta');
-    await tester.tap(find.text('Log In'));
+    await tester.tap(find.text('New here? Create an account'));
     await tester.pumpAndSettle();
-
-    expect(AuthService.isLoggedIn, isTrue);
-    expect(AuthService.currentEmail.value, 'tester.two@gmail.com');
-  });
-
-  testWidgets('no test-account credentials are shown on screen', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: LoginScreen()));
-    for (final email in testAccounts.keys) {
-      expect(find.textContaining(email), findsNothing);
-    }
+    expect(find.text('Create account'), findsWidgets);
   });
 }

@@ -29,6 +29,15 @@ enum ConnectionStatus {
   /// just fail again, so this is terminal -- no automatic retry.
   unauthorized,
 
+  /// The account is out of minutes or hit its personal limit (relay close code 4402). Terminal.
+  outOfMinutes,
+
+  /// The relay refused because the account's email is not verified (close code 4403). Terminal.
+  emailNotVerified,
+
+  /// A newer connection took over this session (close code 4409), e.g. after a network change. Terminal for this socket.
+  superseded,
+
   /// User-initiated stop; not an error.
   stopped,
 }

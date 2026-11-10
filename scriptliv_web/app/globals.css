@@ -1,0 +1,72 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ScriptLiv design tokens (docs/SCRIPTLIV_DESIGN_SYSTEM.md). Light is the default; dark via .dark on <html>. */
+:root {
+  --primary: #6a00ff;
+  --violet: #a855f7;
+  --lavender: #efe6ff;
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+
+  --bg: #ffffff;
+  --surface: #f8f7ff;
+  --surface-alt: #f1ecff;
+  --border: #e5e7eb;
+  --text: #0f172a;
+  --text-2: #6b7280;
+  --text-3: #9ca3af;
+  --on-primary: #ffffff;
+  --ring: rgba(106, 0, 255, 0.45);
+  --shadow: 0 1px 2px rgba(11, 18, 32, 0.05), 0 8px 24px -12px rgba(11, 18, 32, 0.12);
+}
+.dark {
+  --bg: #0b0f1a;
+  --surface: #111827;
+  --surface-alt: #1f2937;
+  --border: #334155;
+  --text: #f9fafb;
+  --text-2: #cbd5e1;
+  --text-3: #94a3b8;
+  --lavender: #2b1a63;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-violet: var(--violet);
+  --color-lavender: var(--lavender);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-line: var(--border);
+  --color-ink: var(--text);
+  --color-ink-2: var(--text-2);
+  --color-ink-3: var(--text-3);
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 16px;
+}
+
+html { color-scheme: light; }
+html.dark { color-scheme: dark; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 6px; }
+.brand-gradient { background-image: linear-gradient(135deg, #6a00ff, #a855f7); }
+.soft-gradient { background-image: linear-gradient(180deg, #efe6ff, #ffffff); }
+.dark .soft-gradient { background-image: linear-gradient(180deg, #1b0f4d, #0b0f1a); }
+.gradient-text { background-image: linear-gradient(135deg, #6a00ff, #a855f7); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

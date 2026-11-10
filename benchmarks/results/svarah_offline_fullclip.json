@@ -1,0 +1,366 @@
+{
+ "engine": "ParakeetNativeEngine",
+ "model": "C:/Users/sriha/snypar/stt/speech-to-text/whisper.cpp/models/ggml-parakeet-tdt-0.6b-v3-q8_0.bin",
+ "clips": [
+  {
+   "id": "svarah_assamese_01954_281474976906794_f3277_ch",
+   "duration_s": 14.0,
+   "text": "What are the main challenges and opportunities facing young people in your district in terms of education, employment and leadership? Youth development, skill building, entrepreneurship.",
+   "decode_s": 1.2415678000543267
+  },
+  {
+   "id": "svarah_assamese_03817_281474976885867_f1767_ch",
+   "duration_s": 19.5056875,
+   "text": "Yes, I have some uh favorite not favourite, but I like some uh idioms and proverbs uh like um Don't judge a book by its cover, Action Speak Louded in Words, Once in a Blue Moon, True Thick and Thin, Spill the Bins, etcetera",
+   "decode_s": 1.7930830999976024
+  },
+  {
+   "id": "svarah_assamese_05643_281474976885848_f972_chu",
+   "duration_s": 11.4064375,
+   "text": "Can you confirm if the date of birth and beneficiary name of user with phone number eight eight nine two one four four six seven zero nine is correct as per his disability ID card?",
+   "decode_s": 0.9915712000802159
+  },
+  {
+   "id": "svarah_assamese_06152_281474976901758_f990_chu",
+   "duration_s": 10.6673125,
+   "text": "Can you stop automatically sending Ghanim Rs three hundred bi weekly and send Rs sixty thousand instead on Yono SBI?",
+   "decode_s": 0.9173404999310151
+  },
+  {
+   "id": "svarah_bengali_00427_281474976899542_f1195_ch",
+   "duration_s": 12.99875,
+   "text": "Show the current holding of my AP account with brand number five two seven one five four double nine eight one six five.",
+   "decode_s": 1.1309956000186503
+  },
+  {
+   "id": "svarah_bengali_01831_281474976896941_f53_chun",
+   "duration_s": 13.197625,
+   "text": "A distinct advantage that infighters have when throwing uppercuts is that they can channel their entire body weight behind the punch. Mike Tyson was famous for throwing devastating uppercuts.",
+   "decode_s": 1.1743237000191584
+  },
+  {
+   "id": "svarah_bengali_04742_281474976895139_f2137_ch",
+   "duration_s": 20.0720625,
+   "text": "The nomenclature 24 Parganas has been in vogue since July 15, 1757, when Mir Jafar as Nawab of Bengal ceded to the company the rights of 24 Mahals. The district started taking shape under clause number 2, 3 and 9 of the Regulation of 1793.",
+   "decode_s": 1.8750182999065146
+  },
+  {
+   "id": "svarah_bengali_06105_281474976895133_f2183_ch",
+   "duration_s": 16.6706875,
+   "text": "As for the languages I write the pronunciation of the words in my own language and as for different vocal styles and techniques, it all depends on the training. How much trained you are.",
+   "decode_s": 1.475550499977544
+  },
+  {
+   "id": "svarah_bodo_00437_281474976893845_f1948_ch",
+   "duration_s": 15.230125,
+   "text": "So uh there are four types of mandalas that are used for different purposes. Like uh first one is outer mandala. So it's a basic kind of mandala that represents the universe.",
+   "decode_s": 1.3698485000059009
+  },
+  {
+   "id": "svarah_bodo_03478_281474976893852_f1949_ch",
+   "duration_s": 20.983125,
+   "text": "collected and meats and like meats are purchased with the cash money. So uh then again feast is done with the purchase meat along with singing and dancing.",
+   "decode_s": 1.8958907999331132
+  },
+  {
+   "id": "svarah_bodo_03621_281474976893846_f3264_ch",
+   "duration_s": 18.0,
+   "text": "clients can see the works like if you have your own website blog or social media account um dedicating to your work um like people can easily access through it and",
+   "decode_s": 1.627034300006926
+  },
+  {
+   "id": "svarah_bodo_06287_281474976893847_f2044_ch",
+   "duration_s": 13.069375,
+   "text": "Secondly uh we have uh Sotriya nidya. Uh it is a classical dance form of Assam representing Shatriya culture.",
+   "decode_s": 1.1416859000455588
+  },
+  {
+   "id": "svarah_dogri_00937_281474976889906_f3211_ch",
+   "duration_s": 13.306625,
+   "text": "Even Hindi speakers or any other language speakers can be literate. So that's my point on literacy. And er I don't think so that considering any language as a symbol of literacy is the right thing.",
+   "decode_s": 1.1848218999803066
+  },
+  {
+   "id": "svarah_dogri_01112_281474976925739_f3299_ch",
+   "duration_s": 10.0,
+   "text": "Earth. As we can say, English is used as an common language even though there are some various uh variants in habits, cultures, and the city.",
+   "decode_s": 0.8824425999773666
+  },
+  {
+   "id": "svarah_dogri_04159_281474976892331_f1842_ch",
+   "duration_s": 14.869625,
+   "text": "Children first visit to a pack beach places. The gesture of happiness on my family faces itself was breath checking after the long of COVID pandemic.",
+   "decode_s": 1.3377270000055432
+  },
+  {
+   "id": "svarah_gujarati_01860_281474976887082_f3312_ch",
+   "duration_s": 10.3709375,
+   "text": "where proper education system is not easily available, maybe due to infrastructure or maybe due to some traditional constraints.",
+   "decode_s": 0.883420400088653
+  },
+  {
+   "id": "svarah_gujarati_02313_281474976887687_f685_chu",
+   "duration_s": 11.444875,
+   "text": "Download my vaccine certificate using phone number 97515178528 and OTP 514395.",
+   "decode_s": 1.0112016999628395
+  },
+  {
+   "id": "svarah_gujarati_03802_281474976895927_f289_chu",
+   "duration_s": 10.6721875,
+   "text": "Delete Scotch Bright Soap Dispensing Dishwand, Kotha's Vanilla Milkshake and Krimika Mix Fruit Jam from my shopping list.",
+   "decode_s": 0.9188367000315338
+  },
+  {
+   "id": "svarah_hindi_03150_281474976884039_f1853_ch",
+   "duration_s": 24.062375,
+   "text": "So that would be uh one norm which uh I can think of. I am not sure whether there are other norms uh which can be applicable uh in this uh s uh scenario or condition. Uh uh if there are, I am not aware of them.",
+   "decode_s": 2.2587581000989303
+  },
+  {
+   "id": "svarah_hindi_03253_281474976879629_f1172_ch",
+   "duration_s": 10.16075,
+   "text": "You are two hours late then the delivery times for my products that oil, shaving cream and good night at Triple Plus, Low Smoke Mosquito Pike.",
+   "decode_s": 0.8968335000099614
+  },
+  {
+   "id": "svarah_hindi_04506_281474976897588_f1724_ch",
+   "duration_s": 24.7451875,
+   "text": "I take out my drawing book and all my stationeries, such as all my shades of pencils, charcoal pencils, eraser, ruler, etc. Then I draw margins on my paper and I start drawing. And I do refer to online as well as offline sources while creating a drawing.",
+   "decode_s": 2.34800640004687
+  },
+  {
+   "id": "svarah_kannada_00197_281474976884629_f2039_ch",
+   "duration_s": 10.1995,
+   "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials,",
+   "decode_s": 0.9003348998958245
+  },
+  {
+   "id": "svarah_kannada_04106_281474976887436_f128_chu",
+   "duration_s": 11.108625,
+   "text": "Dalal Saddam, a female relative who had just given birth, attempted to stop the violence only to be assaulted by the butt of a rifle to the mouth.",
+   "decode_s": 0.9518905999138951
+  },
+  {
+   "id": "svarah_kannada_06343_281474976896163_f378_chu",
+   "duration_s": 12.347375,
+   "text": "Can you fetch the list of all university managed private institutes which are approved by AICTE in the academic year 2019-2020?",
+   "decode_s": 1.0893712999532
+  },
+  {
+   "id": "svarah_kashmiri_03111_281474976891473_f1165_ch",
+   "duration_s": 10.812375,
+   "text": "Change your quantities of items Nestle, Munch Wafer Bar, Chai, Point Rust Cake and Lal Basin Ladu as their current quantities are out of stock.",
+   "decode_s": 0.9376152000622824
+  },
+  {
+   "id": "svarah_kashmiri_03131_281474976891498_f2075_ch",
+   "duration_s": 11.134,
+   "text": "But in particularly for tourists and uh uh for for common person there is no such a place. I so far my knowledge is concerned, there may be, but I'm not sure.",
+   "decode_s": 0.9691028000088409
+  },
+  {
+   "id": "svarah_kashmiri_05623_281474976894270_f2003_ch",
+   "duration_s": 20.0351875,
+   "text": "Artistic ideal of craftsmanship. It is a 700-year-old art that requires a lot of time and effort. The Kashmiri artisans also make beautiful patterns on copperware, and this is not only adored by the visitors, but also by the people living in the valley. Copperware is found in almost each and every household in the valley.",
+   "decode_s": 1.8656457000179216
+  },
+  {
+   "id": "svarah_konkani_02421_281474976895431_f2105_ch",
+   "duration_s": 13.707625,
+   "text": "We have lot many waterfalls, spice plantation, strawberry plantation, and much more for the nature lovers. We have the world famous Dutsagar waterfall,",
+   "decode_s": 1.2239324999973178
+  },
+  {
+   "id": "svarah_konkani_05399_281474976887658_f3219_ch",
+   "duration_s": 11.0,
+   "text": "And fortunately our leaders and people who voted at that time voted in favor of retaining Goa independently.",
+   "decode_s": 0.9653238999890164
+  },
+  {
+   "id": "svarah_konkani_05655_281474976888936_f1603_ch",
+   "duration_s": 10.151875,
+   "text": "Check if I received seven hundred rupees from nine three four eight six zero five one zero five eight at the rate of UPI.",
+   "decode_s": 0.9026432000100613
+  },
+  {
+   "id": "svarah_maithili_01206_281474976901158_f1892_ch",
+   "duration_s": 13.7275625,
+   "text": "Now the teachers are focusing more on educating the children, which will surely make the students more educated and a good citizen of country.",
+   "decode_s": 1.2166234001051635
+  },
+  {
+   "id": "svarah_maithili_04379_281474976901605_f2022_ch",
+   "duration_s": 15.000625,
+   "text": "Second also they have targeted the students, those who are really uh at the marginalized sections. So they have targeted to those students also in offline mode, like in audio mode. So it's very",
+   "decode_s": 1.38171730004251
+  },
+  {
+   "id": "svarah_maithili_04468_281474976901572_f2765_ch",
+   "duration_s": 24.2996875,
+   "text": "For downloading the vaccination certificate for beneficiary Vahida, please enter the OTP sent to your registered mobile number 86301841402.",
+   "decode_s": 2.2611124000977725
+  },
+  {
+   "id": "svarah_malayalam_00226_281474976883951_f2089_ch",
+   "duration_s": 10.8981875,
+   "text": "Later if we compare the English language to other languages such as Malayalam, Hindi, Tamil, etc.",
+   "decode_s": 0.9536069000605494
+  },
+  {
+   "id": "svarah_malayalam_03654_281474976893601_f1422_ch",
+   "duration_s": 12.29825,
+   "text": "Show me my transaction history from twenty third three twenty twenty two to two eighth twenty twenty.",
+   "decode_s": 1.092982199974358
+  },
+  {
+   "id": "svarah_malayalam_06468_281474976894903_f296_chu",
+   "duration_s": 14.1473125,
+   "text": "Use my UAN number 38775845565 to generate EPFO passbook statement.",
+   "decode_s": 1.2565869999816641
+  },
+  {
+   "id": "svarah_marathi_02487_281474976883763_f2304_ch",
+   "duration_s": 27.032625,
+   "text": "Though some steps have been taken to provide services to children with specific needs, even today, inclusive education is far behind. Not much attention is given to addressing the special needs, and the problem starts with the admission itself. The services provided are of low grade and still may not be accessible to every needy one.",
+   "decode_s": 2.5620229999767616
+  },
+  {
+   "id": "svarah_marathi_02701_281474976899455_f1986_ch",
+   "duration_s": 18.967625,
+   "text": "Swameen Malkutides is my favourite literary character. Uh I will like him uh because he's a free bird and his uh his curiosity is uh what uh drives him always. I like him his enthusiasm and innocence.",
+   "decode_s": 1.7882164999609813
+  },
+  {
+   "id": "svarah_marathi_03771_281474976883736_f2614_ch",
+   "duration_s": 10.3534375,
+   "text": "What is the status of my order with items good diet, cold press, coconut oil, fresh or signature dry fruit munchis, charvik dry fruit ladu?",
+   "decode_s": 0.9111437000101432
+  },
+  {
+   "id": "svarah_nepali_01420_281474976883853_f3233_ch",
+   "duration_s": 15.3343125,
+   "text": "The government of Megala is trying its best to provide vocational training and skill development for the youths.",
+   "decode_s": 1.3668203999986872
+  },
+  {
+   "id": "svarah_nepali_03998_281474976894746_f342_chu",
+   "duration_s": 14.3394375,
+   "text": "Along with Nyke Wood, Blastman Deodorant, please also remove Morton Cochros killer spray, biotech lip balm and synthal diotalc.",
+   "decode_s": 1.2879100000718608
+  },
+  {
+   "id": "svarah_nepali_04984_281474976883853_f3233_ch",
+   "duration_s": 10.4586875,
+   "text": "And overall the scenario is uh said to be optimistic. That's all.",
+   "decode_s": 0.8930938999401405
+  },
+  {
+   "id": "svarah_odia_00139_281474976899793_f1792_ch",
+   "duration_s": 10.691375,
+   "text": "It makes our lives so easy and I don't need to make a note on paper and pen so I can make the presentations, it m makes more easy.",
+   "decode_s": 0.9260537999216467
+  },
+  {
+   "id": "svarah_odia_02272_281474976897398_f3281_ch",
+   "duration_s": 18.8170625,
+   "text": "like um just going around on a drive around the uh the sp scenic spots in the towns because uh because they should be able to uh roam around the town like",
+   "decode_s": 1.7181701000081375
+  },
+  {
+   "id": "svarah_odia_02839_281474976897399_f2215_ch",
+   "duration_s": 11.94625,
+   "text": "In Sundargar, Raukla used to be a an education hub until the nineties and until uh facilities started coming up in Bhavaneshwar. There were coaching centers in Kuelnagar for engineering, for medical.",
+   "decode_s": 1.0538869999581948
+  },
+  {
+   "id": "svarah_punjabi_00253_281474976893747_f1552_ch",
+   "duration_s": 10.6315,
+   "text": "Show the transaction details of my APY account with PRA number two eight eight six one four five three six seven eight five.",
+   "decode_s": 0.9189154000487179
+  },
+  {
+   "id": "svarah_punjabi_02511_281474976884179_f1751_ch",
+   "duration_s": 15.410625,
+   "text": "we can manage in all the languages and the uh interaction is very good and coexistence is very good because of the following of each other's uh festivals and other things etcetera.",
+   "decode_s": 1.345374400028959
+  },
+  {
+   "id": "svarah_punjabi_05227_281474976884174_f1972_ch",
+   "duration_s": 22.0306875,
+   "text": "And then when when uh I got married, I gave all my stamps to my children. I don't know whether they kept it uh or lost them somewhere, but then I had that sense of fulfillment of collection. Similar thing is there, I have got good collection of coins from various countries.",
+   "decode_s": 2.0218541000504047
+  },
+  {
+   "id": "svarah_sindhi_00186_281474976896763_f1815_ch",
+   "duration_s": 10.4249375,
+   "text": "I am totally quiet. So that is also an indicator of m the my happiness and sadness or something, you know, something wrong has happened. This is how it goes.",
+   "decode_s": 0.9010112999239936
+  },
+  {
+   "id": "svarah_sindhi_03349_281474976896761_f1924_ch",
+   "duration_s": 10.699875,
+   "text": "My other five classmates were uh giving audition for a dance competition which went really well and we were uh got a uh standing ovation for that as well.",
+   "decode_s": 0.9201201000250876
+  },
+  {
+   "id": "svarah_sindhi_04981_281474976896729_f1038_ch",
+   "duration_s": 16.0281875,
+   "text": "I want to log into EPFO portal using my register phone number eight nine three nine seven seven eight nine two two nine and fetch my passbook statement for PF account with UAN number two nine five four six nine two two four nine seven.",
+   "decode_s": 1.4472994999960065
+  },
+  {
+   "id": "svarah_tamil_01242_281474976886814_f1691_ch",
+   "duration_s": 10.353375,
+   "text": "We can say that it was uh you know, the uh the chillness and uh the cold there was very much unexpected and unusual too.",
+   "decode_s": 0.9093153999419883
+  },
+  {
+   "id": "svarah_tamil_03855_281474976886823_f1784_ch",
+   "duration_s": 15.727375,
+   "text": "uh like uh a thought that uh the person speaking English were superior and the person who converse in the native language or use the native language are considered inferior among the other s uh English speaking people.",
+   "decode_s": 1.4462622998980805
+  },
+  {
+   "id": "svarah_tamil_06305_281474976886911_f847_chu",
+   "duration_s": 13.1796875,
+   "text": "Show the list of all government-aided institutes which are approved of AICTE in the academic year 2020 to 2021.",
+   "decode_s": 1.1653793000150472
+  },
+  {
+   "id": "svarah_telugu_00331_281474976886701_f1840_ch",
+   "duration_s": 29.2894375,
+   "text": "Uh-huh, actually there's a book called Boy in the Striped Pajamas and um I once read the book but I didn't like it that much. But then I got to see the movie which uh came in uh the uh YouTube and then uh once I saw the movie I was so uh impressed by it and I went back to read the book again and that is when I started liking it so much.",
+   "decode_s": 2.877463400014676
+  },
+  {
+   "id": "svarah_telugu_00871_281474976886979_f1251_ch",
+   "duration_s": 10.6785,
+   "text": "For people of age group above 18 years, is there any free vaccination center available in District Jaipur which provides first dose?",
+   "decode_s": 0.9268161000218242
+  },
+  {
+   "id": "svarah_telugu_02772_281474976897600_f2042_ch",
+   "duration_s": 23.300125,
+   "text": "Emotions are at the very heart of my singing. I prefer singing alone and that's when the emotions are better expressed and I do not actually do anything specifically to express those. They automatically come out because I understand the song, the meaning of the song and the rhythm and the power of that song.",
+   "decode_s": 2.1701688000466675
+  },
+  {
+   "id": "svarah_urdu_01483_281474976900644_f2038_ch",
+   "duration_s": 17.314125,
+   "text": "He has written such a thing that when a person reads and gets to know the reality, his heart fills with hope and all of the sorrows and grief leave and go.",
+   "decode_s": 1.5381322000175714
+  },
+  {
+   "id": "svarah_urdu_01750_281474976902147_f2503_ch",
+   "duration_s": 11.46125,
+   "text": "Can you transfer Rs 9000 to my 662993 26943182 in Chattisgarh Raja Gramin Bank?",
+   "decode_s": 0.998035000055097
+  },
+  {
+   "id": "svarah_urdu_02703_281474976889218_f1884_ch",
+   "duration_s": 14.8238125,
+   "text": "Indeed, literature is genius. It is rightly said that knowledge beyond one's capacity is sheer destruction. Anything in abundance is waste. Knowledge which doesn't help us grow to be a better person is blindness.",
+   "decode_s": 1.3505206000991166
+  }
+ ]
+}

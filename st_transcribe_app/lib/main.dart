@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'config/app_config.dart';
 import 'models/transcript.dart';
-import 'screens/auth_gate.dart';
+import 'screens/splash_screen.dart';
+import 'screens/platform_session_screen.dart';
 import 'screens/session_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/transcript_detail_screen.dart';
@@ -25,7 +27,7 @@ class STTranscribeApp extends StatelessWidget {
       animation: Listenable.merge([AppSettings.themeMode, AppSettings.textSize]),
       builder: (context, _) {
         return MaterialApp(
-          title: 'ST Transcribe',
+          title: 'ScriptLiv',
           debugShowCheckedModeBanner: false,
           theme: appTheme,
           darkTheme: appDarkTheme,
@@ -44,7 +46,7 @@ class STTranscribeApp extends StatelessWidget {
             final uri = Uri.parse(settings.name ?? '/');
             switch (uri.path) {
               case '/':
-                return MaterialPageRoute(builder: (_) => const AuthGate());
+                return MaterialPageRoute(builder: (_) => const AppFlow());
               case '/session':
                 return MaterialPageRoute(builder: (_) => const SessionScreen());
               case '/settings':
@@ -60,7 +62,15 @@ class STTranscribeApp extends StatelessWidget {
                 final meta = settings.arguments as TranscriptMeta;
                 return MaterialPageRoute(builder: (_) => TranscriptDetailScreen(meta: meta));
               default:
-                return MaterialPageRoute(builder: (_) => const AuthGate());
+                // Shared links: https://.../s/<token> arrives as /s/<token>; scriptliv://s/<token> arrives as /<token>.
+                final segs = uri.pathSegments;
+                final token = segs.length == 2 && segs[0] == 's'
+                    ? segs[1]
+                    : (segs.length == 1 && RegExp(r'^[A-Za-z0-9_-]{16,}$').hasMatch(segs[0]) ? segs[0] : null);
+                if (token != null && AppConfig.platformMode) {
+                  return MaterialPageRoute(builder: (_) => SharedViewScreen(token: token));
+                }
+                return MaterialPageRoute(builder: (_) => const AppFlow());
             }
           },
         );

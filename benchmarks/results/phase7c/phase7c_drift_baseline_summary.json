@@ -1,0 +1,142 @@
+{
+ "subset12_n2": {
+  "jobs": 442,
+  "final": {
+   "requested_jobs": 78,
+   "dispatched": 78,
+   "completed": 78,
+   "never_started": 0,
+   "states": {
+    "completed": 78
+   },
+   "queue_wait_s": {
+    "n": 78,
+    "p50": 0.0996,
+    "p95": 0.5391,
+    "max": 0.7973
+   },
+   "inference_s": {
+    "n": 78,
+    "p50": 0.3031,
+    "p95": 0.6638,
+    "max": 0.6696
+   },
+   "total_s": {
+    "n": 78,
+    "p50": 0.4742,
+    "p95": 1.104,
+    "max": 1.2877
+   },
+   "inference_rtf_p50": 0.0831,
+   "busy_s": 28.07,
+   "wasted_busy_s_abandoned": 0
+  },
+  "partial": {
+   "requested_jobs": 364,
+   "dispatched": 364,
+   "completed": 364,
+   "never_started": 0,
+   "states": {
+    "completed": 364
+   },
+   "queue_wait_s": {
+    "n": 364,
+    "p50": 0.0001,
+    "p95": 0.3562,
+    "max": 1.1557
+   },
+   "inference_s": {
+    "n": 364,
+    "p50": 0.1982,
+    "p95": 0.5333,
+    "max": 0.6551
+   },
+   "total_s": {
+    "n": 364,
+    "p50": 0.2682,
+    "p95": 0.6253,
+    "max": 1.3926
+   },
+   "inference_rtf_p50": 0.0848,
+   "busy_s": 84.81,
+   "wasted_busy_s_abandoned": 0
+  },
+  "wall_s": 189.7,
+  "worker_utilisation": 0.595,
+  "partial_share_of_busy": 0.751,
+  "finals_that_waited_behind_a_partial": {
+   "n": 40,
+   "of": 78
+  }
+ },
+ "subset12_n3": {
+  "jobs": 571,
+  "final": {
+   "requested_jobs": 121,
+   "dispatched": 121,
+   "completed": 121,
+   "never_started": 0,
+   "states": {
+    "completed": 121
+   },
+   "queue_wait_s": {
+    "n": 121,
+    "p50": 0.4184,
+    "p95": 1.3156,
+    "max": 2.7544
+   },
+   "inference_s": {
+    "n": 121,
+    "p50": 0.3312,
+    "p95": 0.8489,
+    "max": 1.1058
+   },
+   "total_s": {
+    "n": 121,
+    "p50": 0.6923,
+    "p95": 1.9604,
+    "max": 3.0996
+   },
+   "inference_rtf_p50": 0.0863,
+   "busy_s": 49.51,
+   "wasted_busy_s_abandoned": 0
+  },
+  "partial": {
+   "requested_jobs": 450,
+   "dispatched": 450,
+   "completed": 450,
+   "never_started": 0,
+   "states": {
+    "completed": 450
+   },
+   "queue_wait_s": {
+    "n": 450,
+    "p50": 0.153,
+    "p95": 1.0217,
+    "max": 2.6472
+   },
+   "inference_s": {
+    "n": 450,
+    "p50": 0.2267,
+    "p95": 0.6342,
+    "max": 0.9111
+   },
+   "total_s": {
+    "n": 450,
+    "p50": 0.4372,
+    "p95": 1.3893,
+    "max": 2.7943
+   },
+   "inference_rtf_p50": 0.089,
+   "busy_s": 121.15,
+   "wasted_busy_s_abandoned": 0
+  },
+  "wall_s": 200.6,
+  "worker_utilisation": 0.851,
+  "partial_share_of_busy": 0.71,
+  "finals_that_waited_behind_a_partial": {
+   "n": 104,
+   "of": 121
+  }
+ }
+}

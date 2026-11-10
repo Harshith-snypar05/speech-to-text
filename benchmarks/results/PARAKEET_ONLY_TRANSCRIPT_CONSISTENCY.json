@@ -1,0 +1,1003 @@
+{
+ "scope": "Parakeet-only consistency. No reference exists; no WER/S/D/I computed; agreement is not accuracy.",
+ "engine": {
+  "engine": "ParakeetNativeEngine",
+  "model": "C:/Users/sriha/snypar/stt/speech-to-text/whisper.cpp/models/ggml-parakeet-tdt-0.6b-v3-q8_0.bin",
+  "lib_dir": "C:/Users/sriha/snypar/stt/speech-to-text/whisper.cpp/build-shared/bin",
+  "win_s": 8.0,
+  "hop_s": 6.0,
+  "relay_cfg": {
+   "thr": 0.01,
+   "hang": 0.6,
+   "min_utt": 0.3,
+   "max_utt": 8.0,
+   "adaptive": false
+  }
+ },
+ "clips": 20,
+ "evaluated": 20,
+ "status_counts": {
+  "BOUNDARY_SUSPECTED": 10,
+  "AUDIO_UNCLEAR": 2,
+  "PARAKEET_CONSISTENT": 6,
+  "PARAKEET_REVIEW_REQUIRED": 2
+ },
+ "mean_pairwise_token_agreement": {
+  "AB": 0.9217,
+  "AC": 0.888,
+  "BC": 0.9087,
+  "AD": 1.0,
+  "BD": 0.9217,
+  "B_B2": 1.0
+ },
+ "min_pairwise_token_agreement": {
+  "AB": 0.6809,
+  "AC": 0.4865,
+  "BC": 0.5,
+  "AD": 1.0,
+  "BD": 0.6809,
+  "B_B2": 1.0
+ },
+ "determinism_B_equals_B2_clips": 20,
+ "by_recording": {
+  "rec01": {
+   "AB": 0.9106,
+   "AC": 0.8932,
+   "BC": 0.9497,
+   "AD": 1.0
+  },
+  "rec02": {
+   "AB": 0.9257,
+   "AC": 0.9268,
+   "BC": 0.9313,
+   "AD": 1.0
+  },
+  "rec03": {
+   "AB": 0.9631,
+   "AC": 0.9282,
+   "BC": 0.9164,
+   "AD": 1.0
+  },
+  "rec04": {
+   "AB": 0.9756,
+   "AC": 0.9382,
+   "BC": 0.961,
+   "AD": 1.0
+  },
+  "rec05": {
+   "AB": 0.94,
+   "AC": 0.8827,
+   "BC": 0.9292,
+   "AD": 1.0
+  },
+  "rec06": {
+   "AB": 0.7965,
+   "AC": 0.7157,
+   "BC": 0.7261,
+   "AD": 1.0
+  },
+  "rec07": {
+   "AB": 0.9466,
+   "AC": 0.9297,
+   "BC": 0.9539,
+   "AD": 1.0
+  }
+ },
+ "most_frequent_single_word_changes": [
+  {
+   "pair": [
+    "issues",
+    "reshores"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "fast",
+    "first"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "use",
+    "used"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "to",
+    "two"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "unex",
+    "unix"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "fok",
+    "folk"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "0",
+    "zero"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "1",
+    "one"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "an",
+    "the"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "lame",
+    "live"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "enough",
+    "not"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "arya",
+    "hola"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "cousin's",
+    "cousins"
+   ],
+   "count": 2
+  },
+  {
+   "pair": [
+    "g1",
+    "j1"
+   ],
+   "count": 1
+  },
+  {
+   "pair": [
+    "because",
+    "cause"
+   ],
+   "count": 1
+  },
+  {
+   "pair": [
+    "sandal",
+    "sandy"
+   ],
+   "count": 1
+  },
+  {
+   "pair": [
+    "want",
+    "wants"
+   ],
+   "count": 1
+  }
+ ],
+ "relay_vs_replay": [
+  {
+   "clip_id": "rec01_L30_0019",
+   "relay_finals": 3,
+   "replay_pending_flushes": 3,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 3
+  },
+  {
+   "clip_id": "rec01_L30_0048",
+   "relay_finals": 7,
+   "replay_pending_flushes": 7,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 7
+  },
+  {
+   "clip_id": "rec01_L30_0077",
+   "relay_finals": 5,
+   "replay_pending_flushes": 5,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 5
+  },
+  {
+   "clip_id": "rec02_L30_0021",
+   "relay_finals": 8,
+   "replay_pending_flushes": 8,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 8
+  },
+  {
+   "clip_id": "rec02_L30_0052",
+   "relay_finals": 6,
+   "replay_pending_flushes": 7,
+   "replay_empty_text_flushes": 1,
+   "bench_expected": 7
+  },
+  {
+   "clip_id": "rec02_L30_0083",
+   "relay_finals": 7,
+   "replay_pending_flushes": 7,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 7
+  },
+  {
+   "clip_id": "rec03_L30_0024",
+   "relay_finals": 5,
+   "replay_pending_flushes": 5,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 5
+  },
+  {
+   "clip_id": "rec03_L30_0059",
+   "relay_finals": 8,
+   "replay_pending_flushes": 8,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 8
+  },
+  {
+   "clip_id": "rec03_L30_0094",
+   "relay_finals": 7,
+   "replay_pending_flushes": 8,
+   "replay_empty_text_flushes": 1,
+   "bench_expected": 8
+  },
+  {
+   "clip_id": "rec04_L30_0024",
+   "relay_finals": 7,
+   "replay_pending_flushes": 7,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 7
+  },
+  {
+   "clip_id": "rec04_L30_0059",
+   "relay_finals": 5,
+   "replay_pending_flushes": 5,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 5
+  },
+  {
+   "clip_id": "rec04_L30_0092",
+   "relay_finals": 4,
+   "replay_pending_flushes": 4,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 4
+  },
+  {
+   "clip_id": "rec05_L30_0004",
+   "relay_finals": 4,
+   "replay_pending_flushes": 5,
+   "replay_empty_text_flushes": 1,
+   "bench_expected": 5
+  },
+  {
+   "clip_id": "rec05_L30_0011",
+   "relay_finals": 5,
+   "replay_pending_flushes": 6,
+   "replay_empty_text_flushes": 1,
+   "bench_expected": 5
+  },
+  {
+   "clip_id": "rec06_L30_0006",
+   "relay_finals": 5,
+   "replay_pending_flushes": 5,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 5
+  },
+  {
+   "clip_id": "rec06_L30_0015",
+   "relay_finals": 5,
+   "replay_pending_flushes": 5,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 5
+  },
+  {
+   "clip_id": "rec06_L30_0023",
+   "relay_finals": 5,
+   "replay_pending_flushes": 5,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 5
+  },
+  {
+   "clip_id": "rec07_L30_0007",
+   "relay_finals": 5,
+   "replay_pending_flushes": 6,
+   "replay_empty_text_flushes": 1,
+   "bench_expected": 6
+  },
+  {
+   "clip_id": "rec07_L30_0016",
+   "relay_finals": 5,
+   "replay_pending_flushes": 5,
+   "replay_empty_text_flushes": 0,
+   "bench_expected": 5
+  },
+  {
+   "clip_id": "rec07_L30_0026",
+   "relay_finals": 4,
+   "replay_pending_flushes": 5,
+   "replay_empty_text_flushes": 1,
+   "bench_expected": 5
+  }
+ ],
+ "per_clip": [
+  {
+   "clip_id": "rec01_L30_0019",
+   "recording_id": "rec01",
+   "status": "BOUNDARY_SUSPECTED",
+   "pairwise": {
+    "AB": 0.963,
+    "AC": 0.9455,
+    "BC": 0.9818,
+    "AD": 1.0,
+    "BD": 0.963,
+    "B_B2": 1.0
+   },
+   "ndis": 4,
+   "relay_vs_replay": {
+    "relay_finals": 3,
+    "replay_pending_flushes": 3,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 3
+   },
+   "tokens": {
+    "in_all_three": 26,
+    "B_and_A_only": 0,
+    "B_and_C_only": 1,
+    "B_only": 0,
+    "tokens_B": 27,
+    "tokens_A": 27,
+    "tokens_C": 28,
+    "tokens_D": 27
+   },
+   "partial_revision_rate": 0.292,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec01_L30_0048",
+   "recording_id": "rec01",
+   "status": "AUDIO_UNCLEAR",
+   "pairwise": {
+    "AB": 0.88,
+    "AC": 0.8919,
+    "BC": 0.9873,
+    "AD": 1.0,
+    "BD": 0.88,
+    "B_B2": 1.0
+   },
+   "ndis": 8,
+   "relay_vs_replay": {
+    "relay_finals": 7,
+    "replay_pending_flushes": 7,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 7
+   },
+   "tokens": {
+    "in_all_three": 33,
+    "B_and_A_only": 0,
+    "B_and_C_only": 6,
+    "B_only": 1,
+    "tokens_B": 40,
+    "tokens_A": 35,
+    "tokens_C": 39,
+    "tokens_D": 35
+   },
+   "partial_revision_rate": 0.643,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec01_L30_0077",
+   "recording_id": "rec01",
+   "status": "AUDIO_UNCLEAR",
+   "pairwise": {
+    "AB": 0.8889,
+    "AC": 0.8421,
+    "BC": 0.88,
+    "AD": 1.0,
+    "BD": 0.8889,
+    "B_B2": 1.0
+   },
+   "ndis": 9,
+   "relay_vs_replay": {
+    "relay_finals": 5,
+    "replay_pending_flushes": 5,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 5
+   },
+   "tokens": {
+    "in_all_three": 31,
+    "B_and_A_only": 5,
+    "B_and_C_only": 2,
+    "B_only": 2,
+    "tokens_B": 40,
+    "tokens_A": 41,
+    "tokens_C": 35,
+    "tokens_D": 41
+   },
+   "partial_revision_rate": 0.469,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec02_L30_0021",
+   "recording_id": "rec02",
+   "status": "BOUNDARY_SUSPECTED",
+   "pairwise": {
+    "AB": 0.9423,
+    "AC": 0.9216,
+    "BC": 0.86,
+    "AD": 1.0,
+    "BD": 0.9423,
+    "B_B2": 1.0
+   },
+   "ndis": 12,
+   "relay_vs_replay": {
+    "relay_finals": 8,
+    "replay_pending_flushes": 8,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 8
+   },
+   "tokens": {
+    "in_all_three": 43,
+    "B_and_A_only": 6,
+    "B_and_C_only": 0,
+    "B_only": 2,
+    "tokens_B": 51,
+    "tokens_A": 53,
+    "tokens_C": 49,
+    "tokens_D": 53
+   },
+   "partial_revision_rate": 0.364,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec02_L30_0052",
+   "recording_id": "rec02",
+   "status": "BOUNDARY_SUSPECTED",
+   "pairwise": {
+    "AB": 0.9139,
+    "AC": 0.9536,
+    "BC": 0.9487,
+    "AD": 1.0,
+    "BD": 0.9139,
+    "B_B2": 1.0
+   },
+   "ndis": 10,
+   "relay_vs_replay": {
+    "relay_finals": 6,
+    "replay_pending_flushes": 7,
+    "replay_empty_text_flushes": 1,
+    "bench_expected": 7
+   },
+   "tokens": {
+    "in_all_three": 69,
+    "B_and_A_only": 0,
+    "B_and_C_only": 5,
+    "B_only": 4,
+    "tokens_B": 78,
+    "tokens_A": 73,
+    "tokens_C": 78,
+    "tokens_D": 73
+   },
+   "partial_revision_rate": 0.25,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec02_L30_0083",
+   "recording_id": "rec02",
+   "status": "BOUNDARY_SUSPECTED",
+   "pairwise": {
+    "AB": 0.9209,
+    "AC": 0.9051,
+    "BC": 0.9851,
+    "AD": 1.0,
+    "BD": 0.9209,
+    "B_B2": 1.0
+   },
+   "ndis": 11,
+   "relay_vs_replay": {
+    "relay_finals": 7,
+    "replay_pending_flushes": 7,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 7
+   },
+   "tokens": {
+    "in_all_three": 62,
+    "B_and_A_only": 2,
+    "B_and_C_only": 4,
+    "B_only": 0,
+    "tokens_B": 68,
+    "tokens_A": 71,
+    "tokens_C": 66,
+    "tokens_D": 71
+   },
+   "partial_revision_rate": 0.154,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec03_L30_0024",
+   "recording_id": "rec03",
+   "status": "PARAKEET_CONSISTENT",
+   "pairwise": {
+    "AB": 0.9816,
+    "AC": 0.9375,
+    "BC": 0.9427,
+    "AD": 1.0,
+    "BD": 0.9816,
+    "B_B2": 1.0
+   },
+   "ndis": 11,
+   "relay_vs_replay": {
+    "relay_finals": 5,
+    "replay_pending_flushes": 5,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 5
+   },
+   "tokens": {
+    "in_all_three": 74,
+    "B_and_A_only": 6,
+    "B_and_C_only": 0,
+    "B_only": 0,
+    "tokens_B": 80,
+    "tokens_A": 83,
+    "tokens_C": 77,
+    "tokens_D": 83
+   },
+   "partial_revision_rate": 0.375,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec03_L30_0059",
+   "recording_id": "rec03",
+   "status": "BOUNDARY_SUSPECTED",
+   "pairwise": {
+    "AB": 0.9216,
+    "AC": 0.8679,
+    "BC": 0.8269,
+    "AD": 1.0,
+    "BD": 0.9216,
+    "B_B2": 1.0
+   },
+   "ndis": 14,
+   "relay_vs_replay": {
+    "relay_finals": 8,
+    "replay_pending_flushes": 8,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 8
+   },
+   "tokens": {
+    "in_all_three": 42,
+    "B_and_A_only": 5,
+    "B_and_C_only": 1,
+    "B_only": 2,
+    "tokens_B": 50,
+    "tokens_A": 52,
+    "tokens_C": 54,
+    "tokens_D": 52
+   },
+   "partial_revision_rate": 0.6,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec03_L30_0094",
+   "recording_id": "rec03",
+   "status": "PARAKEET_CONSISTENT",
+   "pairwise": {
+    "AB": 0.9861,
+    "AC": 0.9793,
+    "BC": 0.9796,
+    "AD": 1.0,
+    "BD": 0.9861,
+    "B_B2": 1.0
+   },
+   "ndis": 7,
+   "relay_vs_replay": {
+    "relay_finals": 7,
+    "replay_pending_flushes": 8,
+    "replay_empty_text_flushes": 1,
+    "bench_expected": 8
+   },
+   "tokens": {
+    "in_all_three": 71,
+    "B_and_A_only": 0,
+    "B_and_C_only": 1,
+    "B_only": 1,
+    "tokens_B": 73,
+    "tokens_A": 71,
+    "tokens_C": 74,
+    "tokens_D": 71
+   },
+   "partial_revision_rate": 0.246,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec04_L30_0024",
+   "recording_id": "rec04",
+   "status": "BOUNDARY_SUSPECTED",
+   "pairwise": {
+    "AB": 0.9438,
+    "AC": 0.8421,
+    "BC": 0.8936,
+    "AD": 1.0,
+    "BD": 0.9438,
+    "B_B2": 1.0
+   },
+   "ndis": 10,
+   "relay_vs_replay": {
+    "relay_finals": 7,
+    "replay_pending_flushes": 7,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 7
+   },
+   "tokens": {
+    "in_all_three": 40,
+    "B_and_A_only": 2,
+    "B_and_C_only": 2,
+    "B_only": 0,
+    "tokens_B": 44,
+    "tokens_A": 45,
+    "tokens_C": 50,
+    "tokens_D": 45
+   },
+   "partial_revision_rate": 0.294,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec04_L30_0059",
+   "recording_id": "rec04",
+   "status": "BOUNDARY_SUSPECTED",
+   "pairwise": {
+    "AB": 0.9831,
+    "AC": 0.9831,
+    "BC": 1.0,
+    "AD": 1.0,
+    "BD": 0.9831,
+    "B_B2": 1.0
+   },
+   "ndis": 2,
+   "relay_vs_replay": {
+    "relay_finals": 5,
+    "replay_pending_flushes": 5,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 5
+   },
+   "tokens": {
+    "in_all_three": 58,
+    "B_and_A_only": 0,
+    "B_and_C_only": 1,
+    "B_only": 0,
+    "tokens_B": 59,
+    "tokens_A": 59,
+    "tokens_C": 59,
+    "tokens_D": 59
+   },
+   "partial_revision_rate": 0.19,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec04_L30_0092",
+   "recording_id": "rec04",
+   "status": "PARAKEET_CONSISTENT",
+   "pairwise": {
+    "AB": 1.0,
+    "AC": 0.9895,
+    "BC": 0.9895,
+    "AD": 1.0,
+    "BD": 1.0,
+    "B_B2": 1.0
+   },
+   "ndis": 2,
+   "relay_vs_replay": {
+    "relay_finals": 4,
+    "replay_pending_flushes": 4,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 4
+   },
+   "tokens": {
+    "in_all_three": 47,
+    "B_and_A_only": 0,
+    "B_and_C_only": 0,
+    "B_only": 0,
+    "tokens_B": 47,
+    "tokens_A": 47,
+    "tokens_C": 48,
+    "tokens_D": 47
+   },
+   "partial_revision_rate": 0.326,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec05_L30_0004",
+   "recording_id": "rec05",
+   "status": "BOUNDARY_SUSPECTED",
+   "pairwise": {
+    "AB": 0.9792,
+    "AC": 0.8796,
+    "BC": 0.8796,
+    "AD": 1.0,
+    "BD": 0.9792,
+    "B_B2": 1.0
+   },
+   "ndis": 10,
+   "relay_vs_replay": {
+    "relay_finals": 4,
+    "replay_pending_flushes": 5,
+    "replay_empty_text_flushes": 1,
+    "bench_expected": 5
+   },
+   "tokens": {
+    "in_all_three": 83,
+    "B_and_A_only": 11,
+    "B_and_C_only": 1,
+    "B_only": 1,
+    "tokens_B": 96,
+    "tokens_A": 96,
+    "tokens_C": 95,
+    "tokens_D": 96
+   },
+   "partial_revision_rate": 0.26,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec05_L30_0011",
+   "recording_id": "rec05",
+   "status": "BOUNDARY_SUSPECTED",
+   "pairwise": {
+    "AB": 0.9009,
+    "AC": 0.8858,
+    "BC": 0.9789,
+    "AD": 1.0,
+    "BD": 0.9009,
+    "B_B2": 1.0
+   },
+   "ndis": 13,
+   "relay_vs_replay": {
+    "relay_finals": 5,
+    "replay_pending_flushes": 6,
+    "replay_empty_text_flushes": 1,
+    "bench_expected": 5
+   },
+   "tokens": {
+    "in_all_three": 97,
+    "B_and_A_only": 3,
+    "B_and_C_only": 19,
+    "B_only": 1,
+    "tokens_B": 120,
+    "tokens_A": 102,
+    "tokens_C": 117,
+    "tokens_D": 102
+   },
+   "partial_revision_rate": 0.359,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec06_L30_0006",
+   "recording_id": "rec06",
+   "status": "PARAKEET_REVIEW_REQUIRED",
+   "pairwise": {
+    "AB": 0.7463,
+    "AC": 0.7324,
+    "BC": 0.7778,
+    "AD": 1.0,
+    "BD": 0.7463,
+    "B_B2": 1.0
+   },
+   "ndis": 16,
+   "relay_vs_replay": {
+    "relay_finals": 5,
+    "replay_pending_flushes": 5,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 5
+   },
+   "tokens": {
+    "in_all_three": 24,
+    "B_and_A_only": 1,
+    "B_and_C_only": 4,
+    "B_only": 5,
+    "tokens_B": 34,
+    "tokens_A": 33,
+    "tokens_C": 38,
+    "tokens_D": 33
+   },
+   "partial_revision_rate": 0.688,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec06_L30_0015",
+   "recording_id": "rec06",
+   "status": "PARAKEET_REVIEW_REQUIRED",
+   "pairwise": {
+    "AB": 0.6809,
+    "AC": 0.4865,
+    "BC": 0.5,
+    "AD": 1.0,
+    "BD": 0.6809,
+    "B_B2": 1.0
+   },
+   "ndis": 19,
+   "relay_vs_replay": {
+    "relay_finals": 5,
+    "replay_pending_flushes": 5,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 5
+   },
+   "tokens": {
+    "in_all_three": 16,
+    "B_and_A_only": 16,
+    "B_and_C_only": 3,
+    "B_only": 13,
+    "tokens_B": 48,
+    "tokens_A": 46,
+    "tokens_C": 28,
+    "tokens_D": 46
+   },
+   "partial_revision_rate": 0.8,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec06_L30_0023",
+   "recording_id": "rec06",
+   "status": "PARAKEET_CONSISTENT",
+   "pairwise": {
+    "AB": 0.9625,
+    "AC": 0.9281,
+    "BC": 0.9007,
+    "AD": 1.0,
+    "BD": 0.9625,
+    "B_B2": 1.0
+   },
+   "ndis": 9,
+   "relay_vs_replay": {
+    "relay_finals": 5,
+    "replay_pending_flushes": 5,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 5
+   },
+   "tokens": {
+    "in_all_three": 68,
+    "B_and_A_only": 9,
+    "B_and_C_only": 0,
+    "B_only": 2,
+    "tokens_B": 79,
+    "tokens_A": 81,
+    "tokens_C": 72,
+    "tokens_D": 81
+   },
+   "partial_revision_rate": 0.194,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec07_L30_0007",
+   "recording_id": "rec07",
+   "status": "BOUNDARY_SUSPECTED",
+   "pairwise": {
+    "AB": 0.9178,
+    "AC": 0.9324,
+    "BC": 0.9733,
+    "AD": 1.0,
+    "BD": 0.9178,
+    "B_B2": 1.0
+   },
+   "ndis": 10,
+   "relay_vs_replay": {
+    "relay_finals": 5,
+    "replay_pending_flushes": 6,
+    "replay_empty_text_flushes": 1,
+    "bench_expected": 6
+   },
+   "tokens": {
+    "in_all_three": 66,
+    "B_and_A_only": 1,
+    "B_and_C_only": 7,
+    "B_only": 0,
+    "tokens_B": 74,
+    "tokens_A": 72,
+    "tokens_C": 76,
+    "tokens_D": 72
+   },
+   "partial_revision_rate": 0.419,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec07_L30_0016",
+   "recording_id": "rec07",
+   "status": "PARAKEET_CONSISTENT",
+   "pairwise": {
+    "AB": 0.9929,
+    "AC": 0.9323,
+    "BC": 0.9403,
+    "AD": 1.0,
+    "BD": 0.9929,
+    "B_B2": 1.0
+   },
+   "ndis": 4,
+   "relay_vs_replay": {
+    "relay_finals": 5,
+    "replay_pending_flushes": 5,
+    "replay_empty_text_flushes": 0,
+    "bench_expected": 5
+   },
+   "tokens": {
+    "in_all_three": 62,
+    "B_and_A_only": 8,
+    "B_and_C_only": 1,
+    "B_only": 0,
+    "tokens_B": 71,
+    "tokens_A": 70,
+    "tokens_C": 63,
+    "tokens_D": 70
+   },
+   "partial_revision_rate": 0.046,
+   "B_equals_B2": true
+  },
+  {
+   "clip_id": "rec07_L30_0026",
+   "recording_id": "rec07",
+   "status": "PARAKEET_CONSISTENT",
+   "pairwise": {
+    "AB": 0.9291,
+    "AC": 0.9242,
+    "BC": 0.9481,
+    "AD": 1.0,
+    "BD": 0.9291,
+    "B_B2": 1.0
+   },
+   "ndis": 8,
+   "relay_vs_replay": {
+    "relay_finals": 4,
+    "replay_pending_flushes": 5,
+    "replay_empty_text_flushes": 1,
+    "bench_expected": 5
+   },
+   "tokens": {
+    "in_all_three": 59,
+    "B_and_A_only": 0,
+    "B_and_C_only": 5,
+    "B_only": 1,
+    "tokens_B": 65,
+    "tokens_A": 62,
+    "tokens_C": 70,
+    "tokens_D": 62
+   },
+   "partial_revision_rate": 0.204,
+   "B_equals_B2": true
+  }
+ ],
+ "thresholds": {
+  "agree_thr": 0.9,
+  "lowlevel_p95_rms": 0.05,
+  "note": "a-priori heuristics, not validated"
+ },
+ "cannot_calculate": [
+  "WER",
+  "substitutions/deletions/insertions vs ground truth",
+  "accuracy",
+  "speaker metrics",
+  "VAD recall/false activation"
+ ]
+}

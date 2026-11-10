@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:record/record.dart';
 
 import '../services/app_settings.dart';
+import '../config/app_config.dart';
 import '../services/auth_service.dart';
+import '../services/platform_api.dart';
 import '../theme.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -101,13 +103,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           'Settings',
           style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
         ),
-        leading: BackButton(color: colors.textPrimary),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.close, color: colors.textPrimary),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ],
+        automaticallyImplyLeading: false,
+        leading: Navigator.of(context).canPop() ? BackButton(color: colors.textPrimary) : null,
       ),
       body: AnimatedBuilder(
         animation: Listenable.merge([
@@ -121,6 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           return ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
+              if (AppConfig.platformMode) const _EmailVerifyBanner(),
               Row(
                 children: [
                   Icon(
@@ -160,6 +158,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: _pickTheme,
               ),
               Divider(height: 1, color: colors.cardBorder),
+              Divider(height: 1, color: colors.cardBorder),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                secondary: Icon(Icons.screen_lock_portrait_outlined, color: colors.textSecondary),
+                title: const Text('Prevent auto-lock while live'),
+                subtitle: const Text('Keeps the screen on during a session.'),
+                value: AppSettings.preventAutoLock.value,
+                onChanged: (v) async {
+                  await AppSettings.setPreventAutoLock(v);
+                  if (mounted) setState(() {});
+                },
+              ),
+              Divider(height: 1, color: colors.cardBorder),
               _settingsRow(
                 colors: colors,
                 icon: Icons.mic_none,
@@ -167,7 +178,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: AppSettings.micDeviceLabel.value ?? 'Default',
                 onTap: _pickMicrophone,
               ),
-              if (!kIsWeb) ...[
+              if (!kIsWeb && !AppConfig.platformMode) ...[
                 Divider(height: 32, color: colors.cardBorder),
                 Text(
                   'Connection',
@@ -414,4 +425,73 @@ Future<T?> _showOptionSheet<T>({
       );
     },
   );
+}
+
+
+/// Shown while the account's email is unverified: recording, share links and purchases need a verified email.
+class _EmailVerifyBanner extends StatefulWidget {
+  const _EmailVerifyBanner();
+
+  @override
+  State<_EmailVerifyBanner> createState() => _EmailVerifyBannerState();
+}
+
+class _EmailVerifyBannerState extends State<_EmailVerifyBanner> {
+  bool _unverified = false;
+  bool _busy = false;
+  String? _note;
+
+  @override
+  void initState() {
+    super.initState();
+    PlatformApi.me().then((u) {
+      if (mounted) setState(() => _unverified = u['email_verified'] == false);
+    }).catchError((_) {});
+  }
+
+  Future<void> _resend() async {
+    setState(() {
+      _busy = true;
+      _note = null;
+    });
+    String note;
+    try {
+      await PlatformApi.resendVerification();
+      note = 'Verification email sent. Open the link in it, then come back.';
+    } on ApiException catch (e) {
+      note = e.message;
+    } catch (_) {
+      note = 'Could not reach the server. Try again.';
+    }
+    if (mounted) {
+      setState(() {
+        _busy = false;
+        _note = note;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_unverified) return const SizedBox.shrink();
+    final colors = AppColors.of(context);
+    return Container(
+      margin: const EdgeInsets.only(top: 8, bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(color: colors.recordRed.withValues(alpha: 0.08), borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Verify your email', style: TextStyle(fontWeight: FontWeight.w700, color: colors.textPrimary)),
+          const SizedBox(height: 4),
+          Text('Recording, share links and purchases need a verified email address.', style: TextStyle(fontSize: 13, color: colors.textSecondary)),
+          if (_note != null) Padding(padding: const EdgeInsets.only(top: 6), child: Text(_note!, style: TextStyle(fontSize: 13, color: colors.textPrimary))),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(onPressed: _busy ? null : _resend, child: Text(_busy ? 'Sending...' : 'Resend verification email')),
+          ),
+        ],
+      ),
+    );
+  }
 }

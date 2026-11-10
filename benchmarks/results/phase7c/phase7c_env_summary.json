@@ -1,0 +1,67 @@
+{
+ "subset12_n1": {
+  "samples": 105,
+  "sys_cpu_mean": 12.4,
+  "sys_cpu_max": 32.3,
+  "relay_cpu_mean_pct_core": 195.0,
+  "free_mb_min": 290,
+  "free_mb_median": 543,
+  "mem_pct_max": 98.1,
+  "relay_rss_mb_max": 744,
+  "mhz_median": 2401.0,
+  "queue_depth_at_enqueue_mean": 0,
+  "queue_depth_at_enqueue_max": 0
+ },
+ "subset12_n2": {
+  "samples": 108,
+  "sys_cpu_mean": 17.3,
+  "sys_cpu_max": 33.6,
+  "relay_cpu_mean_pct_core": 317.0,
+  "free_mb_min": 1495,
+  "free_mb_median": 1911.5,
+  "mem_pct_max": 90.4,
+  "relay_rss_mb_max": 744,
+  "mhz_median": 2401.0,
+  "queue_depth_at_enqueue_mean": 0.09,
+  "queue_depth_at_enqueue_max": 2
+ },
+ "subset12_n3": {
+  "samples": 109,
+  "sys_cpu_mean": 19.4,
+  "sys_cpu_max": 46.9,
+  "relay_cpu_mean_pct_core": 374.0,
+  "free_mb_min": 345,
+  "free_mb_median": 1756,
+  "mem_pct_max": 97.8,
+  "relay_rss_mb_max": 747,
+  "mhz_median": 2401.0,
+  "queue_depth_at_enqueue_mean": 0.59,
+  "queue_depth_at_enqueue_max": 2
+ },
+ "subset12_n4": {
+  "samples": 111,
+  "sys_cpu_mean": 25.5,
+  "sys_cpu_max": 73.9,
+  "relay_cpu_mean_pct_core": 381.0,
+  "free_mb_min": 348,
+  "free_mb_median": 809,
+  "mem_pct_max": 97.8,
+  "relay_rss_mb_max": 741,
+  "mhz_median": 2401.0,
+  "queue_depth_at_enqueue_mean": 1.32,
+  "queue_depth_at_enqueue_max": 4
+ },
+ "full60_n2": {
+  "samples": 521,
+  "sys_cpu_mean": 20.4,
+  "sys_cpu_max": 51.8,
+  "relay_cpu_mean_pct_core": 315.0,
+  "free_mb_min": 104,
+  "free_mb_median": 586,
+  "mem_pct_max": 99.3,
+  "relay_rss_mb_max": 730,
+  "mhz_median": 2401.0,
+  "queue_depth_at_enqueue_mean": 0.07,
+  "queue_depth_at_enqueue_max": 2
+ }
+}

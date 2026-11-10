@@ -6,6 +6,7 @@ void main() {
   late List<String> finals;
   late List<String> partials;
   late int endedCount;
+  late List<String> refines;
 
   void parse(String raw) {
     parser.parse(
@@ -13,6 +14,7 @@ void main() {
       onFinal: finals.add,
       onPartial: partials.add,
       onEnded: () => endedCount++,
+      onRefine: (o, r) => refines.add('$o=>$r'),
     );
   }
 
@@ -21,6 +23,7 @@ void main() {
     finals = [];
     partials = [];
     endedCount = 0;
+    refines = [];
   });
 
   test('final message with partial:false triggers onFinal and clears partial', () {
@@ -78,5 +81,21 @@ void main() {
   test('text is trimmed', () {
     parse('{"text": "  hello  ", "partial": false}');
     expect(finals, ['hello']);
+  });
+
+  test('refine message reports original and refined and never becomes a final or touches the partial', () {
+    parse('{"text": "hello", "partial": true}');
+    parse('{"type": "refine", "seq": 0, "original": "hello there", "refined": "Hello, there."}');
+    expect(refines, ['hello there=>Hello, there.']);
+    expect(finals, isEmpty);
+    expect(partials, ['hello']); // the live partial is untouched
+  });
+
+  test('malformed refine messages are ignored', () {
+    parse('{"type": "refine", "original": "a"}');
+    parse('{"type": "refine", "original": "a", "refined": "  "}');
+    parse('{"type": "refine", "original": 1, "refined": "b"}');
+    expect(refines, isEmpty);
+    expect(finals, isEmpty);
   });
 }

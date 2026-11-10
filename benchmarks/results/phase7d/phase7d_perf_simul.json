@@ -1,0 +1,57 @@
+{
+ "label": "simul",
+ "window_s": 71.7,
+ "final": {
+  "jobs": 41,
+  "states": {
+   "completed": 41
+  },
+  "queue_wait_p50_p95_max": [
+   0.109,
+   0.514,
+   0.745
+  ],
+  "infer_p50_p95": [
+   0.333,
+   0.656
+  ],
+  "total_p95": 1.055
+ },
+ "partial": {
+  "jobs": 164,
+  "states": {
+   "completed": 151,
+   "skipped": 13
+  },
+  "queue_wait_p50_p95_max": [
+   0.078,
+   0.628,
+   1.89
+  ],
+  "infer_p50_p95": [
+   0.211,
+   0.534
+  ],
+  "total_p95": 0.862
+ },
+ "worker_utilisation": 0.725,
+ "abandoned_jobs": 0,
+ "skips": {
+  "superseded_by_final": 13,
+  "final_waiting": 4
+ },
+ "system": {
+  "samples": 35,
+  "sys_cpu_mean": 15.5,
+  "sys_cpu_max": 20.7,
+  "relay_cpu_mean_pct_core": 323.3,
+  "free_mb_min": 1827,
+  "free_mb_median": 2048,
+  "relay_rss_mb_max": 751,
+  "relay_rss_mb_first_last": [
+   708,
+   737
+  ],
+  "mem_pct_max": 88.3
+ }
+}

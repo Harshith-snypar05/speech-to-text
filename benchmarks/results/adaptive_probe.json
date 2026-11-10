@@ -1,0 +1,327 @@
+{
+ "noise_only_0.003": {
+  "off": {
+   "flushes": [
+    8.0,
+    16.0
+   ],
+   "forced": 2,
+   "speech_chunk_frac": 0.0,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    8.0,
+    16.0
+   ],
+   "forced": 2,
+   "speech_chunk_frac": 0.0,
+   "final_threshold": 0.01
+  }
+ },
+ "noise_only_0.008": {
+  "off": {
+   "flushes": [
+    8.0,
+    16.0
+   ],
+   "forced": 2,
+   "speech_chunk_frac": 0.0,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    8.0,
+    16.0
+   ],
+   "forced": 2,
+   "speech_chunk_frac": 0.0,
+   "final_threshold": 0.02
+  }
+ },
+ "noise_only_0.015": {
+  "off": {
+   "flushes": [
+    8.0,
+    16.0
+   ],
+   "forced": 2,
+   "speech_chunk_frac": 1.0,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    8.0,
+    16.0
+   ],
+   "forced": 2,
+   "speech_chunk_frac": 0.0,
+   "final_threshold": 0.0377
+  }
+ },
+ "noise_only_0.03": {
+  "off": {
+   "flushes": [
+    8.0,
+    16.0
+   ],
+   "forced": 2,
+   "speech_chunk_frac": 1.0,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    8.0,
+    16.0
+   ],
+   "forced": 2,
+   "speech_chunk_frac": 1.0,
+   "final_threshold": 0.025
+  }
+ },
+ "noise_only_0.06": {
+  "off": {
+   "flushes": [
+    8.0,
+    16.0
+   ],
+   "forced": 2,
+   "speech_chunk_frac": 1.0,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    8.0,
+    16.0
+   ],
+   "forced": 2,
+   "speech_chunk_frac": 1.0,
+   "final_threshold": 0.025
+  }
+ },
+ "quiet_1.0": {
+  "off": {
+   "flushes": [
+    2.9,
+    5.1,
+    11.6
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.72,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    2.8,
+    4.9,
+    8.1,
+    10.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.528,
+   "final_threshold": 0.01
+  }
+ },
+ "quiet_0.5": {
+  "off": {
+   "flushes": [
+    2.8,
+    4.9,
+    8.2,
+    11.6
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.576,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    2.6,
+    4.9,
+    8.1,
+    10.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.488,
+   "final_threshold": 0.01
+  }
+ },
+ "quiet_0.25": {
+  "off": {
+   "flushes": [
+    2.6,
+    4.9,
+    8.1,
+    10.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.472,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    2.6,
+    4.9,
+    8.1,
+    10.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.44,
+   "final_threshold": 0.01
+  }
+ },
+ "quiet_0.15": {
+  "off": {
+   "flushes": [
+    2.6,
+    4.9,
+    8.1,
+    10.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.408,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    2.6,
+    4.9,
+    8.1,
+    10.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.4,
+   "final_threshold": 0.01
+  }
+ },
+ "quiet_0.1": {
+  "off": {
+   "flushes": [
+    2.6,
+    4.9,
+    8.1,
+    10.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.368,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    2.1,
+    4.9,
+    8.0,
+    10.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.296,
+   "final_threshold": 0.01
+  }
+ },
+ "lead_noise_0.005": {
+  "off": {
+   "flushes": [
+    8.0,
+    14.6
+   ],
+   "forced": 1,
+   "speech_chunk_frac": 0.652,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    5.8,
+    7.9,
+    11.1,
+    13.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.4,
+   "final_threshold": 0.0129
+  }
+ },
+ "lead_noise_0.012": {
+  "off": {
+   "flushes": [
+    8.0,
+    14.6
+   ],
+   "forced": 1,
+   "speech_chunk_frac": 0.903,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    5.7,
+    7.9,
+    11.1,
+    13.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.374,
+   "final_threshold": 0.0147
+  }
+ },
+ "lead_noise_0.02": {
+  "off": {
+   "flushes": [
+    8.0,
+    14.6
+   ],
+   "forced": 1,
+   "speech_chunk_frac": 0.903,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    5.6,
+    7.9,
+    11.1,
+    13.8
+   ],
+   "forced": 0,
+   "speech_chunk_frac": 0.342,
+   "final_threshold": 0.019
+  }
+ },
+ "lead_noise_0.03": {
+  "off": {
+   "flushes": [
+    8.0,
+    14.6
+   ],
+   "forced": 1,
+   "speech_chunk_frac": 0.903,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    8.0,
+    14.6
+   ],
+   "forced": 1,
+   "speech_chunk_frac": 0.903,
+   "final_threshold": 0.01
+  }
+ },
+ "lead_noise_0.05": {
+  "off": {
+   "flushes": [
+    8.0,
+    14.6
+   ],
+   "forced": 1,
+   "speech_chunk_frac": 0.903,
+   "final_threshold": 0.01
+  },
+  "on": {
+   "flushes": [
+    8.0,
+    14.6
+   ],
+   "forced": 1,
+   "speech_chunk_frac": 0.903,
+   "final_threshold": 0.01
+  }
+ }
+}

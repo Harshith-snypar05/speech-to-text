@@ -1,0 +1,169 @@
+[
+  {
+    "clip": "svarah_assamese_03817_281474976885867_f1767_ch",
+    "conn_id": 16,
+    "relay_flushes": 4,
+    "relay_outcomes": [
+      "final_sent",
+      "final_sent",
+      "dropped_empty_text",
+      "dropped_not_pending"
+    ],
+    "bench_finals": 2,
+    "bench_expected": 3,
+    "unmatched_explained": [
+      {
+        "expected_index": 2,
+        "expected_end_s": 19.1,
+        "forced_expected": false,
+        "relay_flush_seq": 3,
+        "relay_outcome": "dropped_empty_text",
+        "relay_reason": "silence_hang",
+        "buffer_s": 3.7,
+        "speech_s": 2.3,
+        "decode_attempted": true,
+        "text_empty": true,
+        "exception": null
+      }
+    ],
+    "extra_finals": []
+  },
+  {
+    "clip": "svarah_assamese_06152_281474976901758_f990_chu",
+    "conn_id": 17,
+    "relay_flushes": 3,
+    "relay_outcomes": [
+      "final_sent",
+      "dropped_empty_text",
+      "dropped_not_pending"
+    ],
+    "bench_finals": 1,
+    "bench_expected": 2,
+    "unmatched_explained": [
+      {
+        "expected_index": 1,
+        "expected_end_s": 10.299999999999999,
+        "forced_expected": false,
+        "relay_flush_seq": 2,
+        "relay_outcome": "dropped_empty_text",
+        "relay_reason": "silence_hang",
+        "buffer_s": 2.9,
+        "speech_s": 1.9,
+        "decode_attempted": true,
+        "text_empty": true,
+        "exception": null
+      }
+    ],
+    "extra_finals": []
+  },
+  {
+    "clip": "svarah_bengali_01831_281474976896941_f53_chun",
+    "conn_id": 18,
+    "relay_flushes": 4,
+    "relay_outcomes": [
+      "final_sent",
+      "final_sent",
+      "final_sent",
+      "dropped_not_pending"
+    ],
+    "bench_finals": 3,
+    "bench_expected": 2,
+    "unmatched_explained": [],
+    "extra_finals": [
+      {
+        "final_index": 1,
+        "time_s": 9.007340300013311,
+        "reason": "expected_0_already_matched_to_final_0"
+      }
+    ]
+  },
+  {
+    "clip": "svarah_bodo_03621_281474976893846_f3264_ch",
+    "conn_id": 19,
+    "relay_flushes": 8,
+    "relay_outcomes": [
+      "final_sent",
+      "final_sent",
+      "final_sent",
+      "final_sent",
+      "final_sent",
+      "final_sent",
+      "dropped_empty_text",
+      "dropped_not_pending"
+    ],
+    "bench_finals": 6,
+    "bench_expected": 7,
+    "unmatched_explained": [
+      {
+        "expected_index": 6,
+        "expected_end_s": 18.0,
+        "forced_expected": false,
+        "relay_flush_seq": 7,
+        "relay_outcome": "dropped_empty_text",
+        "relay_reason": "silence_hang",
+        "buffer_s": 2.9,
+        "speech_s": 0.4,
+        "decode_attempted": true,
+        "text_empty": true,
+        "exception": null
+      }
+    ],
+    "extra_finals": []
+  },
+  {
+    "clip": "svarah_kannada_00197_281474976884629_f2039_ch",
+    "conn_id": 20,
+    "relay_flushes": 3,
+    "relay_outcomes": [
+      "final_sent",
+      "dropped_empty_text",
+      "dropped_not_pending"
+    ],
+    "bench_finals": 1,
+    "bench_expected": 2,
+    "unmatched_explained": [
+      {
+        "expected_index": 1,
+        "expected_end_s": 10.2,
+        "forced_expected": false,
+        "relay_flush_seq": 2,
+        "relay_outcome": "dropped_empty_text",
+        "relay_reason": "silence_hang",
+        "buffer_s": 2.8,
+        "speech_s": 1.8,
+        "decode_attempted": true,
+        "text_empty": true,
+        "exception": null
+      }
+    ],
+    "extra_finals": []
+  },
+  {
+    "clip": "svarah_kashmiri_03111_281474976891473_f1165_ch",
+    "conn_id": 21,
+    "relay_flushes": 3,
+    "relay_outcomes": [
+      "final_sent",
+      "dropped_empty_text",
+      "dropped_not_pending"
+    ],
+    "bench_finals": 1,
+    "bench_expected": 2,
+    "unmatched_explained": [
+      {
+        "expected_index": 1,
+        "expected_end_s": 10.799999999999999,
+        "forced_expected": false,
+        "relay_flush_seq": 2,
+        "relay_outcome": "dropped_empty_text",
+        "relay_reason": "silence_hang",
+        "buffer_s": 3.4,
+        "speech_s": 2.1,
+        "decode_attempted": true,
+        "text_empty": true,
+        "exception": null
+      }
+    ],
+    "extra_finals": []
+  }
+]

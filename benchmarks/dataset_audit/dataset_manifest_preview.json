@@ -1,0 +1,137 @@
+{
+  "_status": "SCHEMA_PLUS_MEASURED_AGGREGATES",
+  "_note": "Schema/mapping preview only: no clips, no transcripts, no per-row metadata. Measured aggregates below come from svarah_measured.json and audit_loudness.py on the real data (C:\\data\\svarah, outside repo).",
+  "dataset": {
+    "name": "AI4Bharat Svarah",
+    "url": "https://huggingface.co/datasets/ai4bharat/Svarah",
+    "paper": "arXiv:2305.15760",
+    "hf_gated": "auto (login + accept terms)",
+    "license": "CC BY 4.0 (confirmed on gated card)",
+    "splits": {
+      "test": {
+        "rows": 6656,
+        "download_bytes": 1094998590
+      }
+    },
+    "files": [
+      "data/test-00000-of-00003.parquet",
+      "data/test-00001-of-00003.parquet",
+      "data/test-00002-of-00003.parquet"
+    ],
+    "total_hours_paper": 9.6,
+    "speakers_paper": 117,
+    "hours_by_type_paper": {
+      "read": 1.4,
+      "extempore_topics": 6.4,
+      "everyday_use_cases": 1.7
+    },
+    "derived_mean_clip_s": 5.19,
+    "derived_mean_clip_s_basis": "9.6 h * 3600 / 6656 rows; arithmetic on published totals, not a measurement"
+  },
+  "hf_schema_columns": {
+    "audio_filepath": "audio (struct: bytes + path in parquet)",
+    "duration": "float64 seconds",
+    "text": "string reference",
+    "gender": "string",
+    "age-group": "string",
+    "primary_language": "string (speaker L1)",
+    "native_place_state": "string",
+    "native_place_district": "string",
+    "highest_qualification": "string",
+    "job_category": "string",
+    "occupation_domain": "string"
+  },
+  "not_in_hf_schema": [
+    "speaker_id",
+    "read_vs_spontaneous_flag",
+    "timestamps_within_clip",
+    "noise_level",
+    "recording_device"
+  ],
+  "column_to_tag_mapping": {
+    "gender": "gender",
+    "age-group": "age_group",
+    "primary_language": "l1",
+    "native_place_state": "state",
+    "native_place_district": "district",
+    "highest_qualification": "qualification",
+    "job_category": "job",
+    "occupation_domain": "domain",
+    "(constant)": {
+      "accent": "indian_english",
+      "source": "svarah"
+    }
+  },
+  "target_manifest_shape": {
+    "clips": [
+      {
+        "id": "svarah_<l1>_<row:05d>_<orig filename stem>",
+        "wav": "wav/<id>.wav",
+        "reference": "<Svarah text, bracket/brace/angle markers stripped; original kept in meta.notes>",
+        "tags": {
+          "gender": "<value>",
+          "age_group": "<value>",
+          "l1": "<value>",
+          "state": "<value>",
+          "district": "<value>",
+          "qualification": "<value>",
+          "job": "<value>",
+          "domain": "<value>",
+          "accent": "indian_english",
+          "source": "svarah",
+          "corpus": "svarah"
+        },
+        "meta": {
+          "source": "<id>.wav",
+          "sha256": "<computed at ingest>",
+          "orig_rate": 16000,
+          "orig_channels": 1,
+          "orig_bits": 16,
+          "duration_s": null,
+          "peak": null,
+          "est_snr_db": null,
+          "notes": "{svarah_text_original, svarah_file, svarah_row}"
+        }
+      }
+    ]
+  },
+  "null_fields_are_unmeasured": "duration_s, peak, est_snr_db, sha256 are per-clip and filled by ingest_corpus.py; rate/channels/bits are 16000/1/16 for every Svarah clip (measured).",
+  "measured": {
+    "formats": {
+      "wav": 6656
+    },
+    "sample_rate_hz": {
+      "16000": 6656
+    },
+    "channels": {
+      "1": 6656
+    },
+    "bit_depth": {
+      "16": 6656
+    },
+    "total_h": 9.614,
+    "mean_s": 5.2,
+    "median_s": 4.21,
+    "max_s": 29.87,
+    "n_lt_3s": 2442,
+    "n_10_60s": 810,
+    "empty_text": 0,
+    "markers_found": 0,
+    "header_duration_mismatch": 0,
+    "l1": 19,
+    "states": 17,
+    "districts": 65,
+    "speaker_key": "none recoverable (filename ids are recording/file ids, not speakers)",
+    "est_snr_db_median_all": 32.0,
+    "est_snr_db_median_10_60s": 37.7,
+    "quiet_clips_p95rms_lt_0.05_pct": 14
+  },
+  "subset_test": {
+    "export": "--min-dur 10 --max-dur 60 --limit 60 --seed 0",
+    "ingested": 60,
+    "rejected": 0,
+    "minutes": 14.8,
+    "l1_covered": 19
+  },
+  "derived_mean_clip_s_basis": "measured: 5.2 s mean (matches arithmetic estimate)"
+}

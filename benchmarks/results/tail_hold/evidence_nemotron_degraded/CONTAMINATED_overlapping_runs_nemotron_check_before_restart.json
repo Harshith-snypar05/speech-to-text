@@ -1,0 +1,553 @@
+{
+ "label": "before_restart",
+ "expect": [
+  7,
+  57
+ ],
+ "hold": 0.25,
+ "reps": [
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    0.6226387999951837,
+    2.3326449000276623
+   ],
+   "final_lat": [
+    1.031069900072179,
+    -0.09744140000548285
+   ],
+   "last_event_t": 33.19873170007486,
+   "partials": 22,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 0,
+   "account": 0,
+   "gpu_mem_mib_max": 3426,
+   "gpu_util_pct_max": 27,
+   "gpu_util_pct_mean": 22.682926829268293,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    0.6789174000034106,
+    2.3886458000168203
+   ],
+   "final_lat": [
+    1.1315913000609719,
+    -0.030471899965778704
+   ],
+   "last_event_t": 33.254250500001945,
+   "partials": 22,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 0,
+   "account": 1,
+   "gpu_mem_mib_max": 3426,
+   "gpu_util_pct_max": 27,
+   "gpu_util_pct_mean": 22.682926829268293,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    0.7517335999757049,
+    2.462581000011414
+   ],
+   "final_lat": [
+    1.2156676999758922,
+    0.005089500010942771
+   ],
+   "last_event_t": 33.405783299938776,
+   "partials": 22,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 0,
+   "account": 2,
+   "gpu_mem_mib_max": 3426,
+   "gpu_util_pct_max": 27,
+   "gpu_util_pct_mean": 22.682926829268293,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    0.5673424000153315,
+    0.08244900004938227
+   ],
+   "final_lat": [
+    0.5054735000478097,
+    -0.0015720999799668789
+   ],
+   "last_event_t": 31.798778400057927,
+   "partials": 27,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "single",
+   "rep": 0,
+   "account": 0,
+   "gpu_mem_mib_max": 3426,
+   "gpu_util_pct_max": 27,
+   "gpu_util_pct_mean": 20.975609756097562,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.1976899999892336,
+    0.07629859989974541
+   ],
+   "final_lat": [
+    -0.0773568000644449,
+    0.8783398999599719
+   ],
+   "last_event_t": 30.278339899959974,
+   "partials": 20,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 1,
+   "account": 0,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 28,
+   "gpu_util_pct_mean": 21.536585365853657,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.2706988999154416,
+    0.1318137999158342
+   ],
+   "final_lat": [
+    -0.09349030000157654,
+    0.9336095999693477
+   ],
+   "last_event_t": 30.33360959996935,
+   "partials": 20,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 1,
+   "account": 1,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 28,
+   "gpu_util_pct_mean": 21.536585365853657,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.3262854998931286,
+    0.23313859996851427
+   ],
+   "final_lat": [
+    -0.03933730011340231,
+    0.9948869999730938
+   ],
+   "last_event_t": 30.394886999973096,
+   "partials": 20,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 1,
+   "account": 2,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 28,
+   "gpu_util_pct_mean": 21.536585365853657,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    0.2955380999948827,
+    0.1176139999413861
+   ],
+   "final_lat": [
+    0.25235949996858764,
+    -0.012853100034408982
+   ],
+   "last_event_t": 31.909236899926327,
+   "partials": 29,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "single",
+   "rep": 1,
+   "account": 0,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 28,
+   "gpu_util_pct_mean": 21.102564102564102,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.365235799970105,
+    0.21166199999861313
+   ],
+   "final_lat": [
+    -0.05206680004484987,
+    -0.0409654001006885
+   ],
+   "last_event_t": 33.23988149990328,
+   "partials": 22,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 2,
+   "account": 0,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 28,
+   "gpu_util_pct_mean": 22.175,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.4801268999464807,
+    0.37090080005582315
+   ],
+   "final_lat": [
+    -0.08242350004147703,
+    -0.03276940002106343
+   ],
+   "last_event_t": 34.07408970000688,
+   "partials": 24,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 2,
+   "account": 1,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 28,
+   "gpu_util_pct_mean": 22.175,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.4245252999709916,
+    0.27107550001237435
+   ],
+   "final_lat": [
+    -0.07331490004435182,
+    -0.0009295000461868597
+   ],
+   "last_event_t": 33.362073600059375,
+   "partials": 22,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 2,
+   "account": 2,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 28,
+   "gpu_util_pct_mean": 22.175,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 4,
+   "words": 41,
+   "first_word": [
+    0.3240008000750092,
+    0.6422963000135491,
+    1.0193062000442286,
+    0.6697851000819348
+   ],
+   "final_lat": [
+    0.17387210007291287,
+    0.2574122000252821,
+    -0.08124689997639578,
+    2.2687980000860968
+   ],
+   "last_event_t": 31.6687980000861,
+   "partials": 38,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "single",
+   "rep": 2,
+   "account": 0,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 27,
+   "gpu_util_pct_mean": 20.925,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.300817500031553,
+    0.2706690000602965
+   ],
+   "final_lat": [
+    -0.08410300000105053,
+    3.7864325000205987
+   ],
+   "last_event_t": 33.1864325000206,
+   "partials": 20,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 3,
+   "account": 0,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 29,
+   "gpu_util_pct_mean": 22.0625,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.383673199964687,
+    0.323128299973904
+   ],
+   "final_lat": [
+    -0.09694320000708068,
+    3.8593087999848628
+   ],
+   "last_event_t": 38.11087169998791,
+   "partials": 24,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 3,
+   "account": 1,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 29,
+   "gpu_util_pct_mean": 22.0625,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.5600291999755425,
+    0.4526541999774043
+   ],
+   "final_lat": [
+    -0.0058399000437940884,
+    3.9947567000286632
+   ],
+   "last_event_t": 38.035940399975516,
+   "partials": 24,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 3,
+   "account": 2,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 29,
+   "gpu_util_pct_mean": 22.0625,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 4,
+   "words": 28,
+   "first_word": [
+    1.5930979000171646,
+    1.4409057000186292,
+    1.937335499981418,
+    1.2570718000177283
+   ],
+   "final_lat": [
+    -0.0600731999846178,
+    -0.005329300020822103,
+    1.1284776999847956,
+    0.5568379000760615
+   ],
+   "last_event_t": 31.63267750001978,
+   "partials": 40,
+   "close": [
+    null,
+    null
+   ],
+   "exc": null,
+   "valid": false,
+   "kind": "single",
+   "rep": 3,
+   "account": 0,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 29,
+   "gpu_util_pct_mean": 20.897435897435898,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.4463627000106496,
+    0.41107260000426216
+   ],
+   "final_lat": [
+    -0.0008285999996591187,
+    1.978369400044901
+   ],
+   "last_event_t": 39.28371840005275,
+   "partials": 25,
+   "close": [
+    null,
+    null
+   ],
+   "exc": "ConnectionClosedError(None, Close(code=<CloseCode.NORMAL_CLOSURE: 1000>, reason=''), None)",
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 4,
+   "account": 0,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 28,
+   "gpu_util_pct_mean": 21.307692307692307,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.4992584999883545,
+    0.4770597000140686
+   ],
+   "final_lat": [
+    -0.01709930005017668,
+    2.037181200017219
+   ],
+   "last_event_t": 39.38120369997341,
+   "partials": 25,
+   "close": [
+    null,
+    null
+   ],
+   "exc": "ConnectionClosedError(None, Close(code=<CloseCode.NORMAL_CLOSURE: 1000>, reason=''), None)",
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 4,
+   "account": 1,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 28,
+   "gpu_util_pct_mean": 21.307692307692307,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 2,
+   "words": 20,
+   "first_word": [
+    1.5685378000373018,
+    3.9691973000997676
+   ],
+   "final_lat": [
+    -0.05959129999391699,
+    1.8093324000015834
+   ],
+   "last_event_t": 39.106970000080764,
+   "partials": 25,
+   "close": [
+    null,
+    null
+   ],
+   "exc": "ConnectionClosedError(None, Close(code=<CloseCode.NORMAL_CLOSURE: 1000>, reason=''), None)",
+   "valid": false,
+   "kind": "concurrent3",
+   "rep": 4,
+   "account": 2,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 28,
+   "gpu_util_pct_mean": 21.307692307692307,
+   "worker_log_problems": []
+  },
+  {
+   "finals": 1,
+   "words": 5,
+   "first_word": [
+    0.9330950000789016
+   ],
+   "final_lat": [
+    -0.019630700023844927
+   ],
+   "last_event_t": 3.080369299976155,
+   "partials": 5,
+   "close": null,
+   "exc": "ConnectionClosedError(None, None, None)",
+   "valid": false,
+   "kind": "single",
+   "rep": 4,
+   "account": 0,
+   "gpu_mem_mib_max": 3456,
+   "gpu_util_pct_max": 20,
+   "gpu_util_pct_mean": 15.0,
+   "worker_log_problems": []
+  }
+ ]
+}

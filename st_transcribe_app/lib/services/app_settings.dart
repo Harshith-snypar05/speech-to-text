@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import '../config/app_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Known relay backend for local development, plus a Custom slot for a
@@ -90,6 +91,10 @@ class AppSettings {
   static const _kTranscriptionMode = 'settings_transcription_mode';
   static const _kMicId = 'settings_mic_id';
   static const _kMicLabel = 'settings_mic_label';
+  static const _kPreventAutoLock = 'settings_prevent_auto_lock';
+
+  /// Keep the screen awake while a session is live (wake lock). On by default.
+  static final ValueNotifier<bool> preventAutoLock = ValueNotifier(true);
 
   static final ValueNotifier<String> backendUrl = ValueNotifier(
     TranscriptionEnginePreset.parakeet.defaultUrl,
@@ -120,7 +125,11 @@ class AppSettings {
     );
 
     final storedUrl = prefs.getString(_kBackendUrl);
-    if (storedUrl != null) {
+    if (AppConfig.platformMode && AppConfig.wsBase.isNotEmpty) {
+      // platform build: the backend comes from build-time config, never from stored/default URLs.
+      enginePreset.value = TranscriptionEnginePreset.custom;
+      backendUrl.value = AppConfig.wsBase;
+    } else if (storedUrl != null) {
       backendUrl.value = storedUrl;
     } else {
       final sameOrigin = detectSameOriginBackendUrl();
@@ -150,6 +159,7 @@ class AppSettings {
       orElse: () => TranscriptionMode.live,
     );
 
+    preventAutoLock.value = prefs.getBool(_kPreventAutoLock) ?? true;
     micDeviceId.value = prefs.getString(_kMicId);
     micDeviceLabel.value = prefs.getString(_kMicLabel);
   }
@@ -180,6 +190,11 @@ class AppSettings {
   static Future<void> setTranscriptionMode(TranscriptionMode mode) async {
     transcriptionMode.value = mode;
     await _prefs?.setString(_kTranscriptionMode, mode.name);
+  }
+
+  static Future<void> setPreventAutoLock(bool v) async {
+    preventAutoLock.value = v;
+    await _prefs?.setBool(_kPreventAutoLock, v);
   }
 
   static Future<void> setMicDevice(String? id, String? label) async {

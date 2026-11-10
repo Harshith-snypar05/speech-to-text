@@ -1,0 +1,175 @@
+{
+  "rows": 6656,
+  "formats": {
+    "wav": 6656
+  },
+  "sample_rates": {
+    "16000": 6656
+  },
+  "channels": {
+    "1": 6656
+  },
+  "bit_depths": {
+    "16": 6656
+  },
+  "duration": {
+    "total_h": 9.614,
+    "mean": 5.2,
+    "median": 4.21,
+    "pct": {
+      "5": 0.46,
+      "25": 1.82,
+      "75": 7.2,
+      "90": 10.66,
+      "95": 13.86,
+      "99": 22.79
+    },
+    "max": 29.87,
+    "n_ge_10": 810,
+    "n_10_60": 810,
+    "n_ge_5": 2804,
+    "n_lt_3": 2442
+  },
+  "header_vs_metadata_duration_mismatch": 0,
+  "empty_text": 0,
+  "marker_census_top30": [],
+  "audio_filename_patterns_top10": [
+    [
+      "#_f#_chunk_#.wav",
+      6656
+    ]
+  ],
+  "metadata_distinct": {
+    "gender": 2,
+    "age-group": 4,
+    "primary_language": 19,
+    "native_place_state": 17,
+    "native_place_district": 65,
+    "highest_qualification": 6,
+    "job_category": 4,
+    "occupation_domain": 11
+  },
+  "metadata_counts": {
+    "gender": {
+      "Female": 3579,
+      "Male": 3077
+    },
+    "age-group": {
+      "30-45": 2670,
+      "18-30": 2219,
+      "45-60": 1305,
+      "60+": 462
+    },
+    "primary_language": {
+      "Nepali": 599,
+      "Kannada": 577,
+      "Urdu": 514,
+      "Malayalam": 503,
+      "Maithili": 462,
+      "Odia": 456,
+      "Bodo": 402,
+      "Tamil": 384,
+      "Telugu": 334,
+      "Kashmiri": 310,
+      "Konkani": 302,
+      "Bengali": 297,
+      "Hindi": 256,
+      "Dogri": 255,
+      "Gujarati": 242,
+      "Marathi": 231,
+      "Assamese": 205,
+      "Punjabi": 189,
+      "Sindhi": 138
+    },
+    "native_place_state": {
+      "West Bengal": 792,
+      "Karnataka": 774,
+      "Assam": 680,
+      "Kerala": 572,
+      "Jammu Kashmir": 565,
+      "Gujarat": 564,
+      "Bihar": 518,
+      "Odisha": 484,
+      "Goa": 417,
+      "Maharashtra": 409,
+      "Andhra Pradesh": 206,
+      "Punjab": 189,
+      "Tamil Nadu": 178,
+      "Telangana": 125,
+      "Rajasthan": 95,
+      "Meghalaya": 51,
+      "Madhya Pradesh": 37
+    },
+    "native_place_district": {
+      "Pathanamthitta": 352,
+      "Darbhanga": 338,
+      "Kalimpong": 331,
+      "Bangalore Urban": 322,
+      "Kokrajhar": 310,
+      "Ahmedabad": 271,
+      "Jammu": 255,
+      "South Goa": 250,
+      "Srinagar": 248,
+      "Sundergarh": 201,
+      "Gulbarga": 191,
+      "Kolkata": 191,
+      "North Goa": 167,
+      "Darjeeling": 144,
+      "Hassan": 139,
+      "Sabarkantha": 128,
+      "South 24 Parganas": 126,
+      "Hyderabad": 125,
+      "Palakkad": 119,
+      "Amreli": 114,
+      "Satara": 98,
+      "Solapur": 97,
+      "Ajmer": 95,
+      "Chennai": 94,
+      "Angul": 93,
+      "Udalguri": 92,
+      "Samastipur": 87,
+      "Patiala": 79,
+      "Biswanath": 77,
+      "Kurnool": 76,
+      "Khordha": 73,
+      "Kamrup": 73,
+      "Pune": 72,
+      "Ratnagiri": 70,
+      "Thiruvananthapuram": 69,
+      "Krishna": 68,
+      "Shimoga": 65,
+      "Anantnag": 62,
+      "Bangalore Rural": 57,
+      "Gaya": 56
+    },
+    "highest_qualification": {
+      "Post Graduate": 4212,
+      "Graduate": 1375,
+      "Doctoral (PhD) or higher level": 753,
+      "Under Graduate Student": 176,
+      "Senior Secondary Level at School (10+2)": 112,
+      "Diploma Holder": 28
+    },
+    "job_category": {
+      "Full Time": 4065,
+      "Other": 1229,
+      "Part Time": 887,
+      "Freelance": 475
+    },
+    "occupation_domain": {
+      "Education and Research": 3197,
+      "Technology and Services": 1477,
+      "Information and Media": 503,
+      "Social service": 383,
+      "Government": 315,
+      "Financial Services (Banking and Insurance)": 273,
+      "Entertainment": 216,
+      "Healthcare (Medical &amp; Pharma)": 152,
+      "Transportation and Logistics": 73,
+      "Manufacturing": 40,
+      "Retail": 27
+    }
+  },
+  "proxy_speaker_groups": 115,
+  "note": "No speaker-id column exists in the HF schema; proxy_speaker_groups is the number of distinct metadata tuples, NOT a verified speaker count."
+}

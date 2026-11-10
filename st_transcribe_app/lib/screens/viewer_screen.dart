@@ -58,6 +58,11 @@ class _ViewerScreenState extends State<ViewerScreen> {
         _state = _ViewerState.live;
       });
     });
+    client.onRefine.listen((r) {
+      if (!mounted) return;
+      final i = _utterances.lastIndexOf(r.original);
+      if (i >= 0) setState(() => _utterances[i] = r.refined);
+    });
     client.onPartial.listen((text) {
       if (!mounted) return;
       setState(() {
@@ -84,6 +89,9 @@ class _ViewerScreenState extends State<ViewerScreen> {
           case ConnectionStatus.unauthorized:
             _state = _ViewerState.unauthorized;
           case ConnectionStatus.stopped:
+          case ConnectionStatus.outOfMinutes:
+          case ConnectionStatus.emailNotVerified:
+          case ConnectionStatus.superseded:
             break;
         }
       });

@@ -1,0 +1,815 @@
+{
+  "files": [
+    {
+      "peak": 0.4079,
+      "peak_dbfs": -7.8,
+      "rms_overall": 0.0143,
+      "rms_p95": 0.0305,
+      "rms_median": 0.001,
+      "rms_p10_floor": 0.00018,
+      "rms_p5": 0.00016,
+      "est_snr_db": 44.7,
+      "clipped_samples_ge_0p999": 0,
+      "clipped_pct": 0.0,
+      "near_clip_ge_0p99_pct": 0.0,
+      "dc_offset": -0.0,
+      "voiced_frac_fixed_thr": 0.211,
+      "quiet_voiced_frac": 0.754,
+      "below_thr_frac_with_p95_lt_0p05": true,
+      "noise_floor_character": {
+        "frac_energy_below_300hz": 0.623,
+        "frac_energy_above_4khz": 0.029,
+        "spectral_centroid_hz": 556.0,
+        "hum_50_60hz_frac": 0.084
+      },
+      "pauses_fixed_0p01": {
+        "thr": 0.01,
+        "n_pauses": 5834,
+        "pause_total_h": 0.6,
+        "pause_fraction": 0.772,
+        "longest_pause_s": 34.18,
+        "median_pause_s": 0.14,
+        "hist": {
+          "0-0.1s": {
+            "n": 1749,
+            "total_s": 92.6
+          },
+          "0.1-0.3s": {
+            "n": 2597,
+            "total_s": 410.5
+          },
+          "0.3-0.6s": {
+            "n": 603,
+            "total_s": 250.0
+          },
+          "0.6-1.2s": {
+            "n": 441,
+            "total_s": 369.7
+          },
+          "1.2-3s": {
+            "n": 379,
+            "total_s": 677.1
+          },
+          ">=3s": {
+            "n": 65,
+            "total_s": 359.0
+          }
+        },
+        "n_ge_0p6": 885,
+        "n_ge_1p2": 444
+      },
+      "pauses_rel_minus35db": {
+        "thr": 0.00054,
+        "n_pauses": 6000,
+        "pause_total_h": 0.34,
+        "pause_fraction": 0.438,
+        "longest_pause_s": 16.06,
+        "median_pause_s": 0.08,
+        "hist": {
+          "0-0.1s": {
+            "n": 3152,
+            "total_s": 124.6
+          },
+          "0.1-0.3s": {
+            "n": 2039,
+            "total_s": 431.0
+          },
+          "0.3-0.6s": {
+            "n": 400,
+            "total_s": 166.9
+          },
+          "0.6-1.2s": {
+            "n": 269,
+            "total_s": 229.0
+          },
+          "1.2-3s": {
+            "n": 131,
+            "total_s": 218.4
+          },
+          ">=3s": {
+            "n": 9,
+            "total_s": 54.5
+          }
+        },
+        "n_ge_0p6": 409,
+        "n_ge_1p2": 140
+      },
+      "recording_id": "rec01",
+      "source_filename": "AudioTranscriberAI_1. Introduction to Operating Systems.mp3",
+      "source_path": "C:\\Users\\sriha\\snypar\\stt\\data\\AudioTranscriberAI_1. Introduction to Operating Systems.mp3",
+      "source_sha256": "3b1775504d7ba793f83590cd428a4a4deca9f9bf987d91c6d9f5ecb094bc8755",
+      "file_bytes": 33517372,
+      "decoded_duration_s": 2794.93,
+      "working_wav": "dataset_existing\\audio_full\\rec01.wav",
+      "container": "matroska,webm",
+      "codec": "opus",
+      "native_rate": 48000,
+      "native_channels": 2,
+      "layout": "stereo",
+      "bit_rate": 95937,
+      "container_duration_s": 2794.941,
+      "sample_format": "fltp",
+      "tags": {
+        "encoder": "google/video-file"
+      }
+    },
+    {
+      "peak": 0.7953,
+      "peak_dbfs": -2.0,
+      "rms_overall": 0.077,
+      "rms_p95": 0.17,
+      "rms_median": 0.0249,
+      "rms_p10_floor": 0.00319,
+      "rms_p5": 0.00256,
+      "est_snr_db": 34.5,
+      "clipped_samples_ge_0p999": 0,
+      "clipped_pct": 0.0,
+      "near_clip_ge_0p99_pct": 0.0,
+      "dc_offset": 0.0,
+      "voiced_frac_fixed_thr": 0.634,
+      "quiet_voiced_frac": 0.251,
+      "below_thr_frac_with_p95_lt_0p05": false,
+      "noise_floor_character": {
+        "frac_energy_below_300hz": 0.76,
+        "frac_energy_above_4khz": 0.014,
+        "spectral_centroid_hz": 339.0,
+        "hum_50_60hz_frac": 0.155
+      },
+      "pauses_fixed_0p01": {
+        "thr": 0.01,
+        "n_pauses": 6517,
+        "pause_total_h": 0.309,
+        "pause_fraction": 0.365,
+        "longest_pause_s": 2.94,
+        "median_pause_s": 0.08,
+        "hist": {
+          "0-0.1s": {
+            "n": 3781,
+            "total_s": 165.6
+          },
+          "0.1-0.3s": {
+            "n": 1743,
+            "total_s": 257.8
+          },
+          "0.3-0.6s": {
+            "n": 506,
+            "total_s": 212.4
+          },
+          "0.6-1.2s": {
+            "n": 387,
+            "total_s": 317.9
+          },
+          "1.2-3s": {
+            "n": 100,
+            "total_s": 158.1
+          },
+          ">=3s": {
+            "n": 0,
+            "total_s": 0.0
+          }
+        },
+        "n_ge_0p6": 487,
+        "n_ge_1p2": 100
+      },
+      "pauses_rel_minus35db": {
+        "thr": 0.00302,
+        "n_pauses": 4085,
+        "pause_total_h": 0.072,
+        "pause_fraction": 0.085,
+        "longest_pause_s": 1.2,
+        "median_pause_s": 0.02,
+        "hist": {
+          "0-0.1s": {
+            "n": 3409,
+            "total_s": 111.5
+          },
+          "0.1-0.3s": {
+            "n": 543,
+            "total_s": 85.3
+          },
+          "0.3-0.6s": {
+            "n": 108,
+            "total_s": 43.5
+          },
+          "0.6-1.2s": {
+            "n": 24,
+            "total_s": 17.4
+          },
+          "1.2-3s": {
+            "n": 1,
+            "total_s": 1.2
+          },
+          ">=3s": {
+            "n": 0,
+            "total_s": 0.0
+          }
+        },
+        "n_ge_0p6": 25,
+        "n_ge_1p2": 1
+      },
+      "recording_id": "rec02",
+      "source_filename": "AudioTranscriberAI_Lecture - 1 Introduction To Computing.mp3",
+      "source_path": "C:\\Users\\sriha\\snypar\\stt\\data\\AudioTranscriberAI_Lecture - 1 Introduction To Computing.mp3",
+      "source_sha256": "b92498ada0c9b7016260a59f22b66945b798c90ec57c378ad598141b73aca942",
+      "file_bytes": 41157758,
+      "decoded_duration_s": 3045.74,
+      "working_wav": "dataset_existing\\audio_full\\rec02.wav",
+      "container": "matroska,webm",
+      "codec": "opus",
+      "native_rate": 48000,
+      "native_channels": 2,
+      "layout": "stereo",
+      "bit_rate": 108105,
+      "container_duration_s": 3045.761,
+      "sample_format": "fltp",
+      "tags": {
+        "encoder": "google/video-file"
+      }
+    },
+    {
+      "peak": 0.997,
+      "peak_dbfs": -0.0,
+      "rms_overall": 0.0856,
+      "rms_p95": 0.1877,
+      "rms_median": 0.0221,
+      "rms_p10_floor": 0.00129,
+      "rms_p5": 0.00099,
+      "est_snr_db": 43.3,
+      "clipped_samples_ge_0p999": 0,
+      "clipped_pct": 0.0,
+      "near_clip_ge_0p99_pct": 0.0,
+      "dc_offset": -0.0,
+      "voiced_frac_fixed_thr": 0.556,
+      "quiet_voiced_frac": 0.15,
+      "below_thr_frac_with_p95_lt_0p05": false,
+      "noise_floor_character": {
+        "frac_energy_below_300hz": 0.409,
+        "frac_energy_above_4khz": 0.419,
+        "spectral_centroid_hz": 2917.0,
+        "hum_50_60hz_frac": 0.095
+      },
+      "pauses_fixed_0p01": {
+        "thr": 0.01,
+        "n_pauses": 6022,
+        "pause_total_h": 0.425,
+        "pause_fraction": 0.444,
+        "longest_pause_s": 7.2,
+        "median_pause_s": 0.06,
+        "hist": {
+          "0-0.1s": {
+            "n": 3661,
+            "total_s": 161.4
+          },
+          "0.1-0.3s": {
+            "n": 990,
+            "total_s": 151.8
+          },
+          "0.3-0.6s": {
+            "n": 616,
+            "total_s": 272.1
+          },
+          "0.6-1.2s": {
+            "n": 513,
+            "total_s": 413.7
+          },
+          "1.2-3s": {
+            "n": 202,
+            "total_s": 358.2
+          },
+          ">=3s": {
+            "n": 40,
+            "total_s": 173.1
+          }
+        },
+        "n_ge_0p6": 755,
+        "n_ge_1p2": 242
+      },
+      "pauses_rel_minus35db": {
+        "thr": 0.00334,
+        "n_pauses": 5437,
+        "pause_total_h": 0.299,
+        "pause_fraction": 0.312,
+        "longest_pause_s": 5.34,
+        "median_pause_s": 0.06,
+        "hist": {
+          "0-0.1s": {
+            "n": 3187,
+            "total_s": 121.9
+          },
+          "0.1-0.3s": {
+            "n": 1238,
+            "total_s": 198.6
+          },
+          "0.3-0.6s": {
+            "n": 515,
+            "total_s": 216.0
+          },
+          "0.6-1.2s": {
+            "n": 357,
+            "total_s": 288.7
+          },
+          "1.2-3s": {
+            "n": 134,
+            "total_s": 231.2
+          },
+          ">=3s": {
+            "n": 6,
+            "total_s": 21.2
+          }
+        },
+        "n_ge_0p6": 497,
+        "n_ge_1p2": 140
+      },
+      "recording_id": "rec03",
+      "source_filename": "AudioTranscriberAI_Lecture 1 Introduction to UNIX System Calls Part 1.mp3",
+      "source_path": "C:\\Users\\sriha\\snypar\\stt\\data\\AudioTranscriberAI_Lecture 1 Introduction to UNIX System Calls Part 1.mp3",
+      "source_sha256": "6ddb84a842e3ca11574381a3da89c70eae0dc21cc95548c7a02e6d7162ac1a31",
+      "file_bytes": 46713166,
+      "decoded_duration_s": 3450.46,
+      "working_wav": "dataset_existing\\audio_full\\rec03.wav",
+      "container": "matroska,webm",
+      "codec": "opus",
+      "native_rate": 48000,
+      "native_channels": 2,
+      "layout": "stereo",
+      "bit_rate": 108305,
+      "container_duration_s": 3450.481,
+      "sample_format": "fltp",
+      "tags": {
+        "encoder": "google/video-file"
+      }
+    },
+    {
+      "peak": 0.9517,
+      "peak_dbfs": -0.4,
+      "rms_overall": 0.0789,
+      "rms_p95": 0.1838,
+      "rms_median": 0.0215,
+      "rms_p10_floor": 0.00585,
+      "rms_p5": 0.00477,
+      "est_snr_db": 29.9,
+      "clipped_samples_ge_0p999": 0,
+      "clipped_pct": 0.0,
+      "near_clip_ge_0p99_pct": 0.0,
+      "dc_offset": 0.0,
+      "voiced_frac_fixed_thr": 0.709,
+      "quiet_voiced_frac": 0.399,
+      "below_thr_frac_with_p95_lt_0p05": false,
+      "noise_floor_character": {
+        "frac_energy_below_300hz": 0.653,
+        "frac_energy_above_4khz": 0.008,
+        "spectral_centroid_hz": 395.0,
+        "hum_50_60hz_frac": 0.052
+      },
+      "pauses_fixed_0p01": {
+        "thr": 0.01,
+        "n_pauses": 8716,
+        "pause_total_h": 0.274,
+        "pause_fraction": 0.289,
+        "longest_pause_s": 6.76,
+        "median_pause_s": 0.04,
+        "hist": {
+          "0-0.1s": {
+            "n": 6303,
+            "total_s": 245.9
+          },
+          "0.1-0.3s": {
+            "n": 1573,
+            "total_s": 234.3
+          },
+          "0.3-0.6s": {
+            "n": 499,
+            "total_s": 210.3
+          },
+          "0.6-1.2s": {
+            "n": 308,
+            "total_s": 245.7
+          },
+          "1.2-3s": {
+            "n": 32,
+            "total_s": 43.3
+          },
+          ">=3s": {
+            "n": 1,
+            "total_s": 6.8
+          }
+        },
+        "n_ge_0p6": 341,
+        "n_ge_1p2": 33
+      },
+      "pauses_rel_minus35db": {
+        "thr": 0.00327,
+        "n_pauses": 706,
+        "pause_total_h": 0.008,
+        "pause_fraction": 0.009,
+        "longest_pause_s": 6.74,
+        "median_pause_s": 0.02,
+        "hist": {
+          "0-0.1s": {
+            "n": 683,
+            "total_s": 17.8
+          },
+          "0.1-0.3s": {
+            "n": 19,
+            "total_s": 2.4
+          },
+          "0.3-0.6s": {
+            "n": 1,
+            "total_s": 0.5
+          },
+          "0.6-1.2s": {
+            "n": 2,
+            "total_s": 1.7
+          },
+          "1.2-3s": {
+            "n": 0,
+            "total_s": 0.0
+          },
+          ">=3s": {
+            "n": 1,
+            "total_s": 6.7
+          }
+        },
+        "n_ge_0p6": 3,
+        "n_ge_1p2": 1
+      },
+      "recording_id": "rec04",
+      "source_filename": "audiotreanscribed.mp3",
+      "source_path": "C:\\Users\\sriha\\snypar\\stt\\data\\audiotreanscribed.mp3",
+      "source_sha256": "9a30a9792a3bbdc8070cd5b733c8ae52c97da3ae3834e43ab4b5a27476383c59",
+      "file_bytes": 42536369,
+      "decoded_duration_s": 3407.13,
+      "working_wav": "dataset_existing\\audio_full\\rec04.wav",
+      "container": "matroska,webm",
+      "codec": "opus",
+      "native_rate": 48000,
+      "native_channels": 2,
+      "layout": "stereo",
+      "bit_rate": 99875,
+      "container_duration_s": 3407.141,
+      "sample_format": "fltp",
+      "tags": {
+        "encoder": "google/video-file"
+      }
+    },
+    {
+      "peak": 1.0,
+      "peak_dbfs": -0.0,
+      "rms_overall": 0.0762,
+      "rms_p95": 0.1552,
+      "rms_median": 0.0425,
+      "rms_p10_floor": 0.01366,
+      "rms_p5": 0.01041,
+      "est_snr_db": 21.1,
+      "clipped_samples_ge_0p999": 1,
+      "clipped_pct": 1e-05,
+      "near_clip_ge_0p99_pct": 2e-05,
+      "dc_offset": -0.000149,
+      "voiced_frac_fixed_thr": 0.956,
+      "quiet_voiced_frac": 0.337,
+      "below_thr_frac_with_p95_lt_0p05": false,
+      "noise_floor_character": {
+        "frac_energy_below_300hz": 0.609,
+        "frac_energy_above_4khz": 0.05,
+        "spectral_centroid_hz": 670.0,
+        "hum_50_60hz_frac": 0.171
+      },
+      "pauses_fixed_0p01": {
+        "thr": 0.01,
+        "n_pauses": 460,
+        "pause_total_h": 0.006,
+        "pause_fraction": 0.044,
+        "longest_pause_s": 0.5,
+        "median_pause_s": 0.02,
+        "hist": {
+          "0-0.1s": {
+            "n": 396,
+            "total_s": 12.1
+          },
+          "0.1-0.3s": {
+            "n": 56,
+            "total_s": 8.2
+          },
+          "0.3-0.6s": {
+            "n": 8,
+            "total_s": 3.0
+          },
+          "0.6-1.2s": {
+            "n": 0,
+            "total_s": 0.0
+          },
+          "1.2-3s": {
+            "n": 0,
+            "total_s": 0.0
+          },
+          ">=3s": {
+            "n": 0,
+            "total_s": 0.0
+          }
+        },
+        "n_ge_0p6": 0,
+        "n_ge_1p2": 0
+      },
+      "pauses_rel_minus35db": {
+        "thr": 0.00276,
+        "n_pauses": 31,
+        "pause_total_h": 0.0,
+        "pause_fraction": 0.002,
+        "longest_pause_s": 0.08,
+        "median_pause_s": 0.02,
+        "hist": {
+          "0-0.1s": {
+            "n": 31,
+            "total_s": 1.0
+          },
+          "0.1-0.3s": {
+            "n": 0,
+            "total_s": 0.0
+          },
+          "0.3-0.6s": {
+            "n": 0,
+            "total_s": 0.0
+          },
+          "0.6-1.2s": {
+            "n": 0,
+            "total_s": 0.0
+          },
+          "1.2-3s": {
+            "n": 0,
+            "total_s": 0.0
+          },
+          ">=3s": {
+            "n": 0,
+            "total_s": 0.0
+          }
+        },
+        "n_ge_0p6": 0,
+        "n_ge_1p2": 0
+      },
+      "recording_id": "rec05",
+      "source_filename": "Do Indians Know How Their English Accent Sounds_ _ ASIAN BOSS [dJgoTcyrFZ4].mp3",
+      "source_path": "C:\\Users\\sriha\\snypar\\stt\\data\\Do Indians Know How Their English Accent Sounds_ _ ASIAN BOSS [dJgoTcyrFZ4].mp3",
+      "source_sha256": "659b74f5816a3c8afc395c625466d3c563c104d0ddc24eec1e952b0446c885d2",
+      "file_bytes": 5038285,
+      "decoded_duration_s": 530.41,
+      "working_wav": "dataset_existing\\audio_full\\rec05.wav",
+      "container": "mp3",
+      "codec": "mp3float",
+      "native_rate": 44100,
+      "native_channels": 2,
+      "layout": "stereo",
+      "bit_rate": 75990,
+      "container_duration_s": 530.413424,
+      "sample_format": "fltp",
+      "tags": {
+        "title": "Do Indians Know How Their English Accent Sounds? | ASIAN BOSS",
+        "artist": "Asian Boss",
+        "album": "Do Indians Know How Their English Accent Sounds? | ASIAN BOSS",
+        "TOPE": "Asian Boss",
+        "comment": "",
+        "genre": "Music",
+        "date": "2026"
+      }
+    },
+    {
+      "peak": 0.9993,
+      "peak_dbfs": -0.0,
+      "rms_overall": 0.0765,
+      "rms_p95": 0.1744,
+      "rms_median": 0.0268,
+      "rms_p10_floor": 0.00347,
+      "rms_p5": 0.00171,
+      "est_snr_db": 34.0,
+      "clipped_samples_ge_0p999": 1,
+      "clipped_pct": 1e-05,
+      "near_clip_ge_0p99_pct": 1e-05,
+      "dc_offset": -2.8e-05,
+      "voiced_frac_fixed_thr": 0.731,
+      "quiet_voiced_frac": 0.349,
+      "below_thr_frac_with_p95_lt_0p05": false,
+      "noise_floor_character": {
+        "frac_energy_below_300hz": 0.641,
+        "frac_energy_above_4khz": 0.064,
+        "spectral_centroid_hz": 789.0,
+        "hum_50_60hz_frac": 0.136
+      },
+      "pauses_fixed_0p01": {
+        "thr": 0.01,
+        "n_pauses": 1482,
+        "pause_total_h": 0.062,
+        "pause_fraction": 0.269,
+        "longest_pause_s": 3.46,
+        "median_pause_s": 0.04,
+        "hist": {
+          "0-0.1s": {
+            "n": 994,
+            "total_s": 35.9
+          },
+          "0.1-0.3s": {
+            "n": 276,
+            "total_s": 45.5
+          },
+          "0.3-0.6s": {
+            "n": 126,
+            "total_s": 53.5
+          },
+          "0.6-1.2s": {
+            "n": 63,
+            "total_s": 51.2
+          },
+          "1.2-3s": {
+            "n": 22,
+            "total_s": 34.7
+          },
+          ">=3s": {
+            "n": 1,
+            "total_s": 3.5
+          }
+        },
+        "n_ge_0p6": 86,
+        "n_ge_1p2": 23
+      },
+      "pauses_rel_minus35db": {
+        "thr": 0.0031,
+        "n_pauses": 540,
+        "pause_total_h": 0.021,
+        "pause_fraction": 0.089,
+        "longest_pause_s": 1.62,
+        "median_pause_s": 0.06,
+        "hist": {
+          "0-0.1s": {
+            "n": 342,
+            "total_s": 12.6
+          },
+          "0.1-0.3s": {
+            "n": 123,
+            "total_s": 19.8
+          },
+          "0.3-0.6s": {
+            "n": 54,
+            "total_s": 23.3
+          },
+          "0.6-1.2s": {
+            "n": 18,
+            "total_s": 14.4
+          },
+          "1.2-3s": {
+            "n": 3,
+            "total_s": 4.3
+          },
+          ">=3s": {
+            "n": 0,
+            "total_s": 0.0
+          }
+        },
+        "n_ge_0p6": 21,
+        "n_ge_1p2": 3
+      },
+      "recording_id": "rec06",
+      "source_filename": "I Became an AMAZING English Teacher to My Family Members Today.. [7I4orgnYdCI].mp3",
+      "source_path": "C:\\Users\\sriha\\snypar\\stt\\data\\I Became an AMAZING English Teacher to My Family Members Today.. [7I4orgnYdCI].mp3",
+      "source_sha256": "f860f0388284836173592715f4f44a13e786462c3a6415580a38bd5ba8798293",
+      "file_bytes": 14120797,
+      "decoded_duration_s": 834.04,
+      "working_wav": "dataset_existing\\audio_full\\rec06.wav",
+      "container": "mp3",
+      "codec": "mp3float",
+      "native_rate": 44100,
+      "native_channels": 2,
+      "layout": "stereo",
+      "bit_rate": 135445,
+      "container_duration_s": 834.037551,
+      "sample_format": "fltp",
+      "tags": {
+        "title": "I Became an AMAZING English Teacher to My Family Members Today..",
+        "artist": "Mourya Shweta English",
+        "album": "I Became an AMAZING English Teacher to My Family Members Today..",
+        "TOPE": "Mourya Shweta English",
+        "comment": "",
+        "genre": "Music",
+        "date": "2026"
+      }
+    },
+    {
+      "peak": 1.0,
+      "peak_dbfs": 0.0,
+      "rms_overall": 0.0897,
+      "rms_p95": 0.1789,
+      "rms_median": 0.0455,
+      "rms_p10_floor": 0.00417,
+      "rms_p5": 0.00207,
+      "est_snr_db": 32.7,
+      "clipped_samples_ge_0p999": 546,
+      "clipped_pct": 0.00353,
+      "near_clip_ge_0p99_pct": 0.0051,
+      "dc_offset": 1e-06,
+      "voiced_frac_fixed_thr": 0.807,
+      "quiet_voiced_frac": 0.253,
+      "below_thr_frac_with_p95_lt_0p05": false,
+      "noise_floor_character": {
+        "frac_energy_below_300hz": 0.496,
+        "frac_energy_above_4khz": 0.057,
+        "spectral_centroid_hz": 932.0,
+        "hum_50_60hz_frac": 0.092
+      },
+      "pauses_fixed_0p01": {
+        "thr": 0.01,
+        "n_pauses": 1630,
+        "pause_total_h": 0.052,
+        "pause_fraction": 0.192,
+        "longest_pause_s": 1.8,
+        "median_pause_s": 0.04,
+        "hist": {
+          "0-0.1s": {
+            "n": 1200,
+            "total_s": 44.9
+          },
+          "0.1-0.3s": {
+            "n": 251,
+            "total_s": 37.8
+          },
+          "0.3-0.6s": {
+            "n": 122,
+            "total_s": 53.3
+          },
+          "0.6-1.2s": {
+            "n": 49,
+            "total_s": 38.0
+          },
+          "1.2-3s": {
+            "n": 8,
+            "total_s": 11.7
+          },
+          ">=3s": {
+            "n": 0,
+            "total_s": 0.0
+          }
+        },
+        "n_ge_0p6": 57,
+        "n_ge_1p2": 8
+      },
+      "pauses_rel_minus35db": {
+        "thr": 0.00318,
+        "n_pauses": 587,
+        "pause_total_h": 0.021,
+        "pause_fraction": 0.078,
+        "longest_pause_s": 1.4,
+        "median_pause_s": 0.06,
+        "hist": {
+          "0-0.1s": {
+            "n": 371,
+            "total_s": 13.5
+          },
+          "0.1-0.3s": {
+            "n": 141,
+            "total_s": 22.9
+          },
+          "0.3-0.6s": {
+            "n": 57,
+            "total_s": 23.3
+          },
+          "0.6-1.2s": {
+            "n": 16,
+            "total_s": 13.2
+          },
+          "1.2-3s": {
+            "n": 2,
+            "total_s": 2.6
+          },
+          ">=3s": {
+            "n": 0,
+            "total_s": 0.0
+          }
+        },
+        "n_ge_0p6": 18,
+        "n_ge_1p2": 2
+      },
+      "recording_id": "rec07",
+      "source_filename": "My Real English Learning Story 🙂 How I learnt English at Home without a speaking environment 😯 [cv2JTL7V8kM].mp3",
+      "source_path": "C:\\Users\\sriha\\snypar\\stt\\data\\My Real English Learning Story 🙂 How I learnt English at Home without a speaking environment 😯 [cv2JTL7V8kM].mp3",
+      "source_sha256": "68be6df08252802a9f5cc49835aa96e494a9915253e2f3a9375c9180cb146f95",
+      "file_bytes": 17125854,
+      "decoded_duration_s": 966.02,
+      "working_wav": "dataset_existing\\audio_full\\rec07.wav",
+      "container": "mp3",
+      "codec": "mp3float",
+      "native_rate": 44100,
+      "native_channels": 2,
+      "layout": "stereo",
+      "bit_rate": 141826,
+      "container_duration_s": 966.019773,
+      "sample_format": "fltp",
+      "tags": {
+        "title": "My Real English Learning Story 🙂 How I learnt English at Home without a speaking environment 😯",
+        "artist": "Sunita's English Adventure",
+        "album": "My Real English Learning Story 🙂 How I learnt English at Home without a speaking environment 😯",
+        "TOPE": "Sunita's English Adventure",
+        "comment": "",
+        "genre": "Music",
+        "date": "2026"
+      }
+    }
+  ],
+  "total_duration_s": 15028.7,
+  "total_min": 250.5
+}

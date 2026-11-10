@@ -1,0 +1,237 @@
+INFO:parakeet_relay:using ParakeetNativeEngine (model loaded once, shared library found)
+parakeet_init_from_file_with_params_no_state: loading model from 'C:\Users\sriha\snypar\stt\speech-to-text\whisper.cpp\models\ggml-parakeet-tdt-0.6b-v3-q8_0.bin'
+parakeet_init_with_params_no_state: use gpu    = 1
+parakeet_init_with_params_no_state: gpu_device = 0
+parakeet_init_with_params_no_state: devices    = 1
+parakeet_init_with_params_no_state: backends   = 1
+parakeet_model_load: loading model
+parakeet_model_load: arch                   = Parakeet TDT
+parakeet_model_load: n_vocab                = 8192
+parakeet_model_load: n_audio_ctx            = 5000
+parakeet_model_load: n_audio_state          = 1024
+parakeet_model_load: n_audio_head           = 8
+parakeet_model_load: n_audio_layer          = 24
+parakeet_model_load: n_mels                 = 128
+parakeet_model_load: n_fft                  = 512
+parakeet_model_load: eps                    = 0.000010
+parakeet_model_load: ftype                  = 7
+parakeet_model_load: qntvr                  = 2
+parakeet_model_load: subsampling_factor     = 8
+parakeet_model_load: n_subsampling_channels = 256
+parakeet_model_load: n_conv_kernel          = 9
+parakeet_model_load: n_pred_dim             = 640
+parakeet_model_load: n_pred_layers          = 2
+parakeet_model_load: n_tdt_durations        = 5
+parakeet_model_load: n_max_tokens           = 10
+parakeet_model_load: loaded window function with 400 samples
+parakeet_model_load: loaded tdt_durations: [0 1 2 3 4 ]
+parakeet_model_load: loaded vocab with 8192 tokens (blank_id=8192, unk=0, bos=4, eos=3)
+parakeet_model_load:          CPU total size =   668.50 MB
+parakeet_model_load: model size    =  668.50 MB
+parakeet_init_with_params_no_state: initialized mel cache with n_fft = 512
+parakeet_backend_init_gpu: device 0: CPU (type: 0)
+parakeet_backend_init_gpu: no GPU found
+parakeet_init_state: enc_out state:    0.00 MB (meta) +    2.44 MB (data)
+parakeet_init_state: lstm state:    0.00 MB (meta) +    0.01 MB (data)
+parakeet_init_state: pred state:    0.00 MB (meta) +    0.00 MB (data)
+parakeet_init_state: compute buffer (encode) =  337.79 MB
+parakeet_init_state: compute buffer (decode) =   67.12 MB
+INFO:websockets.server:server listening on [::1]:8770
+INFO:websockets.server:server listening on 127.0.0.1:8770
+INFO:parakeet_relay:Parakeet relay listening on ws://localhost:8770
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection open
+INFO:core.speaker_session:Speaker connected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)
+INFO:websockets.server:connection closed
+INFO:core.speaker_session:Speaker disconnected (session=None)

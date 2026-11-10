@@ -1,0 +1,28 @@
+== concurrency 1: 20 clips x 1 sessions ==
+
+| N | clips | WER | p50 TTFW s | p95 TTFW s | p50 final s | p95 final s | p95 final-after-hang s | revision rate | errors | GPU util mean/max | relay CPU mean/max |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 20 | - | 1.010 | 5.311 | 0.931 | 3.206 | 2.606 | 0.331 | 0 | 0/5 | 162/404 |
+
+WER by `recording_id` (N=1):
+  rec01              -%  (3 clips, 0 words)
+  rec02              -%  (3 clips, 0 words)
+  rec03              -%  (3 clips, 0 words)
+  rec04              -%  (3 clips, 0 words)
+  rec05              -%  (2 clips, 0 words)
+  rec06              -%  (3 clips, 0 words)
+  rec07              -%  (3 clips, 0 words)
+
+WER by `accent` (N=1):
+  indian_english     -%  (20 clips, 0 words)
+
+WER by `language` (N=1):
+  en                 -%  (20 clips, 0 words)
+
+WER by `boundary_quality` (N=1):
+  pause_cut          -%  (20 clips, 0 words)
+
+WER by `recording_condition` (N=1):
+  unknown            -%  (20 clips, 0 words)
+
+full results: results\existing_audio_relay_pilot.json

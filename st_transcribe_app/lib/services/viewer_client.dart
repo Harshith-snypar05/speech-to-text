@@ -34,6 +34,7 @@ class ViewerClient {
   StreamSubscription? _socketSub;
   final _textController = StreamController<String>.broadcast();
   final _partialController = StreamController<String>.broadcast();
+  final _refineController = StreamController<({String original, String refined})>.broadcast();
   final _statusController = StreamController<ConnectionStatus>.broadcast();
   final _parser = LiveTranscriptParser();
 
@@ -44,6 +45,9 @@ class ViewerClient {
   int _retryCount = 0;
 
   Stream<String> get onText => _textController.stream;
+
+  /// A refined version of an already delivered line (match it by [original]); lines are never added or removed by it.
+  Stream<({String original, String refined})> get onRefine => _refineController.stream;
   Stream<String> get onPartial => _partialController.stream;
   Stream<ConnectionStatus> get onStatus => _statusController.stream;
   ConnectionStatus get status => _status;
@@ -103,6 +107,9 @@ class ViewerClient {
       onFinal: (text) {
         if (!_textController.isClosed) _textController.add(text);
       },
+      onRefine: (original, refined) {
+        if (!_refineController.isClosed) _refineController.add((original: original, refined: refined));
+      },
       onPartial: (text) {
         if (!_partialController.isClosed) _partialController.add(text);
       },
@@ -152,6 +159,7 @@ class ViewerClient {
     _channel?.sink.close();
     _textController.close();
     _partialController.close();
+    _refineController.close();
     _statusController.close();
   }
 }

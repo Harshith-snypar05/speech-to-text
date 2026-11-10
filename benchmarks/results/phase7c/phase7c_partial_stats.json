@@ -1,0 +1,142 @@
+{
+ "subset12_n1": {
+  "partials_requested": 181,
+  "partials_executed": 181,
+  "partials_skipped": 0,
+  "skip_reasons": {},
+  "partial_states": {
+   "completed": 181
+  },
+  "skip_pct": 0.0,
+  "partial_age_s_p50_p95": [
+   0.289,
+   0.772
+  ],
+  "partial_interval_s_p50_p95_max": [
+   0.894,
+   1.384,
+   2.83
+  ],
+  "finals_states": {
+   "completed": 40
+  },
+  "abandoned_jobs": 0,
+  "dispatch_count_max": 1
+ },
+ "subset12_n2": {
+  "partials_requested": 278,
+  "partials_executed": 247,
+  "partials_skipped": 31,
+  "skip_reasons": {
+   "final_waiting": 13,
+   "superseded_by_final": 16,
+   "stale_in_queue": 2
+  },
+  "partial_states": {
+   "completed": 247,
+   "skipped": 18
+  },
+  "skip_pct": 11.2,
+  "partial_age_s_p50_p95": [
+   0.509,
+   1.396
+  ],
+  "partial_interval_s_p50_p95_max": [
+   1.162,
+   2.673,
+   4.62
+  ],
+  "finals_states": {
+   "completed": 80
+  },
+  "abandoned_jobs": 0,
+  "dispatch_count_max": 1
+ },
+ "subset12_n3": {
+  "partials_requested": 304,
+  "partials_executed": 192,
+  "partials_skipped": 112,
+  "skip_reasons": {
+   "superseded_by_final": 49,
+   "final_waiting": 55,
+   "stale_in_queue": 8
+  },
+  "partial_states": {
+   "completed": 192,
+   "skipped": 57
+  },
+  "skip_pct": 36.8,
+  "partial_age_s_p50_p95": [
+   0.974,
+   2.066
+  ],
+  "partial_interval_s_p50_p95_max": [
+   1.697,
+   3.974,
+   4.99
+  ],
+  "finals_states": {
+   "completed": 120
+  },
+  "abandoned_jobs": 0,
+  "dispatch_count_max": 1
+ },
+ "subset12_n4": {
+  "partials_requested": 390,
+  "partials_executed": 139,
+  "partials_skipped": 251,
+  "skip_reasons": {
+   "superseded_by_final": 82,
+   "final_waiting": 148,
+   "stale_in_queue": 21
+  },
+  "partial_states": {
+   "completed": 139,
+   "skipped": 103
+  },
+  "skip_pct": 64.4,
+  "partial_age_s_p50_p95": [
+   1.187,
+   2.372
+  ],
+  "partial_interval_s_p50_p95_max": [
+   2.264,
+   4.155,
+   4.95
+  ],
+  "finals_states": {
+   "completed": 160
+  },
+  "abandoned_jobs": 0,
+  "dispatch_count_max": 1
+ },
+ "full60_n2": {
+  "partials_requested": 1532,
+  "partials_executed": 1419,
+  "partials_skipped": 113,
+  "skip_reasons": {
+   "superseded_by_final": 57,
+   "final_waiting": 48,
+   "stale_in_queue": 8
+  },
+  "partial_states": {
+   "completed": 1419,
+   "skipped": 65
+  },
+  "skip_pct": 7.4,
+  "partial_age_s_p50_p95": [
+   0.375,
+   1.355
+  ],
+  "partial_interval_s_p50_p95_max": [
+   1.009,
+   2.547,
+   4.98
+  ],
+  "finals_states": {
+   "completed": 404
+  },
+  "abandoned_jobs": 0,
+  "dispatch_count_max": 1
+ }
+}

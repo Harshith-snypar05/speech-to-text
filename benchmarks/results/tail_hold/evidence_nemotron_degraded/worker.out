@@ -1,0 +1,244 @@
+[NeMo I 2026-11-10 08:45:28 mixins:194] Tokenizer SentencePieceTokenizer initialized with 1026 tokens
+[NeMo I 2026-11-10 08:45:29 rnnt_models:226] Using RNNT Loss : warprnnt_numba
+    Loss warprnnt_numba_kwargs: {'fastemit_lambda': 0.03, 'clamp': -1.0}
+[NeMo I 2026-11-10 08:45:29 rnnt_models:226] Using RNNT Loss : warprnnt_numba
+    Loss warprnnt_numba_kwargs: {'fastemit_lambda': 0.03, 'clamp': -1.0}
+[NeMo I 2026-11-10 08:45:29 rnnt_models:226] Using RNNT Loss : warprnnt_numba
+    Loss warprnnt_numba_kwargs: {'fastemit_lambda': 0.03, 'clamp': -1.0}
+[NeMo I 2026-11-10 08:45:30 save_restore_connector:287] Model EncDecRNNTBPEModel was successfully restored from C:\Users\sriha\.cache\huggingface\hub\models--nvidia--parakeet_realtime_eou_120m-v1\snapshots\a7e2b4629593dce0ec19f600e00e9904353fda2d\parakeet_realtime_eou_120m-v1.nemo.
+[NeMo I 2026-11-10 08:45:30 rnnt_models:226] Using RNNT Loss : warprnnt_numba
+    Loss warprnnt_numba_kwargs: {'fastemit_lambda': 0.03, 'clamp': -1.0}
+[NeMo I 2026-11-10 08:45:30 rnnt_bpe_models:436] Changed decoding strategy to 
+    model_type: rnnt
+    strategy: greedy_batch
+    compute_hypothesis_token_set: false
+    preserve_alignments: false
+    tdt_include_token_duration: null
+    confidence_cfg:
+      preserve_frame_confidence: false
+      preserve_token_confidence: false
+      preserve_word_confidence: false
+      exclude_blank: true
+      aggregation: min
+      tdt_include_duration: false
+      method_cfg:
+        name: entropy
+        entropy_type: tsallis
+        alpha: 0.33
+        entropy_norm: exp
+        temperature: DEPRECATED
+    fused_batch_size: null
+    compute_timestamps: false
+    compute_langs: false
+    word_seperator: ' '
+    segment_seperators:
+    - .
+    - '!'
+    - '?'
+    segment_gap_threshold: null
+    rnnt_timestamp_type: all
+    greedy:
+      max_symbols_per_step: 10
+      preserve_alignments: false
+      preserve_frame_confidence: false
+      tdt_include_token_duration: false
+      tdt_include_duration_confidence: false
+      confidence_method_cfg:
+        name: entropy
+        entropy_type: tsallis
+        alpha: 0.33
+        entropy_norm: exp
+        temperature: DEPRECATED
+      loop_labels: true
+      use_cuda_graph_decoder: true
+      ngram_lm_model: null
+      ngram_lm_alpha: 0.0
+      boosting_tree:
+        model_path: null
+        key_phrases_file: null
+        key_phrases_list: null
+        key_phrase_items_list: null
+        context_score: 1.0
+        depth_scaling: 2.0
+        unk_score: 0.0
+        final_eos_score: 1.0
+        score_per_phrase: 0.0
+        source_lang: en
+        use_triton: true
+        uniform_weights: false
+        use_bpe_dropout: false
+        num_of_transcriptions: 5
+        bpe_alpha: 0.3
+      boosting_tree_alpha: 0.0
+      enable_per_stream_biasing: false
+      max_symbols: 10
+    beam:
+      beam_size: 2
+      search_type: default
+      score_norm: true
+      return_best_hypothesis: false
+      tsd_max_sym_exp_per_step: 50
+      alsd_max_target_len: 2.0
+      nsc_max_timesteps_expansion: 1
+      nsc_prefix_alpha: 1
+      maes_num_steps: 2
+      maes_prefix_alpha: 1
+      maes_expansion_gamma: 2.3
+      maes_expansion_beta: 2
+      language_model: null
+      softmax_temperature: 1.0
+      preserve_alignments: false
+      ngram_lm_model: null
+      ngram_lm_alpha: 0.0
+      boosting_tree:
+        model_path: null
+        key_phrases_file: null
+        key_phrases_list: null
+        key_phrase_items_list: null
+        context_score: 1.0
+        depth_scaling: 2.0
+        unk_score: 0.0
+        final_eos_score: 1.0
+        score_per_phrase: 0.0
+        source_lang: en
+        use_triton: true
+        uniform_weights: false
+        use_bpe_dropout: false
+        num_of_transcriptions: 5
+        bpe_alpha: 0.3
+      boosting_tree_alpha: 0.0
+      hat_subtract_ilm: false
+      hat_ilm_weight: 0.0
+      max_symbols_per_step: 10
+      blank_lm_score_mode: LM_WEIGHTED_FULL
+      pruning_mode: LATE
+      allow_cuda_graphs: true
+      tsd_max_sym_exp: 50
+    temperature: 1.0
+    durations: []
+    big_blank_durations: []
+    strip_lang_tags: false
+    lang_tag_pattern: null
+    
+[NeMo I 2026-11-10 08:45:39 mixins:194] Tokenizer SentencePieceTokenizer initialized with 1024 tokens
+[NeMo I 2026-11-10 08:45:43 rnnt_models:226] Using RNNT Loss : warprnnt_numba
+    Loss warprnnt_numba_kwargs: {'fastemit_lambda': 0.005, 'clamp': -1.0}
+[NeMo I 2026-11-10 08:45:43 rnnt_models:226] Using RNNT Loss : warprnnt_numba
+    Loss warprnnt_numba_kwargs: {'fastemit_lambda': 0.005, 'clamp': -1.0}
+[NeMo I 2026-11-10 08:45:43 rnnt_models:226] Using RNNT Loss : warprnnt_numba
+    Loss warprnnt_numba_kwargs: {'fastemit_lambda': 0.005, 'clamp': -1.0}
+[NeMo I 2026-11-10 08:45:47 save_restore_connector:287] Model EncDecRNNTBPEModel was successfully restored from C:\Users\sriha\.cache\huggingface\hub\models--nvidia--nemotron-speech-streaming-en-0.6b\snapshots\ebe59e5a817142986528bbbee5dba8db7b38ed50\nemotron-speech-streaming-en-0.6b.nemo.
+[NeMo I 2026-11-10 08:45:47 rnnt_models:226] Using RNNT Loss : warprnnt_numba
+    Loss warprnnt_numba_kwargs: {'fastemit_lambda': 0.005, 'clamp': -1.0}
+[NeMo I 2026-11-10 08:45:47 rnnt_bpe_models:436] Changed decoding strategy to 
+    model_type: rnnt
+    strategy: greedy_batch
+    compute_hypothesis_token_set: false
+    preserve_alignments: false
+    tdt_include_token_duration: null
+    confidence_cfg:
+      preserve_frame_confidence: false
+      preserve_token_confidence: false
+      preserve_word_confidence: false
+      exclude_blank: true
+      aggregation: min
+      tdt_include_duration: false
+      method_cfg:
+        name: entropy
+        entropy_type: tsallis
+        alpha: 0.33
+        entropy_norm: exp
+        temperature: DEPRECATED
+    fused_batch_size: null
+    compute_timestamps: false
+    compute_langs: false
+    word_seperator: ' '
+    segment_seperators:
+    - .
+    - '!'
+    - '?'
+    segment_gap_threshold: null
+    rnnt_timestamp_type: all
+    greedy:
+      max_symbols_per_step: 10
+      preserve_alignments: false
+      preserve_frame_confidence: false
+      tdt_include_token_duration: false
+      tdt_include_duration_confidence: false
+      confidence_method_cfg:
+        name: entropy
+        entropy_type: tsallis
+        alpha: 0.33
+        entropy_norm: exp
+        temperature: DEPRECATED
+      loop_labels: true
+      use_cuda_graph_decoder: true
+      ngram_lm_model: null
+      ngram_lm_alpha: 0.0
+      boosting_tree:
+        model_path: null
+        key_phrases_file: null
+        key_phrases_list: null
+        key_phrase_items_list: null
+        context_score: 1.0
+        depth_scaling: 2.0
+        unk_score: 0.0
+        final_eos_score: 1.0
+        score_per_phrase: 0.0
+        source_lang: en
+        use_triton: true
+        uniform_weights: false
+        use_bpe_dropout: false
+        num_of_transcriptions: 5
+        bpe_alpha: 0.3
+      boosting_tree_alpha: 0.0
+      enable_per_stream_biasing: false
+      max_symbols: 10
+    beam:
+      beam_size: 2
+      search_type: default
+      score_norm: true
+      return_best_hypothesis: false
+      tsd_max_sym_exp_per_step: 50
+      alsd_max_target_len: 2.0
+      nsc_max_timesteps_expansion: 1
+      nsc_prefix_alpha: 1
+      maes_num_steps: 2
+      maes_prefix_alpha: 1
+      maes_expansion_gamma: 2.3
+      maes_expansion_beta: 2
+      language_model: null
+      softmax_temperature: 1.0
+      preserve_alignments: false
+      ngram_lm_model: null
+      ngram_lm_alpha: 0.0
+      boosting_tree:
+        model_path: null
+        key_phrases_file: null
+        key_phrases_list: null
+        key_phrase_items_list: null
+        context_score: 1.0
+        depth_scaling: 2.0
+        unk_score: 0.0
+        final_eos_score: 1.0
+        score_per_phrase: 0.0
+        source_lang: en
+        use_triton: true
+        uniform_weights: false
+        use_bpe_dropout: false
+        num_of_transcriptions: 5
+        bpe_alpha: 0.3
+      boosting_tree_alpha: 0.0
+      hat_subtract_ilm: false
+      hat_ilm_weight: 0.0
+      max_symbols_per_step: 10
+      blank_lm_score_mode: LM_WEIGHTED_FULL
+      pruning_mode: LATE
+      allow_cuda_graphs: true
+      tsd_max_sym_exp: 50
+    temperature: 1.0
+    durations: []
+    big_blank_durations: []
+    strip_lang_tags: false
+    lang_tag_pattern: null
+    

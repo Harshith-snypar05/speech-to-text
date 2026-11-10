@@ -1,0 +1,208 @@
+"""ctypes binding against whisper.cpp's compiled libparakeet shared
+library -- loads the model ONCE (like faster-whisper) instead of
+ParakeetEngine's subprocess-per-utterance approach. Fixes the real
+per-utterance latency problem documented in parakeet_engine.py and
+parakeet_relay.py: a fresh `parakeet-cli` process reloads the full
+668MB model from disk on every single utterance (~350-520ms measured),
+even though pure inference on an already-loaded model is only ~130ms.
+
+Requires a shared-library build of whisper.cpp (the vendored fork's
+default build is static-only): from whisper.cpp/,
+    cmake -B build-shared -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
+        -DWHISPER_BUILD_EXAMPLES=OFF -DWHISPER_BUILD_TESTS=OFF
+    cmake --build build-shared --target parakeet -j 8
+
+Windows: same commands from a "x64 Native Tools" prompt (or after
+vcvars64.bat) with `-G Ninja`; the result is parakeet.dll + ggml*.dll in
+build-shared/bin. Add a GPU backend at configure time, e.g.
+`-DGGML_CUDA=ON` (needs the CUDA Toolkit) or `-DGGML_VULKAN=ON` (needs the
+Vulkan SDK). With neither, it runs CPU-only (still model-loaded-once).
+"""
+import asyncio
+import ctypes
+import os
+import sys
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+
+from core.config import PARTIAL_MAX_QUEUE_AGE_SECONDS, SCHED_LOG_FILE
+from core.scheduler import InferenceScheduler
+from core.transcript_manager import collapse_repetition
+from engines.base_engine import TranscriptionEngine
+
+
+class _ParakeetContextParams(ctypes.Structure):
+    _fields_ = [("use_gpu", ctypes.c_bool), ("gpu_device", ctypes.c_int)]
+
+
+class _ParakeetFullParams(ctypes.Structure):
+    _fields_ = [
+        ("strategy", ctypes.c_int),
+        ("n_threads", ctypes.c_int),
+        ("offset_ms", ctypes.c_int),
+        ("duration_ms", ctypes.c_int),
+        ("no_context", ctypes.c_bool),
+        ("audio_ctx", ctypes.c_int),
+        ("new_segment_callback", ctypes.c_void_p),
+        ("new_segment_callback_user_data", ctypes.c_void_p),
+        ("new_token_callback", ctypes.c_void_p),
+        ("new_token_callback_user_data", ctypes.c_void_p),
+        ("progress_callback", ctypes.c_void_p),
+        ("progress_callback_user_data", ctypes.c_void_p),
+        ("encoder_begin_callback", ctypes.c_void_p),
+        ("encoder_begin_callback_user_data", ctypes.c_void_p),
+        ("abort_callback", ctypes.c_void_p),
+        ("abort_callback_user_data", ctypes.c_void_p),
+    ]
+
+
+_SAMPLING_GREEDY = 0
+
+def library_filename() -> str:
+    """Platform's shared-library name for the parakeet target. MSVC/Windows
+    drops the `lib` prefix (parakeet.dll); macOS is .dylib; Linux .so."""
+    if sys.platform == "win32":
+        return "parakeet.dll"
+    if sys.platform == "darwin":
+        return "libparakeet.dylib"
+    return "libparakeet.so"
+
+
+def find_library(build_dir: Path) -> Path | None:
+    """Locates the built library. Searches build_dir and, for multi-config
+    generators (Visual Studio), its Release/ subfolder. None if not built."""
+    for d in (build_dir, build_dir / "Release"):
+        p = d / library_filename()
+        if p.exists():
+            return p
+    return None
+
+
+# macOS only: load order matters -- dependencies before the library that
+# needs them, RTLD_GLOBAL so libparakeet's @rpath-relative lookups resolve
+# against the already-loaded images rather than failing. Windows resolves
+# sibling DLLs via os.add_dll_directory instead; Linux via RPATH/$ORIGIN.
+_MACOS_DEPENDENCY_LIBS = [
+    "libggml-base.dylib", "libggml-cpu.dylib", "libggml-blas.dylib",
+    "libggml-metal.dylib", "libggml.dylib",
+]
+
+
+def _load_library(lib_path: Path):
+    lib_dir = lib_path.parent
+    if sys.platform == "win32":
+        # Python >= 3.8 no longer searches PATH for dependent DLLs; the
+        # ggml*.dll / CUDA runtime DLLs next to parakeet.dll must be
+        # registered explicitly. Keep the handle alive for the process.
+        _load_library._dll_dir = os.add_dll_directory(str(lib_dir))
+        lib = ctypes.CDLL(str(lib_path))
+    else:
+        if sys.platform == "darwin":
+            for name in _MACOS_DEPENDENCY_LIBS:
+                ctypes.CDLL(str(lib_dir / name), mode=ctypes.RTLD_GLOBAL)
+        lib = ctypes.CDLL(str(lib_path), mode=ctypes.RTLD_GLOBAL)
+
+    lib.parakeet_context_default_params.restype = _ParakeetContextParams
+    lib.parakeet_init_from_file_with_params.restype = ctypes.c_void_p
+    lib.parakeet_init_from_file_with_params.argtypes = [ctypes.c_char_p, _ParakeetContextParams]
+    lib.parakeet_full_default_params.restype = _ParakeetFullParams
+    lib.parakeet_full_default_params.argtypes = [ctypes.c_int]
+    lib.parakeet_full.restype = ctypes.c_int
+    lib.parakeet_full.argtypes = [ctypes.c_void_p, _ParakeetFullParams, ctypes.POINTER(ctypes.c_float), ctypes.c_int]
+    lib.parakeet_full_n_segments.restype = ctypes.c_int
+    lib.parakeet_full_n_segments.argtypes = [ctypes.c_void_p]
+    lib.parakeet_full_get_segment_text.restype = ctypes.c_char_p
+    lib.parakeet_full_get_segment_text.argtypes = [ctypes.c_void_p, ctypes.c_int]
+    lib.parakeet_free.argtypes = [ctypes.c_void_p]
+    return lib
+
+
+class ParakeetNativeEngine(TranscriptionEngine):
+    """In-process Parakeet via ctypes -- model loaded once at
+    construction, reused for every call. Unlike the subprocess-based
+    ParakeetEngine (final-only -- re-spawning a CLI process every
+    PARTIAL_CYCLE_SECONDS would be too expensive), this one supports
+    partials the same way faster-whisper does: transcribe_partial()
+    just re-runs parakeet_full() on the growing in-progress buffer and
+    splits the result into words. Cheap now that there's no per-call
+    subprocess/model-load cost -- the whole point of this engine.
+    """
+
+    supports_partial = True
+    supports_scheduling = True
+
+    def __init__(self, build_dir: Path, model: Path, use_gpu: bool = True):
+        lib_path = find_library(build_dir)
+        if lib_path is None:
+            raise SystemExit(
+                f"{library_filename()} not found in {build_dir} -- build it first "
+                f"(cmake -B build-shared -DBUILD_SHARED_LIBS=ON ...; see this file's docstring)"
+            )
+        if not model.exists():
+            raise SystemExit(f"model not found at {model}")
+
+        self._lib = _load_library(lib_path)
+        # GGML's Metal backend scheduler crashed (GGML_ASSERT(!sched->is_alloc))
+        # when parakeet_full() was called from whatever worker thread
+        # Python's shared default executor happened to pick per call --
+        # looks like thread affinity, not just needing calls serialized in
+        # time. A single dedicated worker thread means every native call
+        # runs on the exact same OS thread for this engine's whole
+        # lifetime, which also naturally serializes calls. Phase 7C: the
+        # former FIFO asyncio.Lock is replaced by InferenceScheduler
+        # (finals-first priority, partial backpressure, final deadlines);
+        # it feeds this same single executor thread, one job at a time
+        # (see the *_with_state variants in parakeet.h for the proper
+        # per-session-state API if real concurrent-speaker throughput is
+        # ever needed; not implemented here).
+        self._executor = ThreadPoolExecutor(max_workers=1)
+        self._scheduler = InferenceScheduler(
+            self._transcribe_sync, self._executor, prepare=self._to_samples,
+            partial_max_queue_age=PARTIAL_MAX_QUEUE_AGE_SECONDS, log_path=SCHED_LOG_FILE,
+        )
+
+        ctx_params = self._lib.parakeet_context_default_params()
+        ctx_params.use_gpu = use_gpu
+        self._ctx = self._lib.parakeet_init_from_file_with_params(str(model).encode(), ctx_params)
+        if not self._ctx:
+            raise RuntimeError(f"parakeet_init_from_file_with_params failed for {model}")
+
+    def _transcribe_sync(self, samples) -> str:
+        import numpy as np
+        samples_ptr = samples.ctypes.data_as(ctypes.POINTER(ctypes.c_float))
+        full_params = self._lib.parakeet_full_default_params(_SAMPLING_GREEDY)
+        ret = self._lib.parakeet_full(self._ctx, full_params, samples_ptr, len(samples))
+        if ret != 0:
+            raise RuntimeError(f"parakeet_full returned {ret}")
+        n = self._lib.parakeet_full_n_segments(self._ctx)
+        parts = []
+        for i in range(n):
+            text = self._lib.parakeet_full_get_segment_text(self._ctx, i)
+            if text:
+                parts.append(text.decode("utf-8", errors="replace"))
+        return collapse_repetition(" ".join(parts).strip())
+
+    @staticmethod
+    def _to_samples(pcm_bytes: bytes):
+        import numpy as np
+        return np.frombuffer(pcm_bytes, dtype=np.int16).astype(np.float32) / 32768.0
+
+    @property
+    def scheduler(self) -> InferenceScheduler:
+        return self._scheduler
+
+    async def transcribe_final(self, pcm_bytes: bytes, *, speaker_id=None, deadline=None, ticket=None) -> str:
+        """deadline: absolute time.monotonic() value from the original flush request.
+        Raises core.scheduler.FinalExpired if it passed before dispatch (job never started)."""
+        return await self._scheduler.submit_final(pcm_bytes, speaker_id, deadline, ticket)
+
+    async def transcribe_partial(self, pcm_bytes: bytes, *, speaker_id=None) -> list[str] | None:
+        """None means the partial was skipped by backpressure (no words, not an empty result)."""
+        text = await self._scheduler.submit_partial(pcm_bytes, speaker_id)
+        return None if text is None else text.split()
+
+    async def shutdown(self) -> None:
+        if self._ctx:
+            self._lib.parakeet_free(self._ctx)
+            self._ctx = None
+        self._executor.shutdown(wait=False)

@@ -1,0 +1,24 @@
+{
+ "scenario": "reconnect",
+ "sid": "p7drec209242",
+ "conn1_client_finals": 2,
+ "conn2_client_finals": 8,
+ "db_finals_by_conn": {
+  "0": 3,
+  "1": 8
+ },
+ "db_drops": [
+  [
+   1,
+   "dropped_empty_text"
+  ]
+ ],
+ "connections_recorded": 2,
+ "audio_bytes_downloaded": 1432670,
+ "audio_bytes_sent": 1432670,
+ "audio_exact": true,
+ "conn1_finals_kept_after_reconnect": true,
+ "no_duplicate_texts_across_conns": true,
+ "conn1_close": null,
+ "conn2_close": null
+}

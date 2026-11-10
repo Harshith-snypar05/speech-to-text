@@ -1,0 +1,2177 @@
+{
+  "meta": {
+    "when": "2026-11-07T14:45:33",
+    "host": "Windows-11-10.0.26300-SP0",
+    "python": "3.13.5",
+    "url": "ws://localhost:8768/?role=speaker",
+    "note": "CPU only (no GPU backend), ParakeetNativeEngine q8_0, existing audio pilot 20x30s, EMPTY refs",
+    "chunk_ms": 100,
+    "tail_s": 1.5,
+    "hang_s_assumed": 0.6,
+    "warmup": 1,
+    "manifest": "dataset_existing/pilot/manifest.json",
+    "caveat": "latency = audio captured -> text received by this client; excludes mic, UI, tunnel"
+  },
+  "levels": [
+    {
+      "concurrency": 1,
+      "wall_s": 676.5138111114502,
+      "errors": [],
+      "resources": {
+        "gpu_mem_mb": {
+          "mean": 154.95,
+          "max": 158.0
+        },
+        "gpu_util": {
+          "mean": 0.008333333333333333,
+          "max": 5.0
+        },
+        "relay_cpu": {
+          "mean": 161.80366666666666,
+          "max": 404.0
+        },
+        "relay_rss_mb": {
+          "mean": 745.34498304,
+          "max": 778.89536
+        },
+        "sys_cpu": {
+          "mean": 9.852333333333332,
+          "max": 34.9
+        },
+        "_samples": 600
+      },
+      "summary": {
+        "clips": 20,
+        "wer": {
+          "wer": null,
+          "ci95": null,
+          "clips": 20,
+          "ref_words": 0
+        },
+        "ttfw_s": {
+          "n": 110,
+          "p50": 1.0096041999757288,
+          "p95": 5.310656475011491,
+          "max": 10.303685800009408,
+          "mean": 1.6435197345567445
+        },
+        "first_partial_s": {
+          "n": 106,
+          "p50": 0.9519530500168907,
+          "p95": 5.132763475022511,
+          "max": 10.303685800009408,
+          "mean": 1.5689376358623741
+        },
+        "final_latency_s": {
+          "n": 110,
+          "p50": 0.9311407499830215,
+          "p95": 3.2062778199813318,
+          "max": 9.735230499971657,
+          "mean": 1.2341171499955543
+        },
+        "final_latency_after_hang_s": {
+          "n": 110,
+          "p50": 0.33114074998302157,
+          "p95": 2.606277819981332,
+          "max": 9.135230499971657,
+          "mean": 0.6341171499955547
+        },
+        "partial_revision_rate": 0.33064516129032256,
+        "partial_prefix_stable_rate": 0.3018867924528302,
+        "segment_mismatch_clips": 5,
+        "hang_s_assumed": 0.6,
+        "wer_by_tag": {
+          "recording_id": {
+            "rec01": {
+              "wer": null,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 0
+            },
+            "rec02": {
+              "wer": null,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 0
+            },
+            "rec03": {
+              "wer": null,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 0
+            },
+            "rec04": {
+              "wer": null,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 0
+            },
+            "rec05": {
+              "wer": null,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 0
+            },
+            "rec06": {
+              "wer": null,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 0
+            },
+            "rec07": {
+              "wer": null,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 0
+            }
+          },
+          "accent": {
+            "indian_english": {
+              "wer": null,
+              "ci95": null,
+              "clips": 20,
+              "ref_words": 0
+            }
+          },
+          "language": {
+            "en": {
+              "wer": null,
+              "ci95": null,
+              "clips": 20,
+              "ref_words": 0
+            }
+          },
+          "boundary_quality": {
+            "pause_cut": {
+              "wer": null,
+              "ci95": null,
+              "clips": 20,
+              "ref_words": 0
+            }
+          },
+          "recording_condition": {
+            "unknown": {
+              "wer": null,
+              "ci95": null,
+              "clips": 20,
+              "ref_words": 0
+            }
+          }
+        }
+      },
+      "clips": [
+        {
+          "id": "rec01_L30_0019",
+          "tags": {
+            "recording_id": "rec01",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "So that is again a responsibility of the operating system. Then the third category of reshores. that is present in a computer system is the secondary storage.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 27,
+          "errors": 27,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 1.4,
+              "end": 3.7,
+              "forced": false
+            },
+            {
+              "start": 7.4,
+              "end": 9.0,
+              "forced": false
+            },
+            {
+              "start": 9.6,
+              "end": 12.9,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            4.977,
+            10.033,
+            13.833
+          ],
+          "final_words": [
+            10,
+            6,
+            11
+          ],
+          "finals_received": 3,
+          "partials_received": 9,
+          "ttfw_s": [
+            0.8379335999721662,
+            1.1162209999980401,
+            0.9291442000307146
+          ],
+          "first_partial_s": [
+            0.8379335999721662,
+            1.1162209999980401,
+            0.9291442000307146
+          ],
+          "final_latency_s": [
+            1.2774063000222666,
+            1.0325237000361085,
+            0.9334372000535947
+          ],
+          "final_latency_after_hang_s": [
+            0.6774063000222666,
+            0.4325237000361085,
+            0.3334372000535947
+          ],
+          "partial_words": 24,
+          "partial_words_revised": 7,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 3,
+          "worker": 0
+        },
+        {
+          "id": "rec01_L30_0048",
+          "tags": {
+            "recording_id": "rec01",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "So, effectively that means efficient Now, having such a type of distributed invo distributed environment, I need not have Similar copies. Or similar resources In all the places. At different places I can have different",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 35,
+          "errors": 35,
+          "utterances_expected": 7,
+          "expected_detail": [
+            {
+              "start": 2.4,
+              "end": 4.6,
+              "forced": false
+            },
+            {
+              "start": 8.2,
+              "end": 10.2,
+              "forced": false
+            },
+            {
+              "start": 12.3,
+              "end": 14.5,
+              "forced": false
+            },
+            {
+              "start": 15.6,
+              "end": 16.200000000000003,
+              "forced": false
+            },
+            {
+              "start": 16.9,
+              "end": 17.6,
+              "forced": false
+            },
+            {
+              "start": 18.4,
+              "end": 18.700000000000003,
+              "forced": false
+            },
+            {
+              "start": 21.3,
+              "end": 22.700000000000003,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            5.634,
+            11.268,
+            15.46,
+            17.098,
+            18.328,
+            19.406,
+            23.676
+          ],
+          "final_words": [
+            5,
+            7,
+            7,
+            2,
+            3,
+            4,
+            7
+          ],
+          "finals_received": 7,
+          "partials_received": 8,
+          "ttfw_s": [
+            0.8939089999999852,
+            0.6174681999953471,
+            3.160041699931025,
+            1.497588200005703,
+            1.2359090999467313,
+            0.8331383000127985,
+            1.2298420999897637
+          ],
+          "first_partial_s": [
+            0.8939089999999852,
+            0.6174681999953471,
+            1.2359090999467313,
+            0.8331383000127985,
+            1.2298420999897637
+          ],
+          "final_latency_s": [
+            1.033614499936812,
+            1.06760529994499,
+            0.9600416999310255,
+            0.8975882000056998,
+            0.727868899912572,
+            0.7063415999989928,
+            0.9757372999563785
+          ],
+          "final_latency_after_hang_s": [
+            0.433614499936812,
+            0.4676052999449901,
+            0.3600416999310255,
+            0.29758820000569985,
+            0.127868899912572,
+            0.10634159999899284,
+            0.3757372999563785
+          ],
+          "partial_words": 28,
+          "partial_words_revised": 18,
+          "partial_prefix_ok": 3,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "rec01_L30_0077",
+          "tags": {
+            "recording_id": "rec01",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "Fast come, fast soft type of So, here you find that because I am studying accounting here, the waiting time of job. G one. Okay. So waiting time of job G1. That is equal to 0. Waiting time of job j2.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 41,
+          "errors": 41,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 2.5,
+              "forced": false
+            },
+            {
+              "start": 3.7,
+              "end": 11.2,
+              "forced": true
+            },
+            {
+              "start": 11.3,
+              "end": 12.0,
+              "forced": false
+            },
+            {
+              "start": 13.6,
+              "end": 17.3,
+              "forced": false
+            },
+            {
+              "start": 18.3,
+              "end": 24.400000000000002,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.434,
+            12.369,
+            12.743,
+            18.505,
+            25.583
+          ],
+          "final_words": [
+            6,
+            16,
+            2,
+            7,
+            10
+          ],
+          "finals_received": 5,
+          "partials_received": 11,
+          "ttfw_s": [
+            0.7897638000315055,
+            3.893087999965064,
+            1.4427757999394082,
+            1.8938417000230405,
+            5.267348100012168
+          ],
+          "first_partial_s": [
+            0.7897638000315055,
+            3.893087999965064,
+            1.8938417000230405,
+            5.267348100012168
+          ],
+          "final_latency_s": [
+            0.9342290000058711,
+            1.1686244999989874,
+            0.7427757999394089,
+            1.2052075999556102,
+            1.1834144999971592
+          ],
+          "final_latency_after_hang_s": [
+            0.3342290000058711,
+            0.5686244999989875,
+            0.14277579993940892,
+            0.6052075999556102,
+            0.5834144999971592
+          ],
+          "partial_words": 32,
+          "partial_words_revised": 15,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "rec02_L30_0021",
+          "tags": {
+            "recording_id": "rec02",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "What does it deal with? And uh we service the architecture part. There are two things. Okay, so I'll take uh one and then set the other against that. We can study a computer system either from The user's point of view Or from the designer's point of view. Good. I think uh",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 53,
+          "errors": 53,
+          "utterances_expected": 8,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 11.1,
+              "forced": false
+            },
+            {
+              "start": 11.8,
+              "end": 15.1,
+              "forced": false
+            },
+            {
+              "start": 16.5,
+              "end": 19.8,
+              "forced": false
+            },
+            {
+              "start": 20.6,
+              "end": 23.400000000000002,
+              "forced": false
+            },
+            {
+              "start": 24.3,
+              "end": 26.5,
+              "forced": false
+            },
+            {
+              "start": 27.2,
+              "end": 31.5,
+              "forced": false
+            },
+            {
+              "start": 32.4,
+              "end": 33.300000000000004,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.67,
+            12.186,
+            16.044,
+            20.91,
+            24.326,
+            27.353,
+            32.515,
+            34.06
+          ],
+          "final_words": [
+            16,
+            5,
+            8,
+            8,
+            5,
+            2,
+            6,
+            3
+          ],
+          "finals_received": 8,
+          "partials_received": 25,
+          "ttfw_s": [
+            0.7990347999613732,
+            0.9071312000509355,
+            0.6460622000042342,
+            0.9028782000532374,
+            0.47768159999977655,
+            1.2694156000390642,
+            1.5319509000517435,
+            0.4975689000217258
+          ],
+          "first_partial_s": [
+            0.7990347999613732,
+            0.9071312000509355,
+            0.6460622000042342,
+            0.9028782000532374,
+            0.47768159999977655,
+            1.2694156000390642,
+            1.5319509000517435,
+            0.4975689000217258
+          ],
+          "final_latency_s": [
+            0.5699228000361476,
+            1.086214699991979,
+            0.9440623000031341,
+            1.1104156000539653,
+            0.9255228999769294,
+            0.8534508000593632,
+            1.0153547000372782,
+            0.7598399000009479
+          ],
+          "final_latency_after_hang_s": [
+            -0.030077199963852386,
+            0.4862146999919791,
+            0.3440623000031341,
+            0.5104156000539654,
+            0.3255228999769294,
+            0.25345080005936327,
+            0.41535470003727826,
+            0.15983990000094794
+          ],
+          "partial_words": 55,
+          "partial_words_revised": 20,
+          "partial_prefix_ok": 4,
+          "partial_prefix_total": 8,
+          "worker": 0
+        },
+        {
+          "id": "rec02_L30_0052",
+          "tags": {
+            "recording_id": "rec02",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "The technology advances in processing had also influenced the memory which has been. Use for storing. And so now Given that processors are quite powerful enough Now it's no more much of a problem. It's not posing much of a problem. It is storing. How much can we store? Now in fact, Issues have gone in that particular direction. Good. We will go back. Well, it all started with processing that is uh",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 73,
+          "errors": 73,
+          "utterances_expected": 7,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 6.699999999999999,
+              "forced": false
+            },
+            {
+              "start": 7.3,
+              "end": 8.6,
+              "forced": false
+            },
+            {
+              "start": 9.8,
+              "end": 10.799999999999999,
+              "forced": false
+            },
+            {
+              "start": 11.6,
+              "end": 14.9,
+              "forced": false
+            },
+            {
+              "start": 15.7,
+              "end": 23.6,
+              "forced": true
+            },
+            {
+              "start": 23.6,
+              "end": 31.700000000000003,
+              "forced": true
+            },
+            {
+              "start": 31.8,
+              "end": 32.9,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            7.906,
+            9.367,
+            11.737,
+            16.088,
+            24.181,
+            32.195
+          ],
+          "final_words": [
+            13,
+            3,
+            3,
+            7,
+            26,
+            21
+          ],
+          "finals_received": 6,
+          "partials_received": 28,
+          "ttfw_s": [
+            1.531131699983962,
+            1.1764727000147106,
+            0.43026770004071224,
+            0.5169319000327963,
+            0.6343226000433795,
+            3.1434640000574277
+          ],
+          "first_partial_s": [
+            1.531131699983962,
+            1.1764727000147106,
+            0.43026770004071224,
+            0.5169319000327963,
+            0.6343226000433795,
+            3.1434640000574277
+          ],
+          "final_latency_s": [
+            1.2055130000924699,
+            0.7672089000465352,
+            0.9371457000263046,
+            1.1881291000405323,
+            0.5812902999808998,
+            0.4954725000541629
+          ],
+          "final_latency_after_hang_s": [
+            0.6055130000924699,
+            0.1672089000465352,
+            0.3371457000263046,
+            0.5881291000405323,
+            -0.018709700019100217,
+            -0.1045274999458371
+          ],
+          "partial_words": 72,
+          "partial_words_revised": 18,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 6,
+          "worker": 0
+        },
+        {
+          "id": "rec02_L30_0083",
+          "tags": {
+            "recording_id": "rec02",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "Say 0 means it's not conducting, 1 means it is conducting. That is at the physical level of the machine, one must know what is going on. So this is very difficult to remember, but that is hardware, okay. The hard part of it is that. So, to soften this, one introduces other. Okay, levels of codes. So one goes out from machine code. Two lesser and lesser. Uh our um",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 71,
+          "errors": 71,
+          "utterances_expected": 7,
+          "expected_detail": [
+            {
+              "start": 0.9,
+              "end": 4.3999999999999995,
+              "forced": false
+            },
+            {
+              "start": 5.1,
+              "end": 9.5,
+              "forced": false
+            },
+            {
+              "start": 10.3,
+              "end": 15.2,
+              "forced": false
+            },
+            {
+              "start": 15.8,
+              "end": 20.6,
+              "forced": false
+            },
+            {
+              "start": 21.8,
+              "end": 26.8,
+              "forced": false
+            },
+            {
+              "start": 27.6,
+              "end": 29.3,
+              "forced": false
+            },
+            {
+              "start": 30.4,
+              "end": 32.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            5.427,
+            10.83,
+            16.261,
+            21.821,
+            27.911,
+            30.114,
+            32.84
+          ],
+          "final_words": [
+            11,
+            16,
+            12,
+            14,
+            11,
+            4,
+            3
+          ],
+          "finals_received": 7,
+          "partials_received": 26,
+          "ttfw_s": [
+            0.7656693000113591,
+            0.7476185000035915,
+            0.7118549000471823,
+            1.577206800039857,
+            0.6986641000723459,
+            0.8320618000347153,
+            0.45843120003119253
+          ],
+          "first_partial_s": [
+            0.7656693000113591,
+            0.7476185000035915,
+            0.7118549000471823,
+            1.577206800039857,
+            0.6986641000723459,
+            0.8320618000347153,
+            0.45843120003119253
+          ],
+          "final_latency_s": [
+            1.0268506000516942,
+            1.3302888000616804,
+            1.061454300023616,
+            1.2213551000226275,
+            1.1109745000023388,
+            0.8138360999757417,
+            0.8402730000670999
+          ],
+          "final_latency_after_hang_s": [
+            0.4268506000516942,
+            0.7302888000616804,
+            0.4614543000236161,
+            0.6213551000226275,
+            0.5109745000023388,
+            0.2138360999757417,
+            0.24027300006709995
+          ],
+          "partial_words": 65,
+          "partial_words_revised": 10,
+          "partial_prefix_ok": 4,
+          "partial_prefix_total": 7,
+          "worker": 0
+        },
+        {
+          "id": "rec03_L30_0024",
+          "tags": {
+            "recording_id": "rec03",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "And uh and one of the successors of Multics was uh Unix, right? So so there was a system called Unix. Unix uh developed by uh Ken Thompson, who has won a Turing Award for this for his work on Unix and uh Other people that were involved in this kind this work were uh Dennis Ritchie and uh and others. All right, so what was Unix? Well, uh the first version of Unix, uh or you know, the early versions of Unix",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 83,
+          "errors": 83,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 16.2,
+              "end": 21.1,
+              "forced": false
+            },
+            {
+              "start": 21.8,
+              "end": 23.400000000000002,
+              "forced": false
+            },
+            {
+              "start": 24.2,
+              "end": 28.5,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.895,
+            17.266,
+            22.644,
+            24.212,
+            29.522
+          ],
+          "final_words": [
+            21,
+            22,
+            18,
+            6,
+            16
+          ],
+          "finals_received": 5,
+          "partials_received": 23,
+          "ttfw_s": [
+            0.8260379999876022,
+            1.2066555000841621,
+            1.5496086000464864,
+            2.1559444000478827,
+            0.8638725000899292
+          ],
+          "first_partial_s": [
+            0.8260379999876022,
+            1.2066555000841621,
+            1.5496086000464864,
+            2.1559444000478827,
+            0.8638725000899292
+          ],
+          "final_latency_s": [
+            0.7947778000729162,
+            1.0661122999852495,
+            1.5436491000931696,
+            0.8121809000382179,
+            1.021745500038378
+          ],
+          "final_latency_after_hang_s": [
+            0.19477780007291623,
+            0.4661122999852495,
+            0.9436491000931696,
+            0.21218090003821788,
+            0.42174550003837796
+          ],
+          "partial_words": 72,
+          "partial_words_revised": 27,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "rec03_L30_0059",
+          "tags": {
+            "recording_id": "rec03",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "And uh the operating system provides certain interfaces to allow the shell to start another brow uh program. Okay. So what are these interfaces? Um So Unex provides a system call called folk. And another system call called exec. So, and these these system calls are used to start a new program.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 52,
+          "errors": 52,
+          "utterances_expected": 8,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 4.6,
+              "forced": false
+            },
+            {
+              "start": 5.3,
+              "end": 6.8,
+              "forced": false
+            },
+            {
+              "start": 7.5,
+              "end": 9.5,
+              "forced": false
+            },
+            {
+              "start": 10.6,
+              "end": 11.1,
+              "forced": false
+            },
+            {
+              "start": 12.1,
+              "end": 12.799999999999999,
+              "forced": false
+            },
+            {
+              "start": 13.4,
+              "end": 16.1,
+              "forced": false
+            },
+            {
+              "start": 18.7,
+              "end": 22.0,
+              "forced": false
+            },
+            {
+              "start": 25.1,
+              "end": 29.400000000000002,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            5.632,
+            7.587,
+            10.505,
+            11.851,
+            13.561,
+            17.088,
+            23.312,
+            30.653
+          ],
+          "final_words": [
+            12,
+            6,
+            6,
+            1,
+            2,
+            6,
+            6,
+            13
+          ],
+          "finals_received": 8,
+          "partials_received": 14,
+          "ttfw_s": [
+            1.45061290001031,
+            1.2729760000249373,
+            1.3798602999886498,
+            0.7898655000375587,
+            0.8934442000230778,
+            0.6686807000311088,
+            1.4342257000505931,
+            1.111130799958481
+          ],
+          "first_partial_s": [
+            1.45061290001031,
+            1.2729760000249373,
+            1.3798602999886498,
+            0.7898655000375587,
+            0.8934442000230778,
+            0.6686807000311088,
+            1.4342257000505931,
+            1.111130799958481
+          ],
+          "final_latency_s": [
+            1.0315205999417234,
+            0.7873895999975504,
+            1.0045275000156835,
+            0.7505963999778036,
+            0.7610129999695356,
+            0.9884397999616326,
+            1.3121469999896362,
+            1.2530401000054532
+          ],
+          "final_latency_after_hang_s": [
+            0.4315205999417234,
+            0.18738959999755045,
+            0.4045275000156835,
+            0.1505963999778036,
+            0.16101299996953566,
+            0.3884397999616326,
+            0.7121469999896363,
+            0.6530401000054532
+          ],
+          "partial_words": 55,
+          "partial_words_revised": 33,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 8,
+          "worker": 0
+        },
+        {
+          "id": "rec03_L30_0094",
+          "tags": {
+            "recording_id": "rec03",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "Are mediated by the operating system. In general, any resource That is a shared resource which needs to be shared across multiple applications. is usually mediated by the operating system kernel, right? Because if anything is shared. then the operating system needs to make sure that uh there are no concurrent accesses by multiple applications that are you know st different applications are not stepping on each other's toes, for example.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 71,
+          "errors": 71,
+          "utterances_expected": 8,
+          "expected_detail": [
+            {
+              "start": 1.0,
+              "end": 2.6,
+              "forced": false
+            },
+            {
+              "start": 3.2,
+              "end": 5.8,
+              "forced": false
+            },
+            {
+              "start": 6.7,
+              "end": 9.0,
+              "forced": false
+            },
+            {
+              "start": 9.6,
+              "end": 13.799999999999999,
+              "forced": false
+            },
+            {
+              "start": 15.0,
+              "end": 18.1,
+              "forced": false
+            },
+            {
+              "start": 18.7,
+              "end": 20.1,
+              "forced": false
+            },
+            {
+              "start": 20.7,
+              "end": 28.8,
+              "forced": true
+            },
+            {
+              "start": 28.8,
+              "end": 31.200000000000003,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.482,
+            9.891,
+            14.809,
+            19.061,
+            20.887,
+            29.835,
+            32.084
+          ],
+          "final_words": [
+            6,
+            4,
+            13,
+            9,
+            5,
+            24,
+            10
+          ],
+          "finals_received": 7,
+          "partials_received": 24,
+          "ttfw_s": [
+            1.352032499969937,
+            1.5531359000131486,
+            3.6710855999961494,
+            8.144294699979946,
+            5.346090600010939,
+            2.7290423999773346,
+            10.303685800009408
+          ],
+          "first_partial_s": [
+            1.352032499969937,
+            1.5531359000131486,
+            3.6710855999961494,
+            8.144294699979946,
+            5.346090600010939,
+            2.7290423999773346,
+            10.303685800009408
+          ],
+          "final_latency_s": [
+            0.8817971000447868,
+            4.090511800069362,
+            5.808978499961086,
+            5.260955599998125,
+            2.786808900046161,
+            9.735230499971657,
+            3.2842377999797456
+          ],
+          "final_latency_after_hang_s": [
+            0.28179710004478686,
+            3.490511800069362,
+            5.208978499961086,
+            4.660955599998125,
+            2.186808900046161,
+            9.135230499971657,
+            2.6842377999797455
+          ],
+          "partial_words": 69,
+          "partial_words_revised": 17,
+          "partial_prefix_ok": 3,
+          "partial_prefix_total": 7,
+          "worker": 0
+        },
+        {
+          "id": "rec04_L30_0024",
+          "tags": {
+            "recording_id": "rec04",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "Which is either true or false, but not both. So, you must be able to So associate a truth value with an assertion. Truth Value. The truth value will be False or true, usually you denote it by false by zero and true by One.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 45,
+          "errors": 45,
+          "utterances_expected": 7,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 16.2,
+              "end": 16.900000000000002,
+              "forced": false
+            },
+            {
+              "start": 17.8,
+              "end": 19.400000000000002,
+              "forced": false
+            },
+            {
+              "start": 20.4,
+              "end": 26.8,
+              "forced": false
+            },
+            {
+              "start": 27.7,
+              "end": 29.900000000000002,
+              "forced": false
+            },
+            {
+              "start": 30.8,
+              "end": 31.1,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.705,
+            16.674,
+            17.634,
+            20.378,
+            28.022,
+            30.761,
+            31.812
+          ],
+          "final_words": [
+            15,
+            9,
+            1,
+            5,
+            8,
+            6,
+            1
+          ],
+          "finals_received": 7,
+          "partials_received": 19,
+          "ttfw_s": [
+            1.483089300035499,
+            1.0554552000015978,
+            0.925564199988731,
+            0.4056025000056245,
+            0.8812839000253021,
+            0.5496563000604517,
+            0.538876600028015
+          ],
+          "first_partial_s": [
+            1.483089300035499,
+            1.0554552000015978,
+            0.925564199988731,
+            0.4056025000056245,
+            0.8812839000253021,
+            0.5496563000604517,
+            0.538876600028015
+          ],
+          "final_latency_s": [
+            0.6051763000199575,
+            0.4735881000058697,
+            0.7341864999849328,
+            0.9782946000574135,
+            1.2223120000446208,
+            0.8606856999918797,
+            0.7119857000419856
+          ],
+          "final_latency_after_hang_s": [
+            0.005176300019957503,
+            -0.12641189999413027,
+            0.13418649998493282,
+            0.37829460005741355,
+            0.6223120000446208,
+            0.26068569999187974,
+            0.1119857000419856
+          ],
+          "partial_words": 34,
+          "partial_words_revised": 10,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 7,
+          "worker": 0
+        },
+        {
+          "id": "rec04_L30_0059",
+          "tags": {
+            "recording_id": "rec04",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "Usually as an antecedent and the Consequence will be related. For example, something like this, this you can very easily see, if I fall into the lake, I will get wet. Obviously the premise and the Conclusion or the consequence are related, and you can see the correspondence between them. But generally, in the truth table, You must also",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 59,
+          "errors": 59,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 2.2,
+              "forced": false
+            },
+            {
+              "start": 2.8,
+              "end": 10.9,
+              "forced": true
+            },
+            {
+              "start": 10.9,
+              "end": 13.5,
+              "forced": false
+            },
+            {
+              "start": 14.6,
+              "end": 22.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 22.9,
+              "end": 24.3,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            3.047,
+            11.873,
+            14.395,
+            23.334,
+            25.148
+          ],
+          "final_words": [
+            6,
+            25,
+            5,
+            20,
+            3
+          ],
+          "finals_received": 5,
+          "partials_received": 20,
+          "ttfw_s": [
+            0.799612700054422,
+            1.3511921000201257,
+            1.4699197999667373,
+            0.8391756999539215,
+            1.6137819000519826
+          ],
+          "first_partial_s": [
+            0.799612700054422,
+            1.3511921000201257,
+            1.4699197999667373,
+            0.8391756999539215,
+            1.6137819000519826
+          ],
+          "final_latency_s": [
+            0.8470083999680353,
+            0.9731736999470737,
+            0.8949535000137985,
+            1.134264299948697,
+            0.8476487000472837
+          ],
+          "final_latency_after_hang_s": [
+            0.24700839996803536,
+            0.3731736999470737,
+            0.2949535000137985,
+            0.534264299948697,
+            0.24764870004728368
+          ],
+          "partial_words": 58,
+          "partial_words_revised": 11,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "rec04_L30_0092",
+          "tags": {
+            "recording_id": "rec04",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "Find out when the whole expression will be true and when the whole expression will be false and so on. Now, a tautology is a propositional form. Whose truth value is true. For all possible values of its proportional variables. Sometimes an expression may be such that",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 47,
+          "errors": 47,
+          "utterances_expected": 4,
+          "expected_detail": [
+            {
+              "start": 1.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.3,
+              "end": 14.9,
+              "forced": false
+            },
+            {
+              "start": 16.2,
+              "end": 18.1,
+              "forced": false
+            },
+            {
+              "start": 18.7,
+              "end": 24.900000000000002,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.673,
+            16.113,
+            19.077,
+            26.399
+          ],
+          "final_words": [
+            20,
+            7,
+            5,
+            15
+          ],
+          "finals_received": 4,
+          "partials_received": 14,
+          "ttfw_s": [
+            1.792993599991314,
+            4.729009600053541,
+            0.4640150999883197,
+            0.6604780000168837
+          ],
+          "first_partial_s": [
+            1.792993599991314,
+            4.729009600053541,
+            0.4640150999883197,
+            0.6604780000168837
+          ],
+          "final_latency_s": [
+            0.572529399977066,
+            1.213210699986666,
+            0.9768524999730275,
+            1.4994992000516483
+          ],
+          "final_latency_after_hang_s": [
+            -0.027470600022934,
+            0.6132106999866661,
+            0.3768524999730275,
+            0.8994992000516483
+          ],
+          "partial_words": 46,
+          "partial_words_revised": 15,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "rec05_L30_0004",
+          "tags": {
+            "recording_id": "rec05",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "Because uh they I think they are like not that good. It looks like they're spitting. I think uh sorry? Sorry, not offensive. It looks like they're spitting. and I think our accent is better, yeah. No. No. I think They need to learn English from us. It is like when we hear them, we find it funny. It's live, I don't really care what they think. Like I can speak English and I can like you know make other people understand what I want to say, that's enough. I don't really care what they think.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 96,
+          "errors": 96,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 16.2,
+              "end": 24.3,
+              "forced": true
+            },
+            {
+              "start": 24.3,
+              "end": 32.4,
+              "forced": true
+            },
+            {
+              "start": 32.4,
+              "end": 34.4,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.734,
+            16.76,
+            24.852,
+            32.998
+          ],
+          "final_words": [
+            28,
+            12,
+            27,
+            29
+          ],
+          "finals_received": 4,
+          "partials_received": 29,
+          "ttfw_s": [
+            0.5697020998923108,
+            1.080143999983557,
+            1.0290475999470807,
+            1.0025264999596395
+          ],
+          "first_partial_s": [
+            0.5697020998923108,
+            1.080143999983557,
+            1.0290475999470807,
+            1.0025264999596395
+          ],
+          "final_latency_s": [
+            0.6342451999429617,
+            0.5603298999601947,
+            0.5517010000068687,
+            0.597556499904023
+          ],
+          "final_latency_after_hang_s": [
+            0.03424519994296171,
+            -0.03967010003980531,
+            -0.04829899999313125,
+            -0.002443500095976936
+          ],
+          "partial_words": 73,
+          "partial_words_revised": 19,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "rec05_L30_0011",
+          "tags": {
+            "recording_id": "rec05",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "Fluent English do people treat you better? Yeah, in India yes. I have seen that. Yeah, I guess so. Oh yeah. When you just come across someone, you have a sort of mindset towards them. As soon as they start speaking, your mindset And if you're talking before a girl. She's going to be impressed by you. That's the most important thing about talking English. But when you start talking in English and especially when you're talking really fluently. Yeah. They they'll just they give you much more respect than they usually give to other people who are talking in other languages.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 102,
+          "errors": 102,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 16.2,
+              "end": 21.700000000000003,
+              "forced": false
+            },
+            {
+              "start": 22.5,
+              "end": 30.400000000000002,
+              "forced": true
+            },
+            {
+              "start": 30.4,
+              "end": 38.5,
+              "forced": true
+            }
+          ],
+          "final_times_s": [
+            8.667,
+            16.67,
+            23.327,
+            30.966,
+            38.982
+          ],
+          "final_words": [
+            19,
+            24,
+            7,
+            29,
+            23
+          ],
+          "finals_received": 5,
+          "partials_received": 31,
+          "ttfw_s": [
+            0.45551999993622305,
+            1.0166818999918181,
+            0.8721530999289833,
+            1.456040299963206,
+            0.8236730000004187
+          ],
+          "first_partial_s": [
+            0.45551999993622305,
+            1.0166818999918181,
+            0.8721530999289833,
+            1.456040299963206,
+            0.8236730000004187
+          ],
+          "final_latency_s": [
+            0.5671349999960515,
+            0.46969020001124306,
+            1.6267361999023677,
+            0.5656031999038511,
+            0.48165899992454797
+          ],
+          "final_latency_after_hang_s": [
+            -0.03286500000394843,
+            -0.1303097999887569,
+            1.0267361999023676,
+            -0.03439680009614887,
+            -0.11834100007545201
+          ],
+          "partial_words": 103,
+          "partial_words_revised": 37,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "rec06_L30_0006",
+          "tags": {
+            "recording_id": "rec06",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "Hola. Come here. Idaho, Ida Rao. So here's my cousins, uh cousin sister. Jo Jo, can you talk? Talk to him, Bhadkaru said. Talk him English in English. Hi Sam, how are you?",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 33,
+          "errors": 33,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.7,
+              "end": 1.8,
+              "forced": false
+            },
+            {
+              "start": 3.0,
+              "end": 3.7,
+              "forced": false
+            },
+            {
+              "start": 4.3,
+              "end": 12.4,
+              "forced": true
+            },
+            {
+              "start": 12.4,
+              "end": 20.5,
+              "forced": true
+            },
+            {
+              "start": 20.5,
+              "end": 24.900000000000002,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            2.676,
+            4.466,
+            12.987,
+            20.964,
+            26.349
+          ],
+          "final_words": [
+            1,
+            2,
+            15,
+            5,
+            10
+          ],
+          "finals_received": 5,
+          "partials_received": 13,
+          "ttfw_s": [
+            0.4254290000069887,
+            0.5895491000264883,
+            0.5054732000455262,
+            0.949417399964295,
+            0.7611315000103787
+          ],
+          "first_partial_s": [
+            0.4254290000069887,
+            0.5895491000264883,
+            0.5054732000455262,
+            0.949417399964295,
+            0.7611315000103787
+          ],
+          "final_latency_s": [
+            0.8761253000004217,
+            0.7663755999645216,
+            0.5866806999780234,
+            0.4644077999982983,
+            1.4489406999433392
+          ],
+          "final_latency_after_hang_s": [
+            0.2761253000004217,
+            0.16637559996452167,
+            -0.013319300021976566,
+            -0.1355922000017017,
+            0.8489406999433392
+          ],
+          "partial_words": 32,
+          "partial_words_revised": 22,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "rec06_L30_0015",
+          "tags": {
+            "recording_id": "rec06",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "So what's your mother's name? Mammi Kanamka? Puja. Puja? Okay. But your sandal looks so beautiful. Just like a coconut tree. Papa ka And what's your father's name? Papa Tadu? Papa ka nambutao Sandy. Sandy Moratsu, my brother's name na She gonna confuse the other thing.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 46,
+          "errors": 46,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.5,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 17.3,
+              "end": 21.6,
+              "forced": false
+            },
+            {
+              "start": 22.3,
+              "end": 26.900000000000002,
+              "forced": false
+            },
+            {
+              "start": 27.6,
+              "end": 31.5,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.669,
+            16.668,
+            22.722,
+            28.372,
+            32.693
+          ],
+          "final_words": [
+            7,
+            14,
+            9,
+            10,
+            6
+          ],
+          "finals_received": 5,
+          "partials_received": 20,
+          "ttfw_s": [
+            0.5999450000235811,
+            0.915863900072873,
+            0.6912371999816962,
+            0.9544887000694864,
+            0.9362751000793637
+          ],
+          "first_partial_s": [
+            0.5999450000235811,
+            0.915863900072873,
+            0.6912371999816962,
+            0.9544887000694864,
+            0.9362751000793637
+          ],
+          "final_latency_s": [
+            0.5689027000684295,
+            0.46775580006651296,
+            1.1218523999908925,
+            1.4719700999790781,
+            1.193033599993214
+          ],
+          "final_latency_after_hang_s": [
+            -0.03109729993157051,
+            -0.13224419993348702,
+            0.5218523999908925,
+            0.8719700999790782,
+            0.593033599993214
+          ],
+          "partial_words": 45,
+          "partial_words_revised": 36,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "rec06_L30_0023",
+          "tags": {
+            "recording_id": "rec06",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "I don't have a camera stand. So my sister became my cameraman. Didi, you are a my cameraman now? Yeah. And you know what? Someone asked me, shut up. Just tell me when I'll be your cameraman. So definitely I'll become a confident person and English speaker. Yeah of course. If you want to be my cameraman, just let me know in the comments cameraman I'm eagerly to see who want to be my cameraman So it's a beautiful greenish area.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 81,
+          "errors": 81,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 16.2,
+              "end": 24.3,
+              "forced": true
+            },
+            {
+              "start": 24.3,
+              "end": 32.4,
+              "forced": true
+            },
+            {
+              "start": 32.4,
+              "end": 35.300000000000004,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.782,
+            16.9,
+            25.164,
+            32.666,
+            36.229
+          ],
+          "final_words": [
+            20,
+            17,
+            26,
+            12,
+            6
+          ],
+          "finals_received": 5,
+          "partials_received": 31,
+          "ttfw_s": [
+            1.1528713000006974,
+            1.1358476999215785,
+            1.170621599955485,
+            1.334125199983827,
+            0.5048572999890908
+          ],
+          "first_partial_s": [
+            1.1528713000006974,
+            1.1358476999215785,
+            1.170621599955485,
+            1.334125199983827,
+            0.5048572999890908
+          ],
+          "final_latency_s": [
+            0.6824501999421049,
+            0.6995556998997898,
+            0.8641561998985701,
+            0.2655341999139651,
+            0.9288442999124484
+          ],
+          "final_latency_after_hang_s": [
+            0.0824501999421049,
+            0.09955569989978985,
+            0.2641561998985701,
+            -0.3344658000860349,
+            0.32884429991244846
+          ],
+          "partial_words": 72,
+          "partial_words_revised": 14,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "rec07_L30_0007",
+          "tags": {
+            "recording_id": "rec07",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "So I'm at the same time. My maiden home right now, and honestly speaking, I'm feeling a bit lethargic. That could be because of the weather. It's been raining on On and off since morning and it has again started drizzling. So yes. And uh actually I was waiting for the rain to stop before stepping out to shoot this video because while talking to you I Also wanted to show you.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 72,
+          "errors": 72,
+          "utterances_expected": 6,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 16.2,
+              "end": 21.3,
+              "forced": false
+            },
+            {
+              "start": 21.9,
+              "end": 23.8,
+              "forced": false
+            },
+            {
+              "start": 24.4,
+              "end": 32.5,
+              "forced": true
+            },
+            {
+              "start": 32.6,
+              "end": 33.800000000000004,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.679,
+            16.696,
+            22.382,
+            33.388,
+            34.715
+          ],
+          "final_words": [
+            6,
+            24,
+            13,
+            24,
+            5
+          ],
+          "finals_received": 5,
+          "partials_received": 20,
+          "ttfw_s": [
+            8.379375699954107,
+            1.0340333999833096,
+            3.0270378000102944,
+            0.5582957000238835,
+            9.462659099977465
+          ],
+          "first_partial_s": [
+            1.0340333999833096,
+            3.0270378000102944,
+            0.5582957000238835,
+            9.462659099977465
+          ],
+          "final_latency_s": [
+            0.5793756999541078,
+            0.49624429999384745,
+            1.0818611999740817,
+            9.588024599989875,
+            2.2148138999473304
+          ],
+          "final_latency_after_hang_s": [
+            -0.02062430004589222,
+            -0.10375570000615253,
+            0.4818611999740817,
+            8.988024599989876,
+            1.6148138999473303
+          ],
+          "partial_words": 62,
+          "partial_words_revised": 26,
+          "partial_prefix_ok": 2,
+          "partial_prefix_total": 4,
+          "worker": 0
+        },
+        {
+          "id": "rec07_L30_0016",
+          "tags": {
+            "recording_id": "rec07",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "Because everyone was coming up with new topics, new thought process, so there was a need. to keep myself updated. To have a healthy conversation with people, I would say. In that direction I started watching English content, English Podcast you can say while rolling chapatis in kitchen or while doing laundries. So this is one small shift That I have made to my lifestyle I would say that has",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 70,
+          "errors": 70,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 10.1,
+              "forced": false
+            },
+            {
+              "start": 11.0,
+              "end": 18.8,
+              "forced": true
+            },
+            {
+              "start": 19.1,
+              "end": 26.900000000000002,
+              "forced": true
+            },
+            {
+              "start": 26.9,
+              "end": 29.700000000000003,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.673,
+            10.936,
+            19.824,
+            27.359,
+            30.61
+          ],
+          "final_words": [
+            16,
+            4,
+            19,
+            19,
+            12
+          ],
+          "finals_received": 5,
+          "partials_received": 14,
+          "ttfw_s": [
+            0.8935119000496343,
+            2.247390100010671,
+            3.2127558001084253,
+            6.218930500070563,
+            1.8418044001096874
+          ],
+          "first_partial_s": [
+            0.8935119000496343,
+            2.247390100010671,
+            3.2127558001084253,
+            6.218930500070563,
+            1.8418044001096874
+          ],
+          "final_latency_s": [
+            0.5731900000013415,
+            0.8363160000648353,
+            1.0244733000174158,
+            0.4592694000108146,
+            0.9101870000129537
+          ],
+          "final_latency_after_hang_s": [
+            -0.026809999998658518,
+            0.23631600006483533,
+            0.4244733000174158,
+            -0.14073059998918536,
+            0.31018700001295374
+          ],
+          "partial_words": 65,
+          "partial_words_revised": 3,
+          "partial_prefix_ok": 3,
+          "partial_prefix_total": 5,
+          "worker": 0
+        },
+        {
+          "id": "rec07_L30_0026",
+          "tags": {
+            "recording_id": "rec07",
+            "accent": "indian_english",
+            "language": "en",
+            "boundary_quality": "pause_cut",
+            "recording_condition": "unknown"
+          },
+          "reference": "",
+          "hypothesis": "There was this main character in my story that never left my sight. You know who I am talking about? Yes the Chat GPT. It has played a big, big role in improving my English, I must say. Say. Whenever I felt stuck, I would directly go to Chat GPT, ask all sorts of doubts, clarify grammar concepts. Until I truly understood.",
+          "ref_words": 0,
+          "sub": 0,
+          "del": 0,
+          "ins": 62,
+          "errors": 62,
+          "utterances_expected": 5,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 4.5,
+              "forced": false
+            },
+            {
+              "start": 5.1,
+              "end": 13.2,
+              "forced": true
+            },
+            {
+              "start": 13.2,
+              "end": 21.3,
+              "forced": true
+            },
+            {
+              "start": 21.3,
+              "end": 23.0,
+              "forced": false
+            },
+            {
+              "start": 23.6,
+              "end": 25.3,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            5.507,
+            13.77,
+            21.928,
+            26.111
+          ],
+          "final_words": [
+            13,
+            25,
+            20,
+            4
+          ],
+          "finals_received": 4,
+          "partials_received": 19,
+          "ttfw_s": [
+            0.8033883000491187,
+            0.9257047000341121,
+            4.050189400045202,
+            3.0436498000519343
+          ],
+          "first_partial_s": [
+            0.8033883000491187,
+            0.9257047000341121,
+            4.050189400045202,
+            3.0436498000519343
+          ],
+          "final_latency_s": [
+            1.0074391999514773,
+            0.5695951999630786,
+            0.6278410000260912,
+            3.110993399983272
+          ],
+          "final_latency_after_hang_s": [
+            0.40743919995147737,
+            -0.030404800036921364,
+            0.027841000026091245,
+            2.510993399983272
+          ],
+          "partial_words": 54,
+          "partial_words_revised": 11,
+          "partial_prefix_ok": 1,
+          "partial_prefix_total": 4,
+          "worker": 0
+        }
+      ]
+    }
+  ]
+}

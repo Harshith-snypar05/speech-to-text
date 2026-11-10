@@ -1,0 +1,58 @@
+{
+ "label": "long",
+ "window_s": 1210.4,
+ "final": {
+  "jobs": 801,
+  "states": {
+   "completed": 801
+  },
+  "queue_wait_p50_p95_max": [
+   0.204,
+   0.803,
+   2.028
+  ],
+  "infer_p50_p95": [
+   0.381,
+   0.952
+  ],
+  "total_p95": 1.478
+ },
+ "partial": {
+  "jobs": 2709,
+  "states": {
+   "completed": 2502,
+   "skipped": 207
+  },
+  "queue_wait_p50_p95_max": [
+   0.122,
+   0.831,
+   1.879
+  ],
+  "infer_p50_p95": [
+   0.246,
+   0.628
+  ],
+  "total_p95": 1.171
+ },
+ "worker_utilisation": 0.891,
+ "abandoned_jobs": 0,
+ "skips": {
+  "superseded_by_final": 198,
+  "final_waiting": 261,
+  "stale_in_queue": 9
+ },
+ "system": {
+  "samples": 605,
+  "sys_cpu_mean": 19.0,
+  "sys_cpu_max": 96.8,
+  "relay_cpu_mean_pct_core": 372.5,
+  "free_mb_min": 48,
+  "free_mb_median": 769,
+  "relay_rss_mb_max": 761,
+  "relay_rss_mb_first_last": [
+   746,
+   701
+  ],
+  "mem_pct_max": 99.7
+ }
+}

@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+data/
+data_qa/
+__pycache__/
+.pytest_cache/

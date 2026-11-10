@@ -48,6 +48,7 @@ Parakeet engine into it.
 """
 import asyncio
 import logging
+import sys
 from pathlib import Path
 
 import websockets
@@ -69,19 +70,21 @@ ROOT = Path(__file__).resolve().parent.parent
 WHISPER_CPP = ROOT / "whisper.cpp"
 MODEL = WHISPER_CPP / "models" / "ggml-parakeet-tdt-0.6b-v3-q8_0.bin"
 SHARED_BUILD_DIR = WHISPER_CPP / "build-shared" / "bin"
-PARAKEET_CLI = WHISPER_CPP / "build" / "bin" / "parakeet-cli"
+PARAKEET_CLI = WHISPER_CPP / "build" / "bin" / ("parakeet-cli.exe" if sys.platform == "win32" else "parakeet-cli")
 LISTEN_PORT = 8768
 
-if (SHARED_BUILD_DIR / "libparakeet.dylib").exists():
+from engines.parakeet_native_engine import find_library, library_filename  # noqa: E402
+
+if find_library(SHARED_BUILD_DIR) is not None:
     from engines.parakeet_native_engine import ParakeetNativeEngine
     logger.info("using ParakeetNativeEngine (model loaded once, shared library found)")
     engine = ParakeetNativeEngine(SHARED_BUILD_DIR, MODEL)
 else:
     from engines.parakeet_engine import ParakeetEngine
     logger.warning(
-        "libparakeet.dylib not found in %s -- falling back to per-utterance subprocess "
+        "%s not found in %s -- falling back to per-utterance subprocess "
         "(slower, ~350-520ms vs ~130ms per utterance; see this file's docstring to build the shared library)",
-        SHARED_BUILD_DIR,
+        library_filename(), SHARED_BUILD_DIR,
     )
     engine = ParakeetEngine(PARAKEET_CLI, MODEL, SAMPLE_RATE, BYTES_PER_SAMPLE)
 

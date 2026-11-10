@@ -1,0 +1,208 @@
+{
+  "clips": [
+    {
+      "id": "svarah_assamese_03817_281474976885867_f1767_ch",
+      "wav": "C:\\data\\corpus_svarah\\wav/svarah_assamese_03817_281474976885867_f1767_ch.wav",
+      "reference": "Yes, I have some favorite, not favorite, but I like some idioms and proverbs like don't judge a book by its cover, actions speak louder than words, once in a blue moon, through thick and thin, spill the beans etc.",
+      "tags": {
+        "corpus": "svarah",
+        "gender": "Female",
+        "age_group": "18-30",
+        "l1": "Assamese",
+        "state": "Assam",
+        "district": "Nalbari",
+        "qualification": "Post Graduate",
+        "job": "Full Time",
+        "domain": "Education and Research",
+        "accent": "indian_english",
+        "source": "svarah"
+      },
+      "meta": {
+        "source": "svarah_assamese_03817_281474976885867_f1767_ch.wav",
+        "sha256": "a0c222ac60a70e364c6635e1a8efff80d2f91b4e46f7c0e39a54139130046855",
+        "orig_rate": 16000,
+        "orig_channels": 1,
+        "orig_bits": 16,
+        "duration_s": 19.51,
+        "peak": 0.48,
+        "clipping_pct": 0.0,
+        "dc_offset": 0.0,
+        "speech_rms_p95": 0.0955,
+        "noise_rms_p10": 0.00551,
+        "est_snr_db": 24.8,
+        "frac_above_0p01": 0.727,
+        "notes": "{\"svarah_text_original\": \"Yes, I have some favorite, not favorite, but I like some idioms and proverbs like don't judge a book by its cover, actions speak louder than words, once in a blue moon, through thick and thin, spill the beans etc.\", \"svarah_file\": \"test-00001-of-00003.parquet\", \"svarah_row\": 3817}"
+      }
+    },
+    {
+      "id": "svarah_assamese_06152_281474976901758_f990_chu",
+      "wav": "C:\\data\\corpus_svarah\\wav/svarah_assamese_06152_281474976901758_f990_chu.wav",
+      "reference": "Can you stop automatically sending Ghanim Rs. 300 bi-weekly and send Rs. 60000 instead, on Yono SBI",
+      "tags": {
+        "corpus": "svarah",
+        "gender": "Female",
+        "age_group": "30-45",
+        "l1": "Assamese",
+        "state": "Assam",
+        "district": "Biswanath",
+        "qualification": "Doctoral (PhD) or higher level",
+        "job": "Full Time",
+        "domain": "Information and Media",
+        "accent": "indian_english",
+        "source": "svarah"
+      },
+      "meta": {
+        "source": "svarah_assamese_06152_281474976901758_f990_chu.wav",
+        "sha256": "89fd0b0924248e34f1483f4c594990bbd5261efd2905f757308e1baaaaf2023b",
+        "orig_rate": 16000,
+        "orig_channels": 1,
+        "orig_bits": 16,
+        "duration_s": 10.67,
+        "peak": 0.3578,
+        "clipping_pct": 0.0,
+        "dc_offset": -0.00057,
+        "speech_rms_p95": 0.1014,
+        "noise_rms_p10": 0.00108,
+        "est_snr_db": 39.5,
+        "frac_above_0p01": 0.681,
+        "notes": "{\"svarah_text_original\": \"Can you stop automatically sending Ghanim Rs. 300 bi-weekly and send Rs. 60000 instead, on Yono SBI\", \"svarah_file\": \"test-00002-of-00003.parquet\", \"svarah_row\": 6152}"
+      }
+    },
+    {
+      "id": "svarah_bengali_01831_281474976896941_f53_chun",
+      "wav": "C:\\data\\corpus_svarah\\wav/svarah_bengali_01831_281474976896941_f53_chun.wav",
+      "reference": "A distinct advantage that in-fighters have when throwing uppercuts is that they can channel their entire bodyweight behind the punch; Mike Tyson was famous for throwing devastating uppercuts",
+      "tags": {
+        "corpus": "svarah",
+        "gender": "Male",
+        "age_group": "30-45",
+        "l1": "Bengali",
+        "state": "West Bengal",
+        "district": "Kolkata",
+        "qualification": "Graduate",
+        "job": "Freelance",
+        "domain": "Entertainment",
+        "accent": "indian_english",
+        "source": "svarah"
+      },
+      "meta": {
+        "source": "svarah_bengali_01831_281474976896941_f53_chun.wav",
+        "sha256": "daf550b41ee24711be95be6fff0ac1e023692535dce2b94861460d66df207eb9",
+        "orig_rate": 16000,
+        "orig_channels": 1,
+        "orig_bits": 16,
+        "duration_s": 13.2,
+        "peak": 0.5282,
+        "clipping_pct": 0.0,
+        "dc_offset": -0.00013,
+        "speech_rms_p95": 0.1834,
+        "noise_rms_p10": 0.00052,
+        "est_snr_db": 51.0,
+        "frac_above_0p01": 0.78,
+        "notes": "{\"svarah_text_original\": \"A distinct advantage that in-fighters have when throwing uppercuts is that they can channel their entire bodyweight behind the punch; Mike Tyson was famous for throwing devastating uppercuts\", \"svarah_file\": \"test-00000-of-00003.parquet\", \"svarah_row\": 1831}"
+      }
+    },
+    {
+      "id": "svarah_bodo_03621_281474976893846_f3264_ch",
+      "wav": "C:\\data\\corpus_svarah\\wav/svarah_bodo_03621_281474976893846_f3264_ch.wav",
+      "reference": "Online clients can see the works. If you have your own website, blog or social media account, people can easily access your work.",
+      "tags": {
+        "corpus": "svarah",
+        "gender": "Female",
+        "age_group": "18-30",
+        "l1": "Bodo",
+        "state": "Assam",
+        "district": "Kokrajhar",
+        "qualification": "Post Graduate",
+        "job": "Other",
+        "domain": "Education and Research",
+        "accent": "indian_english",
+        "source": "svarah"
+      },
+      "meta": {
+        "source": "svarah_bodo_03621_281474976893846_f3264_ch.wav",
+        "sha256": "05541b97b189d02aa7b06318850b6c93efd318c3ee9df77b69c01d886bfe68ad",
+        "orig_rate": 16000,
+        "orig_channels": 1,
+        "orig_bits": 16,
+        "duration_s": 18.0,
+        "peak": 0.0677,
+        "clipping_pct": 0.0,
+        "dc_offset": 0.0002,
+        "speech_rms_p95": 0.0268,
+        "noise_rms_p10": 0.00016,
+        "est_snr_db": 44.5,
+        "frac_above_0p01": 0.326,
+        "notes": "{\"svarah_text_original\": \"Online clients can see the works. If you have your own website, blog or social media account, people can easily access your work.\", \"svarah_file\": \"test-00001-of-00003.parquet\", \"svarah_row\": 3621}"
+      }
+    },
+    {
+      "id": "svarah_kannada_00197_281474976884629_f2039_ch",
+      "wav": "C:\\data\\corpus_svarah\\wav/svarah_kannada_00197_281474976884629_f2039_ch.wav",
+      "reference": "you can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow-clad mountain ranges, widely spread cool bagyals",
+      "tags": {
+        "corpus": "svarah",
+        "gender": "Female",
+        "age_group": "18-30",
+        "l1": "Kannada",
+        "state": "Karnataka",
+        "district": "Hassan",
+        "qualification": "Post Graduate",
+        "job": "Full Time",
+        "domain": "Technology and Services",
+        "accent": "indian_english",
+        "source": "svarah"
+      },
+      "meta": {
+        "source": "svarah_kannada_00197_281474976884629_f2039_ch.wav",
+        "sha256": "833de9e9e5f557ca86a6476f2c8dbeab4a11ac2fcf68e35b20f42e63fa86402a",
+        "orig_rate": 16000,
+        "orig_channels": 1,
+        "orig_bits": 16,
+        "duration_s": 10.2,
+        "peak": 0.6952,
+        "clipping_pct": 0.0,
+        "dc_offset": -0.0001,
+        "speech_rms_p95": 0.1824,
+        "noise_rms_p10": 0.0067,
+        "est_snr_db": 28.7,
+        "frac_above_0p01": 0.861,
+        "notes": "{\"svarah_text_original\": \"you can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow-clad mountain ranges, widely spread cool bagyals\", \"svarah_file\": \"test-00000-of-00003.parquet\", \"svarah_row\": 197}"
+      }
+    },
+    {
+      "id": "svarah_kashmiri_03111_281474976891473_f1165_ch",
+      "wav": "C:\\data\\corpus_svarah\\wav/svarah_kashmiri_03111_281474976891473_f1165_ch.wav",
+      "reference": "Change your quantities of items Nestle Munch Wafer Bar , Chai Point Rusk Cake and Lal Besan Laddoo as their current quantities are out of stock",
+      "tags": {
+        "corpus": "svarah",
+        "gender": "Male",
+        "age_group": "18-30",
+        "l1": "Kashmiri",
+        "state": "Jammu Kashmir",
+        "district": "Srinagar",
+        "qualification": "Post Graduate",
+        "job": "Other",
+        "domain": "Education and Research",
+        "accent": "indian_english",
+        "source": "svarah"
+      },
+      "meta": {
+        "source": "svarah_kashmiri_03111_281474976891473_f1165_ch.wav",
+        "sha256": "42d05a6c409a9e3fad8b9d08533da5c7a5168071a2e1d2aefc56f857b77b9958",
+        "orig_rate": 16000,
+        "orig_channels": 1,
+        "orig_bits": 16,
+        "duration_s": 10.81,
+        "peak": 0.23,
+        "clipping_pct": 0.0,
+        "dc_offset": -0.0001,
+        "speech_rms_p95": 0.0692,
+        "noise_rms_p10": 0.00105,
+        "est_snr_db": 36.4,
+        "frac_above_0p01": 0.639,
+        "notes": "{\"svarah_text_original\": \"Change your quantities of items Nestle Munch Wafer Bar , Chai Point Rusk Cake and Lal Besan Laddoo as their current quantities are out of stock\", \"svarah_file\": \"test-00001-of-00003.parquet\", \"svarah_row\": 3111}"
+      }
+    }
+  ]
+}

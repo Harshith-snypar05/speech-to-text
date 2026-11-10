@@ -1,0 +1,264 @@
+{
+ "subset12_n2": {
+  "jobs": 451,
+  "final": {
+   "requested_jobs": 80,
+   "dispatched": 80,
+   "completed": 80,
+   "never_started": 0,
+   "states": {
+    "completed": 80
+   },
+   "queue_wait_s": {
+    "n": 80,
+    "p50": 0.064,
+    "p95": 0.6495,
+    "max": 0.7801
+   },
+   "inference_s": {
+    "n": 80,
+    "p50": 0.3422,
+    "p95": 0.6911,
+    "max": 0.7786
+   },
+   "total_s": {
+    "n": 80,
+    "p50": 0.4612,
+    "p95": 1.3133,
+    "max": 1.4378
+   },
+   "inference_rtf_p50": 0.0852,
+   "busy_s": 30.14,
+   "wasted_busy_s_abandoned": 0
+  },
+  "partial": {
+   "requested_jobs": 371,
+   "dispatched": 363,
+   "completed": 363,
+   "never_started": 8,
+   "states": {
+    "completed": 363,
+    "skipped": 8
+   },
+   "queue_wait_s": {
+    "n": 363,
+    "p50": 0.0003,
+    "p95": 0.3254,
+    "max": 1.2183
+   },
+   "inference_s": {
+    "n": 363,
+    "p50": 0.199,
+    "p95": 0.5624,
+    "max": 0.7259
+   },
+   "total_s": {
+    "n": 363,
+    "p50": 0.2731,
+    "p95": 0.6482,
+    "max": 1.3782
+   },
+   "inference_rtf_p50": 0.0875,
+   "busy_s": 88.38,
+   "wasted_busy_s_abandoned": 0
+  },
+  "wall_s": 196.7,
+  "worker_utilisation": 0.602,
+  "partial_share_of_busy": 0.746,
+  "finals_that_waited_behind_a_partial": {
+   "n": 42,
+   "of": 80
+  },
+  "flush_outcomes": {
+   "final_sent": 78,
+   "dropped_not_pending": 24,
+   "dropped_empty_text": 2
+  },
+  "skips": {
+   "final_waiting": 15,
+   "superseded_by_final": 8
+  },
+  "bench": {
+   "wer": 31.38,
+   "finals": 78,
+   "partials": 263,
+   "first_partial_p50": 0.88,
+   "final_lat_p95": 1.61775
+  }
+ },
+ "subset12_n3": {
+  "jobs": 616,
+  "final": {
+   "requested_jobs": 120,
+   "dispatched": 120,
+   "completed": 120,
+   "never_started": 0,
+   "states": {
+    "completed": 120
+   },
+   "queue_wait_s": {
+    "n": 120,
+    "p50": 0.1284,
+    "p95": 0.5611,
+    "max": 1.1792
+   },
+   "inference_s": {
+    "n": 120,
+    "p50": 0.3147,
+    "p95": 0.6783,
+    "max": 0.8446
+   },
+   "total_s": {
+    "n": 120,
+    "p50": 0.5182,
+    "p95": 1.1722,
+    "max": 1.6407
+   },
+   "inference_rtf_p50": 0.0831,
+   "busy_s": 43.88,
+   "wasted_busy_s_abandoned": 0
+  },
+  "partial": {
+   "requested_jobs": 496,
+   "dispatched": 482,
+   "completed": 482,
+   "never_started": 14,
+   "states": {
+    "completed": 482,
+    "skipped": 14
+   },
+   "queue_wait_s": {
+    "n": 482,
+    "p50": 0.0398,
+    "p95": 0.6337,
+    "max": 1.2486
+   },
+   "inference_s": {
+    "n": 482,
+    "p50": 0.198,
+    "p95": 0.5312,
+    "max": 0.7835
+   },
+   "total_s": {
+    "n": 482,
+    "p50": 0.3452,
+    "p95": 0.8227,
+    "max": 1.4271
+   },
+   "inference_rtf_p50": 0.085,
+   "busy_s": 113.45,
+   "wasted_busy_s_abandoned": 0
+  },
+  "wall_s": 196.8,
+  "worker_utilisation": 0.799,
+  "partial_share_of_busy": 0.721,
+  "finals_that_waited_behind_a_partial": {
+   "n": 84,
+   "of": 120
+  },
+  "flush_outcomes": {
+   "final_sent": 117,
+   "dropped_not_pending": 36,
+   "dropped_empty_text": 3
+  },
+  "skips": {
+   "superseded_by_final": 14,
+   "final_waiting": 36
+  },
+  "bench": {
+   "wer": 31.38,
+   "finals": 117,
+   "partials": 358,
+   "first_partial_p50": 1.035,
+   "final_lat_p95": 1.5209999999999997
+  }
+ },
+ "subset12_n4": {
+  "jobs": 711,
+  "final": {
+   "requested_jobs": 160,
+   "dispatched": 160,
+   "completed": 160,
+   "never_started": 0,
+   "states": {
+    "completed": 160
+   },
+   "queue_wait_s": {
+    "n": 160,
+    "p50": 0.1294,
+    "p95": 0.6805,
+    "max": 1.0053
+   },
+   "inference_s": {
+    "n": 160,
+    "p50": 0.3159,
+    "p95": 0.6892,
+    "max": 0.891
+   },
+   "total_s": {
+    "n": 160,
+    "p50": 0.4978,
+    "p95": 1.2747,
+    "max": 1.6529
+   },
+   "inference_rtf_p50": 0.0854,
+   "busy_s": 59.54,
+   "wasted_busy_s_abandoned": 0
+  },
+  "partial": {
+   "requested_jobs": 551,
+   "dispatched": 511,
+   "completed": 511,
+   "never_started": 40,
+   "states": {
+    "completed": 511,
+    "skipped": 40
+   },
+   "queue_wait_s": {
+    "n": 511,
+    "p50": 0.2195,
+    "p95": 1.1531,
+    "max": 1.9629
+   },
+   "inference_s": {
+    "n": 511,
+    "p50": 0.2001,
+    "p95": 0.5226,
+    "max": 0.805
+   },
+   "total_s": {
+    "n": 511,
+    "p50": 0.483,
+    "p95": 1.4132,
+    "max": 2.3275
+   },
+   "inference_rtf_p50": 0.0871,
+   "busy_s": 119.89,
+   "wasted_busy_s_abandoned": 0
+  },
+  "wall_s": 197.5,
+  "worker_utilisation": 0.909,
+  "partial_share_of_busy": 0.668,
+  "finals_that_waited_behind_a_partial": {
+   "n": 110,
+   "of": 160
+  },
+  "flush_outcomes": {
+   "final_sent": 156,
+   "dropped_not_pending": 48,
+   "dropped_empty_text": 4
+  },
+  "skips": {
+   "final_waiting": 60,
+   "superseded_by_final": 39,
+   "stale_in_queue": 1
+  },
+  "bench": {
+   "wer": 31.38,
+   "finals": 156,
+   "partials": 385,
+   "first_partial_p50": 1.187,
+   "final_lat_p95": 1.6198000000000001
+  }
+ }
+}

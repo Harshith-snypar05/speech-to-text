@@ -1,3 +1,4 @@
+import sys
 import wave
 from pathlib import Path
 
@@ -49,7 +50,7 @@ async def test_fake_engine_raises_when_configured_to():
         await engine.transcribe_final(b"\x00\x00")
 
 
-PARAKEET_CLI = JFK_WAV.parent.parent / "build" / "bin" / "parakeet-cli"
+PARAKEET_CLI = JFK_WAV.parent.parent / "build" / "bin" / ("parakeet-cli.exe" if sys.platform == "win32" else "parakeet-cli")
 PARAKEET_MODEL = JFK_WAV.parent.parent / "models" / "ggml-parakeet-tdt-0.6b-v3-q8_0.bin"
 
 
@@ -81,11 +82,12 @@ def test_parakeet_engine_real_transcription():
 
 
 SHARED_BUILD_DIR = JFK_WAV.parent.parent / "build-shared" / "bin"
+from engines.parakeet_native_engine import find_library  # noqa: E402
 
 
 @pytest.mark.skipif(
-    not (JFK_WAV.exists() and (SHARED_BUILD_DIR / "libparakeet.dylib").exists() and PARAKEET_MODEL.exists()),
-    reason="libparakeet.dylib (shared-library build, see parakeet_native_engine.py docstring), model, or sample audio not available",
+    not (JFK_WAV.exists() and find_library(SHARED_BUILD_DIR) is not None and PARAKEET_MODEL.exists()),
+    reason="shared library (libparakeet.dylib/.so or parakeet.dll; build, see parakeet_native_engine.py docstring), model, or sample audio not available",
 )
 def test_parakeet_native_engine_real_transcription_and_reuses_loaded_model():
     """Real integration test against the ctypes binding -- not mocked.
@@ -118,8 +120,8 @@ def test_parakeet_native_engine_real_transcription_and_reuses_loaded_model():
 
 
 @pytest.mark.skipif(
-    not (JFK_WAV.exists() and (SHARED_BUILD_DIR / "libparakeet.dylib").exists() and PARAKEET_MODEL.exists()),
-    reason="libparakeet.dylib, model, or sample audio not available",
+    not (JFK_WAV.exists() and find_library(SHARED_BUILD_DIR) is not None and PARAKEET_MODEL.exists()),
+    reason="shared library, model, or sample audio not available",
 )
 def test_parakeet_native_engine_survives_concurrent_partial_and_final_calls():
     """Regression test for a real crash hit during manual testing:

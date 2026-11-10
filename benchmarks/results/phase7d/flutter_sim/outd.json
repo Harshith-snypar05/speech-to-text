@@ -1,0 +1,1 @@
+{"email":"tester.two@gmail.com","sid":"simfltb_1","finals":[],"partials":0,"sent_bytes":259200,"events":[{"t":75,"k":"login","v":true},{"t":75,"k":"consent_required","v":false},{"t":78,"k":"status","v":"connecting"},{"t":87,"k":"status","v":"connected"},{"t":87,"k":"start_ok","v":true},{"t":90,"k":"status","v":"unauthorized"},{"t":8102,"k":"end_status","v":"stopped"}]}

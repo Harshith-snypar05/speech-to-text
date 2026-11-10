@@ -1,0 +1,1222 @@
+{"kind": "job", "id": 1, "t_inf_start": 795298.9194104, "t_inf_end": 795299.1303072}
+{"kind": "call", "id": 1, "type": "partial", "n_samples": 22400, "t_enq": 795298.9189803, "active_calls_at_enq": 0, "t_lock": 795298.9189987, "cancelled": false, "error": null, "t_return": 795299.1308622}
+{"kind": "job", "id": 2, "t_inf_start": 795299.6376026, "t_inf_end": 795299.9157347}
+{"kind": "call", "id": 2, "type": "partial", "n_samples": 35200, "t_enq": 795299.6374593, "active_calls_at_enq": 0, "t_lock": 795299.6374716, "cancelled": false, "error": null, "t_return": 795299.9159965}
+{"kind": "job", "id": 3, "t_inf_start": 795300.4228052, "t_inf_end": 795300.7783574}
+{"kind": "call", "id": 3, "type": "partial", "n_samples": 48000, "t_enq": 795300.4226944, "active_calls_at_enq": 0, "t_lock": 795300.4227009, "cancelled": false, "error": null, "t_return": 795300.7796004}
+{"kind": "job", "id": 4, "t_inf_start": 795301.2820506, "t_inf_end": 795301.7980527}
+{"kind": "call", "id": 4, "type": "partial", "n_samples": 60800, "t_enq": 795301.281919, "active_calls_at_enq": 0, "t_lock": 795301.2819316, "cancelled": false, "error": null, "t_return": 795301.7984157}
+{"kind": "job", "id": 5, "t_inf_start": 795302.2991833, "t_inf_end": 795302.8931733}
+{"kind": "call", "id": 5, "type": "partial", "n_samples": 76800, "t_enq": 795302.2990681, "active_calls_at_enq": 0, "t_lock": 795302.2990771, "cancelled": false, "error": null, "t_return": 795302.8934496}
+{"kind": "job", "id": 6, "t_inf_start": 795303.3964426, "t_inf_end": 795304.0759563}
+{"kind": "call", "id": 6, "type": "partial", "n_samples": 94400, "t_enq": 795303.3963297, "active_calls_at_enq": 0, "t_lock": 795303.3963426, "cancelled": false, "error": null, "t_return": 795304.0762979}
+{"kind": "job", "id": 7, "t_inf_start": 795304.0766331, "t_inf_end": 795304.7333475}
+{"kind": "call", "id": 7, "type": "final", "n_samples": 99200, "t_enq": 795303.6191583, "active_calls_at_enq": 1, "t_lock": 795304.0765645, "cancelled": false, "error": null, "t_return": 795304.7336603}
+{"kind": "job", "id": 8, "t_inf_start": 795305.0823619, "t_inf_end": 795305.2666945}
+{"kind": "call", "id": 8, "type": "partial", "n_samples": 22400, "t_enq": 795305.0822136, "active_calls_at_enq": 0, "t_lock": 795305.0822449, "cancelled": false, "error": null, "t_return": 795305.2670366}
+{"kind": "job", "id": 9, "t_inf_start": 795305.7739456, "t_inf_end": 795306.0770466}
+{"kind": "call", "id": 9, "type": "partial", "n_samples": 33600, "t_enq": 795305.7738002, "active_calls_at_enq": 0, "t_lock": 795305.7738205, "cancelled": false, "error": null, "t_return": 795306.0773436}
+{"kind": "job", "id": 10, "t_inf_start": 795306.5793083, "t_inf_end": 795306.9641315}
+{"kind": "call", "id": 10, "type": "partial", "n_samples": 46400, "t_enq": 795306.5792102, "active_calls_at_enq": 0, "t_lock": 795306.5792233, "cancelled": false, "error": null, "t_return": 795306.9644745}
+{"kind": "job", "id": 11, "t_inf_start": 795307.2115505, "t_inf_end": 795307.6399783}
+{"kind": "call", "id": 11, "type": "final", "n_samples": 57600, "t_enq": 795307.2114329, "active_calls_at_enq": 0, "t_lock": 795307.2114497, "cancelled": false, "error": null, "t_return": 795307.6402495}
+{"kind": "job", "id": 12, "t_inf_start": 795308.4795119, "t_inf_end": 795308.633912}
+{"kind": "call", "id": 12, "type": "partial", "n_samples": 19200, "t_enq": 795308.4793688, "active_calls_at_enq": 0, "t_lock": 795308.479387, "cancelled": false, "error": null, "t_return": 795308.634267}
+{"kind": "job", "id": 13, "t_inf_start": 795309.1420509, "t_inf_end": 795309.3690491}
+{"kind": "call", "id": 13, "type": "partial", "n_samples": 30400, "t_enq": 795309.1419478, "active_calls_at_enq": 0, "t_lock": 795309.141961, "cancelled": false, "error": null, "t_return": 795309.3693658}
+{"kind": "job", "id": 14, "t_inf_start": 795309.8740136, "t_inf_end": 795310.2162184}
+{"kind": "call", "id": 14, "type": "partial", "n_samples": 41600, "t_enq": 795309.8738619, "active_calls_at_enq": 0, "t_lock": 795309.8738799, "cancelled": false, "error": null, "t_return": 795310.2165626}
+{"kind": "job", "id": 15, "t_inf_start": 795310.7310093, "t_inf_end": 795311.2064599}
+{"kind": "call", "id": 15, "type": "partial", "n_samples": 56000, "t_enq": 795310.7309218, "active_calls_at_enq": 0, "t_lock": 795310.7309334, "cancelled": false, "error": null, "t_return": 795311.2068091}
+{"kind": "job", "id": 16, "t_inf_start": 795311.4151053, "t_inf_end": 795311.949526}
+{"kind": "call", "id": 16, "type": "final", "n_samples": 67200, "t_enq": 795311.4149747, "active_calls_at_enq": 0, "t_lock": 795311.4149893, "cancelled": false, "error": null, "t_return": 795311.9498646}
+{"kind": "job", "id": 17, "t_inf_start": 795314.4705696, "t_inf_end": 795314.6488144}
+{"kind": "call", "id": 17, "type": "partial", "n_samples": 24000, "t_enq": 795314.4704227, "active_calls_at_enq": 0, "t_lock": 795314.4704451, "cancelled": false, "error": null, "t_return": 795314.6491634}
+{"kind": "job", "id": 18, "t_inf_start": 795315.1601178, "t_inf_end": 795315.4343986}
+{"kind": "call", "id": 18, "type": "partial", "n_samples": 33600, "t_enq": 795315.1600055, "active_calls_at_enq": 0, "t_lock": 795315.1600195, "cancelled": false, "error": null, "t_return": 795315.4347931}
+{"kind": "job", "id": 19, "t_inf_start": 795315.9407723, "t_inf_end": 795316.30921}
+{"kind": "call", "id": 19, "type": "partial", "n_samples": 46400, "t_enq": 795315.9406653, "active_calls_at_enq": 0, "t_lock": 795315.9406812, "cancelled": false, "error": null, "t_return": 795316.3095453}
+{"kind": "job", "id": 20, "t_inf_start": 795316.8174333, "t_inf_end": 795317.2562604}
+{"kind": "call", "id": 20, "type": "partial", "n_samples": 60800, "t_enq": 795316.8173315, "active_calls_at_enq": 0, "t_lock": 795316.817344, "cancelled": false, "error": null, "t_return": 795317.2565974}
+{"kind": "job", "id": 21, "t_inf_start": 795317.765137, "t_inf_end": 795318.3678009}
+{"kind": "call", "id": 21, "type": "partial", "n_samples": 76800, "t_enq": 795317.7650365, "active_calls_at_enq": 0, "t_lock": 795317.7650493, "cancelled": false, "error": null, "t_return": 795318.3681774}
+{"kind": "job", "id": 22, "t_inf_start": 795318.8807878, "t_inf_end": 795319.5981581}
+{"kind": "call", "id": 22, "type": "partial", "n_samples": 94400, "t_enq": 795318.8806848, "active_calls_at_enq": 0, "t_lock": 795318.8806985, "cancelled": false, "error": null, "t_return": 795319.5985226}
+{"kind": "job", "id": 23, "t_inf_start": 795319.5988223, "t_inf_end": 795320.3767003}
+{"kind": "call", "id": 23, "type": "final", "n_samples": 99200, "t_enq": 795319.1593161, "active_calls_at_enq": 1, "t_lock": 795319.5987566, "cancelled": false, "error": null, "t_return": 795320.3770022}
+{"kind": "job", "id": 24, "t_inf_start": 795320.6053414, "t_inf_end": 795320.7993346}
+{"kind": "call", "id": 24, "type": "partial", "n_samples": 22400, "t_enq": 795320.6052335, "active_calls_at_enq": 0, "t_lock": 795320.6052464, "cancelled": false, "error": null, "t_return": 795320.7996317}
+{"kind": "job", "id": 25, "t_inf_start": 795321.3131656, "t_inf_end": 795321.5618023}
+{"kind": "call", "id": 25, "type": "partial", "n_samples": 33600, "t_enq": 795321.3130617, "active_calls_at_enq": 0, "t_lock": 795321.3130746, "cancelled": false, "error": null, "t_return": 795321.5621475}
+{"kind": "job", "id": 26, "t_inf_start": 795322.0686862, "t_inf_end": 795322.5912557}
+{"kind": "call", "id": 26, "type": "partial", "n_samples": 46400, "t_enq": 795322.0685226, "active_calls_at_enq": 0, "t_lock": 795322.0685455, "cancelled": false, "error": null, "t_return": 795322.5917078}
+{"kind": "job", "id": 27, "t_inf_start": 795322.7665649, "t_inf_end": 795323.2179742}
+{"kind": "call", "id": 27, "type": "final", "n_samples": 57600, "t_enq": 795322.766422, "active_calls_at_enq": 0, "t_lock": 795322.7664387, "cancelled": false, "error": null, "t_return": 795323.2183787}
+{"kind": "job", "id": 28, "t_inf_start": 795324.1041016, "t_inf_end": 795324.2894441}
+{"kind": "call", "id": 28, "type": "partial", "n_samples": 20800, "t_enq": 795324.1039993, "active_calls_at_enq": 0, "t_lock": 795324.1040137, "cancelled": false, "error": null, "t_return": 795324.2898106}
+{"kind": "job", "id": 29, "t_inf_start": 795324.7931274, "t_inf_end": 795325.0557894}
+{"kind": "call", "id": 29, "type": "partial", "n_samples": 32000, "t_enq": 795324.7930176, "active_calls_at_enq": 0, "t_lock": 795324.7930334, "cancelled": false, "error": null, "t_return": 795325.0561852}
+{"kind": "job", "id": 30, "t_inf_start": 795325.5604027, "t_inf_end": 795325.9123558}
+{"kind": "call", "id": 30, "type": "partial", "n_samples": 43200, "t_enq": 795325.5602752, "active_calls_at_enq": 0, "t_lock": 795325.5602906, "cancelled": false, "error": null, "t_return": 795325.912684}
+{"kind": "job", "id": 31, "t_inf_start": 795326.414191, "t_inf_end": 795326.8572409}
+{"kind": "call", "id": 31, "type": "partial", "n_samples": 57600, "t_enq": 795326.4140818, "active_calls_at_enq": 0, "t_lock": 795326.4140942, "cancelled": false, "error": null, "t_return": 795326.8576265}
+{"kind": "job", "id": 32, "t_inf_start": 795326.9681054, "t_inf_end": 795327.4697717}
+{"kind": "call", "id": 32, "type": "final", "n_samples": 67200, "t_enq": 795326.9680238, "active_calls_at_enq": 0, "t_lock": 795326.9680311, "cancelled": false, "error": null, "t_return": 795327.4701539}
+{"kind": "job", "id": 33, "t_inf_start": 795328.9651439, "t_inf_end": 795329.0417576}
+{"kind": "call", "id": 33, "type": "partial", "n_samples": 6400, "t_enq": 795328.9649808, "active_calls_at_enq": 0, "t_lock": 795328.9649998, "cancelled": false, "error": null, "t_return": 795329.0421804}
+{"kind": "job", "id": 34, "t_inf_start": 795329.5473686, "t_inf_end": 795329.6863771}
+{"kind": "call", "id": 34, "type": "partial", "n_samples": 16000, "t_enq": 795329.5472487, "active_calls_at_enq": 0, "t_lock": 795329.5472655, "cancelled": false, "error": null, "t_return": 795329.6866679}
+{"kind": "job", "id": 35, "t_inf_start": 795330.1991866, "t_inf_end": 795330.3951316}
+{"kind": "call", "id": 35, "type": "partial", "n_samples": 27200, "t_enq": 795330.1990556, "active_calls_at_enq": 0, "t_lock": 795330.199072, "cancelled": false, "error": null, "t_return": 795330.3955001}
+{"kind": "job", "id": 36, "t_inf_start": 795330.9000545, "t_inf_end": 795331.1982523}
+{"kind": "call", "id": 36, "type": "partial", "n_samples": 38400, "t_enq": 795330.8997173, "active_calls_at_enq": 0, "t_lock": 795330.899734, "cancelled": false, "error": null, "t_return": 795331.1986378}
+{"kind": "job", "id": 37, "t_inf_start": 795331.7055642, "t_inf_end": 795332.1116196}
+{"kind": "call", "id": 37, "type": "partial", "n_samples": 51200, "t_enq": 795331.7054727, "active_calls_at_enq": 0, "t_lock": 795331.7054857, "cancelled": false, "error": null, "t_return": 795332.1119657}
+{"kind": "job", "id": 38, "t_inf_start": 795332.6214948, "t_inf_end": 795333.1753662}
+{"kind": "call", "id": 38, "type": "partial", "n_samples": 65600, "t_enq": 795332.6213784, "active_calls_at_enq": 0, "t_lock": 795332.6213941, "cancelled": false, "error": null, "t_return": 795333.1757865}
+{"kind": "job", "id": 39, "t_inf_start": 795333.6793723, "t_inf_end": 795334.2984749}
+{"kind": "call", "id": 39, "type": "partial", "n_samples": 83200, "t_enq": 795333.679236, "active_calls_at_enq": 0, "t_lock": 795333.6792526, "cancelled": false, "error": null, "t_return": 795334.2987551}
+{"kind": "job", "id": 40, "t_inf_start": 795334.8016123, "t_inf_end": 795335.5788016}
+{"kind": "call", "id": 40, "type": "partial", "n_samples": 100800, "t_enq": 795334.8015202, "active_calls_at_enq": 0, "t_lock": 795334.801532, "cancelled": false, "error": null, "t_return": 795335.5791015}
+{"kind": "job", "id": 41, "t_inf_start": 795336.0813765, "t_inf_end": 795336.9757079}
+{"kind": "call", "id": 41, "type": "partial", "n_samples": 121600, "t_enq": 795336.0812548, "active_calls_at_enq": 0, "t_lock": 795336.0812707, "cancelled": false, "error": null, "t_return": 795336.9760197}
+{"kind": "job", "id": 42, "t_inf_start": 795336.9761552, "t_inf_end": 795337.9687234}
+{"kind": "call", "id": 42, "type": "final", "n_samples": 128000, "t_enq": 795336.472773, "active_calls_at_enq": 1, "t_lock": 795336.9761026, "cancelled": false, "error": null, "t_return": 795337.9690147}
+{"kind": "job", "id": 43, "t_inf_start": 795337.9704668, "t_inf_end": 795338.092576}
+{"kind": "call", "id": 43, "type": "final", "n_samples": 14400, "t_enq": 795337.9703714, "active_calls_at_enq": 0, "t_lock": 795337.9703814, "cancelled": false, "error": null, "t_return": 795338.0929197}
+{"kind": "job", "id": 44, "t_inf_start": 795338.5158911, "t_inf_end": 795338.667599}
+{"kind": "call", "id": 44, "type": "partial", "n_samples": 17600, "t_enq": 795338.5157594, "active_calls_at_enq": 0, "t_lock": 795338.515776, "cancelled": false, "error": null, "t_return": 795338.6679209}
+{"kind": "job", "id": 45, "t_inf_start": 795339.1714115, "t_inf_end": 795339.4065904}
+{"kind": "call", "id": 45, "type": "partial", "n_samples": 27200, "t_enq": 795339.1712904, "active_calls_at_enq": 0, "t_lock": 795339.1713069, "cancelled": false, "error": null, "t_return": 795339.4069309}
+{"kind": "job", "id": 46, "t_inf_start": 795339.9184254, "t_inf_end": 795340.2255348}
+{"kind": "call", "id": 46, "type": "partial", "n_samples": 40000, "t_enq": 795339.9183403, "active_calls_at_enq": 0, "t_lock": 795339.9183515, "cancelled": false, "error": null, "t_return": 795340.2259244}
+{"kind": "job", "id": 47, "t_inf_start": 795340.7328284, "t_inf_end": 795341.1396294}
+{"kind": "call", "id": 47, "type": "partial", "n_samples": 52800, "t_enq": 795340.7327193, "active_calls_at_enq": 0, "t_lock": 795340.7327358, "cancelled": false, "error": null, "t_return": 795341.1399551}
+{"kind": "job", "id": 48, "t_inf_start": 795341.6515178, "t_inf_end": 795342.1335372}
+{"kind": "call", "id": 48, "type": "partial", "n_samples": 67200, "t_enq": 795341.6513999, "active_calls_at_enq": 0, "t_lock": 795341.6514168, "cancelled": false, "error": null, "t_return": 795342.133907}
+{"kind": "job", "id": 49, "t_inf_start": 795342.1340621, "t_inf_end": 795342.6831623}
+{"kind": "call", "id": 49, "type": "final", "n_samples": 72000, "t_enq": 795341.8700497, "active_calls_at_enq": 1, "t_lock": 795342.1339984, "cancelled": false, "error": null, "t_return": 795342.6834926}
+{"kind": "job", "id": 50, "t_inf_start": 795344.1822906, "t_inf_end": 795344.3181788}
+{"kind": "call", "id": 50, "type": "partial", "n_samples": 14400, "t_enq": 795344.1821818, "active_calls_at_enq": 0, "t_lock": 795344.1821977, "cancelled": false, "error": null, "t_return": 795344.3185744}
+{"kind": "job", "id": 51, "t_inf_start": 795344.8196437, "t_inf_end": 795345.0416876}
+{"kind": "call", "id": 51, "type": "partial", "n_samples": 25600, "t_enq": 795344.8195185, "active_calls_at_enq": 0, "t_lock": 795344.8195353, "cancelled": false, "error": null, "t_return": 795345.0420125}
+{"kind": "job", "id": 52, "t_inf_start": 795345.5506857, "t_inf_end": 795345.8480536}
+{"kind": "call", "id": 52, "type": "partial", "n_samples": 36800, "t_enq": 795345.5505733, "active_calls_at_enq": 0, "t_lock": 795345.5505857, "cancelled": false, "error": null, "t_return": 795345.8483728}
+{"kind": "job", "id": 53, "t_inf_start": 795345.8484859, "t_inf_end": 795346.1484665}
+{"kind": "call", "id": 53, "type": "final", "n_samples": 40000, "t_enq": 795345.6801943, "active_calls_at_enq": 1, "t_lock": 795345.8484362, "cancelled": false, "error": null, "t_return": 795346.1487823}
+{"kind": "job", "id": 54, "t_inf_start": 795347.3746296, "t_inf_end": 795347.592253}
+{"kind": "call", "id": 54, "type": "partial", "n_samples": 25600, "t_enq": 795347.3745039, "active_calls_at_enq": 0, "t_lock": 795347.3745197, "cancelled": false, "error": null, "t_return": 795347.5925377}
+{"kind": "job", "id": 55, "t_inf_start": 795348.0973369, "t_inf_end": 795348.3890695}
+{"kind": "call", "id": 55, "type": "partial", "n_samples": 38400, "t_enq": 795348.0972098, "active_calls_at_enq": 0, "t_lock": 795348.0972281, "cancelled": false, "error": null, "t_return": 795348.3894502}
+{"kind": "job", "id": 56, "t_inf_start": 795348.891781, "t_inf_end": 795349.3061859}
+{"kind": "call", "id": 56, "type": "partial", "n_samples": 51200, "t_enq": 795348.8916993, "active_calls_at_enq": 0, "t_lock": 795348.8917098, "cancelled": false, "error": null, "t_return": 795349.3065332}
+{"kind": "job", "id": 57, "t_inf_start": 795349.7864455, "t_inf_end": 795350.2833816}
+{"kind": "call", "id": 57, "type": "final", "n_samples": 65600, "t_enq": 795349.7863455, "active_calls_at_enq": 0, "t_lock": 795349.7863572, "cancelled": false, "error": null, "t_return": 795350.2837777}
+{"kind": "job", "id": 58, "t_inf_start": 795350.3169407, "t_inf_end": 795350.4018371}
+{"kind": "call", "id": 58, "type": "partial", "n_samples": 8000, "t_enq": 795350.3167934, "active_calls_at_enq": 0, "t_lock": 795350.3168133, "cancelled": false, "error": null, "t_return": 795350.4022327}
+{"kind": "job", "id": 59, "t_inf_start": 795350.9047438, "t_inf_end": 795351.0492709}
+{"kind": "call", "id": 59, "type": "partial", "n_samples": 17600, "t_enq": 795350.9046529, "active_calls_at_enq": 0, "t_lock": 795350.9046665, "cancelled": false, "error": null, "t_return": 795351.04963}
+{"kind": "job", "id": 60, "t_inf_start": 795351.487767, "t_inf_end": 795351.7217593}
+{"kind": "call", "id": 60, "type": "final", "n_samples": 27200, "t_enq": 795351.487637, "active_calls_at_enq": 0, "t_lock": 795351.4876535, "cancelled": false, "error": null, "t_return": 795351.7221153}
+{"kind": "job", "id": 61, "t_inf_start": 795352.0528564, "t_inf_end": 795352.1364901}
+{"kind": "call", "id": 61, "type": "partial", "n_samples": 8000, "t_enq": 795352.052704, "active_calls_at_enq": 0, "t_lock": 795352.0527226, "cancelled": false, "error": null, "t_return": 795352.1368058}
+{"kind": "job", "id": 62, "t_inf_start": 795352.6480626, "t_inf_end": 795352.7854003}
+{"kind": "call", "id": 62, "type": "partial", "n_samples": 17600, "t_enq": 795352.6479564, "active_calls_at_enq": 0, "t_lock": 795352.6479693, "cancelled": false, "error": null, "t_return": 795352.7857064}
+{"kind": "job", "id": 63, "t_inf_start": 795352.785862, "t_inf_end": 795352.9628111}
+{"kind": "call", "id": 63, "type": "final", "n_samples": 20800, "t_enq": 795352.7788912, "active_calls_at_enq": 1, "t_lock": 795352.785799, "cancelled": false, "error": null, "t_return": 795352.9631145}
+{"kind": "job", "id": 64, "t_inf_start": 795353.8043117, "t_inf_end": 795353.9468016}
+{"kind": "call", "id": 64, "type": "partial", "n_samples": 16000, "t_enq": 795353.80418, "active_calls_at_enq": 0, "t_lock": 795353.8041951, "cancelled": false, "error": null, "t_return": 795353.9472308}
+{"kind": "job", "id": 65, "t_inf_start": 795354.4593312, "t_inf_end": 795354.6871692}
+{"kind": "call", "id": 65, "type": "partial", "n_samples": 25600, "t_enq": 795354.4592255, "active_calls_at_enq": 0, "t_lock": 795354.4592393, "cancelled": false, "error": null, "t_return": 795354.6874944}
+{"kind": "job", "id": 66, "t_inf_start": 795355.1900867, "t_inf_end": 795355.4999608}
+{"kind": "call", "id": 66, "type": "partial", "n_samples": 38400, "t_enq": 795355.1899658, "active_calls_at_enq": 0, "t_lock": 795355.1899806, "cancelled": false, "error": null, "t_return": 795355.5003584}
+{"kind": "job", "id": 67, "t_inf_start": 795355.8800194, "t_inf_end": 795356.2533652}
+{"kind": "call", "id": 67, "type": "final", "n_samples": 49600, "t_enq": 795355.8799285, "active_calls_at_enq": 0, "t_lock": 795355.8799396, "cancelled": false, "error": null, "t_return": 795356.253775}
+{"kind": "job", "id": 68, "t_inf_start": 795356.5045947, "t_inf_end": 795356.5978784}
+{"kind": "call", "id": 68, "type": "partial", "n_samples": 9600, "t_enq": 795356.5044943, "active_calls_at_enq": 0, "t_lock": 795356.5045042, "cancelled": false, "error": null, "t_return": 795356.59821}
+{"kind": "job", "id": 69, "t_inf_start": 795357.1093267, "t_inf_end": 795357.2789583}
+{"kind": "call", "id": 69, "type": "partial", "n_samples": 19200, "t_enq": 795357.1091888, "active_calls_at_enq": 0, "t_lock": 795357.1092035, "cancelled": false, "error": null, "t_return": 795357.2793085}
+{"kind": "job", "id": 70, "t_inf_start": 795357.7818663, "t_inf_end": 795358.0237757}
+{"kind": "call", "id": 70, "type": "partial", "n_samples": 28800, "t_enq": 795357.7817175, "active_calls_at_enq": 0, "t_lock": 795357.7817358, "cancelled": false, "error": null, "t_return": 795358.0240938}
+{"kind": "job", "id": 71, "t_inf_start": 795358.5299245, "t_inf_end": 795358.8640527}
+{"kind": "call", "id": 71, "type": "partial", "n_samples": 41600, "t_enq": 795358.5297842, "active_calls_at_enq": 0, "t_lock": 795358.5298026, "cancelled": false, "error": null, "t_return": 795358.8644647}
+{"kind": "job", "id": 72, "t_inf_start": 795358.8887183, "t_inf_end": 795359.2262082}
+{"kind": "call", "id": 72, "type": "final", "n_samples": 48000, "t_enq": 795358.888638, "active_calls_at_enq": 0, "t_lock": 795358.888647, "cancelled": false, "error": null, "t_return": 795359.2266217}
+{"kind": "job", "id": 73, "t_inf_start": 795361.4012286, "t_inf_end": 795361.7273856}
+{"kind": "call", "id": 73, "type": "partial", "n_samples": 40000, "t_enq": 795361.4011195, "active_calls_at_enq": 0, "t_lock": 795361.4011337, "cancelled": false, "error": null, "t_return": 795361.7276965}
+{"kind": "job", "id": 74, "t_inf_start": 795361.7755638, "t_inf_end": 795362.1327031}
+{"kind": "call", "id": 74, "type": "final", "n_samples": 46400, "t_enq": 795361.7754906, "active_calls_at_enq": 0, "t_lock": 795361.7754989, "cancelled": false, "error": null, "t_return": 795362.1331201}
+{"kind": "job", "id": 75, "t_inf_start": 795371.2250621, "t_inf_end": 795371.3091412}
+{"kind": "call", "id": 75, "type": "partial", "n_samples": 6400, "t_enq": 795371.2249134, "active_calls_at_enq": 0, "t_lock": 795371.2249281, "cancelled": false, "error": null, "t_return": 795371.3095026}
+{"kind": "job", "id": 76, "t_inf_start": 795371.8155179, "t_inf_end": 795372.0303261}
+{"kind": "call", "id": 76, "type": "partial", "n_samples": 16000, "t_enq": 795371.815372, "active_calls_at_enq": 0, "t_lock": 795371.8153883, "cancelled": false, "error": null, "t_return": 795372.0306754}
+{"kind": "job", "id": 77, "t_inf_start": 795372.5452099, "t_inf_end": 795372.7663363}
+{"kind": "call", "id": 77, "type": "partial", "n_samples": 28800, "t_enq": 795372.5451232, "active_calls_at_enq": 0, "t_lock": 795372.5451356, "cancelled": false, "error": null, "t_return": 795372.76672}
+{"kind": "job", "id": 78, "t_inf_start": 795373.2779749, "t_inf_end": 795373.5878425}
+{"kind": "call", "id": 78, "type": "partial", "n_samples": 40000, "t_enq": 795373.2778328, "active_calls_at_enq": 0, "t_lock": 795373.2778492, "cancelled": false, "error": null, "t_return": 795373.5882204}
+{"kind": "job", "id": 79, "t_inf_start": 795374.094225, "t_inf_end": 795374.5162544}
+{"kind": "call", "id": 79, "type": "partial", "n_samples": 52800, "t_enq": 795374.0941002, "active_calls_at_enq": 0, "t_lock": 795374.0941159, "cancelled": false, "error": null, "t_return": 795374.5165728}
+{"kind": "job", "id": 80, "t_inf_start": 795374.9202713, "t_inf_end": 795375.4037582}
+{"kind": "call", "id": 80, "type": "final", "n_samples": 67200, "t_enq": 795374.9201909, "active_calls_at_enq": 0, "t_lock": 795374.9202, "cancelled": false, "error": null, "t_return": 795375.4041627}
+{"kind": "job", "id": 81, "t_inf_start": 795376.0442423, "t_inf_end": 795376.1936258}
+{"kind": "call", "id": 81, "type": "partial", "n_samples": 17600, "t_enq": 795376.0441286, "active_calls_at_enq": 0, "t_lock": 795376.0441427, "cancelled": false, "error": null, "t_return": 795376.1939491}
+{"kind": "job", "id": 82, "t_inf_start": 795376.699788, "t_inf_end": 795376.937656}
+{"kind": "call", "id": 82, "type": "partial", "n_samples": 27200, "t_enq": 795376.6996824, "active_calls_at_enq": 0, "t_lock": 795376.699695, "cancelled": false, "error": null, "t_return": 795376.9379725}
+{"kind": "job", "id": 83, "t_inf_start": 795377.4484888, "t_inf_end": 795377.8117622}
+{"kind": "call", "id": 83, "type": "partial", "n_samples": 40000, "t_enq": 795377.4483352, "active_calls_at_enq": 0, "t_lock": 795377.4483515, "cancelled": false, "error": null, "t_return": 795377.8121027}
+{"kind": "job", "id": 84, "t_inf_start": 795378.3235453, "t_inf_end": 795378.7381783}
+{"kind": "call", "id": 84, "type": "partial", "n_samples": 52800, "t_enq": 795378.3234144, "active_calls_at_enq": 0, "t_lock": 795378.3234279, "cancelled": false, "error": null, "t_return": 795378.7384906}
+{"kind": "job", "id": 85, "t_inf_start": 795379.2501218, "t_inf_end": 795379.7871097}
+{"kind": "call", "id": 85, "type": "partial", "n_samples": 68800, "t_enq": 795379.2500189, "active_calls_at_enq": 0, "t_lock": 795379.2500322, "cancelled": false, "error": null, "t_return": 795379.7874609}
+{"kind": "job", "id": 86, "t_inf_start": 795380.2883408, "t_inf_end": 795380.9214502}
+{"kind": "call", "id": 86, "type": "partial", "n_samples": 84800, "t_enq": 795380.2882183, "active_calls_at_enq": 0, "t_lock": 795380.2882318, "cancelled": false, "error": null, "t_return": 795380.9217934}
+{"kind": "job", "id": 87, "t_inf_start": 795381.1297537, "t_inf_end": 795381.8638474}
+{"kind": "call", "id": 87, "type": "final", "n_samples": 99200, "t_enq": 795381.1296188, "active_calls_at_enq": 0, "t_lock": 795381.1296321, "cancelled": false, "error": null, "t_return": 795381.8641555}
+{"kind": "job", "id": 88, "t_inf_start": 795383.6380224, "t_inf_end": 795383.8148558}
+{"kind": "call", "id": 88, "type": "partial", "n_samples": 16000, "t_enq": 795383.6379218, "active_calls_at_enq": 0, "t_lock": 795383.6379346, "cancelled": false, "error": null, "t_return": 795383.8152522}
+{"kind": "job", "id": 89, "t_inf_start": 795384.3251917, "t_inf_end": 795384.525602}
+{"kind": "call", "id": 89, "type": "partial", "n_samples": 25600, "t_enq": 795384.3250201, "active_calls_at_enq": 0, "t_lock": 795384.3250386, "cancelled": false, "error": null, "t_return": 795384.5259431}
+{"kind": "job", "id": 90, "t_inf_start": 795385.0350385, "t_inf_end": 795385.329942}
+{"kind": "call", "id": 90, "type": "partial", "n_samples": 36800, "t_enq": 795385.0349419, "active_calls_at_enq": 0, "t_lock": 795385.0349539, "cancelled": false, "error": null, "t_return": 795385.330241}
+{"kind": "job", "id": 91, "t_inf_start": 795385.8386218, "t_inf_end": 795386.2135331}
+{"kind": "call", "id": 91, "type": "partial", "n_samples": 49600, "t_enq": 795385.838516, "active_calls_at_enq": 0, "t_lock": 795385.8385286, "cancelled": false, "error": null, "t_return": 795386.2139076}
+{"kind": "job", "id": 92, "t_inf_start": 795386.715032, "t_inf_end": 795387.1874752}
+{"kind": "call", "id": 92, "type": "partial", "n_samples": 64000, "t_enq": 795386.7149255, "active_calls_at_enq": 0, "t_lock": 795386.7149385, "cancelled": false, "error": null, "t_return": 795387.1878436}
+{"kind": "job", "id": 93, "t_inf_start": 795387.7010703, "t_inf_end": 795388.2585583}
+{"kind": "call", "id": 93, "type": "partial", "n_samples": 80000, "t_enq": 795387.7009372, "active_calls_at_enq": 0, "t_lock": 795387.7009545, "cancelled": false, "error": null, "t_return": 795388.2588961}
+{"kind": "job", "id": 94, "t_inf_start": 795388.7645752, "t_inf_end": 795389.4795188}
+{"kind": "call", "id": 94, "type": "partial", "n_samples": 97600, "t_enq": 795388.764468, "active_calls_at_enq": 0, "t_lock": 795388.764481, "cancelled": false, "error": null, "t_return": 795389.4798246}
+{"kind": "job", "id": 95, "t_inf_start": 795389.9830523, "t_inf_end": 795390.8191885}
+{"kind": "call", "id": 95, "type": "partial", "n_samples": 116800, "t_enq": 795389.9829394, "active_calls_at_enq": 0, "t_lock": 795389.982953, "cancelled": false, "error": null, "t_return": 795390.8194887}
+{"kind": "job", "id": 96, "t_inf_start": 795390.8195943, "t_inf_end": 795391.916683}
+{"kind": "call", "id": 96, "type": "final", "n_samples": 128000, "t_enq": 795390.6502697, "active_calls_at_enq": 1, "t_lock": 795390.8195508, "cancelled": false, "error": null, "t_return": 795391.9169517}
+{"kind": "job", "id": 97, "t_inf_start": 795392.3411337, "t_inf_end": 795392.5696716}
+{"kind": "call", "id": 97, "type": "partial", "n_samples": 25600, "t_enq": 795392.3410172, "active_calls_at_enq": 0, "t_lock": 795392.3410298, "cancelled": false, "error": null, "t_return": 795392.5699582}
+{"kind": "job", "id": 98, "t_inf_start": 795393.0762402, "t_inf_end": 795393.3849272}
+{"kind": "call", "id": 98, "type": "partial", "n_samples": 38400, "t_enq": 795393.0761212, "active_calls_at_enq": 0, "t_lock": 795393.0761354, "cancelled": false, "error": null, "t_return": 795393.3852633}
+{"kind": "job", "id": 99, "t_inf_start": 795393.8926462, "t_inf_end": 795394.246356}
+{"kind": "call", "id": 99, "type": "partial", "n_samples": 51200, "t_enq": 795393.8925136, "active_calls_at_enq": 0, "t_lock": 795393.8925279, "cancelled": false, "error": null, "t_return": 795394.2466764}
+{"kind": "job", "id": 100, "t_inf_start": 795394.7524628, "t_inf_end": 795395.2737008}
+{"kind": "call", "id": 100, "type": "partial", "n_samples": 65600, "t_enq": 795394.7523845, "active_calls_at_enq": 0, "t_lock": 795394.7523936, "cancelled": false, "error": null, "t_return": 795395.2740037}
+{"kind": "job", "id": 101, "t_inf_start": 795395.7803604, "t_inf_end": 795396.437607}
+{"kind": "call", "id": 101, "type": "partial", "n_samples": 81600, "t_enq": 795395.780238, "active_calls_at_enq": 0, "t_lock": 795395.7802517, "cancelled": false, "error": null, "t_return": 795396.4380867}
+{"kind": "job", "id": 102, "t_inf_start": 795396.9408181, "t_inf_end": 795397.707718}
+{"kind": "call", "id": 102, "type": "partial", "n_samples": 99200, "t_enq": 795396.9407101, "active_calls_at_enq": 0, "t_lock": 795396.9407234, "cancelled": false, "error": null, "t_return": 795397.7080763}
+{"kind": "job", "id": 103, "t_inf_start": 795398.2126287, "t_inf_end": 795399.1567311}
+{"kind": "call", "id": 103, "type": "partial", "n_samples": 120000, "t_enq": 795398.2125316, "active_calls_at_enq": 0, "t_lock": 795398.2125496, "cancelled": false, "error": null, "t_return": 795399.1569803}
+{"kind": "job", "id": 104, "t_inf_start": 795399.1571848, "t_inf_end": 795400.1172082}
+{"kind": "call", "id": 104, "type": "final", "n_samples": 128000, "t_enq": 795398.6437096, "active_calls_at_enq": 1, "t_lock": 795399.1571413, "cancelled": false, "error": null, "t_return": 795400.1175604}
+{"kind": "job", "id": 105, "t_inf_start": 795400.16259, "t_inf_end": 795400.3411768}
+{"kind": "call", "id": 105, "type": "partial", "n_samples": 24000, "t_enq": 795400.1624978, "active_calls_at_enq": 0, "t_lock": 795400.1625081, "cancelled": false, "error": null, "t_return": 795400.3415263}
+{"kind": "job", "id": 106, "t_inf_start": 795400.8544222, "t_inf_end": 795401.1303932}
+{"kind": "call", "id": 106, "type": "partial", "n_samples": 35200, "t_enq": 795400.8543424, "active_calls_at_enq": 0, "t_lock": 795400.8543515, "cancelled": false, "error": null, "t_return": 795401.1306776}
+{"kind": "job", "id": 107, "t_inf_start": 795401.6411235, "t_inf_end": 795401.9957487}
+{"kind": "call", "id": 107, "type": "partial", "n_samples": 46400, "t_enq": 795401.6410035, "active_calls_at_enq": 0, "t_lock": 795401.6410169, "cancelled": false, "error": null, "t_return": 795401.9960679}
+{"kind": "job", "id": 108, "t_inf_start": 795402.5077062, "t_inf_end": 795402.9810628}
+{"kind": "call", "id": 108, "type": "partial", "n_samples": 60800, "t_enq": 795402.5075633, "active_calls_at_enq": 0, "t_lock": 795402.5075768, "cancelled": false, "error": null, "t_return": 795402.9813691}
+{"kind": "job", "id": 109, "t_inf_start": 795403.4844122, "t_inf_end": 795404.0871084}
+{"kind": "call", "id": 109, "type": "partial", "n_samples": 76800, "t_enq": 795403.4843321, "active_calls_at_enq": 0, "t_lock": 795403.4843412, "cancelled": false, "error": null, "t_return": 795404.0873965}
+{"kind": "job", "id": 110, "t_inf_start": 795404.6031786, "t_inf_end": 795405.2398387}
+{"kind": "call", "id": 110, "type": "partial", "n_samples": 94400, "t_enq": 795404.603073, "active_calls_at_enq": 0, "t_lock": 795404.6030854, "cancelled": false, "error": null, "t_return": 795405.2401157}
+{"kind": "job", "id": 111, "t_inf_start": 795405.7541878, "t_inf_end": 795406.5604448}
+{"kind": "call", "id": 111, "type": "partial", "n_samples": 113600, "t_enq": 795405.7541006, "active_calls_at_enq": 0, "t_lock": 795405.7541118, "cancelled": false, "error": null, "t_return": 795406.5607406}
+{"kind": "job", "id": 112, "t_inf_start": 795406.6364266, "t_inf_end": 795407.8258235}
+{"kind": "call", "id": 112, "type": "final", "n_samples": 128000, "t_enq": 795406.6363501, "active_calls_at_enq": 0, "t_lock": 795406.6363587, "cancelled": false, "error": null, "t_return": 795407.8261561}
+{"kind": "job", "id": 113, "t_inf_start": 795409.965741, "t_inf_end": 795410.0994388}
+{"kind": "call", "id": 113, "type": "partial", "n_samples": 14400, "t_enq": 795409.9656264, "active_calls_at_enq": 0, "t_lock": 795409.9656406, "cancelled": false, "error": null, "t_return": 795410.0998785}
+{"kind": "job", "id": 114, "t_inf_start": 795410.6151811, "t_inf_end": 795410.9851982}
+{"kind": "call", "id": 114, "type": "partial", "n_samples": 25600, "t_enq": 795410.6150381, "active_calls_at_enq": 0, "t_lock": 795410.6150532, "cancelled": false, "error": null, "t_return": 795410.9854609}
+{"kind": "job", "id": 115, "t_inf_start": 795411.4955055, "t_inf_end": 795411.8096442}
+{"kind": "call", "id": 115, "type": "partial", "n_samples": 40000, "t_enq": 795411.495337, "active_calls_at_enq": 0, "t_lock": 795411.4953702, "cancelled": false, "error": null, "t_return": 795411.8099089}
+{"kind": "job", "id": 116, "t_inf_start": 795412.1645823, "t_inf_end": 795412.6213275}
+{"kind": "call", "id": 116, "type": "final", "n_samples": 51200, "t_enq": 795412.1644869, "active_calls_at_enq": 0, "t_lock": 795412.1644959, "cancelled": false, "error": null, "t_return": 795412.6217231}
+{"kind": "job", "id": 117, "t_inf_start": 795412.8390463, "t_inf_end": 795412.9474265}
+{"kind": "call", "id": 117, "type": "partial", "n_samples": 9600, "t_enq": 795412.8389232, "active_calls_at_enq": 0, "t_lock": 795412.8389372, "cancelled": false, "error": null, "t_return": 795412.9478115}
+{"kind": "job", "id": 118, "t_inf_start": 795413.4548152, "t_inf_end": 795413.6199728}
+{"kind": "call", "id": 118, "type": "partial", "n_samples": 19200, "t_enq": 795413.4547283, "active_calls_at_enq": 0, "t_lock": 795413.4547395, "cancelled": false, "error": null, "t_return": 795413.6203465}
+{"kind": "job", "id": 119, "t_inf_start": 795414.1220005, "t_inf_end": 795414.394369}
+{"kind": "call", "id": 119, "type": "partial", "n_samples": 30400, "t_enq": 795414.1218683, "active_calls_at_enq": 0, "t_lock": 795414.1218829, "cancelled": false, "error": null, "t_return": 795414.3948253}
+{"kind": "job", "id": 120, "t_inf_start": 795414.9010651, "t_inf_end": 795415.2469422}
+{"kind": "call", "id": 120, "type": "partial", "n_samples": 43200, "t_enq": 795414.9009819, "active_calls_at_enq": 0, "t_lock": 795414.9009917, "cancelled": false, "error": null, "t_return": 795415.2473123}
+{"kind": "job", "id": 121, "t_inf_start": 795415.7500343, "t_inf_end": 795416.1986439}
+{"kind": "call", "id": 121, "type": "partial", "n_samples": 56000, "t_enq": 795415.7498941, "active_calls_at_enq": 0, "t_lock": 795415.749911, "cancelled": false, "error": null, "t_return": 795416.198967}
+{"kind": "job", "id": 122, "t_inf_start": 795416.7053064, "t_inf_end": 795417.256265}
+{"kind": "call", "id": 122, "type": "partial", "n_samples": 72000, "t_enq": 795416.7051959, "active_calls_at_enq": 0, "t_lock": 795416.7052096, "cancelled": false, "error": null, "t_return": 795417.2567774}
+{"kind": "job", "id": 123, "t_inf_start": 795417.771388, "t_inf_end": 795418.4300186}
+{"kind": "call", "id": 123, "type": "partial", "n_samples": 89600, "t_enq": 795417.7712897, "active_calls_at_enq": 0, "t_lock": 795417.7713002, "cancelled": false, "error": null, "t_return": 795418.4304355}
+{"kind": "job", "id": 124, "t_inf_start": 795418.6669533, "t_inf_end": 795419.4819248}
+{"kind": "call", "id": 124, "type": "final", "n_samples": 104000, "t_enq": 795418.6668374, "active_calls_at_enq": 0, "t_lock": 795418.6668513, "cancelled": false, "error": null, "t_return": 795419.4822608}
+{"kind": "job", "id": 125, "t_inf_start": 795419.9631216, "t_inf_end": 795420.1308906}
+{"kind": "call", "id": 125, "type": "partial", "n_samples": 19200, "t_enq": 795419.962994, "active_calls_at_enq": 0, "t_lock": 795419.9630076, "cancelled": false, "error": null, "t_return": 795420.1312035}
+{"kind": "job", "id": 126, "t_inf_start": 795420.3689404, "t_inf_end": 795420.5975047}
+{"kind": "call", "id": 126, "type": "final", "n_samples": 27200, "t_enq": 795420.3687857, "active_calls_at_enq": 0, "t_lock": 795420.3688042, "cancelled": false, "error": null, "t_return": 795420.5978218}
+{"kind": "job", "id": 127, "t_inf_start": 795422.6873745, "t_inf_end": 795422.8377921}
+{"kind": "call", "id": 127, "type": "partial", "n_samples": 16000, "t_enq": 795422.6872163, "active_calls_at_enq": 0, "t_lock": 795422.6872399, "cancelled": false, "error": null, "t_return": 795422.8382305}
+{"kind": "job", "id": 128, "t_inf_start": 795423.3440566, "t_inf_end": 795423.5516955}
+{"kind": "call", "id": 128, "type": "partial", "n_samples": 25600, "t_enq": 795423.3439439, "active_calls_at_enq": 0, "t_lock": 795423.3439589, "cancelled": false, "error": null, "t_return": 795423.5520381}
+{"kind": "job", "id": 129, "t_inf_start": 795424.0642764, "t_inf_end": 795424.3568503}
+{"kind": "call", "id": 129, "type": "partial", "n_samples": 36800, "t_enq": 795424.0641718, "active_calls_at_enq": 0, "t_lock": 795424.064185, "cancelled": false, "error": null, "t_return": 795424.357193}
+{"kind": "job", "id": 130, "t_inf_start": 795424.8586917, "t_inf_end": 795425.2505394}
+{"kind": "call", "id": 130, "type": "partial", "n_samples": 49600, "t_enq": 795424.8585455, "active_calls_at_enq": 0, "t_lock": 795424.858563, "cancelled": false, "error": null, "t_return": 795425.2508507}
+{"kind": "job", "id": 131, "t_inf_start": 795425.7613648, "t_inf_end": 795426.3099348}
+{"kind": "call", "id": 131, "type": "partial", "n_samples": 64000, "t_enq": 795425.7612453, "active_calls_at_enq": 0, "t_lock": 795425.761261, "cancelled": false, "error": null, "t_return": 795426.3102811}
+{"kind": "job", "id": 132, "t_inf_start": 795426.8197542, "t_inf_end": 795427.4008064}
+{"kind": "call", "id": 132, "type": "partial", "n_samples": 81600, "t_enq": 795426.8196395, "active_calls_at_enq": 0, "t_lock": 795426.819652, "cancelled": false, "error": null, "t_return": 795427.4011831}
+{"kind": "job", "id": 133, "t_inf_start": 795427.5861025, "t_inf_end": 795428.2592087}
+{"kind": "call", "id": 133, "type": "final", "n_samples": 94400, "t_enq": 795427.5859906, "active_calls_at_enq": 0, "t_lock": 795427.5860038, "cancelled": false, "error": null, "t_return": 795428.2594873}
+{"kind": "job", "id": 134, "t_inf_start": 795428.4143361, "t_inf_end": 795428.5219121}
+{"kind": "call", "id": 134, "type": "partial", "n_samples": 12800, "t_enq": 795428.414194, "active_calls_at_enq": 0, "t_lock": 795428.4142127, "cancelled": false, "error": null, "t_return": 795428.5222467}
+{"kind": "job", "id": 135, "t_inf_start": 795429.0252933, "t_inf_end": 795429.1787666}
+{"kind": "call", "id": 135, "type": "partial", "n_samples": 22400, "t_enq": 795429.0251825, "active_calls_at_enq": 0, "t_lock": 795429.0251949, "cancelled": false, "error": null, "t_return": 795429.1791219}
+{"kind": "job", "id": 136, "t_inf_start": 795429.6931483, "t_inf_end": 795430.0074986}
+{"kind": "call", "id": 136, "type": "partial", "n_samples": 33600, "t_enq": 795429.6930696, "active_calls_at_enq": 0, "t_lock": 795429.6930788, "cancelled": false, "error": null, "t_return": 795430.007877}
+{"kind": "job", "id": 137, "t_inf_start": 795430.5158268, "t_inf_end": 795431.0663853}
+{"kind": "call", "id": 137, "type": "partial", "n_samples": 46400, "t_enq": 795430.5156077, "active_calls_at_enq": 0, "t_lock": 795430.5156264, "cancelled": false, "error": null, "t_return": 795431.0668287}
+{"kind": "job", "id": 138, "t_inf_start": 795431.5791745, "t_inf_end": 795432.0286369}
+{"kind": "call", "id": 138, "type": "partial", "n_samples": 62400, "t_enq": 795431.5790505, "active_calls_at_enq": 0, "t_lock": 795431.5790638, "cancelled": false, "error": null, "t_return": 795432.0289687}
+{"kind": "job", "id": 139, "t_inf_start": 795432.3723155, "t_inf_end": 795432.9445764}
+{"kind": "call", "id": 139, "type": "final", "n_samples": 76800, "t_enq": 795432.3722086, "active_calls_at_enq": 0, "t_lock": 795432.3722197, "cancelled": false, "error": null, "t_return": 795432.9449118}
+{"kind": "job", "id": 140, "t_inf_start": 795433.058618, "t_inf_end": 795433.1568289}
+{"kind": "call", "id": 140, "type": "partial", "n_samples": 9600, "t_enq": 795433.0585134, "active_calls_at_enq": 0, "t_lock": 795433.0585276, "cancelled": false, "error": null, "t_return": 795433.1572533}
+{"kind": "job", "id": 141, "t_inf_start": 795433.6731112, "t_inf_end": 795433.850286}
+{"kind": "call", "id": 141, "type": "partial", "n_samples": 19200, "t_enq": 795433.6729516, "active_calls_at_enq": 0, "t_lock": 795433.6729675, "cancelled": false, "error": null, "t_return": 795433.8506109}
+{"kind": "job", "id": 142, "t_inf_start": 795434.3585619, "t_inf_end": 795434.6198682}
+{"kind": "call", "id": 142, "type": "partial", "n_samples": 30400, "t_enq": 795434.3584417, "active_calls_at_enq": 0, "t_lock": 795434.3584551, "cancelled": false, "error": null, "t_return": 795434.620261}
+{"kind": "job", "id": 143, "t_inf_start": 795435.1253732, "t_inf_end": 795435.4674239}
+{"kind": "call", "id": 143, "type": "partial", "n_samples": 43200, "t_enq": 795435.1252637, "active_calls_at_enq": 0, "t_lock": 795435.1252766, "cancelled": false, "error": null, "t_return": 795435.4677138}
+{"kind": "job", "id": 144, "t_inf_start": 795435.9805988, "t_inf_end": 795436.4393431}
+{"kind": "call", "id": 144, "type": "partial", "n_samples": 56000, "t_enq": 795435.9804868, "active_calls_at_enq": 0, "t_lock": 795435.9805024, "cancelled": false, "error": null, "t_return": 795436.4396442}
+{"kind": "job", "id": 145, "t_inf_start": 795436.4397519, "t_inf_end": 795436.8814702}
+{"kind": "call", "id": 145, "type": "final", "n_samples": 57600, "t_enq": 795435.9819279, "active_calls_at_enq": 1, "t_lock": 795436.4397121, "cancelled": false, "error": null, "t_return": 795436.8818858}
+{"kind": "job", "id": 146, "t_inf_start": 795437.4934034, "t_inf_end": 795437.5746316}
+{"kind": "call", "id": 146, "type": "partial", "n_samples": 6400, "t_enq": 795437.4932622, "active_calls_at_enq": 0, "t_lock": 795437.4932952, "cancelled": false, "error": null, "t_return": 795437.5749877}
+{"kind": "job", "id": 147, "t_inf_start": 795438.0873641, "t_inf_end": 795438.2319167}
+{"kind": "call", "id": 147, "type": "partial", "n_samples": 16000, "t_enq": 795438.0872609, "active_calls_at_enq": 0, "t_lock": 795438.0872715, "cancelled": false, "error": null, "t_return": 795438.2322151}
+{"kind": "job", "id": 148, "t_inf_start": 795438.7410954, "t_inf_end": 795438.9907081}
+{"kind": "call", "id": 148, "type": "partial", "n_samples": 27200, "t_enq": 795438.7409714, "active_calls_at_enq": 0, "t_lock": 795438.7409868, "cancelled": false, "error": null, "t_return": 795438.9910678}
+{"kind": "job", "id": 149, "t_inf_start": 795439.5058164, "t_inf_end": 795439.8196872}
+{"kind": "call", "id": 149, "type": "partial", "n_samples": 40000, "t_enq": 795439.5057084, "active_calls_at_enq": 0, "t_lock": 795439.5057292, "cancelled": false, "error": null, "t_return": 795439.8201048}
+{"kind": "job", "id": 150, "t_inf_start": 795440.0974458, "t_inf_end": 795440.4728534}
+{"kind": "call", "id": 150, "type": "final", "n_samples": 49600, "t_enq": 795440.097352, "active_calls_at_enq": 0, "t_lock": 795440.0973622, "cancelled": false, "error": null, "t_return": 795440.4732059}
+{"kind": "job", "id": 151, "t_inf_start": 795440.8374119, "t_inf_end": 795440.9420138}
+{"kind": "call", "id": 151, "type": "partial", "n_samples": 11200, "t_enq": 795440.83728, "active_calls_at_enq": 0, "t_lock": 795440.8372961, "cancelled": false, "error": null, "t_return": 795440.9423545}
+{"kind": "job", "id": 152, "t_inf_start": 795441.1963809, "t_inf_end": 795441.3445251}
+{"kind": "call", "id": 152, "type": "final", "n_samples": 17600, "t_enq": 795441.1962893, "active_calls_at_enq": 0, "t_lock": 795441.1962959, "cancelled": false, "error": null, "t_return": 795441.3448813}
+{"kind": "job", "id": 153, "t_inf_start": 795441.9564849, "t_inf_end": 795442.0769269}
+{"kind": "call", "id": 153, "type": "partial", "n_samples": 11200, "t_enq": 795441.9563787, "active_calls_at_enq": 0, "t_lock": 795441.9563943, "cancelled": false, "error": null, "t_return": 795442.0772264}
+{"kind": "job", "id": 154, "t_inf_start": 795442.5809631, "t_inf_end": 795442.8137496}
+{"kind": "call", "id": 154, "type": "partial", "n_samples": 20800, "t_enq": 795442.5808376, "active_calls_at_enq": 0, "t_lock": 795442.5808537, "cancelled": false, "error": null, "t_return": 795442.8141418}
+{"kind": "job", "id": 155, "t_inf_start": 795443.3147395, "t_inf_end": 795443.5675442}
+{"kind": "call", "id": 155, "type": "partial", "n_samples": 33600, "t_enq": 795443.3146434, "active_calls_at_enq": 0, "t_lock": 795443.314656, "cancelled": false, "error": null, "t_return": 795443.5679269}
+{"kind": "job", "id": 156, "t_inf_start": 795444.0003978, "t_inf_end": 795444.341085}
+{"kind": "call", "id": 156, "type": "final", "n_samples": 44800, "t_enq": 795444.0003059, "active_calls_at_enq": 0, "t_lock": 795444.0003138, "cancelled": false, "error": null, "t_return": 795444.3414406}
+{"kind": "job", "id": 157, "t_inf_start": 795445.087772, "t_inf_end": 795445.2215271}
+{"kind": "call", "id": 157, "type": "partial", "n_samples": 16000, "t_enq": 795445.0876655, "active_calls_at_enq": 0, "t_lock": 795445.0876775, "cancelled": false, "error": null, "t_return": 795445.2219275}
+{"kind": "job", "id": 158, "t_inf_start": 795445.4966174, "t_inf_end": 795445.6953292}
+{"kind": "call", "id": 158, "type": "final", "n_samples": 24000, "t_enq": 795445.4965246, "active_calls_at_enq": 0, "t_lock": 795445.4965363, "cancelled": false, "error": null, "t_return": 795445.6956719}
+{"kind": "job", "id": 159, "t_inf_start": 795446.2295377, "t_inf_end": 795446.3296939}
+{"kind": "call", "id": 159, "type": "partial", "n_samples": 11200, "t_enq": 795446.2293978, "active_calls_at_enq": 0, "t_lock": 795446.2294148, "cancelled": false, "error": null, "t_return": 795446.330021}
+{"kind": "job", "id": 160, "t_inf_start": 795446.8332595, "t_inf_end": 795447.0154486}
+{"kind": "call", "id": 160, "type": "partial", "n_samples": 20800, "t_enq": 795446.8331535, "active_calls_at_enq": 0, "t_lock": 795446.8331652, "cancelled": false, "error": null, "t_return": 795447.0158155}
+{"kind": "job", "id": 161, "t_inf_start": 795447.5187459, "t_inf_end": 795447.7836212}
+{"kind": "call", "id": 161, "type": "partial", "n_samples": 32000, "t_enq": 795447.5186024, "active_calls_at_enq": 0, "t_lock": 795447.5186209, "cancelled": false, "error": null, "t_return": 795447.7839652}
+{"kind": "job", "id": 162, "t_inf_start": 795448.2851824, "t_inf_end": 795448.6255073}
+{"kind": "call", "id": 162, "type": "partial", "n_samples": 43200, "t_enq": 795448.2850258, "active_calls_at_enq": 0, "t_lock": 795448.2850406, "cancelled": false, "error": null, "t_return": 795448.6258886}
+{"kind": "job", "id": 163, "t_inf_start": 795449.1321514, "t_inf_end": 795449.5621703}
+{"kind": "call", "id": 163, "type": "partial", "n_samples": 57600, "t_enq": 795449.1320118, "active_calls_at_enq": 0, "t_lock": 795449.1320296, "cancelled": false, "error": null, "t_return": 795449.5624468}
+{"kind": "job", "id": 164, "t_inf_start": 795450.0638331, "t_inf_end": 795450.6214816}
+{"kind": "call", "id": 164, "type": "partial", "n_samples": 72000, "t_enq": 795450.0637227, "active_calls_at_enq": 0, "t_lock": 795450.0637362, "cancelled": false, "error": null, "t_return": 795450.6217578}
+{"kind": "job", "id": 165, "t_inf_start": 795451.1236936, "t_inf_end": 795451.8285857}
+{"kind": "call", "id": 165, "type": "partial", "n_samples": 89600, "t_enq": 795451.1235753, "active_calls_at_enq": 0, "t_lock": 795451.1235879, "cancelled": false, "error": null, "t_return": 795451.8289251}
+{"kind": "job", "id": 166, "t_inf_start": 795451.8290735, "t_inf_end": 795452.5625611}
+{"kind": "call", "id": 166, "type": "final", "n_samples": 100800, "t_enq": 795451.7888022, "active_calls_at_enq": 1, "t_lock": 795451.82903, "cancelled": false, "error": null, "t_return": 795452.5628832}
+{"kind": "job", "id": 167, "t_inf_start": 795453.7148083, "t_inf_end": 795453.8544661}
+{"kind": "call", "id": 167, "type": "partial", "n_samples": 14400, "t_enq": 795453.7146562, "active_calls_at_enq": 0, "t_lock": 795453.7146778, "cancelled": false, "error": null, "t_return": 795453.8547925}
+{"kind": "job", "id": 168, "t_inf_start": 795454.3712128, "t_inf_end": 795454.6191221}
+{"kind": "call", "id": 168, "type": "partial", "n_samples": 25600, "t_enq": 795454.3710791, "active_calls_at_enq": 0, "t_lock": 795454.3710953, "cancelled": false, "error": null, "t_return": 795454.6194657}
+{"kind": "job", "id": 169, "t_inf_start": 795455.1223759, "t_inf_end": 795455.4308447}
+{"kind": "call", "id": 169, "type": "partial", "n_samples": 38400, "t_enq": 795455.1222874, "active_calls_at_enq": 0, "t_lock": 795455.122299, "cancelled": false, "error": null, "t_return": 795455.4311547}
+{"kind": "job", "id": 170, "t_inf_start": 795455.6043013, "t_inf_end": 795455.9897175}
+{"kind": "call", "id": 170, "type": "final", "n_samples": 46400, "t_enq": 795455.6042249, "active_calls_at_enq": 0, "t_lock": 795455.604232, "cancelled": false, "error": null, "t_return": 795455.9900861}
+{"kind": "job", "id": 171, "t_inf_start": 795456.4417068, "t_inf_end": 795456.5530682}
+{"kind": "call", "id": 171, "type": "partial", "n_samples": 12800, "t_enq": 795456.4415679, "active_calls_at_enq": 0, "t_lock": 795456.4415845, "cancelled": false, "error": null, "t_return": 795456.5534298}
+{"kind": "job", "id": 172, "t_inf_start": 795457.0665386, "t_inf_end": 795457.2414742}
+{"kind": "call", "id": 172, "type": "partial", "n_samples": 22400, "t_enq": 795457.0664275, "active_calls_at_enq": 0, "t_lock": 795457.0664421, "cancelled": false, "error": null, "t_return": 795457.241809}
+{"kind": "job", "id": 173, "t_inf_start": 795457.7539313, "t_inf_end": 795458.0098732}
+{"kind": "call", "id": 173, "type": "partial", "n_samples": 33600, "t_enq": 795457.7537897, "active_calls_at_enq": 0, "t_lock": 795457.7538059, "cancelled": false, "error": null, "t_return": 795458.010158}
+{"kind": "job", "id": 174, "t_inf_start": 795458.2109214, "t_inf_end": 795458.5412525}
+{"kind": "call", "id": 174, "type": "final", "n_samples": 41600, "t_enq": 795458.2108202, "active_calls_at_enq": 0, "t_lock": 795458.2108318, "cancelled": false, "error": null, "t_return": 795458.5415722}
+{"kind": "job", "id": 175, "t_inf_start": 795459.0347726, "t_inf_end": 795459.182271}
+{"kind": "call", "id": 175, "type": "partial", "n_samples": 12800, "t_enq": 795459.0346718, "active_calls_at_enq": 0, "t_lock": 795459.0346848, "cancelled": false, "error": null, "t_return": 795459.1825716}
+{"kind": "job", "id": 176, "t_inf_start": 795459.6877131, "t_inf_end": 795459.8859212}
+{"kind": "call", "id": 176, "type": "partial", "n_samples": 22400, "t_enq": 795459.6875788, "active_calls_at_enq": 0, "t_lock": 795459.6875969, "cancelled": false, "error": null, "t_return": 795459.8863081}
+{"kind": "job", "id": 177, "t_inf_start": 795460.4025483, "t_inf_end": 795460.6541005}
+{"kind": "call", "id": 177, "type": "partial", "n_samples": 33600, "t_enq": 795460.4024474, "active_calls_at_enq": 0, "t_lock": 795460.40246, "cancelled": false, "error": null, "t_return": 795460.6544001}
+{"kind": "job", "id": 178, "t_inf_start": 795460.6545289, "t_inf_end": 795460.9098349}
+{"kind": "call", "id": 178, "type": "final", "n_samples": 35200, "t_enq": 795460.4034586, "active_calls_at_enq": 1, "t_lock": 795460.6544777, "cancelled": false, "error": null, "t_return": 795460.9101957}
+{"kind": "job", "id": 179, "t_inf_start": 795461.1649263, "t_inf_end": 795461.2652972}
+{"kind": "call", "id": 179, "type": "partial", "n_samples": 11200, "t_enq": 795461.1648229, "active_calls_at_enq": 0, "t_lock": 795461.164838, "cancelled": false, "error": null, "t_return": 795461.2655885}
+{"kind": "job", "id": 180, "t_inf_start": 795461.7735143, "t_inf_end": 795461.9534615}
+{"kind": "call", "id": 180, "type": "partial", "n_samples": 20800, "t_enq": 795461.7734022, "active_calls_at_enq": 0, "t_lock": 795461.7734155, "cancelled": false, "error": null, "t_return": 795461.9537745}
+{"kind": "job", "id": 181, "t_inf_start": 795462.4562292, "t_inf_end": 795462.7280685}
+{"kind": "call", "id": 181, "type": "partial", "n_samples": 32000, "t_enq": 795462.4561359, "active_calls_at_enq": 0, "t_lock": 795462.4561466, "cancelled": false, "error": null, "t_return": 795462.7284421}
+{"kind": "job", "id": 182, "t_inf_start": 795463.003455, "t_inf_end": 795463.314198}
+{"kind": "call", "id": 182, "type": "final", "n_samples": 41600, "t_enq": 795463.0033465, "active_calls_at_enq": 0, "t_lock": 795463.0033597, "cancelled": false, "error": null, "t_return": 795463.3145024}
+{"kind": "job", "id": 183, "t_inf_start": 795463.7476798, "t_inf_end": 795463.8553323}
+{"kind": "call", "id": 183, "type": "partial", "n_samples": 11200, "t_enq": 795463.747542, "active_calls_at_enq": 0, "t_lock": 795463.7475576, "cancelled": false, "error": null, "t_return": 795463.8556232}
+{"kind": "job", "id": 184, "t_inf_start": 795464.3592216, "t_inf_end": 795464.5482797}
+{"kind": "call", "id": 184, "type": "partial", "n_samples": 20800, "t_enq": 795464.35911, "active_calls_at_enq": 0, "t_lock": 795464.3591245, "cancelled": false, "error": null, "t_return": 795464.5486052}
+{"kind": "job", "id": 185, "t_inf_start": 795465.0492192, "t_inf_end": 795465.2906357}
+{"kind": "call", "id": 185, "type": "partial", "n_samples": 32000, "t_enq": 795465.0491086, "active_calls_at_enq": 0, "t_lock": 795465.0491216, "cancelled": false, "error": null, "t_return": 795465.2910256}
+{"kind": "job", "id": 186, "t_inf_start": 795465.7991355, "t_inf_end": 795466.106043}
+{"kind": "call", "id": 186, "type": "partial", "n_samples": 43200, "t_enq": 795465.7990227, "active_calls_at_enq": 0, "t_lock": 795465.7990369, "cancelled": false, "error": null, "t_return": 795466.1063475}
+{"kind": "job", "id": 187, "t_inf_start": 795466.6071138, "t_inf_end": 795467.0533808}
+{"kind": "call", "id": 187, "type": "partial", "n_samples": 56000, "t_enq": 795466.6069645, "active_calls_at_enq": 0, "t_lock": 795466.606977, "cancelled": false, "error": null, "t_return": 795467.0537033}
+{"kind": "job", "id": 188, "t_inf_start": 795467.4172381, "t_inf_end": 795467.9387062}
+{"kind": "call", "id": 188, "type": "final", "n_samples": 70400, "t_enq": 795467.4171332, "active_calls_at_enq": 0, "t_lock": 795467.4171444, "cancelled": false, "error": null, "t_return": 795467.9390088}
+{"kind": "job", "id": 189, "t_inf_start": 795469.1234331, "t_inf_end": 795469.1927491}
+{"kind": "call", "id": 189, "type": "partial", "n_samples": 6400, "t_enq": 795469.1233344, "active_calls_at_enq": 0, "t_lock": 795469.1233477, "cancelled": false, "error": null, "t_return": 795469.1930865}
+{"kind": "job", "id": 190, "t_inf_start": 795469.6970066, "t_inf_end": 795469.8320815}
+{"kind": "call", "id": 190, "type": "partial", "n_samples": 16000, "t_enq": 795469.6968935, "active_calls_at_enq": 0, "t_lock": 795469.6969055, "cancelled": false, "error": null, "t_return": 795469.8324627}
+{"kind": "job", "id": 191, "t_inf_start": 795470.3423107, "t_inf_end": 795470.5569705}
+{"kind": "call", "id": 191, "type": "partial", "n_samples": 27200, "t_enq": 795470.3421962, "active_calls_at_enq": 0, "t_lock": 795470.3422101, "cancelled": false, "error": null, "t_return": 795470.5572844}
+{"kind": "job", "id": 192, "t_inf_start": 795471.0656122, "t_inf_end": 795471.3679694}
+{"kind": "call", "id": 192, "type": "partial", "n_samples": 38400, "t_enq": 795471.0655129, "active_calls_at_enq": 0, "t_lock": 795471.0655256, "cancelled": false, "error": null, "t_return": 795471.3682906}
+{"kind": "job", "id": 193, "t_inf_start": 795471.8726494, "t_inf_end": 795472.2840736}
+{"kind": "call", "id": 193, "type": "partial", "n_samples": 51200, "t_enq": 795471.8725542, "active_calls_at_enq": 0, "t_lock": 795471.8725677, "cancelled": false, "error": null, "t_return": 795472.2843987}
+{"kind": "job", "id": 194, "t_inf_start": 795472.7887177, "t_inf_end": 795473.2996664}
+{"kind": "call", "id": 194, "type": "partial", "n_samples": 65600, "t_enq": 795472.7885939, "active_calls_at_enq": 0, "t_lock": 795472.7886113, "cancelled": false, "error": null, "t_return": 795473.300015}
+{"kind": "job", "id": 195, "t_inf_start": 795473.8069191, "t_inf_end": 795474.4356753}
+{"kind": "call", "id": 195, "type": "partial", "n_samples": 81600, "t_enq": 795473.8068094, "active_calls_at_enq": 0, "t_lock": 795473.8068212, "cancelled": false, "error": null, "t_return": 795474.4359353}
+{"kind": "job", "id": 196, "t_inf_start": 795474.9458121, "t_inf_end": 795475.7557369}
+{"kind": "call", "id": 196, "type": "partial", "n_samples": 100800, "t_enq": 795474.9457234, "active_calls_at_enq": 0, "t_lock": 795474.9457351, "cancelled": false, "error": null, "t_return": 795475.7561153}
+{"kind": "job", "id": 197, "t_inf_start": 795476.2721915, "t_inf_end": 795477.2117168}
+{"kind": "call", "id": 197, "type": "partial", "n_samples": 121600, "t_enq": 795476.2720345, "active_calls_at_enq": 0, "t_lock": 795476.272052, "cancelled": false, "error": null, "t_return": 795477.2120813}
+{"kind": "job", "id": 198, "t_inf_start": 795477.2122548, "t_inf_end": 795478.3397683}
+{"kind": "call", "id": 198, "type": "final", "n_samples": 128000, "t_enq": 795476.6295568, "active_calls_at_enq": 1, "t_lock": 795477.2121914, "cancelled": false, "error": null, "t_return": 795478.3401076}
+{"kind": "job", "id": 199, "t_inf_start": 795478.7426382, "t_inf_end": 795479.1786284}
+{"kind": "call", "id": 199, "type": "partial", "n_samples": 33600, "t_enq": 795478.7425089, "active_calls_at_enq": 0, "t_lock": 795478.7425257, "cancelled": false, "error": null, "t_return": 795479.1790528}
+{"kind": "job", "id": 200, "t_inf_start": 795479.6879458, "t_inf_end": 795480.0965152}
+{"kind": "call", "id": 200, "type": "partial", "n_samples": 48000, "t_enq": 795479.6877968, "active_calls_at_enq": 0, "t_lock": 795479.6878146, "cancelled": false, "error": null, "t_return": 795480.0970073}
+{"kind": "job", "id": 201, "t_inf_start": 795480.0972439, "t_inf_end": 795480.7547662}
+{"kind": "call", "id": 201, "type": "final", "n_samples": 51200, "t_enq": 795479.827652, "active_calls_at_enq": 1, "t_lock": 795480.0971545, "cancelled": false, "error": null, "t_return": 795480.7552281}
+{"kind": "job", "id": 202, "t_inf_start": 795481.3510017, "t_inf_end": 795481.4783313}
+{"kind": "call", "id": 202, "type": "partial", "n_samples": 6400, "t_enq": 795481.35085, "active_calls_at_enq": 0, "t_lock": 795481.3508705, "cancelled": false, "error": null, "t_return": 795481.4786929}
+{"kind": "job", "id": 203, "t_inf_start": 795481.9877251, "t_inf_end": 795482.1456832}
+{"kind": "call", "id": 203, "type": "partial", "n_samples": 17600, "t_enq": 795481.9876041, "active_calls_at_enq": 0, "t_lock": 795481.9876189, "cancelled": false, "error": null, "t_return": 795482.146056}
+{"kind": "job", "id": 204, "t_inf_start": 795482.6479613, "t_inf_end": 795482.8834826}
+{"kind": "call", "id": 204, "type": "partial", "n_samples": 27200, "t_enq": 795482.6478425, "active_calls_at_enq": 0, "t_lock": 795482.6478611, "cancelled": false, "error": null, "t_return": 795482.8838838}
+{"kind": "job", "id": 205, "t_inf_start": 795483.386366, "t_inf_end": 795483.8297994}
+{"kind": "call", "id": 205, "type": "partial", "n_samples": 40000, "t_enq": 795483.3862245, "active_calls_at_enq": 0, "t_lock": 795483.3862439, "cancelled": false, "error": null, "t_return": 795483.830203}
+{"kind": "job", "id": 206, "t_inf_start": 795484.3431433, "t_inf_end": 795484.7803271}
+{"kind": "call", "id": 206, "type": "partial", "n_samples": 54400, "t_enq": 795484.3429944, "active_calls_at_enq": 0, "t_lock": 795484.3430148, "cancelled": false, "error": null, "t_return": 795484.7806869}
+{"kind": "job", "id": 207, "t_inf_start": 795485.2914667, "t_inf_end": 795485.9003576}
+{"kind": "call", "id": 207, "type": "partial", "n_samples": 70400, "t_enq": 795485.2913293, "active_calls_at_enq": 0, "t_lock": 795485.2913469, "cancelled": false, "error": null, "t_return": 795485.9007031}
+{"kind": "job", "id": 208, "t_inf_start": 795486.4064469, "t_inf_end": 795487.2766627}
+{"kind": "call", "id": 208, "type": "partial", "n_samples": 88000, "t_enq": 795486.4063112, "active_calls_at_enq": 0, "t_lock": 795486.4063291, "cancelled": false, "error": null, "t_return": 795487.2771127}
+{"kind": "job", "id": 209, "t_inf_start": 795487.7899664, "t_inf_end": 795488.6157118}
+{"kind": "call", "id": 209, "type": "partial", "n_samples": 110400, "t_enq": 795487.7898503, "active_calls_at_enq": 0, "t_lock": 795487.7898656, "cancelled": false, "error": null, "t_return": 795488.6160352}
+{"kind": "job", "id": 210, "t_inf_start": 795488.8528353, "t_inf_end": 795489.8600036}
+{"kind": "call", "id": 210, "type": "final", "n_samples": 128000, "t_enq": 795488.8527189, "active_calls_at_enq": 0, "t_lock": 795488.8527326, "cancelled": false, "error": null, "t_return": 795489.8603354}
+{"kind": "job", "id": 211, "t_inf_start": 795490.1301548, "t_inf_end": 795490.2978739}
+{"kind": "call", "id": 211, "type": "partial", "n_samples": 19200, "t_enq": 795490.1300207, "active_calls_at_enq": 0, "t_lock": 795490.1300383, "cancelled": false, "error": null, "t_return": 795490.2982111}
+{"kind": "job", "id": 212, "t_inf_start": 795490.8007378, "t_inf_end": 795491.0560939}
+{"kind": "call", "id": 212, "type": "partial", "n_samples": 30400, "t_enq": 795490.8006055, "active_calls_at_enq": 0, "t_lock": 795490.8006241, "cancelled": false, "error": null, "t_return": 795491.0564229}
+{"kind": "job", "id": 213, "t_inf_start": 795491.5577256, "t_inf_end": 795491.9389678}
+{"kind": "call", "id": 213, "type": "partial", "n_samples": 43200, "t_enq": 795491.5576223, "active_calls_at_enq": 0, "t_lock": 795491.557636, "cancelled": false, "error": null, "t_return": 795491.939593}
+{"kind": "job", "id": 214, "t_inf_start": 795492.447328, "t_inf_end": 795492.8626708}
+{"kind": "call", "id": 214, "type": "partial", "n_samples": 56000, "t_enq": 795492.447236, "active_calls_at_enq": 0, "t_lock": 795492.4472479, "cancelled": false, "error": null, "t_return": 795492.8629956}
+{"kind": "job", "id": 215, "t_inf_start": 795493.3677528, "t_inf_end": 795493.935708}
+{"kind": "call", "id": 215, "type": "partial", "n_samples": 72000, "t_enq": 795493.3676412, "active_calls_at_enq": 0, "t_lock": 795493.3676535, "cancelled": false, "error": null, "t_return": 795493.9360685}
+{"kind": "job", "id": 216, "t_inf_start": 795494.4443121, "t_inf_end": 795495.1076625}
+{"kind": "call", "id": 216, "type": "partial", "n_samples": 88000, "t_enq": 795494.4442167, "active_calls_at_enq": 0, "t_lock": 795494.4442305, "cancelled": false, "error": null, "t_return": 795495.1080274}
+{"kind": "job", "id": 217, "t_inf_start": 795495.6145431, "t_inf_end": 795496.4209383}
+{"kind": "call", "id": 217, "type": "partial", "n_samples": 107200, "t_enq": 795495.6144167, "active_calls_at_enq": 0, "t_lock": 795495.6144331, "cancelled": false, "error": null, "t_return": 795496.4212848}
+{"kind": "job", "id": 218, "t_inf_start": 795496.8511667, "t_inf_end": 795497.8094014}
+{"kind": "call", "id": 218, "type": "final", "n_samples": 128000, "t_enq": 795496.8510769, "active_calls_at_enq": 0, "t_lock": 795496.8510868, "cancelled": false, "error": null, "t_return": 795497.8097784}
+{"kind": "job", "id": 219, "t_inf_start": 795499.4705396, "t_inf_end": 795499.6290044}
+{"kind": "call", "id": 219, "type": "partial", "n_samples": 16000, "t_enq": 795499.4704317, "active_calls_at_enq": 0, "t_lock": 795499.470446, "cancelled": false, "error": null, "t_return": 795499.6293572}
+{"kind": "job", "id": 220, "t_inf_start": 795500.1388826, "t_inf_end": 795500.335198}
+{"kind": "call", "id": 220, "type": "partial", "n_samples": 25600, "t_enq": 795500.1387715, "active_calls_at_enq": 0, "t_lock": 795500.1387852, "cancelled": false, "error": null, "t_return": 795500.3355454}
+{"kind": "job", "id": 221, "t_inf_start": 795500.8369127, "t_inf_end": 795501.1238348}
+{"kind": "call", "id": 221, "type": "partial", "n_samples": 36800, "t_enq": 795500.8368111, "active_calls_at_enq": 0, "t_lock": 795500.836822, "cancelled": false, "error": null, "t_return": 795501.1241321}
+{"kind": "job", "id": 222, "t_inf_start": 795501.6298946, "t_inf_end": 795502.0427696}
+{"kind": "call", "id": 222, "type": "partial", "n_samples": 49600, "t_enq": 795501.6297385, "active_calls_at_enq": 0, "t_lock": 795501.6297577, "cancelled": false, "error": null, "t_return": 795502.0431111}
+{"kind": "job", "id": 223, "t_inf_start": 795502.5446543, "t_inf_end": 795503.0688164}
+{"kind": "call", "id": 223, "type": "partial", "n_samples": 64000, "t_enq": 795502.5444776, "active_calls_at_enq": 0, "t_lock": 795502.5444998, "cancelled": false, "error": null, "t_return": 795503.069102}
+{"kind": "job", "id": 224, "t_inf_start": 795503.5782242, "t_inf_end": 795504.1996313}
+{"kind": "call", "id": 224, "type": "partial", "n_samples": 81600, "t_enq": 795503.578121, "active_calls_at_enq": 0, "t_lock": 795503.5781322, "cancelled": false, "error": null, "t_return": 795504.2000021}
+{"kind": "job", "id": 225, "t_inf_start": 795504.7150076, "t_inf_end": 795505.4491173}
+{"kind": "call", "id": 225, "type": "partial", "n_samples": 99200, "t_enq": 795504.7148797, "active_calls_at_enq": 0, "t_lock": 795504.7148955, "cancelled": false, "error": null, "t_return": 795505.4494476}
+{"kind": "job", "id": 226, "t_inf_start": 795505.9550577, "t_inf_end": 795506.8418622}
+{"kind": "call", "id": 226, "type": "partial", "n_samples": 118400, "t_enq": 795505.954916, "active_calls_at_enq": 0, "t_lock": 795505.9549325, "cancelled": false, "error": null, "t_return": 795506.8421598}
+{"kind": "job", "id": 227, "t_inf_start": 795506.8422826, "t_inf_end": 795507.8717833}
+{"kind": "call", "id": 227, "type": "final", "n_samples": 128000, "t_enq": 795506.4629594, "active_calls_at_enq": 1, "t_lock": 795506.8422339, "cancelled": false, "error": null, "t_return": 795507.872083}
+{"kind": "job", "id": 228, "t_inf_start": 795508.3603402, "t_inf_end": 795508.6159345}
+{"kind": "call", "id": 228, "type": "partial", "n_samples": 28800, "t_enq": 795508.3602367, "active_calls_at_enq": 0, "t_lock": 795508.3602497, "cancelled": false, "error": null, "t_return": 795508.6163052}
+{"kind": "job", "id": 229, "t_inf_start": 795509.1203571, "t_inf_end": 795509.4650711}
+{"kind": "call", "id": 229, "type": "partial", "n_samples": 41600, "t_enq": 795509.1202229, "active_calls_at_enq": 0, "t_lock": 795509.1202397, "cancelled": false, "error": null, "t_return": 795509.4653405}
+{"kind": "job", "id": 230, "t_inf_start": 795509.7609674, "t_inf_end": 795510.1731611}
+{"kind": "call", "id": 230, "type": "final", "n_samples": 52800, "t_enq": 795509.7608914, "active_calls_at_enq": 0, "t_lock": 795509.7608991, "cancelled": false, "error": null, "t_return": 795510.1734788}
+{"kind": "job", "id": 231, "t_inf_start": 795512.03957, "t_inf_end": 795512.1204899}
+{"kind": "call", "id": 231, "type": "partial", "n_samples": 6400, "t_enq": 795512.0394769, "active_calls_at_enq": 0, "t_lock": 795512.0394882, "cancelled": false, "error": null, "t_return": 795512.1208534}
+{"kind": "job", "id": 232, "t_inf_start": 795512.6232167, "t_inf_end": 795512.7719365}
+{"kind": "call", "id": 232, "type": "partial", "n_samples": 16000, "t_enq": 795512.6230932, "active_calls_at_enq": 0, "t_lock": 795512.6231111, "cancelled": false, "error": null, "t_return": 795512.7723436}
+{"kind": "job", "id": 233, "t_inf_start": 795513.1326069, "t_inf_end": 795513.3164515}
+{"kind": "call", "id": 233, "type": "partial", "n_samples": 24000, "t_enq": 795513.1325178, "active_calls_at_enq": 0, "t_lock": 795513.132527, "cancelled": false, "error": null, "t_return": 795513.3168321}
+{"kind": "job", "id": 234, "t_inf_start": 795513.317198, "t_inf_end": 795513.5384628}
+{"kind": "call", "id": 234, "type": "partial", "n_samples": 27200, "t_enq": 795513.2820109, "active_calls_at_enq": 1, "t_lock": 795513.3171252, "cancelled": false, "error": null, "t_return": 795513.5387001}
+{"kind": "job", "id": 235, "t_inf_start": 795513.8221516, "t_inf_end": 795514.0969963}
+{"kind": "call", "id": 235, "type": "partial", "n_samples": 33600, "t_enq": 795513.822027, "active_calls_at_enq": 0, "t_lock": 795513.8220403, "cancelled": false, "error": null, "t_return": 795514.0973519}
+{"kind": "job", "id": 236, "t_inf_start": 795514.0974993, "t_inf_end": 795514.4334455}
+{"kind": "call", "id": 236, "type": "partial", "n_samples": 40000, "t_enq": 795514.048486, "active_calls_at_enq": 1, "t_lock": 795514.097442, "cancelled": false, "error": null, "t_return": 795514.4338038}
+{"kind": "job", "id": 237, "t_inf_start": 795514.6010837, "t_inf_end": 795514.946945}
+{"kind": "call", "id": 237, "type": "partial", "n_samples": 46400, "t_enq": 795514.6009928, "active_calls_at_enq": 0, "t_lock": 795514.6010036, "cancelled": false, "error": null, "t_return": 795514.9472889}
+{"kind": "job", "id": 238, "t_inf_start": 795514.9477816, "t_inf_end": 795515.3989144}
+{"kind": "call", "id": 238, "type": "partial", "n_samples": 54400, "t_enq": 795514.9476375, "active_calls_at_enq": 0, "t_lock": 795514.94765, "cancelled": false, "error": null, "t_return": 795515.3992688}
+{"kind": "job", "id": 239, "t_inf_start": 795515.4544632, "t_inf_end": 795515.9216563}
+{"kind": "call", "id": 239, "type": "partial", "n_samples": 60800, "t_enq": 795515.454354, "active_calls_at_enq": 0, "t_lock": 795515.4543693, "cancelled": false, "error": null, "t_return": 795515.9220018}
+{"kind": "job", "id": 240, "t_inf_start": 795515.9223614, "t_inf_end": 795516.4165933}
+{"kind": "call", "id": 240, "type": "partial", "n_samples": 68800, "t_enq": 795515.9116734, "active_calls_at_enq": 1, "t_lock": 795515.922284, "cancelled": false, "error": null, "t_return": 795516.4169273}
+{"kind": "job", "id": 241, "t_inf_start": 795516.423218, "t_inf_end": 795516.9921536}
+{"kind": "call", "id": 241, "type": "partial", "n_samples": 75200, "t_enq": 795516.4231204, "active_calls_at_enq": 0, "t_lock": 795516.4231325, "cancelled": false, "error": null, "t_return": 795516.9925379}
+{"kind": "job", "id": 242, "t_inf_start": 795516.9928755, "t_inf_end": 795517.6015718}
+{"kind": "call", "id": 242, "type": "partial", "n_samples": 84800, "t_enq": 795516.9331813, "active_calls_at_enq": 1, "t_lock": 795516.992786, "cancelled": false, "error": null, "t_return": 795517.6019324}
+{"kind": "job", "id": 243, "t_inf_start": 795517.6022033, "t_inf_end": 795518.2641261}
+{"kind": "call", "id": 243, "type": "partial", "n_samples": 92800, "t_enq": 795517.5011722, "active_calls_at_enq": 1, "t_lock": 795517.6021524, "cancelled": false, "error": null, "t_return": 795518.2644513}
+{"kind": "job", "id": 244, "t_inf_start": 795518.2645872, "t_inf_end": 795518.9975283}
+{"kind": "call", "id": 244, "type": "final", "n_samples": 99200, "t_enq": 795517.8287636, "active_calls_at_enq": 1, "t_lock": 795518.2645294, "cancelled": false, "error": null, "t_return": 795518.9978769}
+{"kind": "job", "id": 245, "t_inf_start": 795518.9994034, "t_inf_end": 795519.7675489}
+{"kind": "call", "id": 245, "type": "partial", "n_samples": 104000, "t_enq": 795518.1133196, "active_calls_at_enq": 2, "t_lock": 795518.999346, "cancelled": false, "error": null, "t_return": 795519.7679031}
+{"kind": "job", "id": 246, "t_inf_start": 795519.7680632, "t_inf_end": 795519.9466201}
+{"kind": "call", "id": 246, "type": "partial", "n_samples": 22400, "t_enq": 795519.2689154, "active_calls_at_enq": 1, "t_lock": 795519.7680008, "cancelled": false, "error": null, "t_return": 795519.9470013}
+{"kind": "job", "id": 247, "t_inf_start": 795519.9474151, "t_inf_end": 795520.8838993}
+{"kind": "call", "id": 247, "type": "final", "n_samples": 128000, "t_enq": 795519.536289, "active_calls_at_enq": 2, "t_lock": 795519.947333, "cancelled": false, "error": null, "t_return": 795520.8842684}
+{"kind": "job", "id": 248, "t_inf_start": 795520.8861798, "t_inf_end": 795521.2039702}
+{"kind": "call", "id": 248, "type": "partial", "n_samples": 41600, "t_enq": 795520.4610626, "active_calls_at_enq": 1, "t_lock": 795520.8860907, "cancelled": false, "error": null, "t_return": 795521.2042908}
+{"kind": "job", "id": 249, "t_inf_start": 795521.2045781, "t_inf_end": 795521.3301482}
+{"kind": "call", "id": 249, "type": "final", "n_samples": 14400, "t_enq": 795520.8860469, "active_calls_at_enq": 1, "t_lock": 795521.2045232, "cancelled": false, "error": null, "t_return": 795521.3303977}
+{"kind": "job", "id": 250, "t_inf_start": 795521.4279588, "t_inf_end": 795521.8787661}
+{"kind": "call", "id": 250, "type": "final", "n_samples": 57600, "t_enq": 795521.4278603, "active_calls_at_enq": 0, "t_lock": 795521.4278691, "cancelled": false, "error": null, "t_return": 795521.879098}
+{"kind": "job", "id": 251, "t_inf_start": 795521.8805271, "t_inf_end": 795522.0637635}
+{"kind": "call", "id": 251, "type": "partial", "n_samples": 20800, "t_enq": 795521.7859314, "active_calls_at_enq": 1, "t_lock": 795521.8804471, "cancelled": false, "error": null, "t_return": 795522.0640563}
+{"kind": "job", "id": 252, "t_inf_start": 795522.5791384, "t_inf_end": 795522.8465011}
+{"kind": "call", "id": 252, "type": "partial", "n_samples": 33600, "t_enq": 795522.5790035, "active_calls_at_enq": 0, "t_lock": 795522.5790188, "cancelled": false, "error": null, "t_return": 795522.8468396}
+{"kind": "job", "id": 253, "t_inf_start": 795522.8471124, "t_inf_end": 795522.9889477}
+{"kind": "call", "id": 253, "type": "partial", "n_samples": 19200, "t_enq": 795522.7329447, "active_calls_at_enq": 1, "t_lock": 795522.8470646, "cancelled": false, "error": null, "t_return": 795522.9892101}
+{"kind": "job", "id": 254, "t_inf_start": 795523.3553441, "t_inf_end": 795523.7274762}
+{"kind": "call", "id": 254, "type": "partial", "n_samples": 46400, "t_enq": 795523.3551893, "active_calls_at_enq": 0, "t_lock": 795523.355204, "cancelled": false, "error": null, "t_return": 795523.727823}
+{"kind": "job", "id": 255, "t_inf_start": 795523.7279549, "t_inf_end": 795523.9865439}
+{"kind": "call", "id": 255, "type": "partial", "n_samples": 32000, "t_enq": 795523.4996427, "active_calls_at_enq": 1, "t_lock": 795523.7279019, "cancelled": false, "error": null, "t_return": 795523.9868371}
+{"kind": "job", "id": 256, "t_inf_start": 795524.2317028, "t_inf_end": 795524.6750438}
+{"kind": "call", "id": 256, "type": "partial", "n_samples": 59200, "t_enq": 795524.2315845, "active_calls_at_enq": 0, "t_lock": 795524.2315967, "cancelled": false, "error": null, "t_return": 795524.6753427}
+{"kind": "job", "id": 257, "t_inf_start": 795524.6755854, "t_inf_end": 795525.0048454}
+{"kind": "call", "id": 257, "type": "partial", "n_samples": 48000, "t_enq": 795524.4980939, "active_calls_at_enq": 1, "t_lock": 795524.6755374, "cancelled": false, "error": null, "t_return": 795525.005171}
+{"kind": "job", "id": 258, "t_inf_start": 795525.0054923, "t_inf_end": 795525.5722292}
+{"kind": "call", "id": 258, "type": "final", "n_samples": 72000, "t_enq": 795524.9332162, "active_calls_at_enq": 1, "t_lock": 795525.0054199, "cancelled": false, "error": null, "t_return": 795525.5724999}
+{"kind": "job", "id": 259, "t_inf_start": 795525.5735445, "t_inf_end": 795526.0856616}
+{"kind": "call", "id": 259, "type": "partial", "n_samples": 64000, "t_enq": 795525.5073724, "active_calls_at_enq": 1, "t_lock": 795525.573475, "cancelled": false, "error": null, "t_return": 795526.0865332}
+{"kind": "job", "id": 260, "t_inf_start": 795526.0866738, "t_inf_end": 795526.568302}
+{"kind": "call", "id": 260, "type": "final", "n_samples": 67200, "t_enq": 795525.6327393, "active_calls_at_enq": 1, "t_lock": 795526.0866224, "cancelled": false, "error": null, "t_return": 795526.5687258}
+{"kind": "job", "id": 261, "t_inf_start": 795527.2490523, "t_inf_end": 795527.3962541}
+{"kind": "call", "id": 261, "type": "partial", "n_samples": 16000, "t_enq": 795527.2489259, "active_calls_at_enq": 0, "t_lock": 795527.248939, "cancelled": false, "error": null, "t_return": 795527.3965554}
+{"kind": "job", "id": 262, "t_inf_start": 795527.6497636, "t_inf_end": 795527.7226588}
+{"kind": "call", "id": 262, "type": "partial", "n_samples": 6400, "t_enq": 795527.6496638, "active_calls_at_enq": 0, "t_lock": 795527.6496774, "cancelled": false, "error": null, "t_return": 795527.7229921}
+{"kind": "job", "id": 263, "t_inf_start": 795527.9013283, "t_inf_end": 795528.1435216}
+{"kind": "call", "id": 263, "type": "partial", "n_samples": 25600, "t_enq": 795527.9012136, "active_calls_at_enq": 0, "t_lock": 795527.9012273, "cancelled": false, "error": null, "t_return": 795528.1438195}
+{"kind": "job", "id": 264, "t_inf_start": 795528.2270649, "t_inf_end": 795528.3616091}
+{"kind": "call", "id": 264, "type": "partial", "n_samples": 16000, "t_enq": 795528.2269691, "active_calls_at_enq": 0, "t_lock": 795528.2269808, "cancelled": false, "error": null, "t_return": 795528.3619127}
+{"kind": "job", "id": 265, "t_inf_start": 795528.658609, "t_inf_end": 795528.9542529}
+{"kind": "call", "id": 265, "type": "partial", "n_samples": 38400, "t_enq": 795528.6585092, "active_calls_at_enq": 0, "t_lock": 795528.6585211, "cancelled": false, "error": null, "t_return": 795528.9545393}
+{"kind": "job", "id": 266, "t_inf_start": 795528.9547448, "t_inf_end": 795529.2835514}
+{"kind": "call", "id": 266, "type": "final", "n_samples": 40000, "t_enq": 795528.7562044, "active_calls_at_enq": 1, "t_lock": 795528.9546989, "cancelled": false, "error": null, "t_return": 795529.2839479}
+{"kind": "job", "id": 267, "t_inf_start": 795529.2852284, "t_inf_end": 795529.5117693}
+{"kind": "call", "id": 267, "type": "partial", "n_samples": 27200, "t_enq": 795528.8690897, "active_calls_at_enq": 2, "t_lock": 795529.2851736, "cancelled": false, "error": null, "t_return": 795529.5121137}
+{"kind": "job", "id": 268, "t_inf_start": 795529.9596171, "t_inf_end": 795530.1186639}
+{"kind": "call", "id": 268, "type": "partial", "n_samples": 19200, "t_enq": 795529.9594805, "active_calls_at_enq": 0, "t_lock": 795529.9594976, "cancelled": false, "error": null, "t_return": 795530.1190286}
+{"kind": "job", "id": 269, "t_inf_start": 795530.119283, "t_inf_end": 795530.4718152}
+{"kind": "call", "id": 269, "type": "partial", "n_samples": 44800, "t_enq": 795530.0170644, "active_calls_at_enq": 1, "t_lock": 795530.1192321, "cancelled": false, "error": null, "t_return": 795530.4721549}
+{"kind": "job", "id": 270, "t_inf_start": 795530.6213922, "t_inf_end": 795530.8669075}
+{"kind": "call", "id": 270, "type": "partial", "n_samples": 28800, "t_enq": 795530.6212901, "active_calls_at_enq": 0, "t_lock": 795530.6213018, "cancelled": false, "error": null, "t_return": 795530.8672496}
+{"kind": "job", "id": 271, "t_inf_start": 795530.9737436, "t_inf_end": 795531.3990892}
+{"kind": "call", "id": 271, "type": "partial", "n_samples": 60800, "t_enq": 795530.9736088, "active_calls_at_enq": 0, "t_lock": 795530.9736261, "cancelled": false, "error": null, "t_return": 795531.3993272}
+{"kind": "job", "id": 272, "t_inf_start": 795531.3995585, "t_inf_end": 795531.7012503}
+{"kind": "call", "id": 272, "type": "partial", "n_samples": 41600, "t_enq": 795531.3777231, "active_calls_at_enq": 1, "t_lock": 795531.3995023, "cancelled": false, "error": null, "t_return": 795531.7016516}
+{"kind": "job", "id": 273, "t_inf_start": 795531.9055078, "t_inf_end": 795532.4529316}
+{"kind": "call", "id": 273, "type": "partial", "n_samples": 75200, "t_enq": 795531.9053707, "active_calls_at_enq": 0, "t_lock": 795531.9053865, "cancelled": false, "error": null, "t_return": 795532.4532903}
+{"kind": "job", "id": 274, "t_inf_start": 795532.453467, "t_inf_end": 795532.8105858}
+{"kind": "call", "id": 274, "type": "partial", "n_samples": 54400, "t_enq": 795532.2059288, "active_calls_at_enq": 1, "t_lock": 795532.4534006, "cancelled": false, "error": null, "t_return": 795532.8109785}
+{"kind": "job", "id": 275, "t_inf_start": 795532.8414478, "t_inf_end": 795533.3521587}
+{"kind": "call", "id": 275, "type": "final", "n_samples": 65600, "t_enq": 795532.8413776, "active_calls_at_enq": 0, "t_lock": 795532.8413842, "cancelled": false, "error": null, "t_return": 795533.3523902}
+{"kind": "job", "id": 276, "t_inf_start": 795533.3533531, "t_inf_end": 795534.0186831}
+{"kind": "call", "id": 276, "type": "partial", "n_samples": 91200, "t_enq": 795532.9556643, "active_calls_at_enq": 1, "t_lock": 795533.3532996, "cancelled": false, "error": null, "t_return": 795534.0190198}
+{"kind": "job", "id": 277, "t_inf_start": 795534.0193875, "t_inf_end": 795534.135025}
+{"kind": "call", "id": 277, "type": "partial", "n_samples": 14400, "t_enq": 795533.8206166, "active_calls_at_enq": 1, "t_lock": 795534.0193025, "cancelled": false, "error": null, "t_return": 795534.1353461}
+{"kind": "job", "id": 278, "t_inf_start": 795534.5221607, "t_inf_end": 795535.3987876}
+{"kind": "call", "id": 278, "type": "partial", "n_samples": 116800, "t_enq": 795534.5220454, "active_calls_at_enq": 0, "t_lock": 795534.5220596, "cancelled": false, "error": null, "t_return": 795535.3990819}
+{"kind": "job", "id": 279, "t_inf_start": 795535.3991774, "t_inf_end": 795535.6055585}
+{"kind": "call", "id": 279, "type": "final", "n_samples": 27200, "t_enq": 795534.5472032, "active_calls_at_enq": 1, "t_lock": 795535.3991358, "cancelled": false, "error": null, "t_return": 795535.6059256}
+{"kind": "job", "id": 280, "t_inf_start": 795535.6070691, "t_inf_end": 795536.5865724}
+{"kind": "call", "id": 280, "type": "final", "n_samples": 128000, "t_enq": 795535.1560253, "active_calls_at_enq": 2, "t_lock": 795535.6070134, "cancelled": false, "error": null, "t_return": 795536.5868899}
+{"kind": "job", "id": 281, "t_inf_start": 795536.5888933, "t_inf_end": 795536.7587797}
+{"kind": "call", "id": 281, "type": "partial", "n_samples": 16000, "t_enq": 795535.6552363, "active_calls_at_enq": 1, "t_lock": 795536.5888011, "cancelled": false, "error": null, "t_return": 795536.7591153}
+{"kind": "job", "id": 282, "t_inf_start": 795536.7592738, "t_inf_end": 795536.8977806}
+{"kind": "call", "id": 282, "type": "final", "n_samples": 20800, "t_enq": 795535.8524484, "active_calls_at_enq": 2, "t_lock": 795536.7592106, "cancelled": false, "error": null, "t_return": 795536.8981171}
+{"kind": "job", "id": 283, "t_inf_start": 795536.8997859, "t_inf_end": 795537.0243521}
+{"kind": "call", "id": 283, "type": "final", "n_samples": 14400, "t_enq": 795536.5887574, "active_calls_at_enq": 2, "t_lock": 795536.8997001, "cancelled": false, "error": null, "t_return": 795537.0246945}
+{"kind": "job", "id": 284, "t_inf_start": 795537.2598868, "t_inf_end": 795537.4707809}
+{"kind": "call", "id": 284, "type": "partial", "n_samples": 22400, "t_enq": 795537.259788, "active_calls_at_enq": 0, "t_lock": 795537.2598004, "cancelled": false, "error": null, "t_return": 795537.4710808}
+{"kind": "job", "id": 285, "t_inf_start": 795537.4713477, "t_inf_end": 795537.6341968}
+{"kind": "call", "id": 285, "type": "partial", "n_samples": 20800, "t_enq": 795537.4284063, "active_calls_at_enq": 1, "t_lock": 795537.4712985, "cancelled": false, "error": null, "t_return": 795537.634506}
+{"kind": "job", "id": 286, "t_inf_start": 795537.9781963, "t_inf_end": 795538.2251246}
+{"kind": "call", "id": 286, "type": "partial", "n_samples": 33600, "t_enq": 795537.9780948, "active_calls_at_enq": 0, "t_lock": 795537.9781063, "cancelled": false, "error": null, "t_return": 795538.2254487}
+{"kind": "job", "id": 287, "t_inf_start": 795538.2257251, "t_inf_end": 795538.4785413}
+{"kind": "call", "id": 287, "type": "partial", "n_samples": 32000, "t_enq": 795538.1488966, "active_calls_at_enq": 1, "t_lock": 795538.2256664, "cancelled": false, "error": null, "t_return": 795538.4788398}
+{"kind": "job", "id": 288, "t_inf_start": 795538.7322117, "t_inf_end": 795539.1251193}
+{"kind": "call", "id": 288, "type": "partial", "n_samples": 44800, "t_enq": 795538.7320766, "active_calls_at_enq": 0, "t_lock": 795538.7320906, "cancelled": false, "error": null, "t_return": 795539.125486}
+{"kind": "job", "id": 289, "t_inf_start": 795539.1256823, "t_inf_end": 795539.4767683}
+{"kind": "call", "id": 289, "type": "final", "n_samples": 49600, "t_enq": 795538.948084, "active_calls_at_enq": 1, "t_lock": 795539.1256272, "cancelled": false, "error": null, "t_return": 795539.4770854}
+{"kind": "job", "id": 290, "t_inf_start": 795539.4781224, "t_inf_end": 795539.8460337}
+{"kind": "call", "id": 290, "type": "partial", "n_samples": 46400, "t_enq": 795538.9934823, "active_calls_at_enq": 2, "t_lock": 795539.4780672, "cancelled": false, "error": null, "t_return": 795539.8462627}
+{"kind": "job", "id": 291, "t_inf_start": 795539.8463681, "t_inf_end": 795539.9313293}
+{"kind": "call", "id": 291, "type": "partial", "n_samples": 9600, "t_enq": 795539.6375675, "active_calls_at_enq": 1, "t_lock": 795539.8463223, "cancelled": false, "error": null, "t_return": 795539.9316433}
+{"kind": "job", "id": 292, "t_inf_start": 795540.3594352, "t_inf_end": 795540.9001514}
+{"kind": "call", "id": 292, "type": "partial", "n_samples": 68800, "t_enq": 795540.3593178, "active_calls_at_enq": 0, "t_lock": 795540.359332, "cancelled": false, "error": null, "t_return": 795540.9004802}
+{"kind": "job", "id": 293, "t_inf_start": 795540.9006554, "t_inf_end": 795541.0833569}
+{"kind": "call", "id": 293, "type": "partial", "n_samples": 22400, "t_enq": 795540.4406477, "active_calls_at_enq": 1, "t_lock": 795540.9005882, "cancelled": false, "error": null, "t_return": 795541.0836877}
+{"kind": "job", "id": 294, "t_inf_start": 795541.0839716, "t_inf_end": 795541.6119348}
+{"kind": "call", "id": 294, "type": "final", "n_samples": 72000, "t_enq": 795540.5478309, "active_calls_at_enq": 2, "t_lock": 795541.0839149, "cancelled": false, "error": null, "t_return": 795541.6122967}
+{"kind": "job", "id": 295, "t_inf_start": 795541.6140066, "t_inf_end": 795541.9240665}
+{"kind": "call", "id": 295, "type": "partial", "n_samples": 41600, "t_enq": 795541.5935537, "active_calls_at_enq": 1, "t_lock": 795541.6139104, "cancelled": false, "error": null, "t_return": 795541.924419}
+{"kind": "job", "id": 296, "t_inf_start": 795541.9479256, "t_inf_end": 795542.3291629}
+{"kind": "call", "id": 296, "type": "final", "n_samples": 48000, "t_enq": 795541.9477701, "active_calls_at_enq": 0, "t_lock": 795541.9477874, "cancelled": false, "error": null, "t_return": 795542.3294528}
+{"kind": "job", "id": 297, "t_inf_start": 795542.8648199, "t_inf_end": 795542.999871}
+{"kind": "call", "id": 297, "type": "partial", "n_samples": 14400, "t_enq": 795542.8647219, "active_calls_at_enq": 0, "t_lock": 795542.8647318, "cancelled": false, "error": null, "t_return": 795543.0002037}
+{"kind": "job", "id": 298, "t_inf_start": 795543.5133018, "t_inf_end": 795543.7238799}
+{"kind": "call", "id": 298, "type": "partial", "n_samples": 25600, "t_enq": 795543.5131822, "active_calls_at_enq": 0, "t_lock": 795543.5131965, "cancelled": false, "error": null, "t_return": 795543.7242594}
+{"kind": "job", "id": 299, "t_inf_start": 795544.2291974, "t_inf_end": 795544.5380974}
+{"kind": "call", "id": 299, "type": "partial", "n_samples": 36800, "t_enq": 795544.2291129, "active_calls_at_enq": 0, "t_lock": 795544.2291242, "cancelled": false, "error": null, "t_return": 795544.5383977}
+{"kind": "job", "id": 300, "t_inf_start": 795544.5385539, "t_inf_end": 795544.8526489}
+{"kind": "call", "id": 300, "type": "final", "n_samples": 40000, "t_enq": 795544.3605731, "active_calls_at_enq": 1, "t_lock": 795544.5384753, "cancelled": false, "error": null, "t_return": 795544.8530713}
+{"kind": "job", "id": 301, "t_inf_start": 795544.8545505, "t_inf_end": 795545.1372598}
+{"kind": "call", "id": 301, "type": "partial", "n_samples": 38400, "t_enq": 795544.4495413, "active_calls_at_enq": 2, "t_lock": 795544.8544838, "cancelled": false, "error": null, "t_return": 795545.1375915}
+{"kind": "job", "id": 302, "t_inf_start": 795545.1377152, "t_inf_end": 795545.4643211}
+{"kind": "call", "id": 302, "type": "final", "n_samples": 46400, "t_enq": 795544.8441311, "active_calls_at_enq": 2, "t_lock": 795545.1376647, "cancelled": false, "error": null, "t_return": 795545.4645533}
+{"kind": "job", "id": 303, "t_inf_start": 795546.0476855, "t_inf_end": 795546.2872049}
+{"kind": "call", "id": 303, "type": "partial", "n_samples": 25600, "t_enq": 795546.0475858, "active_calls_at_enq": 0, "t_lock": 795546.0475954, "cancelled": false, "error": null, "t_return": 795546.2875478}
+{"kind": "job", "id": 304, "t_inf_start": 795546.7916256, "t_inf_end": 795547.1130105}
+{"kind": "call", "id": 304, "type": "partial", "n_samples": 38400, "t_enq": 795546.7915264, "active_calls_at_enq": 0, "t_lock": 795546.791539, "cancelled": false, "error": null, "t_return": 795547.1133592}
+{"kind": "job", "id": 305, "t_inf_start": 795547.6183879, "t_inf_end": 795548.0133159}
+{"kind": "call", "id": 305, "type": "partial", "n_samples": 51200, "t_enq": 795547.618257, "active_calls_at_enq": 0, "t_lock": 795547.6182723, "cancelled": false, "error": null, "t_return": 795548.0136269}
+{"kind": "job", "id": 306, "t_inf_start": 795548.4666243, "t_inf_end": 795548.9695747}
+{"kind": "call", "id": 306, "type": "final", "n_samples": 65600, "t_enq": 795548.4665305, "active_calls_at_enq": 0, "t_lock": 795548.4665398, "cancelled": false, "error": null, "t_return": 795548.9699143}
+{"kind": "job", "id": 307, "t_inf_start": 795549.0435201, "t_inf_end": 795549.124563}
+{"kind": "call", "id": 307, "type": "partial", "n_samples": 8000, "t_enq": 795549.0434238, "active_calls_at_enq": 0, "t_lock": 795549.043436, "cancelled": false, "error": null, "t_return": 795549.1248957}
+{"kind": "job", "id": 308, "t_inf_start": 795549.6353054, "t_inf_end": 795549.7813366}
+{"kind": "call", "id": 308, "type": "partial", "n_samples": 17600, "t_enq": 795549.6351939, "active_calls_at_enq": 0, "t_lock": 795549.6352067, "cancelled": false, "error": null, "t_return": 795549.7816677}
+{"kind": "job", "id": 309, "t_inf_start": 795550.1622538, "t_inf_end": 795550.3946472}
+{"kind": "call", "id": 309, "type": "final", "n_samples": 27200, "t_enq": 795550.1621543, "active_calls_at_enq": 0, "t_lock": 795550.1621636, "cancelled": false, "error": null, "t_return": 795550.3949577}
+{"kind": "job", "id": 310, "t_inf_start": 795550.7871093, "t_inf_end": 795550.8658328}
+{"kind": "call", "id": 310, "type": "partial", "n_samples": 9600, "t_enq": 795550.7870179, "active_calls_at_enq": 0, "t_lock": 795550.7870272, "cancelled": false, "error": null, "t_return": 795550.8661703}
+{"kind": "job", "id": 311, "t_inf_start": 795551.380175, "t_inf_end": 795551.5351345}
+{"kind": "call", "id": 311, "type": "partial", "n_samples": 19200, "t_enq": 795551.3800619, "active_calls_at_enq": 0, "t_lock": 795551.3800753, "cancelled": false, "error": null, "t_return": 795551.5354833}
+{"kind": "job", "id": 312, "t_inf_start": 795551.5356258, "t_inf_end": 795551.704821}
+{"kind": "call", "id": 312, "type": "final", "n_samples": 20800, "t_enq": 795551.4603186, "active_calls_at_enq": 1, "t_lock": 795551.5355714, "cancelled": false, "error": null, "t_return": 795551.7051792}
+{"kind": "job", "id": 313, "t_inf_start": 795552.5597159, "t_inf_end": 795552.6977437}
+{"kind": "call", "id": 313, "type": "partial", "n_samples": 16000, "t_enq": 795552.5595958, "active_calls_at_enq": 0, "t_lock": 795552.5596094, "cancelled": false, "error": null, "t_return": 795552.6980392}
+{"kind": "job", "id": 314, "t_inf_start": 795553.2014187, "t_inf_end": 795553.4277038}
+{"kind": "call", "id": 314, "type": "partial", "n_samples": 27200, "t_enq": 795553.2012793, "active_calls_at_enq": 0, "t_lock": 795553.2012946, "cancelled": false, "error": null, "t_return": 795553.428014}
+{"kind": "job", "id": 315, "t_inf_start": 795553.9420821, "t_inf_end": 795554.2353872}
+{"kind": "call", "id": 315, "type": "partial", "n_samples": 38400, "t_enq": 795553.9419623, "active_calls_at_enq": 0, "t_lock": 795553.941978, "cancelled": false, "error": null, "t_return": 795554.2356575}
+{"kind": "job", "id": 316, "t_inf_start": 795554.2782319, "t_inf_end": 795554.3496922}
+{"kind": "call", "id": 316, "type": "partial", "n_samples": 6400, "t_enq": 795554.2781391, "active_calls_at_enq": 0, "t_lock": 795554.2781515, "cancelled": false, "error": null, "t_return": 795554.3500218}
+{"kind": "job", "id": 317, "t_inf_start": 795554.5651797, "t_inf_end": 795554.9068922}
+{"kind": "call", "id": 317, "type": "final", "n_samples": 49600, "t_enq": 795554.5650858, "active_calls_at_enq": 0, "t_lock": 795554.5650939, "cancelled": false, "error": null, "t_return": 795554.9072341}
+{"kind": "job", "id": 318, "t_inf_start": 795554.9084033, "t_inf_end": 795555.0355164}
+{"kind": "call", "id": 318, "type": "partial", "n_samples": 16000, "t_enq": 795554.8594603, "active_calls_at_enq": 1, "t_lock": 795554.9083192, "cancelled": false, "error": null, "t_return": 795555.0358642}
+{"kind": "job", "id": 319, "t_inf_start": 795555.2480903, "t_inf_end": 795555.3437719}
+{"kind": "call", "id": 319, "type": "partial", "n_samples": 9600, "t_enq": 795555.2479764, "active_calls_at_enq": 0, "t_lock": 795555.2479887, "cancelled": false, "error": null, "t_return": 795555.3441511}
+{"kind": "job", "id": 320, "t_inf_start": 795555.540776, "t_inf_end": 795555.7637247}
+{"kind": "call", "id": 320, "type": "partial", "n_samples": 27200, "t_enq": 795555.540641, "active_calls_at_enq": 0, "t_lock": 795555.5406585, "cancelled": false, "error": null, "t_return": 795555.7641307}
+{"kind": "job", "id": 321, "t_inf_start": 795555.8514032, "t_inf_end": 795556.0035749}
+{"kind": "call", "id": 321, "type": "partial", "n_samples": 19200, "t_enq": 795555.8513117, "active_calls_at_enq": 0, "t_lock": 795555.8513214, "cancelled": false, "error": null, "t_return": 795556.0039462}
+{"kind": "job", "id": 322, "t_inf_start": 795556.2673095, "t_inf_end": 795556.5694289}
+{"kind": "call", "id": 322, "type": "partial", "n_samples": 38400, "t_enq": 795556.2671611, "active_calls_at_enq": 0, "t_lock": 795556.2671783, "cancelled": false, "error": null, "t_return": 795556.5696869}
+{"kind": "job", "id": 323, "t_inf_start": 795556.5699268, "t_inf_end": 795556.794721}
+{"kind": "call", "id": 323, "type": "partial", "n_samples": 30400, "t_enq": 795556.5178591, "active_calls_at_enq": 1, "t_lock": 795556.5698673, "cancelled": false, "error": null, "t_return": 795556.7950321}
+{"kind": "job", "id": 324, "t_inf_start": 795557.0773903, "t_inf_end": 795557.4904784}
+{"kind": "call", "id": 324, "type": "partial", "n_samples": 51200, "t_enq": 795557.0773046, "active_calls_at_enq": 0, "t_lock": 795557.0773152, "cancelled": false, "error": null, "t_return": 795557.4907128}
+{"kind": "job", "id": 325, "t_inf_start": 795557.4910202, "t_inf_end": 795557.8091654}
+{"kind": "call", "id": 325, "type": "partial", "n_samples": 43200, "t_enq": 795557.3039103, "active_calls_at_enq": 1, "t_lock": 795557.4909635, "cancelled": false, "error": null, "t_return": 795557.8095002}
+{"kind": "job", "id": 326, "t_inf_start": 795557.8096587, "t_inf_end": 795558.190835}
+{"kind": "call", "id": 326, "type": "final", "n_samples": 48000, "t_enq": 795557.5704376, "active_calls_at_enq": 1, "t_lock": 795557.8096002, "cancelled": false, "error": null, "t_return": 795558.1911964}
+{"kind": "job", "id": 327, "t_inf_start": 795558.1929327, "t_inf_end": 795558.6915867}
+{"kind": "call", "id": 327, "type": "final", "n_samples": 67200, "t_enq": 795557.9908525, "active_calls_at_enq": 1, "t_lock": 795558.1928256, "cancelled": false, "error": null, "t_return": 795558.6919736}
+{"kind": "job", "id": 328, "t_inf_start": 795559.025665, "t_inf_end": 795559.1725779}
+{"kind": "call", "id": 328, "type": "partial", "n_samples": 16000, "t_enq": 795559.0255487, "active_calls_at_enq": 0, "t_lock": 795559.025563, "cancelled": false, "error": null, "t_return": 795559.1728329}
+{"kind": "job", "id": 329, "t_inf_start": 795559.6733749, "t_inf_end": 795559.9065018}
+{"kind": "call", "id": 329, "type": "partial", "n_samples": 25600, "t_enq": 795559.6732526, "active_calls_at_enq": 0, "t_lock": 795559.6732656, "cancelled": false, "error": null, "t_return": 795559.9068621}
+{"kind": "job", "id": 330, "t_inf_start": 795559.9070285, "t_inf_end": 795560.1916925}
+{"kind": "call", "id": 330, "type": "partial", "n_samples": 35200, "t_enq": 795559.8343772, "active_calls_at_enq": 1, "t_lock": 795559.9069635, "cancelled": false, "error": null, "t_return": 795560.1919943}
+{"kind": "job", "id": 331, "t_inf_start": 795560.4142004, "t_inf_end": 795560.7265336}
+{"kind": "call", "id": 331, "type": "partial", "n_samples": 38400, "t_enq": 795560.4140819, "active_calls_at_enq": 0, "t_lock": 795560.414096, "cancelled": false, "error": null, "t_return": 795560.7269268}
+{"kind": "job", "id": 332, "t_inf_start": 795560.7271849, "t_inf_end": 795561.0964105}
+{"kind": "call", "id": 332, "type": "final", "n_samples": 46400, "t_enq": 795560.4621542, "active_calls_at_enq": 1, "t_lock": 795560.7271307, "cancelled": false, "error": null, "t_return": 795561.0967245}
+{"kind": "job", "id": 333, "t_inf_start": 795561.2323605, "t_inf_end": 795561.6587798}
+{"kind": "call", "id": 333, "type": "partial", "n_samples": 51200, "t_enq": 795561.2322436, "active_calls_at_enq": 0, "t_lock": 795561.2322567, "cancelled": false, "error": null, "t_return": 795561.6590798}
+{"kind": "job", "id": 334, "t_inf_start": 795562.1606982, "t_inf_end": 795562.6877086}
+{"kind": "call", "id": 334, "type": "partial", "n_samples": 65600, "t_enq": 795562.1605804, "active_calls_at_enq": 0, "t_lock": 795562.1605933, "cancelled": false, "error": null, "t_return": 795562.6880759}
+{"kind": "job", "id": 335, "t_inf_start": 795563.1954869, "t_inf_end": 795563.7955958}
+{"kind": "call", "id": 335, "type": "partial", "n_samples": 83200, "t_enq": 795563.1953811, "active_calls_at_enq": 0, "t_lock": 795563.1953932, "cancelled": false, "error": null, "t_return": 795563.7958702}
+{"kind": "job", "id": 336, "t_inf_start": 795564.18011, "t_inf_end": 795564.9604096}
+{"kind": "call", "id": 336, "type": "final", "n_samples": 99200, "t_enq": 795564.18001, "active_calls_at_enq": 0, "t_lock": 795564.1800172, "cancelled": false, "error": null, "t_return": 795564.9607731}
+{"kind": "job", "id": 337, "t_inf_start": 795566.7022494, "t_inf_end": 795566.837112}
+{"kind": "call", "id": 337, "type": "partial", "n_samples": 14400, "t_enq": 795566.7020984, "active_calls_at_enq": 0, "t_lock": 795566.702134, "cancelled": false, "error": null, "t_return": 795566.8374879}
+{"kind": "job", "id": 338, "t_inf_start": 795567.3401941, "t_inf_end": 795567.5473355}
+{"kind": "call", "id": 338, "type": "partial", "n_samples": 25600, "t_enq": 795567.3400945, "active_calls_at_enq": 0, "t_lock": 795567.3401059, "cancelled": false, "error": null, "t_return": 795567.5476712}
+{"kind": "job", "id": 339, "t_inf_start": 795568.054092, "t_inf_end": 795568.3585806}
+{"kind": "call", "id": 339, "type": "partial", "n_samples": 36800, "t_enq": 795568.0539715, "active_calls_at_enq": 0, "t_lock": 795568.0539848, "cancelled": false, "error": null, "t_return": 795568.3589003}
+{"kind": "job", "id": 340, "t_inf_start": 795568.8739805, "t_inf_end": 795569.2473726}
+{"kind": "call", "id": 340, "type": "partial", "n_samples": 49600, "t_enq": 795568.8738565, "active_calls_at_enq": 0, "t_lock": 795568.8738694, "cancelled": false, "error": null, "t_return": 795569.2476816}
+{"kind": "job", "id": 341, "t_inf_start": 795569.7604518, "t_inf_end": 795570.3139532}
+{"kind": "call", "id": 341, "type": "partial", "n_samples": 64000, "t_enq": 795569.760337, "active_calls_at_enq": 0, "t_lock": 795569.7603582, "cancelled": false, "error": null, "t_return": 795570.3142533}
+{"kind": "job", "id": 342, "t_inf_start": 795570.3145054, "t_inf_end": 795570.3822434}
+{"kind": "call", "id": 342, "type": "partial", "n_samples": 6400, "t_enq": 795569.9209419, "active_calls_at_enq": 1, "t_lock": 795570.314447, "cancelled": false, "error": null, "t_return": 795570.3825827}
+{"kind": "job", "id": 343, "t_inf_start": 795570.8183932, "t_inf_end": 795571.3807118}
+{"kind": "call", "id": 343, "type": "partial", "n_samples": 81600, "t_enq": 795570.8182977, "active_calls_at_enq": 0, "t_lock": 795570.8183112, "cancelled": false, "error": null, "t_return": 795571.3810159}
+{"kind": "job", "id": 344, "t_inf_start": 795571.3812578, "t_inf_end": 795571.5529434}
+{"kind": "call", "id": 344, "type": "partial", "n_samples": 22400, "t_enq": 795570.8836166, "active_calls_at_enq": 1, "t_lock": 795571.3812069, "cancelled": false, "error": null, "t_return": 795571.5532902}
+{"kind": "job", "id": 345, "t_inf_start": 795571.8906298, "t_inf_end": 795572.5994939}
+{"kind": "call", "id": 345, "type": "partial", "n_samples": 97600, "t_enq": 795571.8905254, "active_calls_at_enq": 0, "t_lock": 795571.8905372, "cancelled": false, "error": null, "t_return": 795572.5997777}
+{"kind": "job", "id": 346, "t_inf_start": 795572.6000155, "t_inf_end": 795572.944486}
+{"kind": "call", "id": 346, "type": "partial", "n_samples": 41600, "t_enq": 795572.0598902, "active_calls_at_enq": 1, "t_lock": 795572.5999517, "cancelled": false, "error": null, "t_return": 795572.9450307}
+{"kind": "job", "id": 347, "t_inf_start": 795573.1046693, "t_inf_end": 795573.9663297}
+{"kind": "call", "id": 347, "type": "partial", "n_samples": 116800, "t_enq": 795573.1045762, "active_calls_at_enq": 0, "t_lock": 795573.1045869, "cancelled": false, "error": null, "t_return": 795573.9666232}
+{"kind": "job", "id": 348, "t_inf_start": 795573.9667676, "t_inf_end": 795574.4337028}
+{"kind": "call", "id": 348, "type": "partial", "n_samples": 64000, "t_enq": 795573.4461342, "active_calls_at_enq": 1, "t_lock": 795573.9667228, "cancelled": false, "error": null, "t_return": 795574.4340562}
+{"kind": "job", "id": 349, "t_inf_start": 795574.4342327, "t_inf_end": 795574.9117404}
+{"kind": "call", "id": 349, "type": "final", "n_samples": 67200, "t_enq": 795573.6222526, "active_calls_at_enq": 2, "t_lock": 795574.4341687, "cancelled": false, "error": null, "t_return": 795574.9120569}
+{"kind": "job", "id": 350, "t_inf_start": 795574.9136071, "t_inf_end": 795575.8309109}
+{"kind": "call", "id": 350, "type": "final", "n_samples": 128000, "t_enq": 795573.7029552, "active_calls_at_enq": 3, "t_lock": 795574.9135217, "cancelled": false, "error": null, "t_return": 795575.8312563}
+{"kind": "job", "id": 351, "t_inf_start": 795575.8337506, "t_inf_end": 795576.0054123}
+{"kind": "call", "id": 351, "type": "partial", "n_samples": 20800, "t_enq": 795574.9360834, "active_calls_at_enq": 1, "t_lock": 795575.8336937, "cancelled": false, "error": null, "t_return": 795576.0060204}
+{"kind": "job", "id": 352, "t_inf_start": 795576.006323, "t_inf_end": 795576.2689691}
+{"kind": "call", "id": 352, "type": "partial", "n_samples": 35200, "t_enq": 795576.0059236, "active_calls_at_enq": 1, "t_lock": 795576.0062168, "cancelled": false, "error": null, "t_return": 795576.2693055}
+{"kind": "job", "id": 353, "t_inf_start": 795576.5129243, "t_inf_end": 795576.8402806}
+{"kind": "call", "id": 353, "type": "partial", "n_samples": 44800, "t_enq": 795576.5128043, "active_calls_at_enq": 0, "t_lock": 795576.5128159, "cancelled": false, "error": null, "t_return": 795576.840562}
+{"kind": "job", "id": 354, "t_inf_start": 795576.8407878, "t_inf_end": 795577.2572243}
+{"kind": "call", "id": 354, "type": "partial", "n_samples": 48000, "t_enq": 795576.7722571, "active_calls_at_enq": 1, "t_lock": 795576.8407368, "cancelled": false, "error": null, "t_return": 795577.2579168}
+{"kind": "job", "id": 355, "t_inf_start": 795577.3462985, "t_inf_end": 795577.79506}
+{"kind": "call", "id": 355, "type": "partial", "n_samples": 59200, "t_enq": 795577.3461423, "active_calls_at_enq": 0, "t_lock": 795577.3461575, "cancelled": false, "error": null, "t_return": 795577.7953816}
+{"kind": "job", "id": 356, "t_inf_start": 795577.7956454, "t_inf_end": 795578.3326026}
+{"kind": "call", "id": 356, "type": "partial", "n_samples": 64000, "t_enq": 795577.7625849, "active_calls_at_enq": 1, "t_lock": 795577.7955965, "cancelled": false, "error": null, "t_return": 795578.3329015}
+{"kind": "job", "id": 357, "t_inf_start": 795578.3331953, "t_inf_end": 795578.9633381}
+{"kind": "call", "id": 357, "type": "partial", "n_samples": 73600, "t_enq": 795578.2963863, "active_calls_at_enq": 1, "t_lock": 795578.3331392, "cancelled": false, "error": null, "t_return": 795578.9637391}
+{"kind": "job", "id": 358, "t_inf_start": 795578.9641876, "t_inf_end": 795579.5293478}
+{"kind": "call", "id": 358, "type": "partial", "n_samples": 81600, "t_enq": 795578.844881, "active_calls_at_enq": 1, "t_lock": 795578.9641145, "cancelled": false, "error": null, "t_return": 795579.5296358}
+{"kind": "job", "id": 359, "t_inf_start": 795579.5297557, "t_inf_end": 795580.2349557}
+{"kind": "call", "id": 359, "type": "partial", "n_samples": 92800, "t_enq": 795579.4672347, "active_calls_at_enq": 1, "t_lock": 795579.529704, "cancelled": false, "error": null, "t_return": 795580.2353093}
+{"kind": "job", "id": 360, "t_inf_start": 795580.2354429, "t_inf_end": 795581.0778409}
+{"kind": "call", "id": 360, "type": "final", "n_samples": 99200, "t_enq": 795579.8186614, "active_calls_at_enq": 1, "t_lock": 795580.2353933, "cancelled": false, "error": null, "t_return": 795581.0781771}
+{"kind": "job", "id": 361, "t_inf_start": 795581.0795584, "t_inf_end": 795581.878076}
+{"kind": "call", "id": 361, "type": "partial", "n_samples": 100800, "t_enq": 795580.0360232, "active_calls_at_enq": 2, "t_lock": 795581.0794941, "cancelled": false, "error": null, "t_return": 795581.8784436}
+{"kind": "job", "id": 362, "t_inf_start": 795581.8786223, "t_inf_end": 795582.7557839}
+{"kind": "call", "id": 362, "type": "final", "n_samples": 128000, "t_enq": 795581.6982681, "active_calls_at_enq": 1, "t_lock": 795581.8785563, "cancelled": false, "error": null, "t_return": 795582.7560697}
+{"kind": "job", "id": 363, "t_inf_start": 795582.7574531, "t_inf_end": 795582.8757985}
+{"kind": "call", "id": 363, "type": "partial", "n_samples": 16000, "t_enq": 795582.3397625, "active_calls_at_enq": 1, "t_lock": 795582.7573627, "cancelled": false, "error": null, "t_return": 795582.8761227}
+{"kind": "job", "id": 364, "t_inf_start": 795582.889921, "t_inf_end": 795583.0334003}
+{"kind": "call", "id": 364, "type": "partial", "n_samples": 17600, "t_enq": 795582.8898331, "active_calls_at_enq": 0, "t_lock": 795582.8898439, "cancelled": false, "error": null, "t_return": 795583.0337149}
+{"kind": "job", "id": 365, "t_inf_start": 795583.3849012, "t_inf_end": 795583.6387949}
+{"kind": "call", "id": 365, "type": "partial", "n_samples": 32000, "t_enq": 795583.3847907, "active_calls_at_enq": 0, "t_lock": 795583.3848033, "cancelled": false, "error": null, "t_return": 795583.6390892}
+{"kind": "job", "id": 366, "t_inf_start": 795583.6392035, "t_inf_end": 795583.871269}
+{"kind": "call", "id": 366, "type": "partial", "n_samples": 28800, "t_enq": 795583.5380909, "active_calls_at_enq": 1, "t_lock": 795583.6391515, "cancelled": false, "error": null, "t_return": 795583.871554}
+{"kind": "job", "id": 367, "t_inf_start": 795584.1412632, "t_inf_end": 795584.4538955}
+{"kind": "call", "id": 367, "type": "partial", "n_samples": 44800, "t_enq": 795584.1411434, "active_calls_at_enq": 0, "t_lock": 795584.1411569, "cancelled": false, "error": null, "t_return": 795584.454277}
+{"kind": "job", "id": 368, "t_inf_start": 795584.4545637, "t_inf_end": 795584.753681}
+{"kind": "call", "id": 368, "type": "partial", "n_samples": 41600, "t_enq": 795584.3724814, "active_calls_at_enq": 1, "t_lock": 795584.4545008, "cancelled": false, "error": null, "t_return": 795584.7540612}
+{"kind": "job", "id": 369, "t_inf_start": 795584.9607765, "t_inf_end": 795585.4260422}
+{"kind": "call", "id": 369, "type": "partial", "n_samples": 57600, "t_enq": 795584.9606204, "active_calls_at_enq": 0, "t_lock": 795584.9606404, "cancelled": false, "error": null, "t_return": 795585.4263551}
+{"kind": "job", "id": 370, "t_inf_start": 795585.4266329, "t_inf_end": 795585.8371279}
+{"kind": "call", "id": 370, "type": "partial", "n_samples": 56000, "t_enq": 795585.2703269, "active_calls_at_enq": 1, "t_lock": 795585.4265662, "cancelled": false, "error": null, "t_return": 795585.8374769}
+{"kind": "job", "id": 371, "t_inf_start": 795585.9400467, "t_inf_end": 795586.471524}
+{"kind": "call", "id": 371, "type": "partial", "n_samples": 72000, "t_enq": 795585.9399251, "active_calls_at_enq": 0, "t_lock": 795585.9399401, "cancelled": false, "error": null, "t_return": 795586.4718556}
+{"kind": "job", "id": 372, "t_inf_start": 795586.4720923, "t_inf_end": 795587.0337371}
+{"kind": "call", "id": 372, "type": "partial", "n_samples": 73600, "t_enq": 795586.339956, "active_calls_at_enq": 1, "t_lock": 795586.4720417, "cancelled": false, "error": null, "t_return": 795587.0340626}
+{"kind": "job", "id": 373, "t_inf_start": 795587.0344712, "t_inf_end": 795587.7012658}
+{"kind": "call", "id": 373, "type": "partial", "n_samples": 89600, "t_enq": 795586.9862955, "active_calls_at_enq": 1, "t_lock": 795587.0343952, "cancelled": false, "error": null, "t_return": 795587.7015084}
+{"kind": "job", "id": 374, "t_inf_start": 795587.7017195, "t_inf_end": 795588.3614708}
+{"kind": "call", "id": 374, "type": "partial", "n_samples": 92800, "t_enq": 795587.541534, "active_calls_at_enq": 1, "t_lock": 795587.7016705, "cancelled": false, "error": null, "t_return": 795588.3618475}
+{"kind": "job", "id": 375, "t_inf_start": 795588.3622492, "t_inf_end": 795589.2017771}
+{"kind": "call", "id": 375, "type": "partial", "n_samples": 108800, "t_enq": 795588.2126684, "active_calls_at_enq": 1, "t_lock": 795588.3621656, "cancelled": false, "error": null, "t_return": 795589.20205}
+{"kind": "job", "id": 376, "t_inf_start": 795589.2023843, "t_inf_end": 795590.0713054}
+{"kind": "call", "id": 376, "type": "partial", "n_samples": 113600, "t_enq": 795588.8776181, "active_calls_at_enq": 1, "t_lock": 795589.2023124, "cancelled": false, "error": null, "t_return": 795590.0716619}
+{"kind": "job", "id": 377, "t_inf_start": 795590.0718388, "t_inf_end": 795590.9981965}
+{"kind": "call", "id": 377, "type": "final", "n_samples": 128000, "t_enq": 795589.3270435, "active_calls_at_enq": 1, "t_lock": 795590.0717789, "cancelled": false, "error": null, "t_return": 795590.9984542}
+{"kind": "job", "id": 378, "t_inf_start": 795591.0003287, "t_inf_end": 795591.9155652}
+{"kind": "call", "id": 378, "type": "final", "n_samples": 128000, "t_enq": 795589.6956104, "active_calls_at_enq": 2, "t_lock": 795591.0002619, "cancelled": false, "error": null, "t_return": 795591.9158364}
+{"kind": "job", "id": 379, "t_inf_start": 795591.918176, "t_inf_end": 795592.1331303}
+{"kind": "call", "id": 379, "type": "partial", "n_samples": 30400, "t_enq": 795591.2361707, "active_calls_at_enq": 1, "t_lock": 795591.918099, "cancelled": false, "error": null, "t_return": 795592.1333377}
+{"kind": "job", "id": 380, "t_inf_start": 795592.6453069, "t_inf_end": 795593.0761198}
+{"kind": "call", "id": 380, "type": "partial", "n_samples": 52800, "t_enq": 795592.6451897, "active_calls_at_enq": 0, "t_lock": 795592.6452057, "cancelled": false, "error": null, "t_return": 795593.0764236}
+{"kind": "job", "id": 381, "t_inf_start": 795593.0766659, "t_inf_end": 795593.1959628}
+{"kind": "call", "id": 381, "type": "partial", "n_samples": 16000, "t_enq": 795593.031598, "active_calls_at_enq": 1, "t_lock": 795593.0766025, "cancelled": false, "error": null, "t_return": 795593.1963558}
+{"kind": "job", "id": 382, "t_inf_start": 795593.5845008, "t_inf_end": 795594.1192503}
+{"kind": "call", "id": 382, "type": "partial", "n_samples": 67200, "t_enq": 795593.5843778, "active_calls_at_enq": 0, "t_lock": 795593.5843904, "cancelled": false, "error": null, "t_return": 795594.1196169}
+{"kind": "job", "id": 383, "t_inf_start": 795594.1197618, "t_inf_end": 795594.3307091}
+{"kind": "call", "id": 383, "type": "partial", "n_samples": 25600, "t_enq": 795593.7079107, "active_calls_at_enq": 1, "t_lock": 795594.1197086, "cancelled": false, "error": null, "t_return": 795594.3310558}
+{"kind": "job", "id": 384, "t_inf_start": 795594.6323672, "t_inf_end": 795595.2261904}
+{"kind": "call", "id": 384, "type": "partial", "n_samples": 83200, "t_enq": 795594.6322479, "active_calls_at_enq": 0, "t_lock": 795594.6322623, "cancelled": false, "error": null, "t_return": 795595.2264187}
+{"kind": "job", "id": 385, "t_inf_start": 795595.2266449, "t_inf_end": 795595.569178}
+{"kind": "call", "id": 385, "type": "partial", "n_samples": 44800, "t_enq": 795594.8378901, "active_calls_at_enq": 1, "t_lock": 795595.2265991, "cancelled": false, "error": null, "t_return": 795595.5694816}
+{"kind": "job", "id": 386, "t_inf_start": 795595.5696188, "t_inf_end": 795595.9273096}
+{"kind": "call", "id": 386, "type": "final", "n_samples": 51200, "t_enq": 795595.2208769, "active_calls_at_enq": 2, "t_lock": 795595.5695611, "cancelled": false, "error": null, "t_return": 795595.9276329}
+{"kind": "job", "id": 387, "t_inf_start": 795595.9294498, "t_inf_end": 795596.6389001}
+{"kind": "call", "id": 387, "type": "partial", "n_samples": 100800, "t_enq": 795595.7278346, "active_calls_at_enq": 1, "t_lock": 795595.9293544, "cancelled": false, "error": null, "t_return": 795596.6392025}
+{"kind": "job", "id": 388, "t_inf_start": 795596.6394598, "t_inf_end": 795596.7711591}
+{"kind": "call", "id": 388, "type": "partial", "n_samples": 12800, "t_enq": 795596.0781545, "active_calls_at_enq": 1, "t_lock": 795596.6394114, "cancelled": false, "error": null, "t_return": 795596.771454}
+{"kind": "job", "id": 389, "t_inf_start": 795597.1409858, "t_inf_end": 795598.0577036}
+{"kind": "call", "id": 389, "type": "partial", "n_samples": 123200, "t_enq": 795597.1408549, "active_calls_at_enq": 0, "t_lock": 795597.1408688, "cancelled": false, "error": null, "t_return": 795598.0579914}
+{"kind": "job", "id": 390, "t_inf_start": 795598.058178, "t_inf_end": 795598.3060137}
+{"kind": "call", "id": 390, "type": "partial", "n_samples": 32000, "t_enq": 795597.2785524, "active_calls_at_enq": 1, "t_lock": 795598.0581177, "cancelled": false, "error": null, "t_return": 795598.3063275}
+{"kind": "job", "id": 391, "t_inf_start": 795598.3065947, "t_inf_end": 795599.2480963}
+{"kind": "call", "id": 391, "type": "final", "n_samples": 128000, "t_enq": 795597.3360685, "active_calls_at_enq": 2, "t_lock": 795598.3065439, "cancelled": false, "error": null, "t_return": 795599.2483826}
+{"kind": "job", "id": 392, "t_inf_start": 795599.2498744, "t_inf_end": 795599.686678}
+{"kind": "call", "id": 392, "type": "partial", "n_samples": 56000, "t_enq": 795598.8139094, "active_calls_at_enq": 1, "t_lock": 795599.2497906, "cancelled": false, "error": null, "t_return": 795599.6869852}
+{"kind": "job", "id": 393, "t_inf_start": 795599.6872596, "t_inf_end": 795599.9796849}
+{"kind": "call", "id": 393, "type": "partial", "n_samples": 35200, "t_enq": 795599.5866431, "active_calls_at_enq": 1, "t_lock": 795599.6871922, "cancelled": false, "error": null, "t_return": 795599.9800281}
+{"kind": "job", "id": 394, "t_inf_start": 795600.1949678, "t_inf_end": 795600.7760746}
+{"kind": "call", "id": 394, "type": "partial", "n_samples": 78400, "t_enq": 795600.1948385, "active_calls_at_enq": 0, "t_lock": 795600.1948526, "cancelled": false, "error": null, "t_return": 795600.7764069}
+{"kind": "job", "id": 395, "t_inf_start": 795600.7766585, "t_inf_end": 795601.1660192}
+{"kind": "call", "id": 395, "type": "partial", "n_samples": 49600, "t_enq": 795600.4808958, "active_calls_at_enq": 1, "t_lock": 795600.7766043, "cancelled": false, "error": null, "t_return": 795601.1663319}
+{"kind": "job", "id": 396, "t_inf_start": 795601.2861187, "t_inf_end": 795601.9712343}
+{"kind": "call", "id": 396, "type": "partial", "n_samples": 96000, "t_enq": 795601.2860246, "active_calls_at_enq": 0, "t_lock": 795601.2860372, "cancelled": false, "error": null, "t_return": 795601.9715706}
+{"kind": "job", "id": 397, "t_inf_start": 795601.9717365, "t_inf_end": 795602.5153579}
+{"kind": "call", "id": 397, "type": "partial", "n_samples": 68800, "t_enq": 795601.6693438, "active_calls_at_enq": 1, "t_lock": 795601.9716764, "cancelled": false, "error": null, "t_return": 795602.5157149}
+{"kind": "job", "id": 398, "t_inf_start": 795602.5161743, "t_inf_end": 795603.2723443}
+{"kind": "call", "id": 398, "type": "final", "n_samples": 104000, "t_enq": 795601.7188157, "active_calls_at_enq": 2, "t_lock": 795602.5160413, "cancelled": false, "error": null, "t_return": 795603.2726319}
+{"kind": "job", "id": 399, "t_inf_start": 795603.2739432, "t_inf_end": 795603.9606921}
+{"kind": "call", "id": 399, "type": "partial", "n_samples": 89600, "t_enq": 795603.0216289, "active_calls_at_enq": 1, "t_lock": 795603.2738729, "cancelled": false, "error": null, "t_return": 795603.9610387}
+{"kind": "job", "id": 400, "t_inf_start": 795603.9614126, "t_inf_end": 795604.1621533}
+{"kind": "call", "id": 400, "type": "final", "n_samples": 27200, "t_enq": 795603.4166974, "active_calls_at_enq": 1, "t_lock": 795603.9613391, "cancelled": false, "error": null, "t_return": 795604.1625027}
+{"kind": "job", "id": 401, "t_inf_start": 795604.4680195, "t_inf_end": 795605.3451545}
+{"kind": "call", "id": 401, "type": "partial", "n_samples": 113600, "t_enq": 795604.4679337, "active_calls_at_enq": 0, "t_lock": 795604.4679443, "cancelled": false, "error": null, "t_return": 795605.3454972}
+{"kind": "job", "id": 402, "t_inf_start": 795605.345684, "t_inf_end": 795606.2748358}
+{"kind": "call", "id": 402, "type": "final", "n_samples": 128000, "t_enq": 795605.3274868, "active_calls_at_enq": 1, "t_lock": 795605.3456127, "cancelled": false, "error": null, "t_return": 795606.2752199}
+{"kind": "job", "id": 403, "t_inf_start": 795606.2763165, "t_inf_end": 795606.4056091}
+{"kind": "call", "id": 403, "type": "partial", "n_samples": 16000, "t_enq": 795605.7392098, "active_calls_at_enq": 1, "t_lock": 795606.2762569, "cancelled": false, "error": null, "t_return": 795606.4058945}
+{"kind": "job", "id": 404, "t_inf_start": 795606.908509, "t_inf_end": 795607.1701944}
+{"kind": "call", "id": 404, "type": "partial", "n_samples": 33600, "t_enq": 795606.9084104, "active_calls_at_enq": 0, "t_lock": 795606.9084238, "cancelled": false, "error": null, "t_return": 795607.1706254}
+{"kind": "job", "id": 405, "t_inf_start": 795607.6785608, "t_inf_end": 795608.0631642}
+{"kind": "call", "id": 405, "type": "partial", "n_samples": 46400, "t_enq": 795607.6784815, "active_calls_at_enq": 0, "t_lock": 795607.6784916, "cancelled": false, "error": null, "t_return": 795608.0634806}
+{"kind": "job", "id": 406, "t_inf_start": 795608.5713295, "t_inf_end": 795609.0346481}
+{"kind": "call", "id": 406, "type": "partial", "n_samples": 60800, "t_enq": 795608.5712225, "active_calls_at_enq": 0, "t_lock": 795608.5712358, "cancelled": false, "error": null, "t_return": 795609.034905}
+{"kind": "job", "id": 407, "t_inf_start": 795609.0351984, "t_inf_end": 795609.1625405}
+{"kind": "call", "id": 407, "type": "partial", "n_samples": 14400, "t_enq": 795608.6527383, "active_calls_at_enq": 1, "t_lock": 795609.0351321, "cancelled": false, "error": null, "t_return": 795609.162795}
+{"kind": "job", "id": 408, "t_inf_start": 795609.5466615, "t_inf_end": 795610.0870905}
+{"kind": "call", "id": 408, "type": "partial", "n_samples": 76800, "t_enq": 795609.5465529, "active_calls_at_enq": 0, "t_lock": 795609.5465653, "cancelled": false, "error": null, "t_return": 795610.0874243}
+{"kind": "job", "id": 409, "t_inf_start": 795610.0876643, "t_inf_end": 795610.3253366}
+{"kind": "call", "id": 409, "type": "partial", "n_samples": 32000, "t_enq": 795609.6703214, "active_calls_at_enq": 1, "t_lock": 795610.0876173, "cancelled": false, "error": null, "t_return": 795610.3256633}
+{"kind": "job", "id": 410, "t_inf_start": 795610.5909327, "t_inf_end": 795611.28042}
+{"kind": "call", "id": 410, "type": "partial", "n_samples": 92800, "t_enq": 795610.5908313, "active_calls_at_enq": 0, "t_lock": 795610.5908434, "cancelled": false, "error": null, "t_return": 795611.2808016}
+{"kind": "job", "id": 411, "t_inf_start": 795611.2809165, "t_inf_end": 795611.9109918}
+{"kind": "call", "id": 411, "type": "final", "n_samples": 94400, "t_enq": 795610.6394012, "active_calls_at_enq": 1, "t_lock": 795611.2808726, "cancelled": false, "error": null, "t_return": 795611.9113543}
+{"kind": "job", "id": 412, "t_inf_start": 795611.912846, "t_inf_end": 795612.3014351}
+{"kind": "call", "id": 412, "type": "partial", "n_samples": 49600, "t_enq": 795610.8353439, "active_calls_at_enq": 2, "t_lock": 795611.9127766, "cancelled": false, "error": null, "t_return": 795612.3018049}
+{"kind": "job", "id": 413, "t_inf_start": 795612.302107, "t_inf_end": 795612.6815142}
+{"kind": "call", "id": 413, "type": "final", "n_samples": 51200, "t_enq": 795610.8458052, "active_calls_at_enq": 3, "t_lock": 795612.3020612, "cancelled": false, "error": null, "t_return": 795612.6818851}
+{"kind": "job", "id": 414, "t_inf_start": 795612.6837358, "t_inf_end": 795612.900572}
+{"kind": "call", "id": 414, "type": "partial", "n_samples": 25600, "t_enq": 795612.3020429, "active_calls_at_enq": 1, "t_lock": 795612.6836507, "cancelled": false, "error": null, "t_return": 795612.9008981}
+{"kind": "job", "id": 415, "t_inf_start": 795612.9011641, "t_inf_end": 795613.1448259}
+{"kind": "call", "id": 415, "type": "partial", "n_samples": 30400, "t_enq": 795612.8062837, "active_calls_at_enq": 1, "t_lock": 795612.9011119, "cancelled": false, "error": null, "t_return": 795613.1450676}
+{"kind": "job", "id": 416, "t_inf_start": 795613.4043101, "t_inf_end": 795613.7101874}
+{"kind": "call", "id": 416, "type": "partial", "n_samples": 43200, "t_enq": 795613.4042001, "active_calls_at_enq": 0, "t_lock": 795613.404213, "cancelled": false, "error": null, "t_return": 795613.7104872}
+{"kind": "job", "id": 417, "t_inf_start": 795613.7105838, "t_inf_end": 795614.0282931}
+{"kind": "call", "id": 417, "type": "partial", "n_samples": 43200, "t_enq": 795613.6468225, "active_calls_at_enq": 1, "t_lock": 795613.7105411, "cancelled": false, "error": null, "t_return": 795614.0286957}
+{"kind": "job", "id": 418, "t_inf_start": 795614.2149226, "t_inf_end": 795614.6444617}
+{"kind": "call", "id": 418, "type": "partial", "n_samples": 56000, "t_enq": 795614.2147955, "active_calls_at_enq": 0, "t_lock": 795614.2148112, "cancelled": false, "error": null, "t_return": 795614.6447925}
+{"kind": "job", "id": 419, "t_inf_start": 795614.6451225, "t_inf_end": 795615.0814231}
+{"kind": "call", "id": 419, "type": "partial", "n_samples": 57600, "t_enq": 795614.5408324, "active_calls_at_enq": 1, "t_lock": 795614.6450533, "cancelled": false, "error": null, "t_return": 795615.0817746}
+{"kind": "job", "id": 420, "t_inf_start": 795615.1561104, "t_inf_end": 795615.7123941}
+{"kind": "call", "id": 420, "type": "partial", "n_samples": 72000, "t_enq": 795615.1560103, "active_calls_at_enq": 0, "t_lock": 795615.1560227, "cancelled": false, "error": null, "t_return": 795615.7127307}
+{"kind": "job", "id": 421, "t_inf_start": 795615.7128538, "t_inf_end": 795616.2680004}
+{"kind": "call", "id": 421, "type": "final", "n_samples": 76800, "t_enq": 795615.4358226, "active_calls_at_enq": 1, "t_lock": 795615.712808, "cancelled": false, "error": null, "t_return": 795616.2683494}
+{"kind": "job", "id": 422, "t_inf_start": 795616.2698126, "t_inf_end": 795616.814198}
+{"kind": "call", "id": 422, "type": "partial", "n_samples": 75200, "t_enq": 795615.5896253, "active_calls_at_enq": 2, "t_lock": 795616.2697318, "cancelled": false, "error": null, "t_return": 795616.8144742}
+{"kind": "job", "id": 423, "t_inf_start": 795616.8147311, "t_inf_end": 795616.9606355}
+{"kind": "call", "id": 423, "type": "partial", "n_samples": 19200, "t_enq": 795616.7302452, "active_calls_at_enq": 1, "t_lock": 795616.814681, "cancelled": false, "error": null, "t_return": 795616.960914}
+{"kind": "job", "id": 424, "t_inf_start": 795617.317828, "t_inf_end": 795618.1446944}
+{"kind": "call", "id": 424, "type": "partial", "n_samples": 102400, "t_enq": 795617.3177174, "active_calls_at_enq": 0, "t_lock": 795617.3177308, "cancelled": false, "error": null, "t_return": 795618.1449346}
+{"kind": "job", "id": 425, "t_inf_start": 795618.1450404, "t_inf_end": 795618.911217}
+{"kind": "call", "id": 425, "type": "final", "n_samples": 104000, "t_enq": 795617.3495886, "active_calls_at_enq": 1, "t_lock": 795618.1449929, "cancelled": false, "error": null, "t_return": 795618.9115814}
+{"kind": "job", "id": 426, "t_inf_start": 795618.9131345, "t_inf_end": 795619.1511216}
+{"kind": "call", "id": 426, "type": "partial", "n_samples": 32000, "t_enq": 795617.4687293, "active_calls_at_enq": 2, "t_lock": 795618.9130476, "cancelled": false, "error": null, "t_return": 795619.1514415}
+{"kind": "job", "id": 427, "t_inf_start": 795619.1515542, "t_inf_end": 795619.5529889}
+{"kind": "call", "id": 427, "type": "final", "n_samples": 57600, "t_enq": 795619.0337865, "active_calls_at_enq": 1, "t_lock": 795619.1514961, "cancelled": false, "error": null, "t_return": 795619.5533014}
+{"kind": "job", "id": 428, "t_inf_start": 795619.5544291, "t_inf_end": 795619.7720242}
+{"kind": "call", "id": 428, "type": "final", "n_samples": 27200, "t_enq": 795619.0495778, "active_calls_at_enq": 2, "t_lock": 795619.5543463, "cancelled": false, "error": null, "t_return": 795619.7723392}
+{"kind": "job", "id": 429, "t_inf_start": 795620.5584368, "t_inf_end": 795620.6371072}
+{"kind": "call", "id": 429, "type": "partial", "n_samples": 6400, "t_enq": 795620.5583122, "active_calls_at_enq": 0, "t_lock": 795620.558328, "cancelled": false, "error": null, "t_return": 795620.63772}
+{"kind": "job", "id": 430, "t_inf_start": 795621.149673, "t_inf_end": 795621.2681493}
+{"kind": "call", "id": 430, "type": "partial", "n_samples": 16000, "t_enq": 795621.1495552, "active_calls_at_enq": 0, "t_lock": 795621.1495673, "cancelled": false, "error": null, "t_return": 795621.2684514}
+{"kind": "job", "id": 431, "t_inf_start": 795621.3760078, "t_inf_end": 795621.5350643}
+{"kind": "call", "id": 431, "type": "partial", "n_samples": 16000, "t_enq": 795621.3749427, "active_calls_at_enq": 0, "t_lock": 795621.3749588, "cancelled": false, "error": null, "t_return": 795621.5354472}
+{"kind": "job", "id": 432, "t_inf_start": 795621.7823939, "t_inf_end": 795622.0240543}
+{"kind": "call", "id": 432, "type": "partial", "n_samples": 27200, "t_enq": 795621.7819763, "active_calls_at_enq": 0, "t_lock": 795621.7819932, "cancelled": false, "error": null, "t_return": 795622.0243969}
+{"kind": "job", "id": 433, "t_inf_start": 795622.0434008, "t_inf_end": 795622.225496}
+{"kind": "call", "id": 433, "type": "partial", "n_samples": 25600, "t_enq": 795622.0432936, "active_calls_at_enq": 0, "t_lock": 795622.043307, "cancelled": false, "error": null, "t_return": 795622.2258869}
+{"kind": "job", "id": 434, "t_inf_start": 795622.525483, "t_inf_end": 795622.8534323}
+{"kind": "call", "id": 434, "type": "partial", "n_samples": 38400, "t_enq": 795622.5253435, "active_calls_at_enq": 0, "t_lock": 795622.5253585, "cancelled": false, "error": null, "t_return": 795622.8536894}
+{"kind": "job", "id": 435, "t_inf_start": 795622.8538421, "t_inf_end": 795623.143893}
+{"kind": "call", "id": 435, "type": "partial", "n_samples": 36800, "t_enq": 795622.7349498, "active_calls_at_enq": 1, "t_lock": 795622.8537871, "cancelled": false, "error": null, "t_return": 795623.1442735}
+{"kind": "job", "id": 436, "t_inf_start": 795623.1575263, "t_inf_end": 795623.5260135}
+{"kind": "call", "id": 436, "type": "final", "n_samples": 49600, "t_enq": 795623.1574462, "active_calls_at_enq": 0, "t_lock": 795623.1574546, "cancelled": false, "error": null, "t_return": 795623.5264067}
+{"kind": "job", "id": 437, "t_inf_start": 795623.6514422, "t_inf_end": 795624.0464938}
+{"kind": "call", "id": 437, "type": "partial", "n_samples": 51200, "t_enq": 795623.6513361, "active_calls_at_enq": 0, "t_lock": 795623.6513494, "cancelled": false, "error": null, "t_return": 795624.0468686}
+{"kind": "job", "id": 438, "t_inf_start": 795624.0471516, "t_inf_end": 795624.1441355}
+{"kind": "call", "id": 438, "type": "partial", "n_samples": 11200, "t_enq": 795623.870658, "active_calls_at_enq": 1, "t_lock": 795624.0470902, "cancelled": false, "error": null, "t_return": 795624.1445192}
+{"kind": "job", "id": 439, "t_inf_start": 795624.2454748, "t_inf_end": 795624.3848124}
+{"kind": "call", "id": 439, "type": "final", "n_samples": 17600, "t_enq": 795624.2453684, "active_calls_at_enq": 0, "t_lock": 795624.2453799, "cancelled": false, "error": null, "t_return": 795624.3851716}
+{"kind": "job", "id": 440, "t_inf_start": 795624.562034, "t_inf_end": 795625.0066394}
+{"kind": "call", "id": 440, "type": "partial", "n_samples": 65600, "t_enq": 795624.5619307, "active_calls_at_enq": 0, "t_lock": 795624.5619424, "cancelled": false, "error": null, "t_return": 795625.0069788}
+{"kind": "job", "id": 441, "t_inf_start": 795625.0072293, "t_inf_end": 795625.0627498}
+{"kind": "call", "id": 441, "type": "partial", "n_samples": 4800, "t_enq": 795624.652012, "active_calls_at_enq": 1, "t_lock": 795625.0071778, "cancelled": false, "error": null, "t_return": 795625.0630873}
+{"kind": "job", "id": 442, "t_inf_start": 795625.5098168, "t_inf_end": 795626.1679985}
+{"kind": "call", "id": 442, "type": "partial", "n_samples": 81600, "t_enq": 795625.5096927, "active_calls_at_enq": 0, "t_lock": 795625.5097053, "cancelled": false, "error": null, "t_return": 795626.168299}
+{"kind": "job", "id": 443, "t_inf_start": 795626.168537, "t_inf_end": 795626.3282427}
+{"kind": "call", "id": 443, "type": "partial", "n_samples": 20800, "t_enq": 795625.5725012, "active_calls_at_enq": 1, "t_lock": 795626.1684845, "cancelled": false, "error": null, "t_return": 795626.3285431}
+{"kind": "job", "id": 444, "t_inf_start": 795626.328772, "t_inf_end": 795626.9577347}
+{"kind": "call", "id": 444, "type": "final", "n_samples": 94400, "t_enq": 795626.2625541, "active_calls_at_enq": 1, "t_lock": 795626.3287235, "cancelled": false, "error": null, "t_return": 795626.9581015}
+{"kind": "job", "id": 445, "t_inf_start": 795626.9599678, "t_inf_end": 795627.2516468}
+{"kind": "call", "id": 445, "type": "partial", "n_samples": 40000, "t_enq": 795626.8367846, "active_calls_at_enq": 1, "t_lock": 795626.9598543, "cancelled": false, "error": null, "t_return": 795627.251901}
+{"kind": "job", "id": 446, "t_inf_start": 795627.2521299, "t_inf_end": 795627.5795043}
+{"kind": "call", "id": 446, "type": "final", "n_samples": 44800, "t_enq": 795627.0516885, "active_calls_at_enq": 1, "t_lock": 795627.2520675, "cancelled": false, "error": null, "t_return": 795627.5798184}
+{"kind": "job", "id": 447, "t_inf_start": 795627.5810022, "t_inf_end": 795627.6955559}
+{"kind": "call", "id": 447, "type": "partial", "n_samples": 14400, "t_enq": 795627.1739283, "active_calls_at_enq": 2, "t_lock": 795627.5809473, "cancelled": false, "error": null, "t_return": 795627.6958487}
+{"kind": "job", "id": 448, "t_inf_start": 795627.7550725, "t_inf_end": 795627.8535936}
+{"kind": "call", "id": 448, "type": "partial", "n_samples": 11200, "t_enq": 795627.7549722, "active_calls_at_enq": 0, "t_lock": 795627.7549828, "cancelled": false, "error": null, "t_return": 795627.8539439}
+{"kind": "job", "id": 449, "t_inf_start": 795628.2008116, "t_inf_end": 795628.4558661}
+{"kind": "call", "id": 449, "type": "partial", "n_samples": 30400, "t_enq": 795628.2007057, "active_calls_at_enq": 0, "t_lock": 795628.2007213, "cancelled": false, "error": null, "t_return": 795628.4561603}
+{"kind": "job", "id": 450, "t_inf_start": 795628.4562639, "t_inf_end": 795628.6278829}
+{"kind": "call", "id": 450, "type": "partial", "n_samples": 20800, "t_enq": 795628.3618431, "active_calls_at_enq": 1, "t_lock": 795628.4562137, "cancelled": false, "error": null, "t_return": 795628.6282357}
+{"kind": "job", "id": 451, "t_inf_start": 795628.6283727, "t_inf_end": 795628.8117018}
+{"kind": "call", "id": 451, "type": "final", "n_samples": 24000, "t_enq": 795628.5517727, "active_calls_at_enq": 1, "t_lock": 795628.6283211, "cancelled": false, "error": null, "t_return": 795628.8120805}
+{"kind": "job", "id": 452, "t_inf_start": 795628.958284, "t_inf_end": 795629.2460803}
+{"kind": "call", "id": 452, "type": "partial", "n_samples": 41600, "t_enq": 795628.9581748, "active_calls_at_enq": 0, "t_lock": 795628.958188, "cancelled": false, "error": null, "t_return": 795629.2464121}
+{"kind": "job", "id": 453, "t_inf_start": 795629.2466904, "t_inf_end": 795629.3204563}
+{"kind": "call", "id": 453, "type": "partial", "n_samples": 8000, "t_enq": 795629.1288625, "active_calls_at_enq": 1, "t_lock": 795629.2466374, "cancelled": false, "error": null, "t_return": 795629.3208378}
+{"kind": "job", "id": 454, "t_inf_start": 795629.7583535, "t_inf_end": 795630.1617855}
+{"kind": "call", "id": 454, "type": "partial", "n_samples": 54400, "t_enq": 795629.7582432, "active_calls_at_enq": 0, "t_lock": 795629.7582573, "cancelled": false, "error": null, "t_return": 795630.1620605}
+{"kind": "job", "id": 455, "t_inf_start": 795630.1623965, "t_inf_end": 795630.3310073}
+{"kind": "call", "id": 455, "type": "partial", "n_samples": 19200, "t_enq": 795629.823224, "active_calls_at_enq": 1, "t_lock": 795630.1623274, "cancelled": false, "error": null, "t_return": 795630.3313564}
+{"kind": "job", "id": 456, "t_inf_start": 795630.675763, "t_inf_end": 795631.2056492}
+{"kind": "call", "id": 456, "type": "partial", "n_samples": 70400, "t_enq": 795630.6756384, "active_calls_at_enq": 0, "t_lock": 795630.6756521, "cancelled": false, "error": null, "t_return": 795631.2060104}
+{"kind": "job", "id": 457, "t_inf_start": 795631.2061374, "t_inf_end": 795631.5002072}
+{"kind": "call", "id": 457, "type": "partial", "n_samples": 35200, "t_enq": 795630.8385607, "active_calls_at_enq": 1, "t_lock": 795631.2060864, "cancelled": false, "error": null, "t_return": 795631.5006122}
+{"kind": "job", "id": 458, "t_inf_start": 795631.5008117, "t_inf_end": 795632.0229982}
+{"kind": "call", "id": 458, "type": "final", "n_samples": 76800, "t_enq": 795631.0667129, "active_calls_at_enq": 2, "t_lock": 795631.5007292, "cancelled": false, "error": null, "t_return": 795632.0233491}
+{"kind": "job", "id": 459, "t_inf_start": 795632.0250877, "t_inf_end": 795632.4064245}
+{"kind": "call", "id": 459, "type": "partial", "n_samples": 54400, "t_enq": 795632.0036436, "active_calls_at_enq": 1, "t_lock": 795632.0250021, "cancelled": false, "error": null, "t_return": 795632.4067097}
+{"kind": "job", "id": 460, "t_inf_start": 795632.4069642, "t_inf_end": 795632.5650016}
+{"kind": "call", "id": 460, "type": "partial", "n_samples": 17600, "t_enq": 795632.2233286, "active_calls_at_enq": 1, "t_lock": 795632.4068939, "cancelled": false, "error": null, "t_return": 795632.5653412}
+{"kind": "job", "id": 461, "t_inf_start": 795632.9173044, "t_inf_end": 795633.452426}
+{"kind": "call", "id": 461, "type": "partial", "n_samples": 68800, "t_enq": 795632.9172239, "active_calls_at_enq": 0, "t_lock": 795632.9172345, "cancelled": false, "error": null, "t_return": 795633.4527481}
+{"kind": "job", "id": 462, "t_inf_start": 795633.4529778, "t_inf_end": 795633.7009815}
+{"kind": "call", "id": 462, "type": "partial", "n_samples": 30400, "t_enq": 795633.0711313, "active_calls_at_enq": 1, "t_lock": 795633.4529348, "cancelled": false, "error": null, "t_return": 795633.7013243}
+{"kind": "job", "id": 463, "t_inf_start": 795633.959233, "t_inf_end": 795634.5353902}
+{"kind": "call", "id": 463, "type": "partial", "n_samples": 84800, "t_enq": 795633.9591134, "active_calls_at_enq": 0, "t_lock": 795633.9591295, "cancelled": false, "error": null, "t_return": 795634.535703}
+{"kind": "job", "id": 464, "t_inf_start": 795634.5360426, "t_inf_end": 795634.911945}
+{"kind": "call", "id": 464, "type": "partial", "n_samples": 49600, "t_enq": 795634.2170355, "active_calls_at_enq": 1, "t_lock": 795634.535974, "cancelled": false, "error": null, "t_return": 795634.9122913}
+{"kind": "job", "id": 465, "t_inf_start": 795634.9124737, "t_inf_end": 795635.3394555}
+{"kind": "call", "id": 465, "type": "final", "n_samples": 57600, "t_enq": 795634.6601048, "active_calls_at_enq": 1, "t_lock": 795634.9123966, "cancelled": false, "error": null, "t_return": 795635.3398487}
+{"kind": "job", "id": 466, "t_inf_start": 795635.3413374, "t_inf_end": 795636.0387002}
+{"kind": "call", "id": 466, "type": "final", "n_samples": 100800, "t_enq": 795634.8470094, "active_calls_at_enq": 2, "t_lock": 795635.3412462, "cancelled": false, "error": null, "t_return": 795636.0390581}
+{"kind": "job", "id": 467, "t_inf_start": 795636.1834634, "t_inf_end": 795636.2655512}
+{"kind": "call", "id": 467, "type": "partial", "n_samples": 6400, "t_enq": 795636.1833492, "active_calls_at_enq": 0, "t_lock": 795636.1833654, "cancelled": false, "error": null, "t_return": 795636.2659024}
+{"kind": "job", "id": 468, "t_inf_start": 795636.7718894, "t_inf_end": 795636.918198}
+{"kind": "call", "id": 468, "type": "partial", "n_samples": 16000, "t_enq": 795636.7717672, "active_calls_at_enq": 0, "t_lock": 795636.7717809, "cancelled": false, "error": null, "t_return": 795636.9185143}
+{"kind": "job", "id": 469, "t_inf_start": 795637.0569496, "t_inf_end": 795637.177103}
+{"kind": "call", "id": 469, "type": "partial", "n_samples": 14400, "t_enq": 795637.0568041, "active_calls_at_enq": 0, "t_lock": 795637.0568223, "cancelled": false, "error": null, "t_return": 795637.1774558}
+{"kind": "job", "id": 470, "t_inf_start": 795637.4268056, "t_inf_end": 795637.666437}
+{"kind": "call", "id": 470, "type": "partial", "n_samples": 27200, "t_enq": 795637.4266974, "active_calls_at_enq": 0, "t_lock": 795637.4267105, "cancelled": false, "error": null, "t_return": 795637.6667637}
+{"kind": "job", "id": 471, "t_inf_start": 795637.686945, "t_inf_end": 795637.8894097}
+{"kind": "call", "id": 471, "type": "partial", "n_samples": 25600, "t_enq": 795637.6868806, "active_calls_at_enq": 0, "t_lock": 795637.6868889, "cancelled": false, "error": null, "t_return": 795637.8897727}
+{"kind": "job", "id": 472, "t_inf_start": 795638.1753863, "t_inf_end": 795638.4823151}
+{"kind": "call", "id": 472, "type": "partial", "n_samples": 38400, "t_enq": 795638.175274, "active_calls_at_enq": 0, "t_lock": 795638.1752875, "cancelled": false, "error": null, "t_return": 795638.4826091}
+{"kind": "job", "id": 473, "t_inf_start": 795638.4827082, "t_inf_end": 795638.7605093}
+{"kind": "call", "id": 473, "type": "partial", "n_samples": 36800, "t_enq": 795638.4036687, "active_calls_at_enq": 1, "t_lock": 795638.4826642, "cancelled": false, "error": null, "t_return": 795638.7608567}
+{"kind": "job", "id": 474, "t_inf_start": 795638.7847447, "t_inf_end": 795639.1437262}
+{"kind": "call", "id": 474, "type": "final", "n_samples": 49600, "t_enq": 795638.7846692, "active_calls_at_enq": 0, "t_lock": 795638.7846762, "cancelled": false, "error": null, "t_return": 795639.1440875}
+{"kind": "job", "id": 475, "t_inf_start": 795639.1456002, "t_inf_end": 795639.4825613}
+{"kind": "call", "id": 475, "type": "final", "n_samples": 46400, "t_enq": 795638.9519184, "active_calls_at_enq": 1, "t_lock": 795639.1454432, "cancelled": false, "error": null, "t_return": 795639.4829692}
+{"kind": "job", "id": 476, "t_inf_start": 795639.4965803, "t_inf_end": 795639.5919397}
+{"kind": "call", "id": 476, "type": "partial", "n_samples": 11200, "t_enq": 795639.4964537, "active_calls_at_enq": 0, "t_lock": 795639.4964677, "cancelled": false, "error": null, "t_return": 795639.5923121}
+{"kind": "job", "id": 477, "t_inf_start": 795639.7736695, "t_inf_end": 795639.8935032}
+{"kind": "call", "id": 477, "type": "partial", "n_samples": 12800, "t_enq": 795639.7735436, "active_calls_at_enq": 0, "t_lock": 795639.7735567, "cancelled": false, "error": null, "t_return": 795639.8938603}
+{"kind": "job", "id": 478, "t_inf_start": 795639.8942179, "t_inf_end": 795640.040354}
+{"kind": "call", "id": 478, "type": "final", "n_samples": 17600, "t_enq": 795639.8716742, "active_calls_at_enq": 1, "t_lock": 795639.8941349, "cancelled": false, "error": null, "t_return": 795640.0407522}
+{"kind": "job", "id": 479, "t_inf_start": 795640.4006395, "t_inf_end": 795640.5751472}
+{"kind": "call", "id": 479, "type": "partial", "n_samples": 22400, "t_enq": 795640.4004784, "active_calls_at_enq": 0, "t_lock": 795640.4004938, "cancelled": false, "error": null, "t_return": 795640.5753925}
+{"kind": "job", "id": 480, "t_inf_start": 795640.6127684, "t_inf_end": 795640.7170865}
+{"kind": "call", "id": 480, "type": "partial", "n_samples": 11200, "t_enq": 795640.6126361, "active_calls_at_enq": 0, "t_lock": 795640.6126477, "cancelled": false, "error": null, "t_return": 795640.7174033}
+{"kind": "job", "id": 481, "t_inf_start": 795641.0813998, "t_inf_end": 795641.3472316}
+{"kind": "call", "id": 481, "type": "partial", "n_samples": 33600, "t_enq": 795641.0812684, "active_calls_at_enq": 0, "t_lock": 795641.0812825, "cancelled": false, "error": null, "t_return": 795641.3475361}
+{"kind": "job", "id": 482, "t_inf_start": 795641.3476388, "t_inf_end": 795641.5182656}
+{"kind": "call", "id": 482, "type": "partial", "n_samples": 20800, "t_enq": 795641.2211823, "active_calls_at_enq": 1, "t_lock": 795641.3475956, "cancelled": false, "error": null, "t_return": 795641.5186055}
+{"kind": "job", "id": 483, "t_inf_start": 795641.5523153, "t_inf_end": 795641.8706832}
+{"kind": "call", "id": 483, "type": "final", "n_samples": 41600, "t_enq": 795641.5522244, "active_calls_at_enq": 0, "t_lock": 795641.5522347, "cancelled": false, "error": null, "t_return": 795641.8710211}
+{"kind": "job", "id": 484, "t_inf_start": 795642.0322546, "t_inf_end": 795642.319668}
+{"kind": "call", "id": 484, "type": "partial", "n_samples": 33600, "t_enq": 795642.0321127, "active_calls_at_enq": 0, "t_lock": 795642.0321304, "cancelled": false, "error": null, "t_return": 795642.3199676}
+{"kind": "job", "id": 485, "t_inf_start": 795642.3519646, "t_inf_end": 795642.4373529}
+{"kind": "call", "id": 485, "type": "partial", "n_samples": 11200, "t_enq": 795642.35184, "active_calls_at_enq": 0, "t_lock": 795642.3518528, "cancelled": false, "error": null, "t_return": 795642.4377047}
+{"kind": "job", "id": 486, "t_inf_start": 795642.6766827, "t_inf_end": 795643.0418936}
+{"kind": "call", "id": 486, "type": "final", "n_samples": 44800, "t_enq": 795642.6765822, "active_calls_at_enq": 0, "t_lock": 795642.6765912, "cancelled": false, "error": null, "t_return": 795643.0422738}
+{"kind": "job", "id": 487, "t_inf_start": 795643.0432812, "t_inf_end": 795643.191879}
+{"kind": "call", "id": 487, "type": "partial", "n_samples": 20800, "t_enq": 795642.9417, "active_calls_at_enq": 1, "t_lock": 795643.0432309, "cancelled": false, "error": null, "t_return": 795643.1921773}
+{"kind": "job", "id": 488, "t_inf_start": 795643.6962996, "t_inf_end": 795643.955745}
+{"kind": "call", "id": 488, "type": "partial", "n_samples": 33600, "t_enq": 795643.6961925, "active_calls_at_enq": 0, "t_lock": 795643.6962046, "cancelled": false, "error": null, "t_return": 795643.9560198}
+{"kind": "job", "id": 489, "t_inf_start": 795643.9561417, "t_inf_end": 795644.2296169}
+{"kind": "call", "id": 489, "type": "final", "n_samples": 35200, "t_enq": 795643.746169, "active_calls_at_enq": 1, "t_lock": 795643.9560927, "cancelled": false, "error": null, "t_return": 795644.2299348}
+{"kind": "job", "id": 490, "t_inf_start": 795644.2313572, "t_inf_end": 795644.3593807}
+{"kind": "call", "id": 490, "type": "partial", "n_samples": 17600, "t_enq": 795643.8408776, "active_calls_at_enq": 2, "t_lock": 795644.2312688, "cancelled": false, "error": null, "t_return": 795644.3596996}
+{"kind": "job", "id": 491, "t_inf_start": 795644.3598199, "t_inf_end": 795644.5305637}
+{"kind": "call", "id": 491, "type": "final", "n_samples": 24000, "t_enq": 795644.1722556, "active_calls_at_enq": 2, "t_lock": 795644.3597698, "cancelled": false, "error": null, "t_return": 795644.5309674}
+{"kind": "job", "id": 492, "t_inf_start": 795644.5321979, "t_inf_end": 795644.6394862}
+{"kind": "call", "id": 492, "type": "partial", "n_samples": 11200, "t_enq": 795644.4629732, "active_calls_at_enq": 1, "t_lock": 795644.532134, "cancelled": false, "error": null, "t_return": 795644.6397914}
+{"kind": "job", "id": 493, "t_inf_start": 795644.8682489, "t_inf_end": 795644.9621173}
+{"kind": "call", "id": 493, "type": "partial", "n_samples": 9600, "t_enq": 795644.8681447, "active_calls_at_enq": 0, "t_lock": 795644.8681561, "cancelled": false, "error": null, "t_return": 795644.9624285}
+{"kind": "job", "id": 494, "t_inf_start": 795645.1439892, "t_inf_end": 795645.314418}
+{"kind": "call", "id": 494, "type": "partial", "n_samples": 20800, "t_enq": 795645.1438864, "active_calls_at_enq": 0, "t_lock": 795645.1438993, "cancelled": false, "error": null, "t_return": 795645.3146885}
+{"kind": "job", "id": 495, "t_inf_start": 795645.4721404, "t_inf_end": 795645.6489509}
+{"kind": "call", "id": 495, "type": "partial", "n_samples": 19200, "t_enq": 795645.4720258, "active_calls_at_enq": 0, "t_lock": 795645.4720413, "cancelled": false, "error": null, "t_return": 795645.6492349}
+{"kind": "job", "id": 496, "t_inf_start": 795645.8252588, "t_inf_end": 795646.072448}
+{"kind": "call", "id": 496, "type": "partial", "n_samples": 32000, "t_enq": 795645.8251072, "active_calls_at_enq": 0, "t_lock": 795645.8251268, "cancelled": false, "error": null, "t_return": 795646.0727927}
+{"kind": "job", "id": 497, "t_inf_start": 795646.1574395, "t_inf_end": 795646.3831033}
+{"kind": "call", "id": 497, "type": "partial", "n_samples": 30400, "t_enq": 795646.1573347, "active_calls_at_enq": 0, "t_lock": 795646.1573467, "cancelled": false, "error": null, "t_return": 795646.3833929}
+{"kind": "job", "id": 498, "t_inf_start": 795646.3834997, "t_inf_end": 795646.6983282}
+{"kind": "call", "id": 498, "type": "final", "n_samples": 41600, "t_enq": 795646.3565025, "active_calls_at_enq": 1, "t_lock": 795646.3834491, "cancelled": false, "error": null, "t_return": 795646.6986423}
+{"kind": "job", "id": 499, "t_inf_start": 795646.8892795, "t_inf_end": 795647.2548677}
+{"kind": "call", "id": 499, "type": "partial", "n_samples": 43200, "t_enq": 795646.8891683, "active_calls_at_enq": 0, "t_lock": 795646.8891826, "cancelled": false, "error": null, "t_return": 795647.2552429}
+{"kind": "job", "id": 500, "t_inf_start": 795647.2556647, "t_inf_end": 795647.3660961}
+{"kind": "call", "id": 500, "type": "partial", "n_samples": 11200, "t_enq": 795647.0890821, "active_calls_at_enq": 1, "t_lock": 795647.2555792, "cancelled": false, "error": null, "t_return": 795647.3664479}
+{"kind": "job", "id": 501, "t_inf_start": 795647.7607901, "t_inf_end": 795648.2002805}
+{"kind": "call", "id": 501, "type": "partial", "n_samples": 56000, "t_enq": 795647.7606886, "active_calls_at_enq": 0, "t_lock": 795647.76071, "cancelled": false, "error": null, "t_return": 795648.2006077}
+{"kind": "job", "id": 502, "t_inf_start": 795648.2008783, "t_inf_end": 795648.4123562}
+{"kind": "call", "id": 502, "type": "partial", "n_samples": 24000, "t_enq": 795647.882397, "active_calls_at_enq": 1, "t_lock": 795648.2008241, "cancelled": false, "error": null, "t_return": 795648.4126926}
+{"kind": "job", "id": 503, "t_inf_start": 795648.717745, "t_inf_end": 795649.3309659}
+{"kind": "call", "id": 503, "type": "partial", "n_samples": 72000, "t_enq": 795648.7176542, "active_calls_at_enq": 0, "t_lock": 795648.7176673, "cancelled": false, "error": null, "t_return": 795649.3313083}
+{"kind": "job", "id": 504, "t_inf_start": 795649.3316743, "t_inf_end": 795649.6091774}
+{"kind": "call", "id": 504, "type": "partial", "n_samples": 40000, "t_enq": 795648.918507, "active_calls_at_enq": 1, "t_lock": 795649.3315881, "cancelled": false, "error": null, "t_return": 795649.6095452}
+{"kind": "job", "id": 505, "t_inf_start": 795649.8341203, "t_inf_end": 795650.5287323}
+{"kind": "call", "id": 505, "type": "partial", "n_samples": 89600, "t_enq": 795649.8339291, "active_calls_at_enq": 0, "t_lock": 795649.8339438, "cancelled": false, "error": null, "t_return": 795650.5290871}
+{"kind": "job", "id": 506, "t_inf_start": 795650.5292463, "t_inf_end": 795650.9657082}
+{"kind": "call", "id": 506, "type": "partial", "n_samples": 59200, "t_enq": 795650.1151778, "active_calls_at_enq": 1, "t_lock": 795650.5291874, "cancelled": false, "error": null, "t_return": 795650.9660385}
+{"kind": "job", "id": 507, "t_inf_start": 795650.9661827, "t_inf_end": 795651.6630138}
+{"kind": "call", "id": 507, "type": "final", "n_samples": 100800, "t_enq": 795650.4779751, "active_calls_at_enq": 2, "t_lock": 795650.9661208, "cancelled": false, "error": null, "t_return": 795651.663299}
+{"kind": "job", "id": 508, "t_inf_start": 795651.6645054, "t_inf_end": 795652.2178099}
+{"kind": "call", "id": 508, "type": "final", "n_samples": 70400, "t_enq": 795650.7515996, "active_calls_at_enq": 2, "t_lock": 795651.6643734, "cancelled": false, "error": null, "t_return": 795652.2188966}
+{"kind": "job", "id": 509, "t_inf_start": 795652.6776464, "t_inf_end": 795652.8879857}
+{"kind": "call", "id": 509, "type": "partial", "n_samples": 14400, "t_enq": 795652.6775302, "active_calls_at_enq": 0, "t_lock": 795652.6775461, "cancelled": false, "error": null, "t_return": 795652.8883367}
+{"kind": "job", "id": 510, "t_inf_start": 795652.888681, "t_inf_end": 795652.9612895}
+{"kind": "call", "id": 510, "type": "partial", "n_samples": 6400, "t_enq": 795652.7473455, "active_calls_at_enq": 1, "t_lock": 795652.8885908, "cancelled": false, "error": null, "t_return": 795652.9616338}
+{"kind": "job", "id": 511, "t_inf_start": 795653.3896657, "t_inf_end": 795653.6412946}
+{"kind": "call", "id": 511, "type": "partial", "n_samples": 27200, "t_enq": 795653.3895711, "active_calls_at_enq": 0, "t_lock": 795653.3895842, "cancelled": false, "error": null, "t_return": 795653.6416393}
+{"kind": "job", "id": 512, "t_inf_start": 795653.6419052, "t_inf_end": 795653.8206805}
+{"kind": "call", "id": 512, "type": "partial", "n_samples": 19200, "t_enq": 795653.4656226, "active_calls_at_enq": 1, "t_lock": 795653.6418491, "cancelled": false, "error": null, "t_return": 795653.8209849}
+{"kind": "job", "id": 513, "t_inf_start": 795654.1475925, "t_inf_end": 795654.4059136}
+{"kind": "call", "id": 513, "type": "partial", "n_samples": 38400, "t_enq": 795654.1475046, "active_calls_at_enq": 0, "t_lock": 795654.1475157, "cancelled": false, "error": null, "t_return": 795654.4062114}
+{"kind": "job", "id": 514, "t_inf_start": 795654.4064304, "t_inf_end": 795654.6342081}
+{"kind": "call", "id": 514, "type": "partial", "n_samples": 32000, "t_enq": 795654.3275127, "active_calls_at_enq": 1, "t_lock": 795654.4063844, "cancelled": false, "error": null, "t_return": 795654.6345262}
+{"kind": "job", "id": 515, "t_inf_start": 795654.6347841, "t_inf_end": 795654.9632643}
+{"kind": "call", "id": 515, "type": "final", "n_samples": 46400, "t_enq": 795654.5763911, "active_calls_at_enq": 1, "t_lock": 795654.6347157, "cancelled": false, "error": null, "t_return": 795654.9635654}
+{"kind": "job", "id": 516, "t_inf_start": 795655.1493277, "t_inf_end": 795655.5433109}
+{"kind": "call", "id": 516, "type": "partial", "n_samples": 44800, "t_enq": 795655.1492332, "active_calls_at_enq": 0, "t_lock": 795655.1492458, "cancelled": false, "error": null, "t_return": 795655.5436381}
+{"kind": "job", "id": 517, "t_inf_start": 795655.5439101, "t_inf_end": 795655.6583881}
+{"kind": "call", "id": 517, "type": "partial", "n_samples": 12800, "t_enq": 795655.4174832, "active_calls_at_enq": 1, "t_lock": 795655.5438555, "cancelled": false, "error": null, "t_return": 795655.6587896}
+{"kind": "job", "id": 518, "t_inf_start": 795656.0458653, "t_inf_end": 795656.4727048}
+{"kind": "call", "id": 518, "type": "partial", "n_samples": 59200, "t_enq": 795656.0457608, "active_calls_at_enq": 0, "t_lock": 795656.0457733, "cancelled": false, "error": null, "t_return": 795656.4730301}
+{"kind": "job", "id": 519, "t_inf_start": 795656.4733433, "t_inf_end": 795656.6564105}
+{"kind": "call", "id": 519, "type": "partial", "n_samples": 24000, "t_enq": 795656.1690242, "active_calls_at_enq": 1, "t_lock": 795656.4732848, "cancelled": false, "error": null, "t_return": 795656.6567454}
+{"kind": "job", "id": 520, "t_inf_start": 795656.9803684, "t_inf_end": 795657.5227}
+{"kind": "call", "id": 520, "type": "partial", "n_samples": 75200, "t_enq": 795656.9802886, "active_calls_at_enq": 0, "t_lock": 795656.980297, "cancelled": false, "error": null, "t_return": 795657.5230245}
+{"kind": "job", "id": 521, "t_inf_start": 795657.5233437, "t_inf_end": 795657.8294286}
+{"kind": "call", "id": 521, "type": "partial", "n_samples": 40000, "t_enq": 795657.1585094, "active_calls_at_enq": 1, "t_lock": 795657.5232775, "cancelled": false, "error": null, "t_return": 795657.829709}
+{"kind": "job", "id": 522, "t_inf_start": 795657.8298219, "t_inf_end": 795658.1402087}
+{"kind": "call", "id": 522, "type": "final", "n_samples": 41600, "t_enq": 795657.183382, "active_calls_at_enq": 2, "t_lock": 795657.8297773, "cancelled": false, "error": null, "t_return": 795658.1405314}
+{"kind": "job", "id": 523, "t_inf_start": 795658.1416118, "t_inf_end": 795658.8105233}
+{"kind": "call", "id": 523, "type": "partial", "n_samples": 91200, "t_enq": 795658.0294795, "active_calls_at_enq": 1, "t_lock": 795658.1415556, "cancelled": false, "error": null, "t_return": 795658.810852}
+{"kind": "job", "id": 524, "t_inf_start": 795658.811115, "t_inf_end": 795659.0416142}
+{"kind": "call", "id": 524, "type": "partial", "n_samples": 17600, "t_enq": 795658.3407639, "active_calls_at_enq": 1, "t_lock": 795658.8110419, "cancelled": false, "error": null, "t_return": 795659.0422108}
+{"kind": "job", "id": 525, "t_inf_start": 795659.321529, "t_inf_end": 795660.8083859}
+{"kind": "call", "id": 525, "type": "partial", "n_samples": 112000, "t_enq": 795659.3213484, "active_calls_at_enq": 0, "t_lock": 795659.3213708, "cancelled": false, "error": null, "t_return": 795660.8088003}
+{"kind": "job", "id": 526, "t_inf_start": 795660.8089268, "t_inf_end": 795661.1256639}
+{"kind": "call", "id": 526, "type": "final", "n_samples": 35200, "t_enq": 795659.3703211, "active_calls_at_enq": 1, "t_lock": 795660.8088787, "cancelled": false, "error": null, "t_return": 795661.1260686}
+{"kind": "job", "id": 527, "t_inf_start": 795661.1274484, "t_inf_end": 795662.0997441}
+{"kind": "call", "id": 527, "type": "final", "n_samples": 128000, "t_enq": 795660.259608, "active_calls_at_enq": 2, "t_lock": 795661.1273871, "cancelled": false, "error": null, "t_return": 795662.1001383}
+{"kind": "job", "id": 528, "t_inf_start": 795662.1019694, "t_inf_end": 795662.3461747}
+{"kind": "call", "id": 528, "type": "partial", "n_samples": 33600, "t_enq": 795661.5817315, "active_calls_at_enq": 1, "t_lock": 795662.1018862, "cancelled": false, "error": null, "t_return": 795662.3465325}
+{"kind": "job", "id": 529, "t_inf_start": 795662.346708, "t_inf_end": 795662.6530956}
+{"kind": "call", "id": 529, "type": "final", "n_samples": 41600, "t_enq": 795661.9802847, "active_calls_at_enq": 2, "t_lock": 795662.3466385, "cancelled": false, "error": null, "t_return": 795662.6534586}
+{"kind": "job", "id": 530, "t_inf_start": 795662.6545204, "t_inf_end": 795662.9057515}
+{"kind": "call", "id": 530, "type": "partial", "n_samples": 32000, "t_enq": 795662.3317952, "active_calls_at_enq": 2, "t_lock": 795662.6544022, "cancelled": false, "error": null, "t_return": 795662.9061078}
+{"kind": "job", "id": 531, "t_inf_start": 795662.9065156, "t_inf_end": 795663.0295289}
+{"kind": "call", "id": 531, "type": "partial", "n_samples": 12800, "t_enq": 795662.8472517, "active_calls_at_enq": 1, "t_lock": 795662.9064361, "cancelled": false, "error": null, "t_return": 795663.02987}
+{"kind": "job", "id": 532, "t_inf_start": 795663.4195041, "t_inf_end": 795663.847389}
+{"kind": "call", "id": 532, "type": "partial", "n_samples": 49600, "t_enq": 795663.4193895, "active_calls_at_enq": 0, "t_lock": 795663.4194065, "cancelled": false, "error": null, "t_return": 795663.8477}
+{"kind": "job", "id": 533, "t_inf_start": 795663.8478146, "t_inf_end": 795664.2403537}
+{"kind": "call", "id": 533, "type": "final", "n_samples": 51200, "t_enq": 795663.4684968, "active_calls_at_enq": 1, "t_lock": 795663.8477604, "cancelled": false, "error": null, "t_return": 795664.2407255}
+{"kind": "job", "id": 534, "t_inf_start": 795664.2420426, "t_inf_end": 795664.4402413}
+{"kind": "call", "id": 534, "type": "partial", "n_samples": 24000, "t_enq": 795663.5398905, "active_calls_at_enq": 2, "t_lock": 795664.2419594, "cancelled": false, "error": null, "t_return": 795664.44059}
+{"kind": "job", "id": 535, "t_inf_start": 795664.9453011, "t_inf_end": 795665.2925834}
+{"kind": "call", "id": 535, "type": "partial", "n_samples": 46400, "t_enq": 795664.9451727, "active_calls_at_enq": 0, "t_lock": 795664.9451913, "cancelled": false, "error": null, "t_return": 795665.2929453}
+{"kind": "job", "id": 536, "t_inf_start": 795665.2933032, "t_inf_end": 795665.3612788}
+{"kind": "call", "id": 536, "type": "partial", "n_samples": 6400, "t_enq": 795664.9615335, "active_calls_at_enq": 1, "t_lock": 795665.2932366, "cancelled": false, "error": null, "t_return": 795665.3616029}
+{"kind": "job", "id": 537, "t_inf_start": 795665.8039372, "t_inf_end": 795666.2659047}
+{"kind": "call", "id": 537, "type": "partial", "n_samples": 60800, "t_enq": 795665.8038277, "active_calls_at_enq": 0, "t_lock": 795665.8038396, "cancelled": false, "error": null, "t_return": 795666.2662439}
+{"kind": "job", "id": 538, "t_inf_start": 795666.2665131, "t_inf_end": 795666.4337622}
+{"kind": "call", "id": 538, "type": "partial", "n_samples": 22400, "t_enq": 795665.8689938, "active_calls_at_enq": 1, "t_lock": 795666.2664613, "cancelled": false, "error": null, "t_return": 795666.4341571}
+{"kind": "job", "id": 539, "t_inf_start": 795666.4345745, "t_inf_end": 795666.9754357}
+{"kind": "call", "id": 539, "type": "final", "n_samples": 70400, "t_enq": 795666.3803948, "active_calls_at_enq": 1, "t_lock": 795666.4344986, "cancelled": false, "error": null, "t_return": 795666.9757861}
+{"kind": "job", "id": 540, "t_inf_start": 795666.9780725, "t_inf_end": 795667.2877664}
+{"kind": "call", "id": 540, "type": "partial", "n_samples": 38400, "t_enq": 795666.9374794, "active_calls_at_enq": 1, "t_lock": 795666.9779974, "cancelled": false, "error": null, "t_return": 795667.2880406}
+{"kind": "job", "id": 541, "t_inf_start": 795667.7904778, "t_inf_end": 795668.2007641}
+{"kind": "call", "id": 541, "type": "partial", "n_samples": 52800, "t_enq": 795667.7903147, "active_calls_at_enq": 0, "t_lock": 795667.7903299, "cancelled": false, "error": null, "t_return": 795668.2011197}
+{"kind": "job", "id": 542, "t_inf_start": 795668.2014085, "t_inf_end": 795668.2929975}
+{"kind": "call", "id": 542, "type": "partial", "n_samples": 6400, "t_enq": 795668.0800181, "active_calls_at_enq": 1, "t_lock": 795668.2013487, "cancelled": false, "error": null, "t_return": 795668.2932851}
+{"kind": "job", "id": 543, "t_inf_start": 795668.7021584, "t_inf_end": 795669.1742667}
+{"kind": "call", "id": 543, "type": "partial", "n_samples": 67200, "t_enq": 795668.702046, "active_calls_at_enq": 0, "t_lock": 795668.7020584, "cancelled": false, "error": null, "t_return": 795669.1745536}
+{"kind": "job", "id": 544, "t_inf_start": 795669.1748986, "t_inf_end": 795669.3434395}
+{"kind": "call", "id": 544, "type": "partial", "n_samples": 19200, "t_enq": 795668.8073078, "active_calls_at_enq": 1, "t_lock": 795669.1748208, "cancelled": false, "error": null, "t_return": 795669.3437126}
+{"kind": "job", "id": 545, "t_inf_start": 795669.6887173, "t_inf_end": 795670.3197411}
+{"kind": "call", "id": 545, "type": "partial", "n_samples": 83200, "t_enq": 795669.6881475, "active_calls_at_enq": 0, "t_lock": 795669.6881608, "cancelled": false, "error": null, "t_return": 795670.3200451}
+{"kind": "job", "id": 546, "t_inf_start": 795670.3203817, "t_inf_end": 795670.5661051}
+{"kind": "call", "id": 546, "type": "partial", "n_samples": 35200, "t_enq": 795669.856386, "active_calls_at_enq": 1, "t_lock": 795670.3203125, "cancelled": false, "error": null, "t_return": 795670.5664043}
+{"kind": "job", "id": 547, "t_inf_start": 795670.8257218, "t_inf_end": 795671.5947996}
+{"kind": "call", "id": 547, "type": "partial", "n_samples": 100800, "t_enq": 795670.825621, "active_calls_at_enq": 0, "t_lock": 795670.8256343, "cancelled": false, "error": null, "t_return": 795671.5950786}
+{"kind": "job", "id": 548, "t_inf_start": 795671.5954127, "t_inf_end": 795672.0054812}
+{"kind": "call", "id": 548, "type": "partial", "n_samples": 54400, "t_enq": 795671.0805589, "active_calls_at_enq": 1, "t_lock": 795671.5953406, "cancelled": false, "error": null, "t_return": 795672.0057619}
+{"kind": "job", "id": 549, "t_inf_start": 795672.098451, "t_inf_end": 795673.0179424}
+{"kind": "call", "id": 549, "type": "partial", "n_samples": 121600, "t_enq": 795672.0983255, "active_calls_at_enq": 0, "t_lock": 795672.0983436, "cancelled": false, "error": null, "t_return": 795673.0183123}
+{"kind": "job", "id": 550, "t_inf_start": 795673.0184719, "t_inf_end": 795674.0380935}
+{"kind": "call", "id": 550, "type": "final", "n_samples": 128000, "t_enq": 795672.4634285, "active_calls_at_enq": 1, "t_lock": 795673.0184093, "cancelled": false, "error": null, "t_return": 795674.0384236}
+{"kind": "job", "id": 551, "t_inf_start": 795674.0402801, "t_inf_end": 795674.588442}
+{"kind": "call", "id": 551, "type": "partial", "n_samples": 78400, "t_enq": 795672.5210688, "active_calls_at_enq": 2, "t_lock": 795674.0402105, "cancelled": false, "error": null, "t_return": 795674.5887521}
+{"kind": "job", "id": 552, "t_inf_start": 795674.5890284, "t_inf_end": 795674.8377926}
+{"kind": "call", "id": 552, "type": "partial", "n_samples": 32000, "t_enq": 795674.5313846, "active_calls_at_enq": 1, "t_lock": 795674.5889802, "cancelled": false, "error": null, "t_return": 795674.8381169}
+{"kind": "job", "id": 553, "t_inf_start": 795675.0919896, "t_inf_end": 795675.9114001}
+{"kind": "call", "id": 553, "type": "partial", "n_samples": 120000, "t_enq": 795675.0918829, "active_calls_at_enq": 0, "t_lock": 795675.0918945, "cancelled": false, "error": null, "t_return": 795675.9117472}
+{"kind": "job", "id": 554, "t_inf_start": 795675.9119378, "t_inf_end": 795676.2426609}
+{"kind": "call", "id": 554, "type": "partial", "n_samples": 44800, "t_enq": 795675.3455706, "active_calls_at_enq": 1, "t_lock": 795675.9118664, "cancelled": false, "error": null, "t_return": 795676.2429934}
+{"kind": "job", "id": 555, "t_inf_start": 795676.243285, "t_inf_end": 795677.16671}
+{"kind": "call", "id": 555, "type": "final", "n_samples": 128000, "t_enq": 795675.5899526, "active_calls_at_enq": 2, "t_lock": 795676.2432351, "cancelled": false, "error": null, "t_return": 795677.1669229}
+{"kind": "job", "id": 556, "t_inf_start": 795677.1684664, "t_inf_end": 795677.6808864}
+{"kind": "call", "id": 556, "type": "partial", "n_samples": 67200, "t_enq": 795676.7595089, "active_calls_at_enq": 1, "t_lock": 795677.1683812, "cancelled": false, "error": null, "t_return": 795677.6814006}
+{"kind": "job", "id": 557, "t_inf_start": 795677.6816391, "t_inf_end": 795677.9120078}
+{"kind": "call", "id": 557, "type": "partial", "n_samples": 28800, "t_enq": 795677.4408263, "active_calls_at_enq": 1, "t_lock": 795677.6815846, "cancelled": false, "error": null, "t_return": 795677.9123542}
+{"kind": "job", "id": 558, "t_inf_start": 795678.1879193, "t_inf_end": 795678.9002966}
+{"kind": "call", "id": 558, "type": "partial", "n_samples": 91200, "t_enq": 795678.1877948, "active_calls_at_enq": 0, "t_lock": 795678.1878096, "cancelled": false, "error": null, "t_return": 795678.9006399}
+{"kind": "job", "id": 559, "t_inf_start": 795678.9009141, "t_inf_end": 795679.262122}
+{"kind": "call", "id": 559, "type": "partial", "n_samples": 44800, "t_enq": 795678.419176, "active_calls_at_enq": 1, "t_lock": 795678.9008554, "cancelled": false, "error": null, "t_return": 795679.2624388}
+{"kind": "job", "id": 560, "t_inf_start": 795679.2625708, "t_inf_end": 795679.6190118}
+{"kind": "call", "id": 560, "type": "final", "n_samples": 51200, "t_enq": 795678.7849258, "active_calls_at_enq": 2, "t_lock": 795679.262515, "cancelled": false, "error": null, "t_return": 795679.6193603}
+{"kind": "job", "id": 561, "t_inf_start": 795679.6208164, "t_inf_end": 795680.3665812}
+{"kind": "call", "id": 561, "type": "partial", "n_samples": 110400, "t_enq": 795679.4065945, "active_calls_at_enq": 1, "t_lock": 795679.6207297, "cancelled": false, "error": null, "t_return": 795680.3668485}
+{"kind": "job", "id": 562, "t_inf_start": 795680.3670995, "t_inf_end": 795680.4401}
+{"kind": "call", "id": 562, "type": "partial", "n_samples": 6400, "t_enq": 795680.2965009, "active_calls_at_enq": 1, "t_lock": 795680.3670518, "cancelled": false, "error": null, "t_return": 795680.4404105}
+{"kind": "job", "id": 563, "t_inf_start": 795680.4634346, "t_inf_end": 795681.3681228}
+{"kind": "call", "id": 563, "type": "final", "n_samples": 128000, "t_enq": 795680.4633576, "active_calls_at_enq": 0, "t_lock": 795680.4633652, "cancelled": false, "error": null, "t_return": 795681.3683697}
+{"kind": "job", "id": 564, "t_inf_start": 795681.3697627, "t_inf_end": 795681.5045407}
+{"kind": "call", "id": 564, "type": "partial", "n_samples": 17600, "t_enq": 795680.9477591, "active_calls_at_enq": 1, "t_lock": 795681.36969, "cancelled": false, "error": null, "t_return": 795681.5047654}
+{"kind": "job", "id": 565, "t_inf_start": 795682.0063794, "t_inf_end": 795682.2583579}
+{"kind": "call", "id": 565, "type": "partial", "n_samples": 35200, "t_enq": 795682.0062365, "active_calls_at_enq": 0, "t_lock": 795682.0062543, "cancelled": false, "error": null, "t_return": 795682.2586826}
+{"kind": "job", "id": 566, "t_inf_start": 795682.761322, "t_inf_end": 795683.1387988}
+{"kind": "call", "id": 566, "type": "partial", "n_samples": 46400, "t_enq": 795682.7611748, "active_calls_at_enq": 0, "t_lock": 795682.7611955, "cancelled": false, "error": null, "t_return": 795683.1391111}
+{"kind": "job", "id": 567, "t_inf_start": 795683.1393573, "t_inf_end": 795683.2604984}
+{"kind": "call", "id": 567, "type": "partial", "n_samples": 14400, "t_enq": 795683.0789104, "active_calls_at_enq": 1, "t_lock": 795683.1393082, "cancelled": false, "error": null, "t_return": 795683.2607778}
+{"kind": "job", "id": 568, "t_inf_start": 795683.652123, "t_inf_end": 795684.121986}
+{"kind": "call", "id": 568, "type": "partial", "n_samples": 60800, "t_enq": 795683.6519818, "active_calls_at_enq": 0, "t_lock": 795683.6520011, "cancelled": false, "error": null, "t_return": 795684.1222921}
+{"kind": "job", "id": 569, "t_inf_start": 795684.1225648, "t_inf_end": 795684.323346}
+{"kind": "call", "id": 569, "type": "partial", "n_samples": 25600, "t_enq": 795683.7729395, "active_calls_at_enq": 1, "t_lock": 795684.1225136, "cancelled": false, "error": null, "t_return": 795684.3237043}
+{"kind": "job", "id": 570, "t_inf_start": 795684.6264602, "t_inf_end": 795685.1720766}
+{"kind": "call", "id": 570, "type": "partial", "n_samples": 76800, "t_enq": 795684.6263382, "active_calls_at_enq": 0, "t_lock": 795684.6263542, "cancelled": false, "error": null, "t_return": 795685.1723375}
+{"kind": "job", "id": 571, "t_inf_start": 795685.1725743, "t_inf_end": 795685.5046016}
+{"kind": "call", "id": 571, "type": "partial", "n_samples": 43200, "t_enq": 795684.8398311, "active_calls_at_enq": 1, "t_lock": 795685.1725156, "cancelled": false, "error": null, "t_return": 795685.5049177}
+{"kind": "job", "id": 572, "t_inf_start": 795685.6741004, "t_inf_end": 795686.3807944}
+{"kind": "call", "id": 572, "type": "partial", "n_samples": 92800, "t_enq": 795685.674006, "active_calls_at_enq": 0, "t_lock": 795685.6740189, "cancelled": false, "error": null, "t_return": 795686.381065}
+{"kind": "job", "id": 573, "t_inf_start": 795686.3813324, "t_inf_end": 795686.8490487}
+{"kind": "call", "id": 573, "type": "partial", "n_samples": 62400, "t_enq": 795686.0079196, "active_calls_at_enq": 1, "t_lock": 795686.381275, "cancelled": false, "error": null, "t_return": 795686.8493678}
+{"kind": "job", "id": 574, "t_inf_start": 795686.8957908, "t_inf_end": 795687.7561307}
+{"kind": "call", "id": 574, "type": "partial", "n_samples": 112000, "t_enq": 795686.8957136, "active_calls_at_enq": 0, "t_lock": 795686.8957217, "cancelled": false, "error": null, "t_return": 795687.7564892}
+{"kind": "job", "id": 575, "t_inf_start": 795687.756772, "t_inf_end": 795688.3782013}
+{"kind": "call", "id": 575, "type": "partial", "n_samples": 83200, "t_enq": 795687.3564521, "active_calls_at_enq": 1, "t_lock": 795687.7567005, "cancelled": false, "error": null, "t_return": 795688.3784977}
+{"kind": "job", "id": 576, "t_inf_start": 795688.3787816, "t_inf_end": 795689.295822}
+{"kind": "call", "id": 576, "type": "final", "n_samples": 128000, "t_enq": 795687.7992127, "active_calls_at_enq": 1, "t_lock": 795688.3787289, "cancelled": false, "error": null, "t_return": 795689.2961129}
+{"kind": "job", "id": 577, "t_inf_start": 795689.2979658, "t_inf_end": 795690.1584773}
+{"kind": "call", "id": 577, "type": "partial", "n_samples": 108800, "t_enq": 795688.8938938, "active_calls_at_enq": 1, "t_lock": 795689.2978967, "cancelled": false, "error": null, "t_return": 795690.1588324}
+{"kind": "job", "id": 578, "t_inf_start": 795690.1590249, "t_inf_end": 795690.3780826}
+{"kind": "call", "id": 578, "type": "partial", "n_samples": 30400, "t_enq": 795689.7738449, "active_calls_at_enq": 1, "t_lock": 795690.1589473, "cancelled": false, "error": null, "t_return": 795690.3784259}
+{"kind": "job", "id": 579, "t_inf_start": 795690.3787676, "t_inf_end": 795691.3225536}
+{"kind": "call", "id": 579, "type": "final", "n_samples": 128000, "t_enq": 795690.0731956, "active_calls_at_enq": 2, "t_lock": 795690.3787097, "cancelled": false, "error": null, "t_return": 795691.3228592}
+{"kind": "job", "id": 580, "t_inf_start": 795691.3240663, "t_inf_end": 795691.6821969}
+{"kind": "call", "id": 580, "type": "partial", "n_samples": 48000, "t_enq": 795690.8942708, "active_calls_at_enq": 1, "t_lock": 795691.3239891, "cancelled": false, "error": null, "t_return": 795691.6824797}
+{"kind": "job", "id": 581, "t_inf_start": 795691.6827223, "t_inf_end": 795691.8769431}
+{"kind": "call", "id": 581, "type": "partial", "n_samples": 25600, "t_enq": 795691.6693928, "active_calls_at_enq": 1, "t_lock": 795691.6826742, "cancelled": false, "error": null, "t_return": 795691.877214}
+{"kind": "job", "id": 582, "t_inf_start": 795692.1859975, "t_inf_end": 795692.7617094}
+{"kind": "call", "id": 582, "type": "partial", "n_samples": 68800, "t_enq": 795692.1858942, "active_calls_at_enq": 0, "t_lock": 795692.1859067, "cancelled": false, "error": null, "t_return": 795692.7619937}
+{"kind": "job", "id": 583, "t_inf_start": 795692.762262, "t_inf_end": 795693.0306716}
+{"kind": "call", "id": 583, "type": "partial", "n_samples": 36800, "t_enq": 795692.383508, "active_calls_at_enq": 1, "t_lock": 795692.7622052, "cancelled": false, "error": null, "t_return": 795693.0309926}
+{"kind": "job", "id": 584, "t_inf_start": 795693.276092, "t_inf_end": 795693.9378977}
+{"kind": "call", "id": 584, "type": "partial", "n_samples": 86400, "t_enq": 795693.2759859, "active_calls_at_enq": 0, "t_lock": 795693.2759973, "cancelled": false, "error": null, "t_return": 795693.9382404}
+{"kind": "job", "id": 585, "t_inf_start": 795693.9385127, "t_inf_end": 795694.3336272}
+{"kind": "call", "id": 585, "type": "final", "n_samples": 52800, "t_enq": 795693.36703, "active_calls_at_enq": 1, "t_lock": 795693.9384517, "cancelled": false, "error": null, "t_return": 795694.3339764}
+{"kind": "job", "id": 586, "t_inf_start": 795694.441225, "t_inf_end": 795695.246129}
+{"kind": "call", "id": 586, "type": "partial", "n_samples": 105600, "t_enq": 795694.4411255, "active_calls_at_enq": 0, "t_lock": 795694.4411405, "cancelled": false, "error": null, "t_return": 795695.2464846}
+{"kind": "job", "id": 587, "t_inf_start": 795695.7566374, "t_inf_end": 795696.6545587}
+{"kind": "call", "id": 587, "type": "partial", "n_samples": 126400, "t_enq": 795695.7565215, "active_calls_at_enq": 0, "t_lock": 795695.7565371, "cancelled": false, "error": null, "t_return": 795696.6548543}
+{"kind": "job", "id": 588, "t_inf_start": 795696.6549777, "t_inf_end": 795697.5356379}
+{"kind": "call", "id": 588, "type": "final", "n_samples": 128000, "t_enq": 795695.7909283, "active_calls_at_enq": 1, "t_lock": 795696.6549101, "cancelled": false, "error": null, "t_return": 795697.5360068}
+{"kind": "job", "id": 589, "t_inf_start": 795697.537317, "t_inf_end": 795697.7268449}
+{"kind": "call", "id": 589, "type": "partial", "n_samples": 24000, "t_enq": 795695.9119813, "active_calls_at_enq": 2, "t_lock": 795697.5372625, "cancelled": false, "error": null, "t_return": 795697.7271552}
+{"kind": "job", "id": 590, "t_inf_start": 795698.236732, "t_inf_end": 795698.6938798}
+{"kind": "call", "id": 590, "type": "partial", "n_samples": 60800, "t_enq": 795698.236589, "active_calls_at_enq": 0, "t_lock": 795698.2366081, "cancelled": false, "error": null, "t_return": 795698.6941359}
+{"kind": "job", "id": 591, "t_inf_start": 795698.6943788, "t_inf_end": 795698.823328}
+{"kind": "call", "id": 591, "type": "partial", "n_samples": 16000, "t_enq": 795698.5804375, "active_calls_at_enq": 1, "t_lock": 795698.6943211, "cancelled": false, "error": null, "t_return": 795698.8236883}
+{"kind": "job", "id": 592, "t_inf_start": 795699.1998642, "t_inf_end": 795699.760789}
+{"kind": "call", "id": 592, "type": "partial", "n_samples": 76800, "t_enq": 795699.199782, "active_calls_at_enq": 0, "t_lock": 795699.1997928, "cancelled": false, "error": null, "t_return": 795699.7611221}
+{"kind": "job", "id": 593, "t_inf_start": 795699.7614719, "t_inf_end": 795699.9499637}
+{"kind": "call", "id": 593, "type": "partial", "n_samples": 27200, "t_enq": 795699.3298, "active_calls_at_enq": 1, "t_lock": 795699.7613965, "cancelled": false, "error": null, "t_return": 795699.9502728}
+{"kind": "job", "id": 594, "t_inf_start": 795700.2709018, "t_inf_end": 795701.0013151}
+{"kind": "call", "id": 594, "type": "partial", "n_samples": 92800, "t_enq": 795700.270763, "active_calls_at_enq": 0, "t_lock": 795700.2707789, "cancelled": false, "error": null, "t_return": 795701.0016226}
+{"kind": "job", "id": 595, "t_inf_start": 795701.0017758, "t_inf_end": 795701.3156984}
+{"kind": "call", "id": 595, "type": "partial", "n_samples": 44800, "t_enq": 795700.4571088, "active_calls_at_enq": 1, "t_lock": 795701.001716, "cancelled": false, "error": null, "t_return": 795701.3160462}
+{"kind": "job", "id": 596, "t_inf_start": 795701.3163414, "t_inf_end": 795702.0376212}
+{"kind": "call", "id": 596, "type": "final", "n_samples": 99200, "t_enq": 795700.5972318, "active_calls_at_enq": 2, "t_lock": 795701.3162851, "cancelled": false, "error": null, "t_return": 795702.0379311}
+{"kind": "job", "id": 597, "t_inf_start": 795702.039266, "t_inf_end": 795702.5033311}
+{"kind": "call", "id": 597, "type": "partial", "n_samples": 67200, "t_enq": 795701.8168937, "active_calls_at_enq": 1, "t_lock": 795702.0391932, "cancelled": false, "error": null, "t_return": 795702.503622}
+{"kind": "job", "id": 598, "t_inf_start": 795702.5259753, "t_inf_end": 795702.7603395}
+{"kind": "call", "id": 598, "type": "partial", "n_samples": 30400, "t_enq": 795702.5258833, "active_calls_at_enq": 0, "t_lock": 795702.5258924, "cancelled": false, "error": null, "t_return": 795702.7606135}
+{"kind": "job", "id": 599, "t_inf_start": 795703.0130124, "t_inf_end": 795703.6506726}
+{"kind": "call", "id": 599, "type": "partial", "n_samples": 86400, "t_enq": 795703.0129127, "active_calls_at_enq": 0, "t_lock": 795703.0129253, "cancelled": false, "error": null, "t_return": 795703.6509287}
+{"kind": "job", "id": 600, "t_inf_start": 795703.6512744, "t_inf_end": 795703.9327334}
+{"kind": "call", "id": 600, "type": "partial", "n_samples": 41600, "t_enq": 795703.2723506, "active_calls_at_enq": 1, "t_lock": 795703.6512025, "cancelled": false, "error": null, "t_return": 795703.9330863}
+{"kind": "job", "id": 601, "t_inf_start": 795704.1676275, "t_inf_end": 795704.9410497}
+{"kind": "call", "id": 601, "type": "partial", "n_samples": 104000, "t_enq": 795704.1674582, "active_calls_at_enq": 0, "t_lock": 795704.1674818, "cancelled": false, "error": null, "t_return": 795704.9413553}
+{"kind": "job", "id": 602, "t_inf_start": 795704.9416055, "t_inf_end": 795705.3999696}
+{"kind": "call", "id": 602, "type": "final", "n_samples": 57600, "t_enq": 795704.1992112, "active_calls_at_enq": 1, "t_lock": 795704.9415518, "cancelled": false, "error": null, "t_return": 795705.4002563}
+{"kind": "job", "id": 603, "t_inf_start": 795705.4428609, "t_inf_end": 795706.4077474}
+{"kind": "call", "id": 603, "type": "partial", "n_samples": 124800, "t_enq": 795705.4427555, "active_calls_at_enq": 0, "t_lock": 795705.4427716, "cancelled": false, "error": null, "t_return": 795706.4079454}
+{"kind": "job", "id": 604, "t_inf_start": 795706.4081065, "t_inf_end": 795706.5536639}
+{"kind": "call", "id": 604, "type": "partial", "n_samples": 19200, "t_enq": 795705.458105, "active_calls_at_enq": 1, "t_lock": 795706.40805, "cancelled": false, "error": null, "t_return": 795706.5540191}
+{"kind": "job", "id": 605, "t_inf_start": 795706.5542052, "t_inf_end": 795707.5062904}
+{"kind": "call", "id": 605, "type": "final", "n_samples": 128000, "t_enq": 795705.5792854, "active_calls_at_enq": 2, "t_lock": 795706.5541361, "cancelled": false, "error": null, "t_return": 795707.5065436}
+{"kind": "job", "id": 606, "t_inf_start": 795707.5079058, "t_inf_end": 795707.8526619}
+{"kind": "call", "id": 606, "type": "partial", "n_samples": 44800, "t_enq": 795707.0662739, "active_calls_at_enq": 1, "t_lock": 795707.5077328, "cancelled": false, "error": null, "t_return": 795707.8529942}
+{"kind": "job", "id": 607, "t_inf_start": 795707.9260731, "t_inf_end": 795708.2083181}
+{"kind": "call", "id": 607, "type": "partial", "n_samples": 36800, "t_enq": 795707.9259741, "active_calls_at_enq": 0, "t_lock": 795707.9259871, "cancelled": false, "error": null, "t_return": 795708.2086983}
+{"kind": "job", "id": 608, "t_inf_start": 795708.3684703, "t_inf_end": 795708.8601518}
+{"kind": "call", "id": 608, "type": "partial", "n_samples": 65600, "t_enq": 795708.3683354, "active_calls_at_enq": 0, "t_lock": 795708.3683508, "cancelled": false, "error": null, "t_return": 795708.8604561}
+{"kind": "job", "id": 609, "t_inf_start": 795708.860576, "t_inf_end": 795709.3753785}
+{"kind": "call", "id": 609, "type": "final", "n_samples": 67200, "t_enq": 795708.4002804, "active_calls_at_enq": 1, "t_lock": 795708.8605312, "cancelled": false, "error": null, "t_return": 795709.3757414}
+{"kind": "job", "id": 610, "t_inf_start": 795709.3774945, "t_inf_end": 795709.7368937}
+{"kind": "call", "id": 610, "type": "partial", "n_samples": 49600, "t_enq": 795708.7105426, "active_calls_at_enq": 2, "t_lock": 795709.3774035, "cancelled": false, "error": null, "t_return": 795709.7372063}
+{"kind": "job", "id": 611, "t_inf_start": 795709.7373236, "t_inf_end": 795710.0893223}
+{"kind": "call", "id": 611, "type": "final", "n_samples": 52800, "t_enq": 795708.8840233, "active_calls_at_enq": 2, "t_lock": 795709.7372769, "cancelled": false, "error": null, "t_return": 795710.0896816}

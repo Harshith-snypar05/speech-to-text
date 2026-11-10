@@ -1,0 +1,1784 @@
+{
+  "meta": {
+    "when": "2026-11-07T18:12:09",
+    "host": "Windows-11-10.0.26300-SP0",
+    "python": "3.13.5",
+    "url": "ws://localhost:8768/?role=speaker",
+    "note": "Phase 5 diagnostic run 3 of 3; six Phase 3 mismatch clips; STT_FLUSH_DIAG_FILE on",
+    "chunk_ms": 100,
+    "tail_s": 1.5,
+    "hang_s_assumed": 0.6,
+    "warmup": 1,
+    "manifest": "results\\phase5_manifest.json",
+    "caveat": "latency = audio captured -> text received by this client; excludes mic, UI, tunnel"
+  },
+  "levels": [
+    {
+      "concurrency": 1,
+      "wall_s": 131.78132247924805,
+      "errors": [],
+      "resources": {
+        "gpu_mem_mb": {
+          "mean": 104.8103448275862,
+          "max": 105.0
+        },
+        "gpu_util": {
+          "mean": 0.0,
+          "max": 0.0
+        },
+        "relay_cpu": {
+          "mean": 121.18793103448277,
+          "max": 400.8
+        },
+        "relay_rss_mb": {
+          "mean": 751.4212987586208,
+          "max": 782.446592
+        },
+        "sys_cpu": {
+          "mean": 12.537068965517241,
+          "max": 46.6
+        },
+        "_samples": 116
+      },
+      "summary": {
+        "clips": 6,
+        "wer": {
+          "wer": 0.3584905660377358,
+          "ci95": [
+            0.24022808952054234,
+            0.4716981132075472
+          ],
+          "clips": 6,
+          "ref_words": 159
+        },
+        "ttfw_s": {
+          "n": 13,
+          "p50": 0.899,
+          "p95": 1.6675999999999997,
+          "max": 1.787,
+          "mean": 0.9793076923076924
+        },
+        "first_partial_s": {
+          "n": 13,
+          "p50": 0.899,
+          "p95": 1.6675999999999997,
+          "max": 1.787,
+          "mean": 0.9793076923076924
+        },
+        "final_latency_s": {
+          "n": 13,
+          "p50": 0.842,
+          "p95": 1.1458,
+          "max": 1.171,
+          "mean": 0.8543076923076923
+        },
+        "final_latency_after_hang_s": {
+          "n": 7,
+          "p50": 0.265,
+          "p95": 0.48849999999999993,
+          "max": 0.529,
+          "mean": 0.31471428571428567
+        },
+        "partial_revision_rate": 0.4,
+        "partial_prefix_stable_rate": 0.3076923076923077,
+        "segment_mismatch_clips": 6,
+        "final_after_flush_s": {
+          "n": 13,
+          "p50": 0.529,
+          "p95": 0.9927999999999996,
+          "max": 1.171,
+          "mean": 0.5312307692307692
+        },
+        "latency_matching": {
+          "method": "timestamp, one-to-one monotonic (latency_match.py)",
+          "matched": 13,
+          "unmatched_expected": 5,
+          "extra_finals": 1,
+          "clips_with_unmatched_or_extra": [
+            "svarah_assamese_03817_281474976885867_f1767_ch",
+            "svarah_assamese_06152_281474976901758_f990_chu",
+            "svarah_bengali_01831_281474976896941_f53_chun",
+            "svarah_bodo_03621_281474976893846_f3264_ch",
+            "svarah_kannada_00197_281474976884629_f2039_ch",
+            "svarah_kashmiri_03111_281474976891473_f1165_ch"
+          ]
+        },
+        "wer_raw": {
+          "wer": 0.3584905660377358,
+          "ci95": [
+            0.24022808952054234,
+            0.4716981132075472
+          ],
+          "clips": 6,
+          "ref_words": 159
+        },
+        "wer_number_normalized": {
+          "wer": 0.33962264150943394,
+          "ci95": [
+            0.22424242424242424,
+            0.43940385530699666
+          ],
+          "clips": 6,
+          "ref_words": 159
+        },
+        "wer_compound_normalized": {
+          "wer": 0.3270440251572327,
+          "ci95": [
+            0.18421052631578946,
+            0.43940385530699666
+          ],
+          "clips": 6,
+          "ref_words": 159
+        },
+        "wer_note": "Normalized WER is a diagnostic estimate of formatting-related scoring differences. It does not represent improved recognition accuracy; the transcripts are unchanged. Raw WER (wer_raw) is the baseline.",
+        "hang_s_assumed": 0.6,
+        "wer_by_tag": {
+          "corpus": {
+            "svarah": {
+              "wer": 0.3584905660377358,
+              "ci95": [
+                0.24022808952054234,
+                0.4716981132075472
+              ],
+              "clips": 6,
+              "ref_words": 159
+            }
+          },
+          "gender": {
+            "Female": {
+              "wer": 0.4,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 105
+            },
+            "Male": {
+              "wer": 0.2777777777777778,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 54
+            }
+          },
+          "age_group": {
+            "18-30": {
+              "wer": 0.38392857142857145,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 112
+            },
+            "30-45": {
+              "wer": 0.2978723404255319,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 47
+            }
+          },
+          "l1": {
+            "Assamese": {
+              "wer": 0.46551724137931033,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 58
+            },
+            "Bengali": {
+              "wer": 0.13793103448275862,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 29
+            },
+            "Bodo": {
+              "wer": 0.4782608695652174,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 23
+            },
+            "Kannada": {
+              "wer": 0.16666666666666666,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 24
+            },
+            "Kashmiri": {
+              "wer": 0.44,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 25
+            }
+          },
+          "state": {
+            "Assam": {
+              "wer": 0.4691358024691358,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 81
+            },
+            "Jammu Kashmir": {
+              "wer": 0.44,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 25
+            },
+            "Karnataka": {
+              "wer": 0.16666666666666666,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 24
+            },
+            "West Bengal": {
+              "wer": 0.13793103448275862,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 29
+            }
+          },
+          "district": {
+            "Biswanath": {
+              "wer": 0.5555555555555556,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 18
+            },
+            "Hassan": {
+              "wer": 0.16666666666666666,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 24
+            },
+            "Kokrajhar": {
+              "wer": 0.4782608695652174,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 23
+            },
+            "Kolkata": {
+              "wer": 0.13793103448275862,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 29
+            },
+            "Nalbari": {
+              "wer": 0.425,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 40
+            },
+            "Srinagar": {
+              "wer": 0.44,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 25
+            }
+          },
+          "qualification": {
+            "Doctoral (PhD) or higher level": {
+              "wer": 0.5555555555555556,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 18
+            },
+            "Graduate": {
+              "wer": 0.13793103448275862,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 29
+            },
+            "Post Graduate": {
+              "wer": 0.38392857142857145,
+              "ci95": null,
+              "clips": 4,
+              "ref_words": 112
+            }
+          },
+          "job": {
+            "Freelance": {
+              "wer": 0.13793103448275862,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 29
+            },
+            "Full Time": {
+              "wer": 0.3780487804878049,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 82
+            },
+            "Other": {
+              "wer": 0.4583333333333333,
+              "ci95": null,
+              "clips": 2,
+              "ref_words": 48
+            }
+          },
+          "domain": {
+            "Education and Research": {
+              "wer": 0.4431818181818182,
+              "ci95": null,
+              "clips": 3,
+              "ref_words": 88
+            },
+            "Entertainment": {
+              "wer": 0.13793103448275862,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 29
+            },
+            "Information and Media": {
+              "wer": 0.5555555555555556,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 18
+            },
+            "Technology and Services": {
+              "wer": 0.16666666666666666,
+              "ci95": null,
+              "clips": 1,
+              "ref_words": 24
+            }
+          },
+          "accent": {
+            "indian_english": {
+              "wer": 0.3584905660377358,
+              "ci95": [
+                0.24022808952054234,
+                0.4716981132075472
+              ],
+              "clips": 6,
+              "ref_words": 159
+            }
+          },
+          "source": {
+            "svarah": {
+              "wer": 0.3584905660377358,
+              "ci95": [
+                0.24022808952054234,
+                0.4716981132075472
+              ],
+              "clips": 6,
+              "ref_words": 159
+            }
+          }
+        }
+      },
+      "clips": [
+        {
+          "id": "svarah_assamese_03817_281474976885867_f1767_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Assamese",
+            "state": "Assam",
+            "district": "Nalbari",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Yes, I have some favorite, not favorite, but I like some idioms and proverbs like don't judge a book by its cover, actions speak louder than words, once in a blue moon, through thick and thin, spill the beans etc.",
+          "hypothesis": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+          "ref_words": 40,
+          "sub": 6,
+          "del": 7,
+          "ins": 4,
+          "errors": 17,
+          "utterances_expected": 3,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.3,
+              "end": 16.200000000000003,
+              "forced": true
+            },
+            {
+              "start": 16.2,
+              "end": 19.1,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.974,
+            17.371
+          ],
+          "final_words": [
+            18,
+            19
+          ],
+          "finals_received": 2,
+          "partials_received": 16,
+          "events_raw": [
+            [
+              0.5518226000713184,
+              true,
+              "Yeah."
+            ],
+            [
+              1.1598145000170916,
+              true,
+              "I have some"
+            ],
+            [
+              1.8108425000682473,
+              true,
+              "uh"
+            ],
+            [
+              3.282767500029877,
+              true,
+              "favorite"
+            ],
+            [
+              4.108753200038336,
+              true,
+              "not favourite."
+            ],
+            [
+              5.08356400008779,
+              true,
+              "but I like"
+            ],
+            [
+              6.064602600061335,
+              true,
+              "some uh"
+            ],
+            [
+              7.119371500099078,
+              true,
+              "idioms and program"
+            ],
+            [
+              8.974399600061588,
+              false,
+              "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like"
+            ],
+            [
+              10.08699370000977,
+              true,
+              "Like um don't judge a book."
+            ],
+            [
+              10.829353900044225,
+              true,
+              "by its"
+            ],
+            [
+              11.624817100004293,
+              true,
+              "cover."
+            ],
+            [
+              12.482791500049643,
+              true,
+              "action speech"
+            ],
+            [
+              13.420131899998523,
+              true,
+              "clouded and voice."
+            ],
+            [
+              15.500362800084986,
+              true,
+              "in a Bloom."
+            ],
+            [
+              17.371493700076826,
+              false,
+              "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True"
+            ],
+            [
+              18.545745600014925,
+              true,
+              "so thick and thin spill the winds."
+            ],
+            [
+              19.304055500077084,
+              true,
+              "etc."
+            ]
+          ],
+          "ttfw_s": [
+            0.552,
+            1.787
+          ],
+          "first_partial_s": [
+            0.552,
+            1.787
+          ],
+          "final_latency_s": [
+            0.874,
+            1.171
+          ],
+          "final_latency_after_hang_s": [],
+          "final_after_flush_s": [
+            0.874,
+            1.171
+          ],
+          "latency_match": {
+            "pairs": [
+              {
+                "expected_index": 0,
+                "final_index": 0,
+                "forced": true,
+                "expected_start_s": 0.0,
+                "expected_end_s": 8.1,
+                "flush_ref_s": 8.1,
+                "final_time_s": 8.974399600061588,
+                "first_message_time_s": 0.5518226000713184,
+                "first_partial_time_s": 0.5518226000713184,
+                "ttfw_s": 0.552,
+                "first_partial_s": 0.552,
+                "final_latency_s": 0.874,
+                "final_latency_after_hang_s": null,
+                "final_after_flush_s": 0.874,
+                "notes": []
+              },
+              {
+                "expected_index": 1,
+                "final_index": 1,
+                "forced": true,
+                "expected_start_s": 8.3,
+                "expected_end_s": 16.200000000000003,
+                "flush_ref_s": 16.200000000000003,
+                "final_time_s": 17.371493700076826,
+                "first_message_time_s": 10.08699370000977,
+                "first_partial_time_s": 10.08699370000977,
+                "ttfw_s": 1.787,
+                "first_partial_s": 1.787,
+                "final_latency_s": 1.171,
+                "final_latency_after_hang_s": null,
+                "final_after_flush_s": 1.171,
+                "notes": []
+              }
+            ],
+            "unmatched_expected": [
+              {
+                "expected_index": 2,
+                "start_s": 16.2,
+                "end_s": 19.1,
+                "forced": false,
+                "flush_ref_s": 19.700000000000003
+              }
+            ],
+            "extra_finals": [],
+            "counts": {
+              "expected": 3,
+              "finals": 2,
+              "matched": 2,
+              "unmatched_expected": 1,
+              "extra_finals": 0
+            },
+            "params": {
+              "hang_s": 0.6,
+              "tol_s": 0.2
+            }
+          },
+          "legacy_index_paired": {
+            "ttfw_s": [
+              0.5518226000713184,
+              1.78699370000977
+            ],
+            "final_latency_s": [
+              0.8743996000615883,
+              1.171493700076823
+            ]
+          },
+          "wer_raw": {
+            "ref_words": 40,
+            "sub": 6,
+            "del": 7,
+            "ins": 4,
+            "errors": 17
+          },
+          "wer_number_normalized": {
+            "ref_words": 40,
+            "sub": 6,
+            "del": 7,
+            "ins": 4,
+            "errors": 17
+          },
+          "wer_compound_normalized": {
+            "ref_words": 40,
+            "sub": 6,
+            "del": 7,
+            "ins": 4,
+            "errors": 17
+          },
+          "partial_words": 33,
+          "partial_words_revised": 17,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_assamese_06152_281474976901758_f990_chu",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "30-45",
+            "l1": "Assamese",
+            "state": "Assam",
+            "district": "Biswanath",
+            "qualification": "Doctoral (PhD) or higher level",
+            "job": "Full Time",
+            "domain": "Information and Media",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Can you stop automatically sending Ghanim Rs. 300 bi-weekly and send Rs. 60000 instead, on Yono SBI",
+          "hypothesis": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+          "ref_words": 18,
+          "sub": 6,
+          "del": 3,
+          "ins": 1,
+          "errors": 10,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.3,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 10.299999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.733
+          ],
+          "final_words": [
+            16
+          ],
+          "finals_received": 1,
+          "partials_received": 7,
+          "events_raw": [
+            [
+              1.1017364000435919,
+              true,
+              "Can you start?"
+            ],
+            [
+              1.7367209000512958,
+              true,
+              "automating?"
+            ],
+            [
+              2.441398599999957,
+              true,
+              "saying?"
+            ],
+            [
+              4.024199799983762,
+              true,
+              "hanim rupees?"
+            ],
+            [
+              4.915521900053136,
+              true,
+              "\u0442\u0440\u0438hund?"
+            ],
+            [
+              5.8612871000077575,
+              true,
+              "hundred?"
+            ],
+            [
+              6.889619200024754,
+              true,
+              "bi weekly and"
+            ],
+            [
+              8.73299060005229,
+              false,
+              "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?"
+            ]
+          ],
+          "ttfw_s": [
+            0.802
+          ],
+          "first_partial_s": [
+            0.802
+          ],
+          "final_latency_s": [
+            0.633
+          ],
+          "final_latency_after_hang_s": [],
+          "final_after_flush_s": [
+            0.633
+          ],
+          "latency_match": {
+            "pairs": [
+              {
+                "expected_index": 0,
+                "final_index": 0,
+                "forced": true,
+                "expected_start_s": 0.3,
+                "expected_end_s": 8.1,
+                "flush_ref_s": 8.1,
+                "final_time_s": 8.73299060005229,
+                "first_message_time_s": 1.1017364000435919,
+                "first_partial_time_s": 1.1017364000435919,
+                "ttfw_s": 0.802,
+                "first_partial_s": 0.802,
+                "final_latency_s": 0.633,
+                "final_latency_after_hang_s": null,
+                "final_after_flush_s": 0.633,
+                "notes": []
+              }
+            ],
+            "unmatched_expected": [
+              {
+                "expected_index": 1,
+                "start_s": 8.1,
+                "end_s": 10.299999999999999,
+                "forced": false,
+                "flush_ref_s": 10.899999999999999
+              }
+            ],
+            "extra_finals": [],
+            "counts": {
+              "expected": 2,
+              "finals": 1,
+              "matched": 1,
+              "unmatched_expected": 1,
+              "extra_finals": 0
+            },
+            "params": {
+              "hang_s": 0.6,
+              "tol_s": 0.2
+            }
+          },
+          "legacy_index_paired": {
+            "ttfw_s": [
+              0.8017364000435918
+            ],
+            "final_latency_s": [
+              0.63299060005229
+            ]
+          },
+          "wer_raw": {
+            "ref_words": 18,
+            "sub": 6,
+            "del": 3,
+            "ins": 1,
+            "errors": 10
+          },
+          "wer_number_normalized": {
+            "ref_words": 18,
+            "sub": 3,
+            "del": 4,
+            "ins": 0,
+            "errors": 7
+          },
+          "wer_compound_normalized": {
+            "ref_words": 18,
+            "sub": 3,
+            "del": 4,
+            "ins": 0,
+            "errors": 7
+          },
+          "partial_words": 12,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 1,
+          "worker": 0
+        },
+        {
+          "id": "svarah_bengali_01831_281474976896941_f53_chun",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "30-45",
+            "l1": "Bengali",
+            "state": "West Bengal",
+            "district": "Kolkata",
+            "qualification": "Graduate",
+            "job": "Freelance",
+            "domain": "Entertainment",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "A distinct advantage that in-fighters have when throwing uppercuts is that they can channel their entire bodyweight behind the punch; Mike Tyson was famous for throwing devastating uppercuts",
+          "hypothesis": "A distinct advantage that in fighters have when throwing uppercuts is that they can channel their entire body weight behind the pun. Yeah. Mike Tyson was famous for throwing devastating uppercuts.",
+          "ref_words": 29,
+          "sub": 2,
+          "del": 0,
+          "ins": 2,
+          "errors": 4,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 12.799999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.791,
+            9.007,
+            13.794
+          ],
+          "final_words": [
+            22,
+            1,
+            8
+          ],
+          "finals_received": 3,
+          "partials_received": 12,
+          "events_raw": [
+            [
+              0.5526678999885917,
+              true,
+              "Discussion."
+            ],
+            [
+              1.1481710999505594,
+              true,
+              "distinct advantage of"
+            ],
+            [
+              1.8017086000181735,
+              true,
+              "A"
+            ],
+            [
+              2.5007415999425575,
+              true,
+              "fighters have"
+            ],
+            [
+              4.0777309000259265,
+              true,
+              "throwing up a"
+            ],
+            [
+              5.929046400007792,
+              true,
+              "that"
+            ],
+            [
+              6.968429100001231,
+              true,
+              "they can channel their energy."
+            ],
+            [
+              8.791103999945335,
+              false,
+              "A distinct advantage that in fighters have when throwing uppercuts is that they can channel their entire body weight behind the pun."
+            ],
+            [
+              9.007340300013311,
+              false,
+              "Yeah."
+            ],
+            [
+              9.687852400005795,
+              true,
+              "Mike Dyson."
+            ],
+            [
+              10.300361600006,
+              true,
+              "was famous."
+            ],
+            [
+              10.959587199962698,
+              true,
+              "for throwing"
+            ],
+            [
+              11.690100600011647,
+              true,
+              "devastating."
+            ],
+            [
+              12.475889299996197,
+              true,
+              "arms."
+            ],
+            [
+              13.793625799939036,
+              false,
+              "Mike Tyson was famous for throwing devastating uppercuts."
+            ]
+          ],
+          "ttfw_s": [
+            0.453,
+            1.588
+          ],
+          "first_partial_s": [
+            0.453,
+            1.588
+          ],
+          "final_latency_s": [
+            0.691,
+            0.994
+          ],
+          "final_latency_after_hang_s": [
+            0.394
+          ],
+          "final_after_flush_s": [
+            0.691,
+            0.394
+          ],
+          "latency_match": {
+            "pairs": [
+              {
+                "expected_index": 0,
+                "final_index": 0,
+                "forced": true,
+                "expected_start_s": 0.1,
+                "expected_end_s": 8.1,
+                "flush_ref_s": 8.1,
+                "final_time_s": 8.791103999945335,
+                "first_message_time_s": 0.5526678999885917,
+                "first_partial_time_s": 0.5526678999885917,
+                "ttfw_s": 0.453,
+                "first_partial_s": 0.453,
+                "final_latency_s": 0.691,
+                "final_latency_after_hang_s": null,
+                "final_after_flush_s": 0.691,
+                "notes": []
+              },
+              {
+                "expected_index": 1,
+                "final_index": 2,
+                "forced": false,
+                "expected_start_s": 8.1,
+                "expected_end_s": 12.799999999999999,
+                "flush_ref_s": 13.399999999999999,
+                "final_time_s": 13.793625799939036,
+                "first_message_time_s": 9.687852400005795,
+                "first_partial_time_s": 9.687852400005795,
+                "ttfw_s": 1.588,
+                "first_partial_s": 1.588,
+                "final_latency_s": 0.994,
+                "final_latency_after_hang_s": 0.394,
+                "final_after_flush_s": 0.394,
+                "notes": []
+              }
+            ],
+            "unmatched_expected": [],
+            "extra_finals": [
+              {
+                "final_index": 1,
+                "time_s": 9.007340300013311,
+                "reason": "expected_0_already_matched_to_final_0"
+              }
+            ],
+            "counts": {
+              "expected": 2,
+              "finals": 3,
+              "matched": 2,
+              "unmatched_expected": 0,
+              "extra_finals": 1
+            },
+            "params": {
+              "hang_s": 0.6,
+              "tol_s": 0.2
+            }
+          },
+          "legacy_index_paired": {
+            "ttfw_s": [
+              0.4526678999885917,
+              0.9073403000133116
+            ],
+            "final_latency_s": [
+              0.6911039999453354,
+              -3.7926596999866877
+            ]
+          },
+          "wer_raw": {
+            "ref_words": 29,
+            "sub": 2,
+            "del": 0,
+            "ins": 2,
+            "errors": 4
+          },
+          "wer_number_normalized": {
+            "ref_words": 29,
+            "sub": 2,
+            "del": 0,
+            "ins": 2,
+            "errors": 4
+          },
+          "wer_compound_normalized": {
+            "ref_words": 29,
+            "sub": 1,
+            "del": 0,
+            "ins": 1,
+            "errors": 2
+          },
+          "partial_words": 24,
+          "partial_words_revised": 14,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 2,
+          "worker": 0
+        },
+        {
+          "id": "svarah_bodo_03621_281474976893846_f3264_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Bodo",
+            "state": "Assam",
+            "district": "Kokrajhar",
+            "qualification": "Post Graduate",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Online clients can see the works. If you have your own website, blog or social media account, people can easily access your work.",
+          "hypothesis": "Online clients can see the works. Like if you have your own website, blog or social social media account. Um Dedicating to your verb. Um like people can easily access",
+          "ref_words": 23,
+          "sub": 0,
+          "del": 2,
+          "ins": 9,
+          "errors": 11,
+          "utterances_expected": 7,
+          "expected_detail": [
+            {
+              "start": 0.0,
+              "end": 1.9000000000000001,
+              "forced": false
+            },
+            {
+              "start": 3.0,
+              "end": 6.0,
+              "forced": false
+            },
+            {
+              "start": 6.7,
+              "end": 7.699999999999999,
+              "forced": false
+            },
+            {
+              "start": 8.5,
+              "end": 9.0,
+              "forced": false
+            },
+            {
+              "start": 10.0,
+              "end": 12.1,
+              "forced": false
+            },
+            {
+              "start": 12.9,
+              "end": 15.1,
+              "forced": false
+            },
+            {
+              "start": 16.3,
+              "end": 18.0,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            2.74,
+            6.971,
+            8.462,
+            9.842,
+            13.229,
+            15.965
+          ],
+          "final_words": [
+            6,
+            10,
+            3,
+            1,
+            4,
+            6
+          ],
+          "finals_received": 6,
+          "partials_received": 13,
+          "events_raw": [
+            [
+              1.0878891000756994,
+              true,
+              "Clients."
+            ],
+            [
+              2.739930500043556,
+              false,
+              "Online clients can see the works."
+            ],
+            [
+              4.0782684000441805,
+              true,
+              "Like if"
+            ],
+            [
+              4.752593100070953,
+              true,
+              "you have your"
+            ],
+            [
+              5.494647999992594,
+              true,
+              "own website"
+            ],
+            [
+              6.298559000017121,
+              true,
+              "blog"
+            ],
+            [
+              6.971117499982938,
+              false,
+              "Like if you have your own website, blog or social"
+            ],
+            [
+              8.012489799992181,
+              true,
+              "social media account."
+            ],
+            [
+              8.462082499987446,
+              false,
+              "social media account."
+            ],
+            [
+              9.094169000047259,
+              true,
+              "Um"
+            ],
+            [
+              9.842076300061308,
+              false,
+              "Um"
+            ],
+            [
+              11.489730200031772,
+              true,
+              "And dedicating to your"
+            ],
+            [
+              13.229289500042796,
+              false,
+              "Dedicating to your verb."
+            ],
+            [
+              13.531048099976033,
+              true,
+              "Um"
+            ],
+            [
+              14.164678600034676,
+              true,
+              "like people can"
+            ],
+            [
+              14.829170700046234,
+              true,
+              "easily"
+            ],
+            [
+              15.560954499989748,
+              true,
+              "access"
+            ],
+            [
+              15.965040800045244,
+              false,
+              "Um like people can easily access"
+            ],
+            [
+              18.303345900028944,
+              true,
+              "And"
+            ]
+          ],
+          "ttfw_s": [
+            1.088,
+            1.078,
+            1.312,
+            0.594,
+            1.49,
+            0.631
+          ],
+          "first_partial_s": [
+            1.088,
+            1.078,
+            1.312,
+            0.594,
+            1.49,
+            0.631
+          ],
+          "final_latency_s": [
+            0.84,
+            0.971,
+            0.762,
+            0.842,
+            1.129,
+            0.865
+          ],
+          "final_latency_after_hang_s": [
+            0.24,
+            0.371,
+            0.162,
+            0.242,
+            0.529,
+            0.265
+          ],
+          "final_after_flush_s": [
+            0.24,
+            0.371,
+            0.162,
+            0.242,
+            0.529,
+            0.265
+          ],
+          "latency_match": {
+            "pairs": [
+              {
+                "expected_index": 0,
+                "final_index": 0,
+                "forced": false,
+                "expected_start_s": 0.0,
+                "expected_end_s": 1.9000000000000001,
+                "flush_ref_s": 2.5,
+                "final_time_s": 2.739930500043556,
+                "first_message_time_s": 1.0878891000756994,
+                "first_partial_time_s": 1.0878891000756994,
+                "ttfw_s": 1.088,
+                "first_partial_s": 1.088,
+                "final_latency_s": 0.84,
+                "final_latency_after_hang_s": 0.24,
+                "final_after_flush_s": 0.24,
+                "notes": []
+              },
+              {
+                "expected_index": 1,
+                "final_index": 1,
+                "forced": false,
+                "expected_start_s": 3.0,
+                "expected_end_s": 6.0,
+                "flush_ref_s": 6.6,
+                "final_time_s": 6.971117499982938,
+                "first_message_time_s": 4.0782684000441805,
+                "first_partial_time_s": 4.0782684000441805,
+                "ttfw_s": 1.078,
+                "first_partial_s": 1.078,
+                "final_latency_s": 0.971,
+                "final_latency_after_hang_s": 0.371,
+                "final_after_flush_s": 0.371,
+                "notes": []
+              },
+              {
+                "expected_index": 2,
+                "final_index": 2,
+                "forced": false,
+                "expected_start_s": 6.7,
+                "expected_end_s": 7.699999999999999,
+                "flush_ref_s": 8.299999999999999,
+                "final_time_s": 8.462082499987446,
+                "first_message_time_s": 8.012489799992181,
+                "first_partial_time_s": 8.012489799992181,
+                "ttfw_s": 1.312,
+                "first_partial_s": 1.312,
+                "final_latency_s": 0.762,
+                "final_latency_after_hang_s": 0.162,
+                "final_after_flush_s": 0.162,
+                "notes": []
+              },
+              {
+                "expected_index": 3,
+                "final_index": 3,
+                "forced": false,
+                "expected_start_s": 8.5,
+                "expected_end_s": 9.0,
+                "flush_ref_s": 9.6,
+                "final_time_s": 9.842076300061308,
+                "first_message_time_s": 9.094169000047259,
+                "first_partial_time_s": 9.094169000047259,
+                "ttfw_s": 0.594,
+                "first_partial_s": 0.594,
+                "final_latency_s": 0.842,
+                "final_latency_after_hang_s": 0.242,
+                "final_after_flush_s": 0.242,
+                "notes": []
+              },
+              {
+                "expected_index": 4,
+                "final_index": 4,
+                "forced": false,
+                "expected_start_s": 10.0,
+                "expected_end_s": 12.1,
+                "flush_ref_s": 12.7,
+                "final_time_s": 13.229289500042796,
+                "first_message_time_s": 11.489730200031772,
+                "first_partial_time_s": 11.489730200031772,
+                "ttfw_s": 1.49,
+                "first_partial_s": 1.49,
+                "final_latency_s": 1.129,
+                "final_latency_after_hang_s": 0.529,
+                "final_after_flush_s": 0.529,
+                "notes": []
+              },
+              {
+                "expected_index": 5,
+                "final_index": 5,
+                "forced": false,
+                "expected_start_s": 12.9,
+                "expected_end_s": 15.1,
+                "flush_ref_s": 15.7,
+                "final_time_s": 15.965040800045244,
+                "first_message_time_s": 13.531048099976033,
+                "first_partial_time_s": 13.531048099976033,
+                "ttfw_s": 0.631,
+                "first_partial_s": 0.631,
+                "final_latency_s": 0.865,
+                "final_latency_after_hang_s": 0.265,
+                "final_after_flush_s": 0.265,
+                "notes": []
+              }
+            ],
+            "unmatched_expected": [
+              {
+                "expected_index": 6,
+                "start_s": 16.3,
+                "end_s": 18.0,
+                "forced": false,
+                "flush_ref_s": 18.6
+              }
+            ],
+            "extra_finals": [],
+            "counts": {
+              "expected": 7,
+              "finals": 6,
+              "matched": 6,
+              "unmatched_expected": 1,
+              "extra_finals": 0
+            },
+            "params": {
+              "hang_s": 0.6,
+              "tol_s": 0.2
+            }
+          },
+          "legacy_index_paired": {
+            "ttfw_s": [
+              1.0878891000756994,
+              1.0782684000441805,
+              1.3124897999921812,
+              0.594169000047259,
+              1.4897302000317723,
+              0.6310480999760326
+            ],
+            "final_latency_s": [
+              0.839930500043556,
+              0.9711174999829382,
+              0.7620824999874465,
+              0.8420763000613078,
+              1.1292895000427965,
+              0.8650408000452448
+            ]
+          },
+          "wer_raw": {
+            "ref_words": 23,
+            "sub": 0,
+            "del": 2,
+            "ins": 9,
+            "errors": 11
+          },
+          "wer_number_normalized": {
+            "ref_words": 23,
+            "sub": 0,
+            "del": 2,
+            "ins": 9,
+            "errors": 11
+          },
+          "wer_compound_normalized": {
+            "ref_words": 23,
+            "sub": 0,
+            "del": 2,
+            "ins": 9,
+            "errors": 11
+          },
+          "partial_words": 23,
+          "partial_words_revised": 5,
+          "partial_prefix_ok": 4,
+          "partial_prefix_total": 6,
+          "worker": 0
+        },
+        {
+          "id": "svarah_kannada_00197_281474976884629_f2039_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Female",
+            "age_group": "18-30",
+            "l1": "Kannada",
+            "state": "Karnataka",
+            "district": "Hassan",
+            "qualification": "Post Graduate",
+            "job": "Full Time",
+            "domain": "Technology and Services",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "you can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow-clad mountain ranges, widely spread cool bagyals",
+          "hypothesis": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+          "ref_words": 24,
+          "sub": 0,
+          "del": 4,
+          "ins": 0,
+          "errors": 4,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.1,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.1,
+              "end": 10.2,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.84
+          ],
+          "final_words": [
+            20
+          ],
+          "finals_received": 1,
+          "partials_received": 9,
+          "events_raw": [
+            [
+              0.5574285999173298,
+              true,
+              "You can"
+            ],
+            [
+              1.151070199906826,
+              true,
+              "enjoy the heat."
+            ],
+            [
+              1.8122409000061452,
+              true,
+              "forest."
+            ],
+            [
+              2.5144748999737203,
+              true,
+              "gazed."
+            ],
+            [
+              3.2782020999584347,
+              true,
+              "river waters."
+            ],
+            [
+              5.001739399973303,
+              true,
+              "a serene Himalayan."
+            ],
+            [
+              5.962110299966298,
+              true,
+              "lake."
+            ],
+            [
+              7.007907299906947,
+              true,
+              "clear view of clouds."
+            ],
+            [
+              8.840157500002533,
+              false,
+              "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges."
+            ],
+            [
+              9.261016899952665,
+              true,
+              "Widely spread cool."
+            ]
+          ],
+          "ttfw_s": [
+            0.457
+          ],
+          "first_partial_s": [
+            0.457
+          ],
+          "final_latency_s": [
+            0.74
+          ],
+          "final_latency_after_hang_s": [],
+          "final_after_flush_s": [
+            0.74
+          ],
+          "latency_match": {
+            "pairs": [
+              {
+                "expected_index": 0,
+                "final_index": 0,
+                "forced": true,
+                "expected_start_s": 0.1,
+                "expected_end_s": 8.1,
+                "flush_ref_s": 8.1,
+                "final_time_s": 8.840157500002533,
+                "first_message_time_s": 0.5574285999173298,
+                "first_partial_time_s": 0.5574285999173298,
+                "ttfw_s": 0.457,
+                "first_partial_s": 0.457,
+                "final_latency_s": 0.74,
+                "final_latency_after_hang_s": null,
+                "final_after_flush_s": 0.74,
+                "notes": []
+              }
+            ],
+            "unmatched_expected": [
+              {
+                "expected_index": 1,
+                "start_s": 8.1,
+                "end_s": 10.2,
+                "forced": false,
+                "flush_ref_s": 10.799999999999999
+              }
+            ],
+            "extra_finals": [],
+            "counts": {
+              "expected": 2,
+              "finals": 1,
+              "matched": 1,
+              "unmatched_expected": 1,
+              "extra_finals": 0
+            },
+            "params": {
+              "hang_s": 0.6,
+              "tol_s": 0.2
+            }
+          },
+          "legacy_index_paired": {
+            "ttfw_s": [
+              0.45742859991732987
+            ],
+            "final_latency_s": [
+              0.7401575000025336
+            ]
+          },
+          "wer_raw": {
+            "ref_words": 24,
+            "sub": 0,
+            "del": 4,
+            "ins": 0,
+            "errors": 4
+          },
+          "wer_number_normalized": {
+            "ref_words": 24,
+            "sub": 0,
+            "del": 4,
+            "ins": 0,
+            "errors": 4
+          },
+          "wer_compound_normalized": {
+            "ref_words": 24,
+            "sub": 0,
+            "del": 4,
+            "ins": 0,
+            "errors": 4
+          },
+          "partial_words": 17,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 1,
+          "worker": 0
+        },
+        {
+          "id": "svarah_kashmiri_03111_281474976891473_f1165_ch",
+          "tags": {
+            "corpus": "svarah",
+            "gender": "Male",
+            "age_group": "18-30",
+            "l1": "Kashmiri",
+            "state": "Jammu Kashmir",
+            "district": "Srinagar",
+            "qualification": "Post Graduate",
+            "job": "Other",
+            "domain": "Education and Research",
+            "accent": "indian_english",
+            "source": "svarah"
+          },
+          "reference": "Change your quantities of items Nestle Munch Wafer Bar , Chai Point Rusk Cake and Lal Besan Laddoo as their current quantities are out of stock",
+          "hypothesis": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+          "ref_words": 25,
+          "sub": 3,
+          "del": 8,
+          "ins": 0,
+          "errors": 11,
+          "utterances_expected": 2,
+          "expected_detail": [
+            {
+              "start": 0.2,
+              "end": 8.1,
+              "forced": true
+            },
+            {
+              "start": 8.2,
+              "end": 10.799999999999999,
+              "forced": false
+            }
+          ],
+          "final_times_s": [
+            8.694
+          ],
+          "final_words": [
+            17
+          ],
+          "finals_received": 1,
+          "partials_received": 8,
+          "events_raw": [
+            [
+              1.0985310999676585,
+              true,
+              "Change your company."
+            ],
+            [
+              1.7334447000175714,
+              true,
+              "of"
+            ],
+            [
+              2.4322093999944627,
+              true,
+              "items to the"
+            ],
+            [
+              4.0050144999986514,
+              true,
+              "water."
+            ],
+            [
+              4.881886899936944,
+              true,
+              "bar."
+            ],
+            [
+              5.836999599938281,
+              true,
+              "Chai,"
+            ],
+            [
+              6.87514060002286,
+              true,
+              "Point."
+            ],
+            [
+              8.693645899998955,
+              false,
+              "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber."
+            ],
+            [
+              11.185884799924679,
+              true,
+              "Not do as their current quantities are out of stock."
+            ]
+          ],
+          "ttfw_s": [
+            0.899
+          ],
+          "first_partial_s": [
+            0.899
+          ],
+          "final_latency_s": [
+            0.594
+          ],
+          "final_latency_after_hang_s": [],
+          "final_after_flush_s": [
+            0.594
+          ],
+          "latency_match": {
+            "pairs": [
+              {
+                "expected_index": 0,
+                "final_index": 0,
+                "forced": true,
+                "expected_start_s": 0.2,
+                "expected_end_s": 8.1,
+                "flush_ref_s": 8.1,
+                "final_time_s": 8.693645899998955,
+                "first_message_time_s": 1.0985310999676585,
+                "first_partial_time_s": 1.0985310999676585,
+                "ttfw_s": 0.899,
+                "first_partial_s": 0.899,
+                "final_latency_s": 0.594,
+                "final_latency_after_hang_s": null,
+                "final_after_flush_s": 0.594,
+                "notes": []
+              }
+            ],
+            "unmatched_expected": [
+              {
+                "expected_index": 1,
+                "start_s": 8.2,
+                "end_s": 10.799999999999999,
+                "forced": false,
+                "flush_ref_s": 11.399999999999999
+              }
+            ],
+            "extra_finals": [],
+            "counts": {
+              "expected": 2,
+              "finals": 1,
+              "matched": 1,
+              "unmatched_expected": 1,
+              "extra_finals": 0
+            },
+            "params": {
+              "hang_s": 0.6,
+              "tol_s": 0.2
+            }
+          },
+          "legacy_index_paired": {
+            "ttfw_s": [
+              0.8985310999676586
+            ],
+            "final_latency_s": [
+              0.5936458999989558
+            ]
+          },
+          "wer_raw": {
+            "ref_words": 25,
+            "sub": 3,
+            "del": 8,
+            "ins": 0,
+            "errors": 11
+          },
+          "wer_number_normalized": {
+            "ref_words": 25,
+            "sub": 3,
+            "del": 8,
+            "ins": 0,
+            "errors": 11
+          },
+          "wer_compound_normalized": {
+            "ref_words": 25,
+            "sub": 3,
+            "del": 8,
+            "ins": 0,
+            "errors": 11
+          },
+          "partial_words": 11,
+          "partial_words_revised": 4,
+          "partial_prefix_ok": 0,
+          "partial_prefix_total": 1,
+          "worker": 0
+        }
+      ]
+    }
+  ]
+}

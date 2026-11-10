@@ -10,3 +10,31 @@ __pycache__/
 relays/logs/
 relays/supervisor.pid
 relays/data/
+
+relays_phase7c/data/refine_log.jsonl
+
+# --- secrets / local env (never commit) ---
+.env
+.env.*
+!.env.example
+staging_secrets/
+staging_data_qa/
+
+# --- build output, dependencies, caches ---
+node_modules/
+.next/
+build/
+.dart_tool/
+.gradle/
+local.properties
+*.log
+
+# --- bulky benchmark data / retired QA ---
+benchmarks/dataset_existing/
+benchmarks/_retired_qa/
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.sqlite
+*.db

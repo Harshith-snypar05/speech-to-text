@@ -1,0 +1,51 @@
+{
+  "clips": [
+    {
+      "id": "jfk",
+      "wav": "wav/jfk.wav",
+      "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "tags": {
+        "noise": "clean",
+        "speed": "1.0",
+        "speaker": "jfk",
+        "accent": "us_english"
+      }
+    },
+    {
+      "id": "jfk__snr10",
+      "wav": "wav/jfk__snr10.wav",
+      "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "tags": {
+        "noise": "snr10dB_white",
+        "speed": "1.0",
+        "speaker": "jfk",
+        "accent": "us_english"
+      },
+      "timing_wav": "wav/jfk.wav"
+    },
+    {
+      "id": "jfk__snr0",
+      "wav": "wav/jfk__snr0.wav",
+      "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "tags": {
+        "noise": "snr0dB_white",
+        "speed": "1.0",
+        "speaker": "jfk",
+        "accent": "us_english"
+      },
+      "timing_wav": "wav/jfk.wav"
+    },
+    {
+      "id": "jfk__snr-5",
+      "wav": "wav/jfk__snr-5.wav",
+      "reference": "And so, my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "tags": {
+        "noise": "snr-5dB_white",
+        "speed": "1.0",
+        "speaker": "jfk",
+        "accent": "us_english"
+      },
+      "timing_wav": "wav/jfk.wav"
+    }
+  ]
+}

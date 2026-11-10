@@ -1,0 +1,3445 @@
+{
+ "engine": "ParakeetNativeEngine (production class, default params)",
+ "model": "C:\\Users\\sriha\\snypar\\stt\\speech-to-text\\whisper.cpp\\models\\ggml-parakeet-tdt-0.6b-v3-q8_0.bin",
+ "reps": 3,
+ "decoder_default_params": {
+  "strategy": 0,
+  "n_threads": 4,
+  "offset_ms": 0,
+  "duration_ms": 0,
+  "no_context": true,
+  "audio_ctx": 0,
+  "new_segment_callback/others": "NULL (not set)"
+ },
+ "model_hparams_from_relay_log": {
+  "n_audio_ctx": 5000,
+  "n_mels": 128,
+  "n_fft": 512
+ },
+ "clips": [
+  {
+   "clip": "svarah_assamese_03817_281474976885867_f1767_ch",
+   "dropped_slice": {
+    "start_sample": 256000,
+    "end_sample": 315200,
+    "samples": 59200
+   },
+   "exp1_zero_pad": [
+    {
+     "name": "zeropad_0.5s",
+     "wav": "audio/assamese_03817_zeropad_0.5s.wav",
+     "lead_zero_samples": 8000,
+     "src_start_sample": 256000,
+     "src_end_sample": 315200,
+     "sample_count": 67200,
+     "duration_s": 4.2,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Thick and thin, spill the beans, etc.",
+       "raw_text": "Thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.8571
+      },
+      {
+       "rep": 2,
+       "text": "Thick and thin, spill the beans, etc.",
+       "raw_text": "Thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 12.1398
+      },
+      {
+       "rep": 3,
+       "text": "Thick and thin, spill the beans, etc.",
+       "raw_text": "Thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 4.4094
+      }
+     ],
+     "pad_s": 0.5
+    },
+    {
+     "name": "zeropad_1.0s",
+     "wav": "audio/assamese_03817_zeropad_1.0s.wav",
+     "lead_zero_samples": 16000,
+     "src_start_sample": 256000,
+     "src_end_sample": 315200,
+     "sample_count": 75200,
+     "duration_s": 4.7,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Thick and thin, spill the beans, etc.",
+       "raw_text": "Thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 4.5996
+      },
+      {
+       "rep": 2,
+       "text": "Thick and thin, spill the beans, etc.",
+       "raw_text": "Thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.9845
+      },
+      {
+       "rep": 3,
+       "text": "Thick and thin, spill the beans, etc.",
+       "raw_text": "Thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.826
+      }
+     ],
+     "pad_s": 1.0
+    },
+    {
+     "name": "zeropad_2.0s",
+     "wav": "audio/assamese_03817_zeropad_2.0s.wav",
+     "lead_zero_samples": 32000,
+     "src_start_sample": 256000,
+     "src_end_sample": 315200,
+     "sample_count": 91200,
+     "duration_s": 5.7,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Thick and thin, spill the beans, etc.",
+       "raw_text": "Thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 4.4512
+      },
+      {
+       "rep": 2,
+       "text": "Thick and thin, spill the beans, etc.",
+       "raw_text": "Thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 4.5976
+      },
+      {
+       "rep": 3,
+       "text": "Thick and thin, spill the beans, etc.",
+       "raw_text": "Thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.6503
+      }
+     ],
+     "pad_s": 2.0
+    }
+   ],
+   "exp2_shifts": [
+    {
+     "name": "shift_-200ms",
+     "wav": "audio/assamese_03817_shift_-200ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 252800,
+     "src_end_sample": 315200,
+     "sample_count": 62400,
+     "duration_s": 3.9,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "True thick and thin, spill the wins, etc.",
+       "raw_text": "True thick and thin, spill the wins, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.3642
+      },
+      {
+       "rep": 2,
+       "text": "True thick and thin, spill the wins, etc.",
+       "raw_text": "True thick and thin, spill the wins, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.8673
+      },
+      {
+       "rep": 3,
+       "text": "True thick and thin, spill the wins, etc.",
+       "raw_text": "True thick and thin, spill the wins, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.8849
+      }
+     ],
+     "shift_ms": -200
+    },
+    {
+     "name": "shift_-100ms",
+     "wav": "audio/assamese_03817_shift_-100ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 254400,
+     "src_end_sample": 315200,
+     "sample_count": 60800,
+     "duration_s": 3.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.5692
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.2925
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.3451
+      }
+     ],
+     "shift_ms": -100
+    },
+    {
+     "name": "shift_-50ms",
+     "wav": "audio/assamese_03817_shift_-50ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 255200,
+     "src_end_sample": 315200,
+     "sample_count": 60000,
+     "duration_s": 3.75,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.365
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.2875
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.2571
+      }
+     ],
+     "shift_ms": -50
+    },
+    {
+     "name": "shift_+50ms",
+     "wav": "audio/assamese_03817_shift_+50ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 256800,
+     "src_end_sample": 315200,
+     "sample_count": 58400,
+     "duration_s": 3.65,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "thick and thin, spill the beans, etc.",
+       "raw_text": "thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.4822
+      },
+      {
+       "rep": 2,
+       "text": "thick and thin, spill the beans, etc.",
+       "raw_text": "thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.4179
+      },
+      {
+       "rep": 3,
+       "text": "thick and thin, spill the beans, etc.",
+       "raw_text": "thick and thin, spill the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.1989
+      }
+     ],
+     "shift_ms": 50
+    },
+    {
+     "name": "shift_+100ms",
+     "wav": "audio/assamese_03817_shift_+100ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 257600,
+     "src_end_sample": 315200,
+     "sample_count": 57600,
+     "duration_s": 3.6,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Thick and thin, spill the beans, etcetera.",
+       "raw_text": "Thick and thin, spill the beans, etcetera.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.0718
+      },
+      {
+       "rep": 2,
+       "text": "Thick and thin, spill the beans, etcetera.",
+       "raw_text": "Thick and thin, spill the beans, etcetera.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.8507
+      },
+      {
+       "rep": 3,
+       "text": "Thick and thin, spill the beans, etcetera.",
+       "raw_text": "Thick and thin, spill the beans, etcetera.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.9431
+      }
+     ],
+     "shift_ms": 100
+    },
+    {
+     "name": "shift_+200ms",
+     "wav": "audio/assamese_03817_shift_+200ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 259200,
+     "src_end_sample": 315200,
+     "sample_count": 56000,
+     "duration_s": 3.5,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "contain spilled the beans, etc.",
+       "raw_text": "contain spilled the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.9147
+      },
+      {
+       "rep": 2,
+       "text": "contain spilled the beans, etc.",
+       "raw_text": "contain spilled the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.6113
+      },
+      {
+       "rep": 3,
+       "text": "contain spilled the beans, etc.",
+       "raw_text": "contain spilled the beans, etc.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.6558
+      }
+     ],
+     "shift_ms": 200
+    }
+   ],
+   "exp3_sweep": [],
+   "previous_finals": [
+    {
+     "name": "prevfinal_seq1",
+     "wav": "audio/assamese_03817_prevfinal_seq1.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 0,
+     "src_end_sample": 128000,
+     "sample_count": 128000,
+     "duration_s": 8.0,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like",
+       "raw_text": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.1073
+      },
+      {
+       "rep": 2,
+       "text": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like",
+       "raw_text": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 5.9959
+      },
+      {
+       "rep": 3,
+       "text": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like",
+       "raw_text": "Yes I have some uh favourite not favourite, but I like some uh idioms and proverbs uh like",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.2395
+      }
+     ],
+     "seq": 1,
+     "recorded_text_len": 90,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "name": "prevfinal_seq2",
+     "wav": "audio/assamese_03817_prevfinal_seq2.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 128000,
+     "src_end_sample": 256000,
+     "sample_count": 128000,
+     "duration_s": 8.0,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+       "raw_text": "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.2369
+      },
+      {
+       "rep": 2,
+       "text": "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+       "raw_text": "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.0748
+      },
+      {
+       "rep": 3,
+       "text": "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+       "raw_text": "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.263
+      }
+     ],
+     "seq": 2,
+     "recorded_text_len": 94,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    }
+   ],
+   "exp4_overlap": [
+    {
+     "recovered_words": 8,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 8,
+     "words_in_fullclip_blocks": 5,
+     "name": "phase6_B_real_ctx_0.5s",
+     "text": "through thick and thin, spill the beans, etc.",
+     "source_start_sample": 248000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 13,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 5,
+     "novel_words_est": 8,
+     "words_in_fullclip_blocks": 10,
+     "name": "phase6_D_real_ctx_2s",
+     "text": "Once in a blue moon, through thick and thin, spill the winds, etc.",
+     "source_start_sample": 224000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 7,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 7,
+     "words_in_fullclip_blocks": 5,
+     "name": "phase6c_zeropad_0.5s",
+     "text": "Thick and thin, spill the beans, etc.",
+     "source_start_sample": 256000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 7,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 7,
+     "words_in_fullclip_blocks": 5,
+     "name": "phase6c_zeropad_1.0s",
+     "text": "Thick and thin, spill the beans, etc.",
+     "source_start_sample": 256000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 7,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 7,
+     "words_in_fullclip_blocks": 5,
+     "name": "phase6c_zeropad_2.0s",
+     "text": "Thick and thin, spill the beans, etc.",
+     "source_start_sample": 256000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 8,
+     "exact_leading_dup_words": 1,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 8,
+     "words_in_fullclip_blocks": 6,
+     "name": "phase6c_shift_-200ms",
+     "text": "True thick and thin, spill the wins, etc.",
+     "source_start_sample": 252800,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 7,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 7,
+     "words_in_fullclip_blocks": 5,
+     "name": "phase6c_shift_+50ms",
+     "text": "thick and thin, spill the beans, etc.",
+     "source_start_sample": 256800,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 7,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 7,
+     "words_in_fullclip_blocks": 5,
+     "name": "phase6c_shift_+100ms",
+     "text": "Thick and thin, spill the beans, etcetera.",
+     "source_start_sample": 257600,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 5,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 5,
+     "words_in_fullclip_blocks": 0,
+     "name": "phase6c_shift_+200ms",
+     "text": "contain spilled the beans, etc.",
+     "source_start_sample": 259200,
+     "starts_before_slice": false
+    }
+   ],
+   "regress_exact_slice": {
+    "name": "regress_A",
+    "wav": "audio/assamese_03817_regress_A.wav",
+    "lead_zero_samples": 0,
+    "src_start_sample": 256000,
+    "src_end_sample": 315200,
+    "sample_count": 59200,
+    "duration_s": 3.7,
+    "reps_identical": true,
+    "reps": [
+     {
+      "rep": 1,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.8327
+     },
+     {
+      "rep": 2,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.9939
+     },
+     {
+      "rep": 3,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.9704
+     }
+    ],
+    "phase6_A_empty": true
+   },
+   "previous_final_used": {
+    "seq": 2,
+    "text": "Like Don't Judge a Book by its cover, Action Speak Clouded in Words, Once in a Blue Moon, True"
+   }
+  },
+  {
+   "clip": "svarah_assamese_06152_281474976901758_f990_chu",
+   "dropped_slice": {
+    "start_sample": 128000,
+    "end_sample": 174400,
+    "samples": 46400
+   },
+   "exp1_zero_pad": [
+    {
+     "name": "zeropad_0.5s",
+     "wav": "audio/assamese_06152_zeropad_0.5s.wav",
+     "lead_zero_samples": 8000,
+     "src_start_sample": 128000,
+     "src_end_sample": 174400,
+     "sample_count": 54400,
+     "duration_s": 3.4,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.6865
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.8078
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.6827
+      }
+     ],
+     "pad_s": 0.5
+    },
+    {
+     "name": "zeropad_1.0s",
+     "wav": "audio/assamese_06152_zeropad_1.0s.wav",
+     "lead_zero_samples": 16000,
+     "src_start_sample": 128000,
+     "src_end_sample": 174400,
+     "sample_count": 62400,
+     "duration_s": 3.9,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Browse and instill on your no spa.",
+       "raw_text": "Browse and instill on your no spa.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.113
+      },
+      {
+       "rep": 2,
+       "text": "Browse and instill on your no spa.",
+       "raw_text": "Browse and instill on your no spa.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.9976
+      },
+      {
+       "rep": 3,
+       "text": "Browse and instill on your no spa.",
+       "raw_text": "Browse and instill on your no spa.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.1572
+      }
+     ],
+     "pad_s": 1.0
+    },
+    {
+     "name": "zeropad_2.0s",
+     "wav": "audio/assamese_06152_zeropad_2.0s.wav",
+     "lead_zero_samples": 32000,
+     "src_start_sample": 128000,
+     "src_end_sample": 174400,
+     "sample_count": 78400,
+     "duration_s": 4.9,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Browsing instead on your no spa",
+       "raw_text": "Browsing instead on your no spa",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 4.1287
+      },
+      {
+       "rep": 2,
+       "text": "Browsing instead on your no spa",
+       "raw_text": "Browsing instead on your no spa",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 4.1858
+      },
+      {
+       "rep": 3,
+       "text": "Browsing instead on your no spa",
+       "raw_text": "Browsing instead on your no spa",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.9658
+      }
+     ],
+     "pad_s": 2.0
+    }
+   ],
+   "exp2_shifts": [
+    {
+     "name": "shift_-200ms",
+     "wav": "audio/assamese_06152_shift_-200ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 124800,
+     "src_end_sample": 174400,
+     "sample_count": 49600,
+     "duration_s": 3.1,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "thousand instead on your no spi?",
+       "raw_text": "thousand instead on your no spi?",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.8456
+      },
+      {
+       "rep": 2,
+       "text": "thousand instead on your no spi?",
+       "raw_text": "thousand instead on your no spi?",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.4941
+      },
+      {
+       "rep": 3,
+       "text": "thousand instead on your no spi?",
+       "raw_text": "thousand instead on your no spi?",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.4097
+      }
+     ],
+     "shift_ms": -200
+    },
+    {
+     "name": "shift_-100ms",
+     "wav": "audio/assamese_06152_shift_-100ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 126400,
+     "src_end_sample": 174400,
+     "sample_count": 48000,
+     "duration_s": 3.0,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.685
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.3466
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.246
+      }
+     ],
+     "shift_ms": -100
+    },
+    {
+     "name": "shift_-50ms",
+     "wav": "audio/assamese_06152_shift_-50ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 127200,
+     "src_end_sample": 174400,
+     "sample_count": 47200,
+     "duration_s": 2.95,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.2249
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.2037
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.1094
+      }
+     ],
+     "shift_ms": -50
+    },
+    {
+     "name": "shift_+50ms",
+     "wav": "audio/assamese_06152_shift_+50ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 128800,
+     "src_end_sample": 174400,
+     "sample_count": 45600,
+     "duration_s": 2.85,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.1652
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.1407
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.1132
+      }
+     ],
+     "shift_ms": 50
+    },
+    {
+     "name": "shift_+100ms",
+     "wav": "audio/assamese_06152_shift_+100ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 129600,
+     "src_end_sample": 174400,
+     "sample_count": 44800,
+     "duration_s": 2.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.2025
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.3424
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.0427
+      }
+     ],
+     "shift_ms": 100
+    },
+    {
+     "name": "shift_+200ms",
+     "wav": "audio/assamese_06152_shift_+200ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 131200,
+     "src_end_sample": 174400,
+     "sample_count": 43200,
+     "duration_s": 2.7,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Instead on your no SPI?",
+       "raw_text": "Instead on your no SPI?",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.1066
+      },
+      {
+       "rep": 2,
+       "text": "Instead on your no SPI?",
+       "raw_text": "Instead on your no SPI?",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.0204
+      },
+      {
+       "rep": 3,
+       "text": "Instead on your no SPI?",
+       "raw_text": "Instead on your no SPI?",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.0184
+      }
+     ],
+     "shift_ms": 200
+    }
+   ],
+   "exp3_sweep": [],
+   "previous_finals": [
+    {
+     "name": "prevfinal_seq1",
+     "wav": "audio/assamese_06152_prevfinal_seq1.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 0,
+     "src_end_sample": 128000,
+     "sample_count": 128000,
+     "duration_s": 8.0,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+       "raw_text": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 7.0651
+      },
+      {
+       "rep": 2,
+       "text": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+       "raw_text": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.6926
+      },
+      {
+       "rep": 3,
+       "text": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+       "raw_text": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 7.3687
+      }
+     ],
+     "seq": 1,
+     "recorded_text_len": 101,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    }
+   ],
+   "exp4_overlap": [
+    {
+     "recovered_words": 7,
+     "exact_leading_dup_words": 2,
+     "fuzzy_words_matching_previous_final_tail": 2,
+     "novel_words_est": 5,
+     "words_in_fullclip_blocks": 4,
+     "name": "phase6_B_real_ctx_0.5s",
+     "text": "sixty thousand instead on your no SPI?",
+     "source_start_sample": 120000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 7,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 2,
+     "novel_words_est": 5,
+     "words_in_fullclip_blocks": 5,
+     "name": "phase6_C_real_ctx_1s",
+     "text": "Rupees sixty thousand instead on Yono Spi?",
+     "source_start_sample": 112000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 9,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 2,
+     "novel_words_est": 7,
+     "words_in_fullclip_blocks": 6,
+     "name": "phase6_D_real_ctx_2s",
+     "text": "And sent Rs sixty thousand instead on Yono SPI?",
+     "source_start_sample": 96000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 7,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 7,
+     "words_in_fullclip_blocks": 0,
+     "name": "phase6c_zeropad_1.0s",
+     "text": "Browse and instill on your no spa.",
+     "source_start_sample": 128000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 6,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 6,
+     "words_in_fullclip_blocks": 2,
+     "name": "phase6c_zeropad_2.0s",
+     "text": "Browsing instead on your no spa",
+     "source_start_sample": 128000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 6,
+     "exact_leading_dup_words": 1,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 6,
+     "words_in_fullclip_blocks": 3,
+     "name": "phase6c_shift_-200ms",
+     "text": "thousand instead on your no spi?",
+     "source_start_sample": 124800,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 5,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 5,
+     "words_in_fullclip_blocks": 2,
+     "name": "phase6c_shift_+200ms",
+     "text": "Instead on your no SPI?",
+     "source_start_sample": 131200,
+     "starts_before_slice": false
+    }
+   ],
+   "regress_exact_slice": {
+    "name": "regress_A",
+    "wav": "audio/assamese_06152_regress_A.wav",
+    "lead_zero_samples": 0,
+    "src_start_sample": 128000,
+    "src_end_sample": 174400,
+    "sample_count": 46400,
+    "duration_s": 2.9,
+    "reps_identical": true,
+    "reps": [
+     {
+      "rep": 1,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.3775
+     },
+     {
+      "rep": 2,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.2344
+     },
+     {
+      "rep": 3,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.2522
+     }
+    ],
+    "phase6_A_empty": true
+   },
+   "previous_final_used": {
+    "seq": 1,
+    "text": "Can you stop automatically sending hanim rupees three hundred bi weekly and send rubs sixty thousand?"
+   }
+  },
+  {
+   "clip": "svarah_kannada_00197_281474976884629_f2039_ch",
+   "dropped_slice": {
+    "start_sample": 128000,
+    "end_sample": 172800,
+    "samples": 44800
+   },
+   "exp1_zero_pad": [
+    {
+     "name": "zeropad_0.5s",
+     "wav": "audio/kannada_00197_zeropad_0.5s.wav",
+     "lead_zero_samples": 8000,
+     "src_start_sample": 128000,
+     "src_end_sample": 172800,
+     "sample_count": 52800,
+     "duration_s": 3.3,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Widely spread cool bhagials.",
+       "raw_text": "Widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.8845
+      },
+      {
+       "rep": 2,
+       "text": "Widely spread cool bhagials.",
+       "raw_text": "Widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.6078
+      },
+      {
+       "rep": 3,
+       "text": "Widely spread cool bhagials.",
+       "raw_text": "Widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.4997
+      }
+     ],
+     "pad_s": 0.5
+    },
+    {
+     "name": "zeropad_1.0s",
+     "wav": "audio/kannada_00197_zeropad_1.0s.wav",
+     "lead_zero_samples": 16000,
+     "src_start_sample": 128000,
+     "src_end_sample": 172800,
+     "sample_count": 60800,
+     "duration_s": 3.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Widely spread cool bhagials.",
+       "raw_text": "Widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.9007
+      },
+      {
+       "rep": 2,
+       "text": "Widely spread cool bhagials.",
+       "raw_text": "Widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.0096
+      },
+      {
+       "rep": 3,
+       "text": "Widely spread cool bhagials.",
+       "raw_text": "Widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.866
+      }
+     ],
+     "pad_s": 1.0
+    },
+    {
+     "name": "zeropad_2.0s",
+     "wav": "audio/kannada_00197_zeropad_2.0s.wav",
+     "lead_zero_samples": 32000,
+     "src_start_sample": 128000,
+     "src_end_sample": 172800,
+     "sample_count": 76800,
+     "duration_s": 4.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Widely spread cool bhagyals.",
+       "raw_text": "Widely spread cool bhagyals.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.5488
+      },
+      {
+       "rep": 2,
+       "text": "Widely spread cool bhagyals.",
+       "raw_text": "Widely spread cool bhagyals.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.4905
+      },
+      {
+       "rep": 3,
+       "text": "Widely spread cool bhagyals.",
+       "raw_text": "Widely spread cool bhagyals.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.4849
+      }
+     ],
+     "pad_s": 2.0
+    }
+   ],
+   "exp2_shifts": [
+    {
+     "name": "shift_-200ms",
+     "wav": "audio/kannada_00197_shift_-200ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 124800,
+     "src_end_sample": 172800,
+     "sample_count": 48000,
+     "duration_s": 3.0,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.2372
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.3022
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.1839
+      }
+     ],
+     "shift_ms": -200
+    },
+    {
+     "name": "shift_-100ms",
+     "wav": "audio/kannada_00197_shift_-100ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 126400,
+     "src_end_sample": 172800,
+     "sample_count": 46400,
+     "duration_s": 2.9,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.1348
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.1642
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.1929
+      }
+     ],
+     "shift_ms": -100
+    },
+    {
+     "name": "shift_-50ms",
+     "wav": "audio/kannada_00197_shift_-50ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 127200,
+     "src_end_sample": 172800,
+     "sample_count": 45600,
+     "duration_s": 2.85,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.2396
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.2231
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.1554
+      }
+     ],
+     "shift_ms": -50
+    },
+    {
+     "name": "shift_+50ms",
+     "wav": "audio/kannada_00197_shift_+50ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 128800,
+     "src_end_sample": 172800,
+     "sample_count": 44000,
+     "duration_s": 2.75,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.1101
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.9957
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.9628
+      }
+     ],
+     "shift_ms": 50
+    },
+    {
+     "name": "shift_+100ms",
+     "wav": "audio/kannada_00197_shift_+100ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 129600,
+     "src_end_sample": 172800,
+     "sample_count": 43200,
+     "duration_s": 2.7,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Widely spread cool bhagyals.",
+       "raw_text": "Widely spread cool bhagyals.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.957
+      },
+      {
+       "rep": 2,
+       "text": "Widely spread cool bhagyals.",
+       "raw_text": "Widely spread cool bhagyals.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.013
+      },
+      {
+       "rep": 3,
+       "text": "Widely spread cool bhagyals.",
+       "raw_text": "Widely spread cool bhagyals.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.922
+      }
+     ],
+     "shift_ms": 100
+    },
+    {
+     "name": "shift_+200ms",
+     "wav": "audio/kannada_00197_shift_+200ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 131200,
+     "src_end_sample": 172800,
+     "sample_count": 41600,
+     "duration_s": 2.6,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Widely spread cool bhagyals.",
+       "raw_text": "Widely spread cool bhagyals.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.8659
+      },
+      {
+       "rep": 2,
+       "text": "Widely spread cool bhagyals.",
+       "raw_text": "Widely spread cool bhagyals.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.9366
+      },
+      {
+       "rep": 3,
+       "text": "Widely spread cool bhagyals.",
+       "raw_text": "Widely spread cool bhagyals.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.9656
+      }
+     ],
+     "shift_ms": 200
+    }
+   ],
+   "exp3_sweep": [
+    {
+     "name": "lefttrunc_0.5s",
+     "wav": "audio/kannada_00197_lefttrunc_0.5s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 136000,
+     "src_end_sample": 172800,
+     "sample_count": 36800,
+     "duration_s": 2.3,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.7063
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.6333
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.6644
+      }
+     ],
+     "kind": "left_trunc"
+    },
+    {
+     "name": "lefttrunc_1.0s",
+     "wav": "audio/kannada_00197_lefttrunc_1.0s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 144000,
+     "src_end_sample": 172800,
+     "sample_count": 28800,
+     "duration_s": 1.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.3286
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.3199
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.4094
+      }
+     ],
+     "kind": "left_trunc"
+    },
+    {
+     "name": "lefttrunc_1.5s",
+     "wav": "audio/kannada_00197_lefttrunc_1.5s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 152000,
+     "src_end_sample": 172800,
+     "sample_count": 20800,
+     "duration_s": 1.3,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 0.9902
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 0.9783
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 0.9787
+      }
+     ],
+     "kind": "left_trunc"
+    },
+    {
+     "name": "lefttrunc_2.0s",
+     "wav": "audio/kannada_00197_lefttrunc_2.0s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 160000,
+     "src_end_sample": 172800,
+     "sample_count": 12800,
+     "duration_s": 0.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 0.65
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 0.6411
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 0.6442
+      }
+     ],
+     "kind": "left_trunc"
+    },
+    {
+     "name": "righttrunc_0.5s",
+     "wav": "audio/kannada_00197_righttrunc_0.5s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 128000,
+     "src_end_sample": 164800,
+     "sample_count": 36800,
+     "duration_s": 2.3,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.6351
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.6118
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.7484
+      }
+     ],
+     "kind": "right_trunc"
+    },
+    {
+     "name": "righttrunc_1.0s",
+     "wav": "audio/kannada_00197_righttrunc_1.0s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 128000,
+     "src_end_sample": 156800,
+     "sample_count": 28800,
+     "duration_s": 1.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.3283
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.297
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.3478
+      }
+     ],
+     "kind": "right_trunc"
+    },
+    {
+     "name": "righttrunc_1.5s",
+     "wav": "audio/kannada_00197_righttrunc_1.5s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 128000,
+     "src_end_sample": 148800,
+     "sample_count": 20800,
+     "duration_s": 1.3,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.0562
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.0604
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 0.9775
+      }
+     ],
+     "kind": "right_trunc"
+    },
+    {
+     "name": "righttrunc_2.0s",
+     "wav": "audio/kannada_00197_righttrunc_2.0s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 128000,
+     "src_end_sample": 140800,
+     "sample_count": 12800,
+     "duration_s": 0.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Widely spread.",
+       "raw_text": "Widely spread.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.6647
+      },
+      {
+       "rep": 2,
+       "text": "Widely spread.",
+       "raw_text": "Widely spread.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.6751
+      },
+      {
+       "rep": 3,
+       "text": "Widely spread.",
+       "raw_text": "Widely spread.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.6229
+      }
+     ],
+     "kind": "right_trunc"
+    },
+    {
+     "name": "righttrunc_0.6s_hang",
+     "wav": "audio/kannada_00197_righttrunc_0.6s_hang.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 128000,
+     "src_end_sample": 163200,
+     "sample_count": 35200,
+     "duration_s": 2.2,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.5725
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.6034
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 1.6184
+      }
+     ],
+     "kind": "silence_trim"
+    },
+    {
+     "name": "realctx_3s",
+     "wav": "audio/kannada_00197_realctx_3s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 80000,
+     "src_end_sample": 172800,
+     "sample_count": 92800,
+     "duration_s": 5.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Lake, clear view of snow-clad mountain ranges, widely spread cool bhagials.",
+       "raw_text": "Lake, clear view of snow-clad mountain ranges, widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 4.293
+      },
+      {
+       "rep": 2,
+       "text": "Lake, clear view of snow-clad mountain ranges, widely spread cool bhagials.",
+       "raw_text": "Lake, clear view of snow-clad mountain ranges, widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 4.2955
+      },
+      {
+       "rep": 3,
+       "text": "Lake, clear view of snow-clad mountain ranges, widely spread cool bhagials.",
+       "raw_text": "Lake, clear view of snow-clad mountain ranges, widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 4.2735
+      }
+     ],
+     "kind": "real_left_context"
+    },
+    {
+     "name": "realctx_4s",
+     "wav": "audio/kannada_00197_realctx_4s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 64000,
+     "src_end_sample": 172800,
+     "sample_count": 108800,
+     "duration_s": 6.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 5.1465
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 4.9522
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 5.0933
+      }
+     ],
+     "kind": "real_left_context"
+    },
+    {
+     "name": "realctx_6s",
+     "wav": "audio/kannada_00197_realctx_6s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 32000,
+     "src_end_sample": 172800,
+     "sample_count": 140800,
+     "duration_s": 8.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "raw_text": "Gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.8523
+      },
+      {
+       "rep": 2,
+       "text": "Gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "raw_text": "Gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.6183
+      },
+      {
+       "rep": 3,
+       "text": "Gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "raw_text": "Gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 7.2392
+      }
+     ],
+     "kind": "real_left_context"
+    },
+    {
+     "name": "realctx_8s",
+     "wav": "audio/kannada_00197_realctx_8s.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 0,
+     "src_end_sample": 172800,
+     "sample_count": 172800,
+     "duration_s": 10.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "raw_text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 9.3503
+      },
+      {
+       "rep": 2,
+       "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "raw_text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 8.8519
+      },
+      {
+       "rep": 3,
+       "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "raw_text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 8.8709
+      }
+     ],
+     "kind": "real_left_context"
+    }
+   ],
+   "previous_finals": [
+    {
+     "name": "prevfinal_seq1",
+     "wav": "audio/kannada_00197_prevfinal_seq1.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 0,
+     "src_end_sample": 128000,
+     "sample_count": 128000,
+     "duration_s": 8.0,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+       "raw_text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.4328
+      },
+      {
+       "rep": 2,
+       "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+       "raw_text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.0716
+      },
+      {
+       "rep": 3,
+       "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+       "raw_text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.2954
+      }
+     ],
+     "seq": 1,
+     "recorded_text_len": 124,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    }
+   ],
+   "exp4_overlap": [
+    {
+     "recovered_words": 4,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 4,
+     "words_in_fullclip_blocks": 4,
+     "name": "phase6c_zeropad_0.5s",
+     "text": "Widely spread cool bhagials.",
+     "source_start_sample": 128000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 4,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 4,
+     "words_in_fullclip_blocks": 4,
+     "name": "phase6c_zeropad_1.0s",
+     "text": "Widely spread cool bhagials.",
+     "source_start_sample": 128000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 4,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 4,
+     "words_in_fullclip_blocks": 3,
+     "name": "phase6c_zeropad_2.0s",
+     "text": "Widely spread cool bhagyals.",
+     "source_start_sample": 128000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 4,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 4,
+     "words_in_fullclip_blocks": 3,
+     "name": "phase6c_shift_+100ms",
+     "text": "Widely spread cool bhagyals.",
+     "source_start_sample": 129600,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 4,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 4,
+     "words_in_fullclip_blocks": 3,
+     "name": "phase6c_shift_+200ms",
+     "text": "Widely spread cool bhagyals.",
+     "source_start_sample": 131200,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 2,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 2,
+     "words_in_fullclip_blocks": 2,
+     "name": "phase6c_righttrunc_2.0s",
+     "text": "Widely spread.",
+     "source_start_sample": 128000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 11,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 6,
+     "novel_words_est": 5,
+     "words_in_fullclip_blocks": 10,
+     "name": "phase6c_realctx_3s",
+     "text": "Lake, clear view of snow-clad mountain ranges, widely spread cool bhagials.",
+     "source_start_sample": 80000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 18,
+     "exact_leading_dup_words": 14,
+     "fuzzy_words_matching_previous_final_tail": 14,
+     "novel_words_est": 4,
+     "words_in_fullclip_blocks": 18,
+     "name": "phase6c_realctx_6s",
+     "text": "Gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+     "source_start_sample": 32000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 24,
+     "exact_leading_dup_words": 20,
+     "fuzzy_words_matching_previous_final_tail": 20,
+     "novel_words_est": 4,
+     "words_in_fullclip_blocks": 24,
+     "name": "phase6c_realctx_8s",
+     "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges, widely spread cool bhagials.",
+     "source_start_sample": 0,
+     "starts_before_slice": true
+    }
+   ],
+   "regress_exact_slice": {
+    "name": "regress_A",
+    "wav": "audio/kannada_00197_regress_A.wav",
+    "lead_zero_samples": 0,
+    "src_start_sample": 128000,
+    "src_end_sample": 172800,
+    "sample_count": 44800,
+    "duration_s": 2.8,
+    "reps_identical": true,
+    "reps": [
+     {
+      "rep": 1,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.4188
+     },
+     {
+      "rep": 2,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.4869
+     },
+     {
+      "rep": 3,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.2577
+     }
+    ],
+    "phase6_A_empty": true
+   },
+   "exp3_energy_100ms_rms": [
+    0.0063,
+    0.0196,
+    0.0762,
+    0.1143,
+    0.0619,
+    0.0973,
+    0.0183,
+    0.0709,
+    0.1038,
+    0.0053,
+    0.0333,
+    0.0589,
+    0.0434,
+    0.1404,
+    0.0403,
+    0.1165,
+    0.1184,
+    0.0836,
+    0.0268,
+    0.0049,
+    0.0089,
+    0.0143,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "previous_final_used": {
+    "seq": 1,
+    "text": "You can enjoy the Himalayan forests, gushing river waters, a serene Himalayan lake, clear view of snow clad mountain ranges."
+   }
+  },
+  {
+   "clip": "svarah_kashmiri_03111_281474976891473_f1165_ch",
+   "dropped_slice": {
+    "start_sample": 128000,
+    "end_sample": 182400,
+    "samples": 54400
+   },
+   "exp1_zero_pad": [
+    {
+     "name": "zeropad_0.5s",
+     "wav": "audio/kashmiri_03111_zeropad_0.5s.wav",
+     "lead_zero_samples": 8000,
+     "src_start_sample": 128000,
+     "src_end_sample": 182400,
+     "sample_count": 62400,
+     "duration_s": 3.9,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Ladu as their current quantities are out of stock.",
+       "raw_text": "Ladu as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.9703
+      },
+      {
+       "rep": 2,
+       "text": "Ladu as their current quantities are out of stock.",
+       "raw_text": "Ladu as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.8804
+      },
+      {
+       "rep": 3,
+       "text": "Ladu as their current quantities are out of stock.",
+       "raw_text": "Ladu as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.1901
+      }
+     ],
+     "pad_s": 0.5
+    },
+    {
+     "name": "zeropad_1.0s",
+     "wav": "audio/kashmiri_03111_zeropad_1.0s.wav",
+     "lead_zero_samples": 16000,
+     "src_start_sample": 128000,
+     "src_end_sample": 182400,
+     "sample_count": 70400,
+     "duration_s": 4.4,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.4908
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.4045
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.1212
+      }
+     ],
+     "pad_s": 1.0
+    },
+    {
+     "name": "zeropad_2.0s",
+     "wav": "audio/kashmiri_03111_zeropad_2.0s.wav",
+     "lead_zero_samples": 32000,
+     "src_start_sample": 128000,
+     "src_end_sample": 182400,
+     "sample_count": 86400,
+     "duration_s": 5.4,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.9379
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.849
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 3.8696
+      }
+     ],
+     "pad_s": 2.0
+    }
+   ],
+   "exp2_shifts": [
+    {
+     "name": "shift_-200ms",
+     "wav": "audio/kashmiri_03111_shift_-200ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 124800,
+     "src_end_sample": 182400,
+     "sample_count": 57600,
+     "duration_s": 3.6,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "and Ladu as their current quantities are out of stock.",
+       "raw_text": "and Ladu as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.7884
+      },
+      {
+       "rep": 2,
+       "text": "and Ladu as their current quantities are out of stock.",
+       "raw_text": "and Ladu as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.734
+      },
+      {
+       "rep": 3,
+       "text": "and Ladu as their current quantities are out of stock.",
+       "raw_text": "and Ladu as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.6767
+      }
+     ],
+     "shift_ms": -200
+    },
+    {
+     "name": "shift_-100ms",
+     "wav": "audio/kashmiri_03111_shift_-100ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 126400,
+     "src_end_sample": 182400,
+     "sample_count": 56000,
+     "duration_s": 3.5,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.6953
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.7199
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.6008
+      }
+     ],
+     "shift_ms": -100
+    },
+    {
+     "name": "shift_-50ms",
+     "wav": "audio/kashmiri_03111_shift_-50ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 127200,
+     "src_end_sample": 182400,
+     "sample_count": 55200,
+     "duration_s": 3.45,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "similar do as their current quantities are out of stock.",
+       "raw_text": "similar do as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.723
+      },
+      {
+       "rep": 2,
+       "text": "similar do as their current quantities are out of stock.",
+       "raw_text": "similar do as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.7439
+      },
+      {
+       "rep": 3,
+       "text": "similar do as their current quantities are out of stock.",
+       "raw_text": "similar do as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.6261
+      }
+     ],
+     "shift_ms": -50
+    },
+    {
+     "name": "shift_+50ms",
+     "wav": "audio/kashmiri_03111_shift_+50ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 128800,
+     "src_end_sample": 182400,
+     "sample_count": 53600,
+     "duration_s": 3.35,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.5213
+      },
+      {
+       "rep": 2,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.6157
+      },
+      {
+       "rep": 3,
+       "text": "",
+       "raw_text": "",
+       "n_segments": 0,
+       "empty": true,
+       "decode_s": 2.3635
+      }
+     ],
+     "shift_ms": 50
+    },
+    {
+     "name": "shift_+100ms",
+     "wav": "audio/kashmiri_03111_shift_+100ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 129600,
+     "src_end_sample": 182400,
+     "sample_count": 52800,
+     "duration_s": 3.3,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "do as their current quantities are out of stock.",
+       "raw_text": "do as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.5312
+      },
+      {
+       "rep": 2,
+       "text": "do as their current quantities are out of stock.",
+       "raw_text": "do as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.4579
+      },
+      {
+       "rep": 3,
+       "text": "do as their current quantities are out of stock.",
+       "raw_text": "do as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.4406
+      }
+     ],
+     "shift_ms": 100
+    },
+    {
+     "name": "shift_+200ms",
+     "wav": "audio/kashmiri_03111_shift_+200ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 131200,
+     "src_end_sample": 182400,
+     "sample_count": 51200,
+     "duration_s": 3.2,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "to do as their current quantities are out of stock.",
+       "raw_text": "to do as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.4038
+      },
+      {
+       "rep": 2,
+       "text": "to do as their current quantities are out of stock.",
+       "raw_text": "to do as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.4366
+      },
+      {
+       "rep": 3,
+       "text": "to do as their current quantities are out of stock.",
+       "raw_text": "to do as their current quantities are out of stock.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.377
+      }
+     ],
+     "shift_ms": 200
+    }
+   ],
+   "exp3_sweep": [],
+   "previous_finals": [
+    {
+     "name": "prevfinal_seq1",
+     "wav": "audio/kashmiri_03111_prevfinal_seq1.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 0,
+     "src_end_sample": 128000,
+     "sample_count": 128000,
+     "duration_s": 8.0,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+       "raw_text": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.443
+      },
+      {
+       "rep": 2,
+       "text": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+       "raw_text": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 6.0482
+      },
+      {
+       "rep": 3,
+       "text": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+       "raw_text": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 5.8665
+      }
+     ],
+     "seq": 1,
+     "recorded_text_len": 100,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    }
+   ],
+   "exp4_overlap": [
+    {
+     "recovered_words": 10,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 10,
+     "words_in_fullclip_blocks": 10,
+     "name": "phase6_B_real_ctx_0.5s",
+     "text": "Basin Ladu as their current quantities are out of stock.",
+     "source_start_sample": 120000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 12,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 3,
+     "novel_words_est": 9,
+     "words_in_fullclip_blocks": 12,
+     "name": "phase6_C_real_ctx_1s",
+     "text": "and Lal Basin Ladu as their current quantities are out of stock.",
+     "source_start_sample": 112000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 14,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 5,
+     "novel_words_est": 9,
+     "words_in_fullclip_blocks": 14,
+     "name": "phase6_D_real_ctx_2s",
+     "text": "Rust cake and Lal Basin Ladu as their current quantities are out of stock.",
+     "source_start_sample": 96000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 9,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 9,
+     "words_in_fullclip_blocks": 9,
+     "name": "phase6c_zeropad_0.5s",
+     "text": "Ladu as their current quantities are out of stock.",
+     "source_start_sample": 128000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 10,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 10,
+     "words_in_fullclip_blocks": 9,
+     "name": "phase6c_shift_-200ms",
+     "text": "and Ladu as their current quantities are out of stock.",
+     "source_start_sample": 124800,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 10,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 10,
+     "words_in_fullclip_blocks": 8,
+     "name": "phase6c_shift_-50ms",
+     "text": "similar do as their current quantities are out of stock.",
+     "source_start_sample": 127200,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 9,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 9,
+     "words_in_fullclip_blocks": 8,
+     "name": "phase6c_shift_+100ms",
+     "text": "do as their current quantities are out of stock.",
+     "source_start_sample": 129600,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 10,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 10,
+     "words_in_fullclip_blocks": 8,
+     "name": "phase6c_shift_+200ms",
+     "text": "to do as their current quantities are out of stock.",
+     "source_start_sample": 131200,
+     "starts_before_slice": false
+    }
+   ],
+   "regress_exact_slice": {
+    "name": "regress_A",
+    "wav": "audio/kashmiri_03111_regress_A.wav",
+    "lead_zero_samples": 0,
+    "src_start_sample": 128000,
+    "src_end_sample": 182400,
+    "sample_count": 54400,
+    "duration_s": 3.4,
+    "reps_identical": true,
+    "reps": [
+     {
+      "rep": 1,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.7734
+     },
+     {
+      "rep": 2,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.4719
+     },
+     {
+      "rep": 3,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.4125
+     }
+    ],
+    "phase6_A_empty": true
+   },
+   "previous_final_used": {
+    "seq": 1,
+    "text": "Change your quantities of items Nestle, munch wafer bar, chai, point rust cake and lal basin lumber."
+   }
+  },
+  {
+   "clip": "svarah_bodo_03621_281474976893846_f3264_ch",
+   "dropped_slice": {
+    "start_sample": 251200,
+    "end_sample": 297600,
+    "samples": 46400
+   },
+   "exp1_zero_pad": [
+    {
+     "name": "zeropad_0.5s",
+     "wav": "audio/bodo_03621_zeropad_0.5s.wav",
+     "lead_zero_samples": 8000,
+     "src_start_sample": 251200,
+     "src_end_sample": 297600,
+     "sample_count": 54400,
+     "duration_s": 3.4,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "through it and",
+       "raw_text": "through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.7718
+      },
+      {
+       "rep": 2,
+       "text": "through it and",
+       "raw_text": "through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.5353
+      },
+      {
+       "rep": 3,
+       "text": "through it and",
+       "raw_text": "through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.457
+      }
+     ],
+     "pad_s": 0.5
+    },
+    {
+     "name": "zeropad_1.0s",
+     "wav": "audio/bodo_03621_zeropad_1.0s.wav",
+     "lead_zero_samples": 16000,
+     "src_start_sample": 251200,
+     "src_end_sample": 297600,
+     "sample_count": 62400,
+     "duration_s": 3.9,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Through it and",
+       "raw_text": "Through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.0374
+      },
+      {
+       "rep": 2,
+       "text": "Through it and",
+       "raw_text": "Through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.7902
+      },
+      {
+       "rep": 3,
+       "text": "Through it and",
+       "raw_text": "Through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.8153
+      }
+     ],
+     "pad_s": 1.0
+    },
+    {
+     "name": "zeropad_2.0s",
+     "wav": "audio/bodo_03621_zeropad_2.0s.wav",
+     "lead_zero_samples": 32000,
+     "src_start_sample": 251200,
+     "src_end_sample": 297600,
+     "sample_count": 78400,
+     "duration_s": 4.9,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Through it and",
+       "raw_text": "Through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.6755
+      },
+      {
+       "rep": 2,
+       "text": "Through it and",
+       "raw_text": "Through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.6186
+      },
+      {
+       "rep": 3,
+       "text": "Through it and",
+       "raw_text": "Through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.565
+      }
+     ],
+     "pad_s": 2.0
+    }
+   ],
+   "exp2_shifts": [
+    {
+     "name": "shift_-200ms",
+     "wav": "audio/bodo_03621_shift_-200ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 248000,
+     "src_end_sample": 297600,
+     "sample_count": 49600,
+     "duration_s": 3.1,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.3221
+      },
+      {
+       "rep": 2,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.2981
+      },
+      {
+       "rep": 3,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.2067
+      }
+     ],
+     "shift_ms": -200
+    },
+    {
+     "name": "shift_-100ms",
+     "wav": "audio/bodo_03621_shift_-100ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 249600,
+     "src_end_sample": 297600,
+     "sample_count": 48000,
+     "duration_s": 3.0,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.3359
+      },
+      {
+       "rep": 2,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.2003
+      },
+      {
+       "rep": 3,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.2301
+      }
+     ],
+     "shift_ms": -100
+    },
+    {
+     "name": "shift_-50ms",
+     "wav": "audio/bodo_03621_shift_-50ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 250400,
+     "src_end_sample": 297600,
+     "sample_count": 47200,
+     "duration_s": 2.95,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.1527
+      },
+      {
+       "rep": 2,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.1279
+      },
+      {
+       "rep": 3,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.1018
+      }
+     ],
+     "shift_ms": -50
+    },
+    {
+     "name": "shift_+50ms",
+     "wav": "audio/bodo_03621_shift_+50ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 252000,
+     "src_end_sample": 297600,
+     "sample_count": 45600,
+     "duration_s": 2.85,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.1233
+      },
+      {
+       "rep": 2,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.0689
+      },
+      {
+       "rep": 3,
+       "text": "And",
+       "raw_text": "And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.0528
+      }
+     ],
+     "shift_ms": 50
+    },
+    {
+     "name": "shift_+100ms",
+     "wav": "audio/bodo_03621_shift_+100ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 252800,
+     "src_end_sample": 297600,
+     "sample_count": 44800,
+     "duration_s": 2.8,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "through it and",
+       "raw_text": "through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.0929
+      },
+      {
+       "rep": 2,
+       "text": "through it and",
+       "raw_text": "through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.1738
+      },
+      {
+       "rep": 3,
+       "text": "through it and",
+       "raw_text": "through it and",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.088
+      }
+     ],
+     "shift_ms": 100
+    },
+    {
+     "name": "shift_+200ms",
+     "wav": "audio/bodo_03621_shift_+200ms.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 254400,
+     "src_end_sample": 297600,
+     "sample_count": 43200,
+     "duration_s": 2.7,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "through it. And",
+       "raw_text": "through it. And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.2887
+      },
+      {
+       "rep": 2,
+       "text": "through it. And",
+       "raw_text": "through it. And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 2.026
+      },
+      {
+       "rep": 3,
+       "text": "through it. And",
+       "raw_text": "through it. And",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.8953
+      }
+     ],
+     "shift_ms": 200
+    }
+   ],
+   "exp3_sweep": [],
+   "previous_finals": [
+    {
+     "name": "prevfinal_seq1",
+     "wav": "audio/bodo_03621_prevfinal_seq1.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 0,
+     "src_end_sample": 40000,
+     "sample_count": 40000,
+     "duration_s": 2.5,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Online clients can see the works.",
+       "raw_text": "Online clients can see the works.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.7998
+      },
+      {
+       "rep": 2,
+       "text": "Online clients can see the works.",
+       "raw_text": "Online clients can see the works.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.821
+      },
+      {
+       "rep": 3,
+       "text": "Online clients can see the works.",
+       "raw_text": "Online clients can see the works.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.8293
+      }
+     ],
+     "seq": 1,
+     "recorded_text_len": 33,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "name": "prevfinal_seq2",
+     "wav": "audio/bodo_03621_prevfinal_seq2.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 40000,
+     "src_end_sample": 105600,
+     "sample_count": 65600,
+     "duration_s": 4.1,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Like if you have your own website, blog or social",
+       "raw_text": "Like if you have your own website, blog or social",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 3.0748
+      },
+      {
+       "rep": 2,
+       "text": "Like if you have your own website, blog or social",
+       "raw_text": "Like if you have your own website, blog or social",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.8154
+      },
+      {
+       "rep": 3,
+       "text": "Like if you have your own website, blog or social",
+       "raw_text": "Like if you have your own website, blog or social",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.5454
+      }
+     ],
+     "seq": 2,
+     "recorded_text_len": 49,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "name": "prevfinal_seq3",
+     "wav": "audio/bodo_03621_prevfinal_seq3.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 105600,
+     "src_end_sample": 132800,
+     "sample_count": 27200,
+     "duration_s": 1.7,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "social media account.",
+       "raw_text": "social media account.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.2338
+      },
+      {
+       "rep": 2,
+       "text": "social media account.",
+       "raw_text": "social media account.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 1.3693
+      },
+      {
+       "rep": 3,
+       "text": "social media account.",
+       "raw_text": "social media account.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.4396
+      }
+     ],
+     "seq": 3,
+     "recorded_text_len": 21,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "name": "prevfinal_seq4",
+     "wav": "audio/bodo_03621_prevfinal_seq4.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 132800,
+     "src_end_sample": 153600,
+     "sample_count": 20800,
+     "duration_s": 1.3,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Um",
+       "raw_text": "Um",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.3925
+      },
+      {
+       "rep": 2,
+       "text": "Um",
+       "raw_text": "Um",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.3334
+      },
+      {
+       "rep": 3,
+       "text": "Um",
+       "raw_text": "Um",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.3765
+      }
+     ],
+     "seq": 4,
+     "recorded_text_len": 2,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "name": "prevfinal_seq5",
+     "wav": "audio/bodo_03621_prevfinal_seq5.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 153600,
+     "src_end_sample": 203200,
+     "sample_count": 49600,
+     "duration_s": 3.1,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Dedicating to your verb.",
+       "raw_text": "Dedicating to your verb.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.5067
+      },
+      {
+       "rep": 2,
+       "text": "Dedicating to your verb.",
+       "raw_text": "Dedicating to your verb.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.3958
+      },
+      {
+       "rep": 3,
+       "text": "Dedicating to your verb.",
+       "raw_text": "Dedicating to your verb.",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.3752
+      }
+     ],
+     "seq": 5,
+     "recorded_text_len": 24,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "name": "prevfinal_seq6",
+     "wav": "audio/bodo_03621_prevfinal_seq6.wav",
+     "lead_zero_samples": 0,
+     "src_start_sample": 203200,
+     "src_end_sample": 251200,
+     "sample_count": 48000,
+     "duration_s": 3.0,
+     "reps_identical": true,
+     "reps": [
+      {
+       "rep": 1,
+       "text": "Um like people can easily access",
+       "raw_text": "Um like people can easily access",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.3979
+      },
+      {
+       "rep": 2,
+       "text": "Um like people can easily access",
+       "raw_text": "Um like people can easily access",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.3509
+      },
+      {
+       "rep": 3,
+       "text": "Um like people can easily access",
+       "raw_text": "Um like people can easily access",
+       "n_segments": 1,
+       "empty": false,
+       "decode_s": 0.3295
+      }
+     ],
+     "seq": 6,
+     "recorded_text_len": 32,
+     "replay_len_matches_record": [
+      true,
+      true,
+      true
+     ]
+    }
+   ],
+   "exp4_overlap": [
+    {
+     "recovered_words": 4,
+     "exact_leading_dup_words": 1,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 4,
+     "words_in_fullclip_blocks": 4,
+     "name": "phase6_C_real_ctx_1s",
+     "text": "access through it and",
+     "source_start_sample": 235200,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 6,
+     "exact_leading_dup_words": 4,
+     "fuzzy_words_matching_previous_final_tail": 4,
+     "novel_words_est": 2,
+     "words_in_fullclip_blocks": 6,
+     "name": "phase6_D_real_ctx_2s",
+     "text": "people can easily access through it.",
+     "source_start_sample": 219200,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 3,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 3,
+     "words_in_fullclip_blocks": 3,
+     "name": "phase6c_zeropad_0.5s",
+     "text": "through it and",
+     "source_start_sample": 251200,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 3,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 3,
+     "words_in_fullclip_blocks": 3,
+     "name": "phase6c_zeropad_1.0s",
+     "text": "Through it and",
+     "source_start_sample": 251200,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 3,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 3,
+     "words_in_fullclip_blocks": 3,
+     "name": "phase6c_zeropad_2.0s",
+     "text": "Through it and",
+     "source_start_sample": 251200,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 1,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 1,
+     "words_in_fullclip_blocks": 0,
+     "name": "phase6c_shift_-200ms",
+     "text": "And",
+     "source_start_sample": 248000,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 1,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 1,
+     "words_in_fullclip_blocks": 0,
+     "name": "phase6c_shift_-100ms",
+     "text": "And",
+     "source_start_sample": 249600,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 1,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 1,
+     "words_in_fullclip_blocks": 0,
+     "name": "phase6c_shift_-50ms",
+     "text": "And",
+     "source_start_sample": 250400,
+     "starts_before_slice": true
+    },
+    {
+     "recovered_words": 1,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 1,
+     "words_in_fullclip_blocks": 0,
+     "name": "phase6c_shift_+50ms",
+     "text": "And",
+     "source_start_sample": 252000,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 3,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 3,
+     "words_in_fullclip_blocks": 3,
+     "name": "phase6c_shift_+100ms",
+     "text": "through it and",
+     "source_start_sample": 252800,
+     "starts_before_slice": false
+    },
+    {
+     "recovered_words": 3,
+     "exact_leading_dup_words": 0,
+     "fuzzy_words_matching_previous_final_tail": 0,
+     "novel_words_est": 3,
+     "words_in_fullclip_blocks": 3,
+     "name": "phase6c_shift_+200ms",
+     "text": "through it. And",
+     "source_start_sample": 254400,
+     "starts_before_slice": false
+    }
+   ],
+   "regress_exact_slice": {
+    "name": "regress_A",
+    "wav": "audio/bodo_03621_regress_A.wav",
+    "lead_zero_samples": 0,
+    "src_start_sample": 251200,
+    "src_end_sample": 297600,
+    "sample_count": 46400,
+    "duration_s": 2.9,
+    "reps_identical": true,
+    "reps": [
+     {
+      "rep": 1,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.2064
+     },
+     {
+      "rep": 2,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.1217
+     },
+     {
+      "rep": 3,
+      "text": "",
+      "raw_text": "",
+      "n_segments": 0,
+      "empty": true,
+      "decode_s": 2.0743
+     }
+    ],
+    "phase6_A_empty": true
+   },
+   "previous_final_used": {
+    "seq": 6,
+    "text": "Um like people can easily access"
+   }
+  }
+ ]
+}

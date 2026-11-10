@@ -1,0 +1,54 @@
+{
+ "scenario": "simul",
+ "t_start_wall": 1794209165.0868402,
+ "t_end_wall": 1794209236.7739146,
+ "accounts": [
+  {
+   "email": "tester.one@gmail.com",
+   "sid": "p7dsim0209165",
+   "client_finals": 14,
+   "client_partials": 29,
+   "db_finals": 14,
+   "db_drops": [
+    "dropped_empty_text"
+   ],
+   "client_eq_db": true,
+   "dup_finals_consecutive": 0,
+   "audio_exact": true,
+   "audio_bytes": 1931794,
+   "cross_account_audio_status": 404,
+   "close": null,
+   "wall_s": 63.4
+  },
+  {
+   "email": "tester.two@gmail.com",
+   "sid": "p7dsim1209165",
+   "client_finals": 14,
+   "client_partials": 43,
+   "db_finals": 14,
+   "db_drops": [],
+   "client_eq_db": true,
+   "dup_finals_consecutive": 0,
+   "audio_exact": true,
+   "audio_bytes": 2193730,
+   "cross_account_audio_status": 404,
+   "close": null,
+   "wall_s": 71.6
+  },
+  {
+   "email": "tester.three@gmail.com",
+   "sid": "p7dsim2209165",
+   "client_finals": 12,
+   "client_partials": 41,
+   "db_finals": 12,
+   "db_drops": [],
+   "client_eq_db": true,
+   "dup_finals_consecutive": 0,
+   "audio_exact": true,
+   "audio_bytes": 1807284,
+   "cross_account_audio_status": 404,
+   "close": null,
+   "wall_s": 59.5
+  }
+ ]
+}

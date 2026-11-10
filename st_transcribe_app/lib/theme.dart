@@ -36,17 +36,18 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.neutralChipBg,
   });
 
-  /// Colors sampled directly from the reference design
-  /// (ST Live Transcription App Showcase.png).
+  /// ScriptLiv palette from the img_ref design: primary #6A00FF, secondary #A855F7,
+  /// accent #E9D5FF, background #F8F7FF, text #0F172A. (Field names kept from the
+  /// previous blue theme; `primaryBlue` now holds the primary purple.)
   static const light = AppColors(
-    primaryBlue: Color(0xFF009FFD),
-    recordRed: Color(0xFFFB2124),
-    header: Color(0xFF030A0E),
-    bg: Color(0xFFFBFCFE),
-    textPrimary: Color(0xFF111319),
-    textSecondary: Color(0xFF71777F),
-    lightBlueBg: Color(0xFFE3F0FD),
-    cardBorder: Color(0xFFE9ECEF),
+    primaryBlue: Color(0xFF6A00FF),
+    recordRed: Color(0xFFE5383B),
+    header: Color(0xFF0F172A),
+    bg: Color(0xFFF8F7FF),
+    textPrimary: Color(0xFF0F172A),
+    textSecondary: Color(0xFF64748B),
+    lightBlueBg: Color(0xFFE9D5FF),
+    cardBorder: Color(0xFFE4DDF5),
     liveGreen: Color(0xFF34C759),
     idleGrayDot: Color(0xFF9CA3AF),
     surface: Colors.white,
@@ -55,17 +56,17 @@ class AppColors extends ThemeExtension<AppColors> {
   );
 
   static const dark = AppColors(
-    primaryBlue: Color(0xFF3DB4FF),
+    primaryBlue: Color(0xFFA855F7),
     recordRed: Color(0xFFFF6B6F),
-    header: Color(0xFF030A0E),
-    bg: Color(0xFF0B0D10),
+    header: Color(0xFF0B0A1A),
+    bg: Color(0xFF0B0A14),
     textPrimary: Color(0xFFF2F3F5),
     textSecondary: Color(0xFF9AA0A6),
-    lightBlueBg: Color(0xFF15283A),
+    lightBlueBg: Color(0xFF2A1A4D),
     cardBorder: Color(0xFF24272C),
     liveGreen: Color(0xFF34C759),
     idleGrayDot: Color(0xFF6B7076),
-    surface: Color(0xFF17191C),
+    surface: Color(0xFF15131F),
     sheetHandle: Color(0xFF2C2F34),
     neutralChipBg: Color(0xFF1E2126),
   );
@@ -137,7 +138,7 @@ ThemeData _themeFor(AppColors colors, Brightness brightness) {
       primary: colors.primaryBlue,
       surface: colors.bg,
     ),
-    fontFamily: 'SF Pro', // falls back to platform default if unavailable
+    fontFamily: null, // platform default (Roboto on Android, SF on iOS)
     appBarTheme: AppBarTheme(
       backgroundColor: colors.bg,
       foregroundColor: colors.textPrimary,
@@ -150,3 +151,10 @@ ThemeData _themeFor(AppColors colors, Brightness brightness) {
 
 final appTheme = _themeFor(AppColors.light, Brightness.light);
 final appDarkTheme = _themeFor(AppColors.dark, Brightness.dark);
+
+/// Brand gradient used for primary actions and the recording button.
+const brandGradient = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [Color(0xFF6A00FF), Color(0xFFA855F7)],
+);

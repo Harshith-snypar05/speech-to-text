@@ -1,0 +1,376 @@
+{
+  "summary": {
+    "engine": "native",
+    "cold_first_call_s": 2.428326199995354,
+    "rtf_p50": 0.09323988508200515,
+    "rtf_p95": 0.09727137915913794,
+    "wer": {
+      "wer": null,
+      "ci95": null,
+      "clips": 20,
+      "ref_words": 0
+    }
+  },
+  "clips": [
+    {
+      "id": "rec01_L30_0019",
+      "audio_s": 26.82,
+      "median_s": 2.4312964000273496,
+      "rtf": 0.09065236390855144,
+      "tags": {
+        "recording_id": "rec01",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 27,
+      "errors": 27
+    },
+    {
+      "id": "rec01_L30_0048",
+      "audio_s": 24.5,
+      "median_s": 2.2295545999659225,
+      "rtf": 0.09100222857003766,
+      "tags": {
+        "recording_id": "rec01",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 40,
+      "errors": 40
+    },
+    {
+      "id": "rec01_L30_0077",
+      "audio_s": 25.58,
+      "median_s": 2.245515099959448,
+      "rtf": 0.08778401485377045,
+      "tags": {
+        "recording_id": "rec01",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 40,
+      "errors": 40
+    },
+    {
+      "id": "rec02_L30_0021",
+      "audio_s": 33.86,
+      "median_s": 3.206663199933246,
+      "rtf": 0.09470357944280111,
+      "tags": {
+        "recording_id": "rec02",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 51,
+      "errors": 51
+    },
+    {
+      "id": "rec02_L30_0052",
+      "audio_s": 33.16,
+      "median_s": 3.11965530004818,
+      "rtf": 0.09407886912087395,
+      "tags": {
+        "recording_id": "rec02",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 78,
+      "errors": 78
+    },
+    {
+      "id": "rec02_L30_0083",
+      "audio_s": 32.6,
+      "median_s": 3.02779099997133,
+      "rtf": 0.09287702453899785,
+      "tags": {
+        "recording_id": "rec02",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 68,
+      "errors": 68
+    },
+    {
+      "id": "rec03_L30_0024",
+      "audio_s": 28.82,
+      "median_s": 2.6578432000242174,
+      "rtf": 0.09222217904317201,
+      "tags": {
+        "recording_id": "rec03",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 80,
+      "errors": 80
+    },
+    {
+      "id": "rec03_L30_0059",
+      "audio_s": 29.72,
+      "median_s": 2.78187359997537,
+      "rtf": 0.09360274562501245,
+      "tags": {
+        "recording_id": "rec03",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 50,
+      "errors": 50
+    },
+    {
+      "id": "rec03_L30_0094",
+      "audio_s": 31.44,
+      "median_s": 3.0060395000036806,
+      "rtf": 0.09561194338434098,
+      "tags": {
+        "recording_id": "rec03",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 73,
+      "errors": 73
+    },
+    {
+      "id": "rec04_L30_0024",
+      "audio_s": 31.46,
+      "median_s": 2.9151906999759376,
+      "rtf": 0.09266340432218492,
+      "tags": {
+        "recording_id": "rec04",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 44,
+      "errors": 44
+    },
+    {
+      "id": "rec04_L30_0059",
+      "audio_s": 24.7,
+      "median_s": 2.278823099914007,
+      "rtf": 0.09226004453093145,
+      "tags": {
+        "recording_id": "rec04",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 59,
+      "errors": 59
+    },
+    {
+      "id": "rec04_L30_0092",
+      "audio_s": 25.84,
+      "median_s": 2.2849566000513732,
+      "rtf": 0.0884271130050841,
+      "tags": {
+        "recording_id": "rec04",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 47,
+      "errors": 47
+    },
+    {
+      "id": "rec05_L30_0004",
+      "audio_s": 34.58,
+      "median_s": 3.3109340999508277,
+      "rtf": 0.09574708212697594,
+      "tags": {
+        "recording_id": "rec05",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 96,
+      "errors": 96
+    },
+    {
+      "id": "rec05_L30_0011",
+      "audio_s": 38.76,
+      "median_s": 3.808043299941346,
+      "rtf": 0.09824673116463742,
+      "tags": {
+        "recording_id": "rec05",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 120,
+      "errors": 120
+    },
+    {
+      "id": "rec06_L30_0006",
+      "audio_s": 25.5,
+      "median_s": 2.3221677999245003,
+      "rtf": 0.09106540391860786,
+      "tags": {
+        "recording_id": "rec06",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 34,
+      "errors": 34
+    },
+    {
+      "id": "rec06_L30_0015",
+      "audio_s": 32.76,
+      "median_s": 3.1129922000691295,
+      "rtf": 0.09502418193129211,
+      "tags": {
+        "recording_id": "rec06",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 48,
+      "errors": 48
+    },
+    {
+      "id": "rec06_L30_0023",
+      "audio_s": 35.68,
+      "median_s": 3.4688112000003457,
+      "rtf": 0.09722004484305902,
+      "tags": {
+        "recording_id": "rec06",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 79,
+      "errors": 79
+    },
+    {
+      "id": "rec07_L30_0007",
+      "audio_s": 33.94,
+      "median_s": 3.2269655000418425,
+      "rtf": 0.09507853565238193,
+      "tags": {
+        "recording_id": "rec07",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 74,
+      "errors": 74
+    },
+    {
+      "id": "rec07_L30_0016",
+      "audio_s": 29.94,
+      "median_s": 2.8336640000343323,
+      "rtf": 0.09464475618017142,
+      "tags": {
+        "recording_id": "rec07",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 71,
+      "errors": 71
+    },
+    {
+      "id": "rec07_L30_0026",
+      "audio_s": 25.66,
+      "median_s": 2.3466505999676883,
+      "rtf": 0.09145169914137523,
+      "tags": {
+        "recording_id": "rec07",
+        "accent": "indian_english",
+        "language": "en",
+        "boundary_quality": "pause_cut",
+        "recording_condition": "unknown"
+      },
+      "ref_words": 0,
+      "sub": 0,
+      "del": 0,
+      "ins": 65,
+      "errors": 65
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+[
+ {
+  "acct": "tester.one@gmail.com",
+  "statuses": [
+   "connecting",
+   "connected"
+  ],
+  "client_finals": 3,
+  "db_finals": 3,
+  "match": true,
+  "dup": false,
+  "partials_seen": 10,
+  "audio_http": 200,
+  "audio_exact": true,
+  "cross_acct_audio": 404
+ },
+ {
+  "acct": "tester.two@gmail.com",
+  "statuses": [
+   "connecting",
+   "connected"
+  ],
+  "client_finals": 3,
+  "db_finals": 3,
+  "match": true,
+  "dup": false,
+  "partials_seen": 14,
+  "audio_http": 200,
+  "audio_exact": true,
+  "cross_acct_audio": 404
+ },
+ {
+  "acct": "tester.three@gmail.com",
+  "statuses": [
+   "connecting",
+   "connected"
+  ],
+  "client_finals": 6,
+  "db_finals": 6,
+  "match": true,
+  "dup": false,
+  "partials_seen": 15,
+  "audio_http": 200,
+  "audio_exact": true,
+  "cross_acct_audio": 404
+ }
+]

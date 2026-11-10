@@ -1,0 +1,123 @@
+{
+ "split_gap_s": 5.72,
+ "N=1": {
+  "calls": 121,
+  "final": {
+   "calls": 21,
+   "cancelled": 0,
+   "never_started": 0,
+   "completed": 21,
+   "queue_wait_s": {
+    "p50": 0.2645,
+    "p95": 1.1883,
+    "max": 1.257
+   },
+   "inference_s": {
+    "p50": 0.6813,
+    "p95": 0.9874,
+    "max": 1.0139
+   },
+   "total_s": {
+    "p50": 1.0145,
+    "p95": 1.8349
+   },
+   "audio_s_mean": 5.76,
+   "inference_rtf_p50": 0.1136,
+   "worker_busy_s": 14.07,
+   "wasted_busy_s_cancelled": 0
+  },
+  "partial": {
+   "calls": 100,
+   "cancelled": 0,
+   "never_started": 0,
+   "completed": 100,
+   "queue_wait_s": {
+    "p50": 0.0001,
+    "p95": 0.5332,
+    "max": 1.6406
+   },
+   "inference_s": {
+    "p50": 0.3598,
+    "p95": 0.8544,
+    "max": 0.9658
+   },
+   "total_s": {
+    "p50": 0.442,
+    "p95": 1.0857
+   },
+   "audio_s_mean": 3.32,
+   "inference_rtf_p50": 0.1238,
+   "worker_busy_s": 40.98,
+   "wasted_busy_s_cancelled": 0
+  },
+  "wall_s": 86.5,
+  "worker_utilisation": 0.637,
+  "partial_share_of_busy": 0.745,
+  "max_active_calls": 4,
+  "finals_that_waited_behind_partials": {
+   "n": 15,
+   "of": 21,
+   "mean_wait_s_attributable_to_partials": 0.455
+  }
+ },
+ "N=2": {
+  "calls": 1640,
+  "final": {
+   "calls": 386,
+   "cancelled": 0,
+   "never_started": 0,
+   "completed": 386,
+   "queue_wait_s": {
+    "p50": 0.3338,
+    "p95": 1.7017,
+    "max": 3.2643
+   },
+   "inference_s": {
+    "p50": 0.5333,
+    "p95": 1.486,
+    "max": 1.58
+   },
+   "total_s": {
+    "p50": 0.8907,
+    "p95": 2.9092
+   },
+   "audio_s_mean": 4.39,
+   "inference_rtf_p50": 0.1274,
+   "worker_busy_s": 246.51,
+   "wasted_busy_s_cancelled": 0
+  },
+  "partial": {
+   "calls": 1254,
+   "cancelled": 0,
+   "never_started": 0,
+   "completed": 1254,
+   "queue_wait_s": {
+    "p50": 0.0209,
+    "p95": 0.9535,
+    "max": 2.8355
+   },
+   "inference_s": {
+    "p50": 0.3382,
+    "p95": 0.9801,
+    "max": 1.5488
+   },
+   "total_s": {
+    "p50": 0.513,
+    "p95": 1.6248
+   },
+   "audio_s_mean": 2.85,
+   "inference_rtf_p50": 0.1318,
+   "worker_busy_s": 517.55,
+   "wasted_busy_s_cancelled": 0
+  },
+  "wall_s": 958.8,
+  "worker_utilisation": 0.797,
+  "partial_share_of_busy": 0.677,
+  "max_active_calls": 4,
+  "finals_that_waited_behind_partials": {
+   "n": 288,
+   "of": 386,
+   "mean_wait_s_attributable_to_partials": 0.498
+  }
+ }
+}
