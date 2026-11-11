@@ -1,4 +1,5 @@
 import { config } from "./config";
+import { apiMessage } from "./friendly-errors";
 import type {
   AuthResult, BillingDetails, RegisterResult, Delivery, PaymentMethod, PaymentRow, Plans, SessionItem, SettingsResponse, SharedView,
   Subscription, UsageSession, UsageSummary, User,
@@ -24,14 +25,14 @@ async function request<T>(path: string, opts: { method?: string; token?: string 
       cache: "no-store",
     });
   } catch {
-    throw new ApiError(0, "network", "Cannot reach ScriptLiv. Check your connection and try again.");
+    throw new ApiError(0, "network", apiMessage(0, "network", undefined));
   }
   if (res.status === 204) return undefined as T;
   let data: unknown = null;
   try { data = await res.json(); } catch { /* non-JSON body */ }
   if (!res.ok) {
     const e = (data as { error?: { code?: string; message?: string } } | null)?.error;
-    throw new ApiError(res.status, e?.code ?? "error", e?.message ?? "Something went wrong. Try again.");
+    throw new ApiError(res.status, e?.code ?? "error", apiMessage(res.status, e?.code, e?.message));
   }
   return data as T;
 }

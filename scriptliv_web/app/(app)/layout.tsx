@@ -1,11 +1,11 @@
 "use client";
-import { CreditCard, History, LayoutDashboard, LogOut, Mic, Settings } from "lucide-react";
+import { CreditCard, History, LayoutDashboard, Mic } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Logo, ThemeToggle } from "@/components/brand";
+import { ProfileMenu } from "@/components/profile-menu";
 import { Spinner } from "@/components/ui";
-import { buttonCls } from "@/components/ui/button-styles";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +13,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { token, user, ready, signOut } = useAuth();
   const router = useRouter();
   const path = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  // Navbar is clear at the top of the page and turns translucent (blurred) once the page scrolls under it.
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 8);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
 
   useEffect(() => {
     if (ready && !token) router.replace("/login");
@@ -29,14 +38,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     { href: "/app/plans", label: "Plans", icon: CreditCard },
   ];
   const active = (h: string) => (h === "/app" ? path === "/app" : path.startsWith(h));
-  const settingsActive = path.startsWith("/app/settings");
   const out = () => { signOut(); router.replace("/login"); };
 
   return (
     <div className="flex min-h-dvh flex-col">
-      <header className="sticky top-0 z-30">
-        <div className="mx-auto grid h-[72px] max-w-[1400px] grid-cols-[auto_1fr_auto] items-center gap-4 px-4 sm:px-8">
-          <Logo href="/app" className="h-9 w-auto" />
+      <header className={cn("sticky top-0 z-30 border-b transition-[background-color,border-color,backdrop-filter] duration-200", scrolled ? "border-line/60 bg-bg/70 backdrop-blur-xl" : "border-transparent bg-transparent")}>
+        <div className="grid h-[72px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 sm:px-6">
+          <div className="flex justify-start"><Logo href="/app" className="h-9 w-auto" /></div>
           <nav className="flex items-center justify-center gap-2 text-sm font-medium" aria-label="Primary">
             {nav.map((n) => (
               <Link key={n.href} href={n.href} aria-current={active(n.href) ? "page" : undefined}
@@ -45,16 +53,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-2 text-sm">
-            <span className="hidden max-w-44 truncate text-xs text-ink-2 xl:block" title={user.email}>{user.email}</span>
+          <div className="flex items-center justify-end gap-3">
             <ThemeToggle />
-            <Link href="/app/settings" aria-label="Settings" aria-current={settingsActive ? "page" : undefined}
-              className={buttonCls({ variant: "outline", size: "md" })}>
-              <Settings className="size-4" aria-hidden /> <span className="hidden sm:inline">Settings</span>
-            </Link>
-            <button aria-label="Sign out" title="Sign out" onClick={out} className={buttonCls({ size: "md" })}>
-              <LogOut className="size-4" aria-hidden /> <span className="hidden sm:inline">Sign out</span>
-            </button>
+            <ProfileMenu user={user} onSignOut={out} />
           </div>
         </div>
       </header>

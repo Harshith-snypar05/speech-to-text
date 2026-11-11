@@ -8,7 +8,7 @@ import { api, ApiError } from "@/lib/api";
  * Shown after sign-up, and when sign-in is refused because the email is not verified yet. The account cannot sign in until
  * the emailed link is opened. In test environments (no mail provider) the API hands back the link itself so it can be opened here.
  */
-export function CheckEmail({ email, devToken, onDevToken }: { email: string; devToken?: string; onDevToken?: (t: string) => void }) {
+export function CheckEmail({ email, devToken, onDevToken, onSignIn }: { email: string; devToken?: string; onDevToken?: (t: string) => void; onSignIn?: () => void }) {
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState<{ ok: boolean; text: string } | null>(null);
 
@@ -38,7 +38,7 @@ export function CheckEmail({ email, devToken, onDevToken }: { email: string; dev
       )}
       {note && <Notice tone={note.ok ? "success" : "error"} title={note.text} />}
       <Button type="button" variant="secondary" className="w-full" disabled={busy} onClick={resend}>{busy ? "Sending…" : "Resend verification email"}</Button>
-      <p className="text-center text-sm text-ink-2">Already verified? <Link href="/login" className="font-medium text-primary">Sign in</Link></p>
+      <p className="text-center text-sm text-ink-2">Already verified? {onSignIn ? <button type="button" onClick={onSignIn} className="font-medium text-primary">Sign in</button> : <Link href="/login" className="font-medium text-primary">Sign in</Link>}</p>
     </div>
   );
 }

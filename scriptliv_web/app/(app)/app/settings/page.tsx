@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
-import { Badge, Button, Card, Field, Notice, Spinner, inputCls } from "@/components/ui";
+import { Badge, Button, Card, Field, Notice, Progress, Spinner, Stat, inputCls } from "@/components/ui";
 import { PaymentBanner } from "@/components/payment-banner";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
-import { fmtDate, fmtMoney } from "@/lib/format";
-import type { BillingDetails, Delivery, PaymentMethod, PaymentRow, Settings, Subscription } from "@/lib/types";
+import { fmtDate, fmtMinutes, fmtMoney, fmtSecs } from "@/lib/format";
+import type { BillingDetails, Delivery, PaymentMethod, PaymentRow, Settings, Subscription, UsageSummary } from "@/lib/types";
 
 const errText = (e: unknown) => (e instanceof ApiError ? e.message : "That did not work. Try again.");
 
@@ -128,6 +128,37 @@ function Preferences() {
       </label>
       {err && <Notice tone="error" title={err} />}
     </Section>
+  );
+}
+
+function Usage() {
+  const { token } = useAuth();
+  const [usage, setUsage] = useState<UsageSummary | null>(null);
+  const [err, setErr] = useState(false);
+  useEffect(() => { if (token) api.usage(token).then(setUsage).catch(() => setErr(true)); }, [token]);
+  if (err) return <Notice tone="error" title="Could not load your usage" />;
+  if (!usage) return <Card><Spinner /></Card>;
+  const pct = usage.percent_used;
+  const tone = usage.total_remaining_seconds <= 0 ? "error" : pct >= 80 ? "warning" : "primary";
+  return (
+    <>
+      <Card>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2"><h2 className="font-semibold">{usage.plan_name} plan</h2>{usage.cancel_at_period_end && <Badge tone="warning">Ends {fmtDate(usage.reset_at)}</Badge>}</div>
+          <span className="text-sm text-ink-2">{usage.cancel_at_period_end ? "Access ends" : "Resets"} {fmtDate(usage.reset_at)}</span>
+        </div>
+        <div className="mt-4"><Progress value={pct} tone={tone} label="Included minutes used" /></div>
+        <p className="mt-2 text-sm text-ink-2">
+          {fmtSecs(usage.included_used_seconds)} of {usage.included_minutes.toLocaleString()} min used · {fmtSecs(usage.included_remaining_seconds)} left
+        </p>
+      </Card>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <Stat label="Included left" value={fmtMinutes(usage.included_remaining_seconds)} hint={`of ${usage.included_minutes.toLocaleString()} min`} />
+        <Stat label="Add-on balance" value={fmtMinutes(usage.addon_remaining_seconds)} hint={usage.addons.length ? `Expires ${fmtDate(Math.min(...usage.addons.map((a) => a.expires_at)))}` : "None active"} />
+        <Stat label="Total available" value={fmtMinutes(usage.total_remaining_seconds)} hint={`Resets ${fmtDate(usage.reset_at)}`} />
+      </div>
+      <p className="text-xs text-ink-2">Only the person speaking uses minutes. People watching a shared transcript never do.</p>
+    </>
   );
 }
 
@@ -290,6 +321,7 @@ export default function SettingsPage() {
       <Account />
       <Password />
       <Preferences />
+      <Usage />
       <Limits />
       <Billing />
       <Microphone />

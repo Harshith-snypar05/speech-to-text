@@ -1,6 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { AuthTrigger } from "@/components/auth-modal";
 import { Logo, ThemeToggle } from "@/components/brand";
+import { ScrollHeader } from "@/components/scroll-header";
 import { buttonCls } from "@/components/ui/button-styles";
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
@@ -10,7 +12,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
   return (
     <div className="sl-marketing relative isolate min-h-dvh overflow-x-clip">
       <div aria-hidden className="sl-wave sl-wave-hero" />
-      <header className="sticky top-0 z-30">
+      <ScrollHeader>
         <div className="mx-auto grid h-[72px] max-w-[1400px] grid-cols-[auto_1fr_auto] items-center gap-4 px-4 sm:px-8">
           <Logo className="h-9 w-auto" />
           <nav aria-label="Sections" className="flex items-center justify-center gap-2 text-sm font-medium">
@@ -21,15 +23,15 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
           </nav>
           <div className="flex items-center gap-2 text-sm">
             <ThemeToggle />
-            <Link href="/login" className={buttonCls({ variant: "outline", size: "md" })}>Log In</Link>
-            <Link href="/register" className={buttonCls({ size: "md" })}>Get Started <ArrowRight className="size-4" aria-hidden /></Link>
+            <AuthTrigger mode="login" className={buttonCls({ variant: "outline", size: "md" })}>Log In</AuthTrigger>
+            <AuthTrigger mode="register" className={buttonCls({ size: "md" })}>Get Started <ArrowRight className="size-4" aria-hidden /></AuthTrigger>
           </div>
         </div>
-      </header>
+      </ScrollHeader>
       {children}
       <footer className="relative isolate border-t border-line/60 pb-8 pt-14 text-sm">
         <div aria-hidden className="sl-wave sl-wave-footer" />
-        <div className="mx-auto grid max-w-[1400px] gap-10 px-4 sm:px-8 md:grid-cols-[1.6fr_1fr_1fr]">
+        <div className="mx-auto grid max-w-[1400px] gap-10 px-4 sm:px-8 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div>
             <Logo className="h-9 w-auto" />
             <p className="mt-4 max-w-xs text-ink-2">Real-time speech to text transcription for meetings, interviews, education and more.</p>
@@ -45,14 +47,22 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
           <div>
             <div className={col}>Account</div>
             <ul className="space-y-2.5">
-              <li><Link className={item} href="/login">Log in</Link></li>
-              <li><Link className={item} href="/register">Create an account</Link></li>
+              <li><AuthTrigger mode="login" className={item}>Log in</AuthTrigger></li>
+              <li><AuthTrigger mode="register" className={item}>Create an account</AuthTrigger></li>
               <li><Link className={item} href="/forgot-password">Reset password</Link></li>
             </ul>
           </div>
+          <div>
+            <div className={col}>Legal</div>
+            <ul className="space-y-2.5">
+              <li><Link className={item} href="/privacy">Privacy Policy</Link></li>
+              <li><Link className={item} href="/terms">Terms &amp; Conditions</Link></li>
+            </ul>
+          </div>
         </div>
-        <div className="mx-auto mt-12 max-w-[1400px] border-t border-line/60 px-4 pt-6 text-xs text-ink-3 sm:px-8">
-          © {new Date().getFullYear()} Snypar Tech. All rights reserved.
+        <div className="mx-auto mt-12 flex max-w-[1400px] flex-wrap items-center justify-between gap-3 border-t border-line/60 px-4 pt-6 text-xs text-ink-3 sm:px-8">
+          <span>© {new Date().getFullYear()} Snypar Tech. All rights reserved.</span>
+          <span className="flex gap-4"><Link className="hover:text-ink" href="/privacy">Privacy</Link><Link className="hover:text-ink" href="/terms">Terms</Link></span>
         </div>
       </footer>
     </div>

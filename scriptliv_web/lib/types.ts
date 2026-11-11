@@ -27,7 +27,7 @@ export interface UsageSession {
   metered_seconds: number; included_seconds: number; addon_seconds: number; unbilled_overshoot_seconds: number;
 }
 
-export interface PlanInfo { id: string; name: string; included_minutes: number; price_usd_month: number; blurb: string }
+export interface PlanInfo { id: string; name: string; included_minutes: number; price_usd_month: number; blurb: string; max_session_minutes?: number | null }
 export interface Plans { plans: PlanInfo[]; addon: { minutes: number; price_usd: number; note: string }; purchasing_available: boolean }
 export interface Subscription {
   plan: string; plan_name: string; status: string; period_start: number; renews_or_resets_at: number;

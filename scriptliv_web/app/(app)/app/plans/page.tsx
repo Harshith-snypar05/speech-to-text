@@ -57,6 +57,7 @@ export default function PlansPage() {
               <p className="mt-1 text-sm text-ink-2">{p.blurb}</p>
               <ul className="mt-4 space-y-1.5 text-sm">
                 <li className="flex gap-2"><Check className="mt-0.5 size-4 text-primary" /> {p.included_minutes.toLocaleString()} minutes every month</li>
+                <li className="flex gap-2"><Check className="mt-0.5 size-4 text-primary" /> {p.max_session_minutes ? `Up to ${p.max_session_minutes} minutes per session` : "No time limit per session"}</li>
                 <li className="flex gap-2"><Check className="mt-0.5 size-4 text-primary" /> Unlimited viewers on shared links</li>
                 <li className="flex gap-2"><Check className="mt-0.5 size-4 text-primary" /> Use it on any device</li>
               </ul>

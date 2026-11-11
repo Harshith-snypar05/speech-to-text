@@ -1,10 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, AudioLines, Check, Download, FileText, Gift, GraduationCap, Home, Infinity as Inf, Languages, Laptop, Layers, Link2, Mic, Phone, PlayCircle, Search, Settings, ShieldCheck, Square, Target, Users, Zap,
+  ArrowRight, AudioLines, Check, Download, FileText, Gift, GraduationCap, Infinity as Inf, Languages, Laptop, Layers, Link2, Mic, Phone, PlayCircle, Search, ShieldCheck, Target, Users, Zap,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { AuthTrigger } from "@/components/auth-modal";
 import { Chip } from "@/components/brand";
 import { buttonCls } from "@/components/ui/button-styles";
 
@@ -17,7 +19,7 @@ const tiles = [
 ];
 const facts = [
   { i: Zap, t: "Real-time" },
-  { i: Gift, t: "300 free minutes every month" },
+  { i: Gift, t: "300 free minutes every month (30 min per session)" },
   { i: Link2, t: "Share live transcripts" },
 ];
 const keyFeatures = [
@@ -47,51 +49,24 @@ const Heading = ({ chip, icon, children, sub }: { chip: string; icon: ReactNode;
   </div>
 );
 
-/* Waveform glyph. Static (it illustrates the product, it does not claim live audio). */
-function Wave({ n = 11, h = 34, className = "" }: { n?: number; h?: number; className?: string }) {
-  const f = [0.18, 0.34, 0.22, 0.6, 0.4, 0.95, 0.5, 0.75, 0.3, 0.5, 0.2, 0.36, 0.16];
-  return (
-    <span aria-hidden className={`flex items-center gap-[3px] ${className}`} style={{ height: h }}>
-      {Array.from({ length: n }, (_, i) => <i key={i} style={{ height: Math.max(3, f[i % f.length] * h) }} className="w-[3px] rounded-full bg-[#b86cf5]" />)}
-    </span>
-  );
-}
-
-/* Product mock: laptop + phone. Fixed dark colours on purpose, it shows the app UI. */
+/* Product mock: real laptop + phone device frames (transparent PNG-style cutouts) over app screenshots.
+   The screenshots sit behind the frames; each frame has a transparent screen hole. Geometry = hole bounds as fractions of the frame image. */
 function Devices() {
   return (
-    <div className="relative mx-auto w-full max-w-[640px] pb-10 pr-8 sm:pr-12" role="img" aria-label="ScriptLiv live transcription on a laptop and a phone">
-      <div className="rounded-t-[22px] border-[5px] border-[#2a2038] bg-[#0b0614] p-3 shadow-[0_40px_80px_-30px_rgba(160,43,230,0.55)]">
-        <div className="grid grid-cols-[132px_1fr] gap-3 text-left text-white">
-          <div className="rounded-xl bg-[#120a20] p-3 text-[10px]">
-            <div className="mb-3 font-bold text-[12px]">ScriptLiv</div>
-            <div className="brand-gradient mb-2 flex items-center gap-1.5 rounded-lg px-2 py-1.5 font-semibold"><Mic className="size-3" aria-hidden />New Transcription</div>
-            {[[Home, "Home"], [FileText, "Transcripts"], [Settings, "Settings"]].map(([I, t]) => {
-              const Icon = I as typeof Home;
-              return <div key={String(t)} className="flex items-center gap-1.5 px-2 py-1.5 text-white/75"><Icon className="size-3" aria-hidden />{String(t)}</div>;
-            })}
-          </div>
-          <div>
-            <div className="mb-2 flex items-center justify-between text-xs font-semibold">
-              <span className="flex items-center gap-1.5"><span className="size-1.5 rounded-full bg-[#34d399]" />Live Transcription</span>
-              <span className="brand-gradient rounded-full px-3 py-0.5 text-[10px]">Live</span>
-            </div>
-            <p className="rounded-xl bg-[#1b0f30] p-3 pr-[36%] text-[11px] leading-relaxed text-white/90">Welcome to the project discussion. Today we will review the current progress, talk about the next steps, and finalise the action items.</p>
-            <div className="mt-4 flex items-center justify-center gap-3">
-              <Wave n={11} h={30} />
-              <span className="brand-gradient grid size-10 place-items-center rounded-full"><Square className="size-3.5" fill="currentColor" aria-hidden /></span>
-              <Wave n={11} h={30} />
-            </div>
-          </div>
+    <div className="relative mx-auto w-full max-w-[720px] pb-6" role="img" aria-label="ScriptLiv on a laptop and a phone">
+      <div className="relative w-[84%] drop-shadow-[0_40px_60px_rgba(120,30,200,0.35)]">
+        <div className="relative aspect-[1734/1004] w-full">
+          <Image src="/brand/shot-laptop.webp" alt="" aria-hidden width={1400} height={875} sizes="(min-width:1024px) 600px, 90vw"
+            className="absolute object-cover object-top" style={{ left: "11.765%", top: "6.773%", width: "76.471%", height: "82.171%" }} />
+          <Image src="/brand/device-laptop.webp" alt="" aria-hidden priority width={1500} height={869} sizes="(min-width:1024px) 600px, 90vw" className="absolute inset-0 size-full" />
         </div>
       </div>
-      <div className="mx-auto h-2.5 w-[106%] -translate-x-[3%] rounded-b-2xl bg-gradient-to-b from-[#6b5a86] to-[#2a2038]" />
-      <div className="absolute -bottom-1 right-0 w-[34%] min-w-28 max-w-40 rounded-[26px] border-[4px] border-[#2a2038] bg-[#0b0614] p-3 text-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)]">
-        <div className="mb-2 text-[8px] text-white/70">9:41</div>
-        <div className="mb-3 flex items-center gap-1 text-[9px] font-semibold"><span className="size-1.5 rounded-full bg-[#34d399]" />Live Transcription</div>
-        <div className="flex justify-center py-3"><Wave n={13} h={44} /></div>
-        <div className="mx-auto grid size-9 place-items-center rounded-full border-2 border-white/80"><Square className="size-3" fill="currentColor" aria-hidden /></div>
-        <div className="mt-1.5 text-center text-[9px] text-white/80">Listening...</div>
+      <div className="absolute bottom-0 right-0 w-[25%] min-w-24 drop-shadow-[0_30px_40px_rgba(0,0,0,0.55)]">
+        <div className="relative aspect-[855/1721] w-full">
+          <Image src="/brand/shot-phone.webp" alt="" aria-hidden width={780} height={1688} sizes="180px"
+            className="absolute object-cover object-top" style={{ left: "5.848%", top: "2.44%", width: "88.304%", height: "95.119%" }} />
+          <Image src="/brand/device-phone.webp" alt="" aria-hidden priority width={640} height={1288} sizes="180px" className="absolute inset-0 size-full" />
+        </div>
       </div>
     </div>
   );
@@ -109,7 +84,7 @@ export default function Landing() {
             </motion.h1>
             <p className="mt-6 max-w-lg text-lg text-ink-2 sm:text-xl">Live, accurate and low-latency transcription for meetings, discussions, interviews and more.</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/register" className={buttonCls({ size: "lg" })}>Get Started <ArrowRight className="size-5" aria-hidden /></Link>
+              <AuthTrigger mode="register" className={buttonCls({ size: "lg" })}>Get Started <ArrowRight className="size-5" aria-hidden /></AuthTrigger>
               <Link href="/#how" className={buttonCls({ variant: "outline", size: "lg" })}><PlayCircle className="size-5" aria-hidden />See How it Works</Link>
             </div>
             <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-4 text-sm text-ink-2">

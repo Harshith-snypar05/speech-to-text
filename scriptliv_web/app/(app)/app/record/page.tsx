@@ -1,14 +1,18 @@
 "use client";
-import { Mic, RotateCcw, Square } from "lucide-react";
+import { Check, Copy, Link2, Link2Off, Mic, RotateCcw, Square } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Waveform } from "@/components/waveform";
-import { Badge, Button, Card, Notice } from "@/components/ui";
+import { Badge, Button, Card, Notice, inputCls } from "@/components/ui";
+import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { config, isWsConfigured } from "@/lib/config";
 import { LiveClient, newSessionId, type LiveState } from "@/lib/live-client";
 import { fmtDuration } from "@/lib/format";
+import { closeNotice, micMessage } from "@/lib/friendly-errors";
 import { cn } from "@/lib/utils";
+
+const absolute = (u: string) => (u.startsWith("http") ? u : `${location.origin}${u.startsWith("/") ? "" : "/"}${u}`);
 
 const LABEL: Record<LiveState, { text: string; tone: "neutral" | "success" | "error" | "warning" | "info" | "primary" }> = {
   idle: { text: "Ready", tone: "neutral" },
@@ -36,6 +40,10 @@ export default function RecordPage() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [lost, setLost] = useState(0);
   const [elapsed, setElapsed] = useState(0);
+  const [shareUrl, setShareUrl] = useState<string | null>(null);
+  const [shareBusy, setShareBusy] = useState(false);
+  const [shareMsg, setShareMsg] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const client = useRef<LiveClient | null>(null);
   const t0 = useRef(0);
   const scroller = useRef<HTMLDivElement>(null);
@@ -67,6 +75,7 @@ export default function RecordPage() {
     const id = newSessionId(); // one session per press; reconnects reuse it
     setSessionId(id);
     setFinals([]); setPartial(""); setLevels([]); setLost(0); setElapsed(0);
+    setShareUrl(null); setShareMsg(null); setCopied(false);
     t0.current = Date.now();
     let micDeviceId: string | undefined;
     try { micDeviceId = localStorage.getItem("sl-mic") || undefined; } catch { /* ignore */ }
@@ -82,6 +91,23 @@ export default function RecordPage() {
   }, [token]);
 
   const stop = () => void client.current?.stop();
+
+  // Live share link: the relay creates the session record when the first words arrive, so sharing before that returns 404.
+  async function toggleShare() {
+    if (!token || !sessionId) return;
+    setShareBusy(true); setShareMsg(null);
+    try {
+      const r = shareUrl ? await api.unshare(token, sessionId) : await api.share(token, sessionId);
+      setShareUrl(r.sharing && r.share_url ? absolute(r.share_url) : null);
+    } catch (e) {
+      setShareMsg(e instanceof ApiError && e.status === 404 ? "Start speaking first. The link works once the first words are transcribed." : e instanceof ApiError ? e.message : "Could not update sharing. Try again.");
+    } finally { setShareBusy(false); }
+  }
+  async function copyShare() {
+    if (!shareUrl) return;
+    try { await navigator.clipboard.writeText(shareUrl); setCopied(true); setTimeout(() => setCopied(false), 1500); }
+    catch { setShareMsg("Could not copy. Select the link and copy it by hand."); }
+  }
   const unverified = !!user && !user.email_verified;
   const lbl = LABEL[state];
 
@@ -101,10 +127,10 @@ export default function RecordPage() {
         </Notice>
       )}
       {!isWsConfigured() && <Notice tone="warning" title="Live transcription is not configured">Set NEXT_PUBLIC_WS_URL in .env.local and restart the website.</Notice>}
-      {state === "mic-denied" && <Notice tone="error" title="Microphone access was blocked">Allow the microphone for this site in your browser settings, then try again.</Notice>}
-      {state === "backend-unavailable" && <Notice tone="error" title="Could not reach the transcription backend">No audio was recorded. Check that the staging relay is running and try again.</Notice>}
+      {state === "mic-denied" && <Notice tone="error" title="We can't use your microphone">{micMessage(detail)}</Notice>}
+      {state === "backend-unavailable" && <Notice tone="error" title="We couldn't connect to ScriptLiv">Nothing was recorded. Check your internet connection and try again. If it keeps happening, wait a minute; the service may be restarting.</Notice>}
       {state === "unauthorized" && <RefusedNotice detail={detail} />}
-      {state === "error" && <Notice tone="error" title="Something went wrong" >{detail}</Notice>}
+      {state === "error" && <Notice tone="error" title="Recording stopped unexpectedly">Something interrupted the recording. Refresh the page and start again. Your transcript so far is saved.</Notice>}
       {state === "reconnecting" && <Notice tone="warning" title="Connection dropped, reconnecting to the same session">Speech while disconnected is not captured.</Notice>}
       {state === "connection-failed" && (
         <Notice tone="error" title="Could not reconnect">
@@ -125,6 +151,27 @@ export default function RecordPage() {
           <div className="text-xs text-ink-2">{busy ? "Press to stop" : "Press to start"}</div>
         </div>
       </Card>
+
+      {sessionId && (
+        <Card className="space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h2 className="font-semibold">Share live</h2>
+              <p className="text-sm text-ink-2">{shareUrl ? "Anyone with the link sees the transcript update live. They never use your minutes." : "Create a link so others can follow this transcript as you speak."}</p>
+            </div>
+            <Button variant={shareUrl ? "outline" : "primary"} onClick={toggleShare} disabled={shareBusy}>
+              {shareUrl ? <><Link2Off className="size-4" /> Stop sharing</> : <><Link2 className="size-4" /> Share live link</>}
+            </Button>
+          </div>
+          {shareMsg && <p role="status" className="text-sm text-warning">{shareMsg}</p>}
+          {shareUrl && (
+            <div className="flex gap-2">
+              <input readOnly aria-label="Live share link" value={shareUrl} onFocus={(e) => e.currentTarget.select()} className={inputCls + " mt-0"} />
+              <Button variant="outline" onClick={copyShare}>{copied ? <><Check className="size-4" /> Copied</> : <><Copy className="size-4" /> Copy</>}</Button>
+            </div>
+          )}
+        </Card>
+      )}
 
       <div className="grid gap-5 md:grid-cols-[1fr_260px]">
       <Card className="p-0">
@@ -157,20 +204,10 @@ export default function RecordPage() {
 function RefusedNotice({ detail }: { detail?: string }) {
   const d = detail ?? "";
   const i = d.indexOf(":");
-  const code = i < 0 ? d : d.slice(0, i);
-  const reason = i < 0 ? "" : d.slice(i + 1);
-  const plans = <Link href="/app/plans" className="font-medium text-primary underline">See plans and add-ons</Link>;
-  if (code === "4403") return (
-    <Notice tone="warning" title="Verify your email to record">
-      Transcription is available once your email address is verified. <Link href="/app/settings" className="font-medium text-primary underline">Open Settings</Link>.
+  const n = closeNotice(i < 0 ? d : d.slice(0, i), i < 0 ? "" : d.slice(i + 1));
+  return (
+    <Notice tone={n.tone} title={n.title}>
+      {n.body} {n.link && <Link href={n.link.href} className="font-medium text-primary underline">{n.link.label}</Link>}
     </Notice>
   );
-  if (code === "4409") return <Notice tone="info" title="Recording continued on another connection">This session was taken over by a newer connection (for example after a network change). Your transcript so far is saved.</Notice>;
-  if (code === "4402") {
-    if (reason === "allowance_reserved") return <Notice tone="warning" title="Your minutes are in use by another recording">Another recording on your account holds your remaining minutes. Finish or stop it, then start again.</Notice>;
-    if (reason === "payment_required") return <Notice tone="error" title="Payment required">Your last payment failed, so paid minutes and add-ons are paused. Update your payment method or retry the payment. {plans}.</Notice>;
-    if (reason === "personal_limit") return <Notice tone="error" title="You reached your personal limit">Recording stopped at the limit you set in Settings. Raise it there to continue.</Notice>;
-    return <Notice tone="error" title="You are out of minutes">Recording stopped exactly when your minutes ran out; nothing was recorded past your balance. {plans}.</Notice>;
-  }
-  return <Notice tone="error" title="This connection was refused">Your sign-in may have expired. Sign in again.</Notice>;
 }
