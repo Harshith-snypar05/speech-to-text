@@ -131,6 +131,22 @@ async def test_audio_past_the_allowance_never_reaches_the_engine(monkeypatch):
     assert any(m.get("type") == "error" and m.get("code") == "out_of_minutes" for m in msgs)
 
 
+async def test_free_session_cap_closes_with_session_limit_reason(monkeypatch):
+    from core import billing as B
+    monkeypatch.setattr(B, "_post", lambda path, body: {"allowed": True, "remaining_seconds": 0})
+    monkeypatch.setattr(B, "FINAL_RETRY_DELAY", 0.0)
+    ws, eng = FakeWebSocket(), FakeStreamEngine(has_eou=True)
+    ctx = B.BillingContext("u1", "limit_test_2", 2, 0.0, 2)   # allowance of 2 s that is the plan's per-session cap
+    task = asyncio.create_task(run_streaming_session(ws, "limit_test_2", eng, SessionRegistry(), billing=ctx))
+    await asyncio.sleep(0.02)
+    for _ in range(4):
+        ws.feed(make_speech_chunk(amplitude=0.5, seconds=0.75))
+    await asyncio.wait_for(task, timeout=6)
+    assert ws.close_code == 4402 and ws.close_reason == "session_limit"
+    msgs = [json.loads(m) for m in ws.sent]
+    assert any(m.get("type") == "error" and m.get("code") == "session_limit" and "30 minutes" in m.get("message", "") for m in msgs)
+
+
 async def test_engine_socket_loss_is_reported_not_a_silent_normal_close():
     import websockets
 

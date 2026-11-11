@@ -49,7 +49,7 @@ class BillingContext:
     The allowance is a hard ceiling on cumulative audio seconds: `take()` is called with every audio chunk BEFORE it is
     sent to the engine and returns how much of it fits. Anything past the ceiling is never processed or billed."""
 
-    def __init__(self, user_id: str, session_id: str, remaining_seconds: int, base_seconds: float = 0.0):
+    def __init__(self, user_id: str, session_id: str, remaining_seconds: int, base_seconds: float = 0.0, session_cap_seconds: float | None = None):
         self.user_id = user_id
         self.session_id = session_id
         # a reconnect to the same session carries on from what the API already billed, so seconds are neither
@@ -58,8 +58,17 @@ class BillingContext:
         self._reported_at = float(base_seconds)
         self._remaining = base_seconds + remaining_seconds   # ceiling on cumulative audio seconds
         self._inflight = None
+        self.session_cap = session_cap_seconds   # per-session ceiling of the plan (free tier), None when uncapped
+        self.deny_reason = None
         self.exhausted = False
         self.dropped_seconds = 0.0   # audio that arrived past the ceiling and was discarded unprocessed
+
+    @property
+    def hit_session_cap(self) -> bool:
+        """True when this session stopped because of the plan's per-session cap, not because the account ran dry."""
+        if self.deny_reason == "session_limit":
+            return True
+        return self.session_cap is not None and self.deny_reason is None and self.audio_seconds >= self.session_cap - 0.01
 
     def room(self) -> float:
         return max(0.0, self._remaining - self.audio_seconds)
@@ -85,7 +94,10 @@ class BillingContext:
                                                                        "cumulative_seconds": at, "final": final})
             self._reported_at = at
             if not final:
+                if r.get("session_cap_seconds") is not None:
+                    self.session_cap = float(r["session_cap_seconds"])
                 if not r.get("allowed", True):
+                    self.deny_reason = r.get("reason")
                     self._remaining = min(self._remaining, at)
                     self.exhausted = True
                 else:

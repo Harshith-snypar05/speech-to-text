@@ -9,6 +9,15 @@ for line in env.read_text(encoding="utf8").splitlines():
     if line.strip() and not line.startswith("#") and "=" in line:
         k, v = line.split("=", 1)
         os.environ.setdefault(k.strip(), v.strip())
+# Email provider settings (Resend / Gmail) live in the repo-root .env; take only those keys. api.env wins on conflict.
+_EMAIL_KEYS = ("RESEND_", "GMAIL_", "EMAIL_")
+root_env = root.parent / ".env"
+if root_env.exists():
+    for line in root_env.read_text(encoding="utf8").splitlines():
+        if line.strip() and not line.startswith("#") and "=" in line:
+            k, v = line.split("=", 1)
+            if k.strip().startswith(_EMAIL_KEYS) and v.strip():
+                os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
 sys.path.insert(0, str(root))
 
 import uvicorn  # noqa: E402

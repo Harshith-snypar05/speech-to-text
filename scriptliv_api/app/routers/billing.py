@@ -23,7 +23,7 @@ def _not_configured():
 
 @router.get("/plans")
 def plans():
-    return {"plans": [{"id": p.id, "name": p.name, "included_minutes": p.included_minutes, "price_usd_month": p.price_usd_month,
+    return {"plans": [{"id": p.id, "name": p.name, "included_minutes": p.included_minutes, "max_session_minutes": p.max_session_minutes, "price_usd_month": p.price_usd_month,
                        "blurb": p.blurb} for p in PLANS.values()],
             "addon": {"minutes": ADDON_MINUTES, "price_usd": ADDON_PRICE_USD,
                       "note": "Add-on minutes are valid until the end of the billing period you buy them in."},

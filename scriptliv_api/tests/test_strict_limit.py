@@ -130,3 +130,32 @@ def test_restricted_account_gets_free_allowance_only_and_payment_required(db):
     db.subscriptions.update_one({"_id": sub["_id"]}, {"$set": {"included_used_seconds": BASIC_S}})
     d = usage.authorize(db, U, T0, session_id="sess-x")
     assert not d["allowed"] and d["reason"] == "payment_required"
+
+
+def test_free_session_is_capped_at_30_minutes(db):
+    a = usage.authorize(db, U, T0, session_id="sess-cap")
+    assert a["allowed"] and a["session_cap_seconds"] == 1800
+    assert a["remaining_seconds"] == 300          # the normal grant window, well inside the cap
+    usage.record(db, U, "sess-cap", 1700, T0 + 1700)
+    mid = usage.authorize(db, U, T0 + 1700, session_id="sess-cap", midsession=True)
+    assert mid["allowed"] and mid["base_seconds"] == 1700 and mid["remaining_seconds"] == 100   # trimmed to the cap, not 300
+    usage.record(db, U, "sess-cap", 1800, T0 + 1800)
+    end = usage.authorize(db, U, T0 + 1800, session_id="sess-cap", midsession=True)
+    assert not end["allowed"] and end["reason"] == "session_limit"
+
+
+def test_free_cap_applies_to_a_reconnect_of_the_same_session_and_not_to_a_new_one(db):
+    usage.authorize(db, U, T0, session_id="sess-cap")
+    usage.record(db, U, "sess-cap", 1800, T0 + 1800)
+    again = usage.authorize(db, U, T0 + 1801, session_id="sess-cap")
+    assert not again["allowed"] and again["reason"] == "session_limit"
+    fresh = usage.authorize(db, U, T0 + 1802, session_id="sess-new")
+    assert fresh["allowed"] and fresh["remaining_seconds"] == 300
+
+
+def test_pro_has_no_session_cap(db):
+    subs.activate_pro(db, U, T0)
+    a = usage.authorize(db, U, T0, session_id="sess-pro")
+    assert a["allowed"] and "session_cap_seconds" not in a
+    usage.record(db, U, "sess-pro", 4000, T0 + 4000)
+    assert usage.authorize(db, U, T0 + 4000, session_id="sess-pro", midsession=True)["allowed"]

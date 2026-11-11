@@ -112,7 +112,7 @@ def _new_buffer() -> UtteranceBuffer:
 
 
 # API denial reasons that close with 4402 (out of minutes / allowance held); everything else is 4401 (not allowed)
-BILLING_DENY_4402 = ("quota_exhausted", "personal_limit", "allowance_reserved", "payment_required")
+BILLING_DENY_4402 = ("quota_exhausted", "personal_limit", "allowance_reserved", "payment_required", "session_limit")
 # the account may not transcribe until its email is verified (close 4403, reason "email_not_verified")
 BILLING_DENY_4403 = ("email_not_verified",)
 
@@ -189,7 +189,7 @@ async def _speaker_admitted(websocket, params):
             code = 4402 if reason in BILLING_DENY_4402 else 4403 if reason in BILLING_DENY_4403 else 4401
             await websocket.close(code=code, reason=reason or "denied")
             return
-        billing_ctx = billing_mod.BillingContext(verdict["user_id"], params.session_id, verdict.get("remaining_seconds", 0), verdict.get("base_seconds", 0.0))
+        billing_ctx = billing_mod.BillingContext(verdict["user_id"], params.session_id, verdict.get("remaining_seconds", 0), verdict.get("base_seconds", 0.0), verdict.get("session_cap_seconds"))
     if STREAMING:
         await run_streaming_session(websocket, params.session_id, engine, registry, params.access_code, billing=billing_ctx, refiner=refiner)
     else:

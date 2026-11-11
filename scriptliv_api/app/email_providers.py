@@ -180,6 +180,8 @@ def provider_for(to: str):
         return _gmail
     if SmtpProvider.configured():
         return SmtpProvider()
+    if ResendProvider.configured():   # no Gmail/SMTP set up: Resend carries everything rather than leaving users without email
+        return ResendProvider()
     return None
 
 

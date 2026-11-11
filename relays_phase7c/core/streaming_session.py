@@ -38,6 +38,8 @@ UTT_BUFFER_MAX_BYTES = int((MAX_UTTERANCE_SECONDS + 5) * SAMPLE_RATE * 2)
 OUT_OF_MINUTES = "out_of_minutes"
 ASR_LOST = "asr_connection_lost"
 ASR_LOST_MESSAGE = "The transcription engine connection was interrupted. Your audio was not lost beyond this point; reconnect to continue."
+SESSION_LIMIT = "session_limit"
+SESSION_LIMIT_MESSAGE = "Free sessions are limited to 30 minutes. Start a new session to keep going, or upgrade to Pro for longer sessions."
 OUT_OF_MINUTES_MESSAGE = "You have used all your available transcription minutes. Add minutes or upgrade your plan to continue."
 
 
@@ -65,8 +67,10 @@ async def run_streaming_session(websocket, session_id, engine, registry: Session
             await registry.broadcast(session_id, payload)
 
     async def send_out_of_minutes():
+        capped = billing is not None and billing.hit_session_cap
         try:
-            await websocket.send(json.dumps({"type": "error", "code": OUT_OF_MINUTES, "message": OUT_OF_MINUTES_MESSAGE}))
+            await websocket.send(json.dumps({"type": "error", "code": SESSION_LIMIT if capped else OUT_OF_MINUTES,
+                                             "message": SESSION_LIMIT_MESSAGE if capped else OUT_OF_MINUTES_MESSAGE}))
         except websockets.exceptions.ConnectionClosed:
             pass
 
@@ -192,7 +196,7 @@ async def run_streaming_session(websocket, session_id, engine, registry: Session
             pass
         if limit_hit:
             try:
-                await websocket.close(code=4402, reason=OUT_OF_MINUTES)
+                await websocket.close(code=4402, reason=SESSION_LIMIT if (billing is not None and billing.hit_session_cap) else OUT_OF_MINUTES)
             except Exception:
                 pass
         elif asr_lost:

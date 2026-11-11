@@ -112,7 +112,7 @@ def authorize(db, user_id: str, now: float | None = None, session_id: str | None
         for o in db.usage_sessions.find({"user_id": user_id, "ended_at": None, "session_id": {"$ne": session_id},
                                          "last_report_at": {"$gt": now - SESSION_STALE}}):
             held += max(0.0, o.get("grant_seconds", 0.0) - o["metered_seconds"])
-        out = _decide(db, user_id, now, held)
+        out = _decide(db, user_id, now, held, metered)
         if row is None:
             try:
                 db.usage_sessions.insert_one({"session_id": session_id, "user_id": user_id, "started_at": now, "ended_at": None,
@@ -132,8 +132,9 @@ def authorize(db, user_id: str, now: float | None = None, session_id: str | None
         return out
 
 
-def _decide(db, user_id: str, now: float, held: float) -> dict:
+def _decide(db, user_id: str, now: float, held: float, session_metered: float | None = None) -> dict:
     r = remaining(db, user_id, now)
+    cap = r["plan"].max_session_seconds
     if r["total_remaining"] <= 0:
         return {"allowed": False, "reason": "payment_required" if r["restricted"] else "quota_exhausted", "remaining_seconds": 0}
     room = _personal_room(db, user_id, r)
@@ -142,7 +143,15 @@ def _decide(db, user_id: str, now: float, held: float) -> dict:
     free = min(r["total_remaining"], room) - held
     if free < 1:  # everything left is held by this account's other running sessions
         return {"allowed": False, "reason": "allowance_reserved", "remaining_seconds": 0}
-    return {"allowed": True, "reason": None, "remaining_seconds": int(free)}
+    out = {"allowed": True, "reason": None, "remaining_seconds": int(free)}
+    if cap is not None and session_metered is not None:
+        # per-session cap (free tier): one session may never run past `cap` cumulative seconds
+        out["session_cap_seconds"] = cap
+        left = cap - session_metered
+        if left < 1:
+            return {"allowed": False, "reason": "session_limit", "remaining_seconds": 0, "session_cap_seconds": cap}
+        out["remaining_seconds"] = int(min(free, left))
+    return out
 
 
 def _spread_minutes(db, user_id, session_id, prev_cum, delta, now):
