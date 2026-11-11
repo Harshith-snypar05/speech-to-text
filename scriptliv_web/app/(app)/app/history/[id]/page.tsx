@@ -52,16 +52,16 @@ export default function SessionDetail() {
       {s && (
         <>
           <div className="flex flex-wrap items-start justify-between gap-3">
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0 flex-1 basis-56">
               {editing ? (
-                <form onSubmit={(e) => { e.preventDefault(); void rename(); }} className="flex gap-2">
-                  <input aria-label="Title" autoFocus maxLength={120} value={title} onChange={(e) => setTitle(e.target.value)} className={inputCls + " mt-0"} />
+                <form onSubmit={(e) => { e.preventDefault(); void rename(); }} className="flex flex-wrap gap-2">
+                  <input aria-label="Title" autoFocus maxLength={120} value={title} onChange={(e) => setTitle(e.target.value)} className={inputCls + " mt-0 min-w-0 flex-1"} />
                   <Button type="submit" size="md">Save</Button>
                   <Button type="button" variant="ghost" onClick={() => { setEditing(false); setTitle(s.title); }}>Cancel</Button>
                 </form>
               ) : (
                 <div className="flex items-center gap-2">
-                  <h1 className="truncate text-2xl font-semibold">{s.title || "Untitled session"}</h1>
+                  <h1 className="min-w-0 break-words text-2xl font-semibold [overflow-wrap:anywhere]">{s.title || "Untitled session"}</h1>
                   <button aria-label="Rename" onClick={() => setEditing(true)} className="grid size-8 place-items-center rounded-lg text-ink-2 hover:bg-surface-alt"><Pencil className="size-4" /></button>
                 </div>
               )}
@@ -83,8 +83,8 @@ export default function SessionDetail() {
               </Button>
             </div>
             {s.sharing && s.share_url && (
-              <div className="flex gap-2">
-                <input readOnly aria-label="Share link" value={absolute(s.share_url)} onFocus={(e) => e.currentTarget.select()} className={inputCls + " mt-0"} />
+              <div className="flex flex-wrap gap-2">
+                <input readOnly aria-label="Share link" value={absolute(s.share_url)} onFocus={(e) => e.currentTarget.select()} className={inputCls + " mt-0 min-w-0 flex-1 basis-full sm:basis-0"} />
                 <Button variant="outline" onClick={copy}>{copied ? <><Check className="size-4" /> Copied</> : <><Copy className="size-4" /> Copy</>}</Button>
               </div>
             )}

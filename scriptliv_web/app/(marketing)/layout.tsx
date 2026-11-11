@@ -13,18 +13,18 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
     <div className="sl-marketing relative isolate min-h-dvh overflow-x-clip">
       <div aria-hidden className="sl-wave sl-wave-hero" />
       <ScrollHeader>
-        <div className="mx-auto grid h-[72px] max-w-[1400px] grid-cols-[auto_1fr_auto] items-center gap-4 px-4 sm:px-8">
-          <Logo className="h-9 w-auto" />
+        <div className="mx-auto grid h-[72px] max-w-[1400px] grid-cols-[auto_1fr_auto] items-center gap-2 px-4 sm:gap-4 sm:px-8">
+          <Logo className="h-8 w-auto max-w-none shrink-0 sm:h-9" />
           <nav aria-label="Sections" className="flex items-center justify-center gap-2 text-sm font-medium">
             <Link href="/#product" className={link}>Product</Link>
             <Link href="/#features" className={link}>Features</Link>
             <Link href="/#use-cases" className={link}>Use Cases</Link>
             <Link href="/#how" className={link}>How it works</Link>
           </nav>
-          <div className="flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-2 whitespace-nowrap text-sm">
             <ThemeToggle />
             <AuthTrigger mode="login" className={buttonCls({ variant: "outline", size: "md" })}>Log In</AuthTrigger>
-            <AuthTrigger mode="register" className={buttonCls({ size: "md" })}>Get Started <ArrowRight className="size-4" aria-hidden /></AuthTrigger>
+            <AuthTrigger mode="register" className={buttonCls({ size: "md" }) + " max-sm:hidden"}>Get Started <ArrowRight className="size-4" aria-hidden /></AuthTrigger>
           </div>
         </div>
       </ScrollHeader>
@@ -33,7 +33,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         <div aria-hidden className="sl-wave sl-wave-footer" />
         <div className="mx-auto grid max-w-[1400px] gap-10 px-4 sm:px-8 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div>
-            <Logo className="h-9 w-auto" />
+            <Logo className="h-8 w-auto max-w-none shrink-0 sm:h-9" />
             <p className="mt-4 max-w-xs text-ink-2">Real-time speech to text transcription for meetings, interviews, education and more.</p>
           </div>
           <div>
