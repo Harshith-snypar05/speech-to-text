@@ -72,6 +72,10 @@ flutter:
         - asset: assets/fonts/PlusJakartaSans.ttf
 
   assets:
+    - assets/images/waves/wave_hero_dark.png
+    - assets/images/waves/wave_hero_light.png
+    - assets/images/waves/wave_footer_dark.png
+    - assets/images/waves/wave_footer_light.png
     - assets/images/st_logo.png
     - assets/images/sl_logo_light.png
     - assets/images/sl_logo_dark.png
