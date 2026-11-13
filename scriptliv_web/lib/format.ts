@@ -50,3 +50,9 @@ export const fmtSecs = (s: number | null | undefined) => {
 export const fmtMinutes = (s: number | null | undefined) => (s == null ? "unavailable" : `${Math.floor(Math.max(0, s) / 60).toLocaleString()} min`);
 export const fmtDate = (s: number | null | undefined) => (s == null ? "unavailable" : new Date(s * 1000).toLocaleDateString(undefined, { dateStyle: "medium" }));
 export const fmtMoney = (cents: number, currency = "usd") => new Intl.NumberFormat(undefined, { style: "currency", currency: currency.toUpperCase() }).format(cents / 100);
+
+/** Public viewer link on the origin the user is browsing from. The API's configured base URL may be localhost, which other devices cannot reach. */
+export const shareLink = (u: string): string => {
+  const m = u.match(/\/s\/[^/?#]+/);
+  return `${location.origin}${m ? m[0] : u.startsWith("/") ? u : "/" + u}`;
+};

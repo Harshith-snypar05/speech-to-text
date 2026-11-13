@@ -8,11 +8,9 @@ import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { config, isWsConfigured } from "@/lib/config";
 import { LiveClient, newSessionId, type LiveState } from "@/lib/live-client";
-import { fmtDuration } from "@/lib/format";
+import { fmtDuration, shareLink } from "@/lib/format";
 import { closeNotice, micMessage } from "@/lib/friendly-errors";
 import { cn } from "@/lib/utils";
-
-const absolute = (u: string) => (u.startsWith("http") ? u : `${location.origin}${u.startsWith("/") ? "" : "/"}${u}`);
 
 const LABEL: Record<LiveState, { text: string; tone: "neutral" | "success" | "error" | "warning" | "info" | "primary" }> = {
   idle: { text: "Ready", tone: "neutral" },
@@ -92,15 +90,22 @@ export default function RecordPage() {
 
   const stop = () => void client.current?.stop();
 
-  // Live share link: the relay creates the session record when the first words arrive, so sharing before that returns 404.
+  // Live share link. The session record is created when the relay authorizes the speaker, which can lag the button by a moment, so a 404 is retried briefly.
   async function toggleShare() {
     if (!token || !sessionId) return;
     setShareBusy(true); setShareMsg(null);
     try {
-      const r = shareUrl ? await api.unshare(token, sessionId) : await api.share(token, sessionId);
-      setShareUrl(r.sharing && r.share_url ? absolute(r.share_url) : null);
+      let r: Awaited<ReturnType<typeof api.share>> | undefined;
+      for (let i = 0; ; i++) {
+        try { r = shareUrl ? await api.unshare(token, sessionId) : await api.share(token, sessionId); break; }
+        catch (e) {
+          if (!(e instanceof ApiError && e.status === 404) || shareUrl || i >= 4) throw e;
+          await new Promise((res) => setTimeout(res, 1000));
+        }
+      }
+      setShareUrl(r.sharing && r.share_url ? shareLink(r.share_url) : null);
     } catch (e) {
-      setShareMsg(e instanceof ApiError && e.status === 404 ? "Start speaking first. The link works once the first words are transcribed." : e instanceof ApiError ? e.message : "Could not update sharing. Try again.");
+      setShareMsg(e instanceof ApiError && e.status === 404 ? "The session is still connecting. Wait a moment and try again." : e instanceof ApiError ? e.message : "Could not update sharing. Try again.");
     } finally { setShareBusy(false); }
   }
   async function copyShare() {

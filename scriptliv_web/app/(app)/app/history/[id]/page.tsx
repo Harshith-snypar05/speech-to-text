@@ -6,10 +6,8 @@ import { useEffect, useState } from "react";
 import { Button, Card, Empty, Notice, Spinner, inputCls } from "@/components/ui";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
-import { download, fmtTime } from "@/lib/format";
+import { download, fmtTime, shareLink } from "@/lib/format";
 import type { SessionItem } from "@/lib/types";
-
-const absolute = (u: string) => (u.startsWith("http") ? u : `${location.origin}${u.startsWith("/") ? "" : "/"}${u}`);
 
 export default function SessionDetail() {
   const { id } = useParams<{ id: string }>();
@@ -38,7 +36,7 @@ export default function SessionDetail() {
   const remove = () => run(() => api.deleteSession(token!, id), () => router.replace("/app/history"));
   async function copy() {
     if (!s?.share_url) return;
-    try { await navigator.clipboard.writeText(absolute(s.share_url)); setCopied(true); setTimeout(() => setCopied(false), 1500); }
+    try { await navigator.clipboard.writeText(shareLink(s.share_url)); setCopied(true); setTimeout(() => setCopied(false), 1500); }
     catch { setMsg("Could not copy. Select the link and copy it by hand."); }
   }
 
@@ -84,7 +82,7 @@ export default function SessionDetail() {
             </div>
             {s.sharing && s.share_url && (
               <div className="flex flex-wrap gap-2">
-                <input readOnly aria-label="Share link" value={absolute(s.share_url)} onFocus={(e) => e.currentTarget.select()} className={inputCls + " mt-0 min-w-0 flex-1 basis-full sm:basis-0"} />
+                <input readOnly aria-label="Share link" value={shareLink(s.share_url)} onFocus={(e) => e.currentTarget.select()} className={inputCls + " mt-0 min-w-0 flex-1 basis-full sm:basis-0"} />
                 <Button variant="outline" onClick={copy}>{copied ? <><Check className="size-4" /> Copied</> : <><Copy className="size-4" /> Copy</>}</Button>
               </div>
             )}
