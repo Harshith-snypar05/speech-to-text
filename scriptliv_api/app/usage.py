@@ -12,7 +12,7 @@ from contextlib import contextmanager
 
 from pymongo.errors import DuplicateKeyError
 
-from .plans import BASIC, PLANS
+from .plans import ADDON_MAX_SESSION_MINUTES, BASIC, PLANS
 from .subscriptions import active_addons, get_subscription, is_restricted, plan_of
 
 DEFAULT_WARN_PERCENTS = [80, 95]
@@ -135,6 +135,9 @@ def authorize(db, user_id: str, now: float | None = None, session_id: str | None
 def _decide(db, user_id: str, now: float, held: float, session_metered: float | None = None) -> dict:
     r = remaining(db, user_id, now)
     cap = r["plan"].max_session_seconds
+    if r["addon_remaining"] > 0:
+        addon_cap = ADDON_MAX_SESSION_MINUTES * 60
+        cap = max(cap, addon_cap) if cap is not None else addon_cap
     if r["total_remaining"] <= 0:
         return {"allowed": False, "reason": "payment_required" if r["restricted"] else "quota_exhausted", "remaining_seconds": 0}
     room = _personal_room(db, user_id, r)

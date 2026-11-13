@@ -8,7 +8,16 @@ from pymongo.errors import DuplicateKeyError
 from .. import payments, subscriptions, usage
 from ..config import get_settings
 from ..deps import current_user, db_dep, now, verified_user
-from ..plans import ADDON_MINUTES, ADDON_PRICE_USD, PLANS, PRO
+from ..plans import (
+    ADDON_MAX_SESSION_MINUTES,
+    ADDON_MINUTES,
+    ADDON_NOTE,
+    ADDON_PRICE_INR,
+    ADDON_PRICE_USD,
+    ADDON_TAX_NOTE,
+    PLANS,
+    PRO,
+)
 
 router = APIRouter(prefix="/v1", tags=["billing"])
 
@@ -23,11 +32,34 @@ def _not_configured():
 
 @router.get("/plans")
 def plans():
-    return {"plans": [{"id": p.id, "name": p.name, "included_minutes": p.included_minutes, "max_session_minutes": p.max_session_minutes, "price_usd_month": p.price_usd_month,
-                       "blurb": p.blurb} for p in PLANS.values()],
-            "addon": {"minutes": ADDON_MINUTES, "price_usd": ADDON_PRICE_USD,
-                      "note": "Add-on minutes are valid until the end of the billing period you buy them in."},
-            "purchasing_available": payments.configured()}
+    return {
+        "currency": "inr",
+        "currency_symbol": "₹",
+        "plans": [
+            {
+                "id": p.id,
+                "name": p.name,
+                "included_minutes": p.included_minutes,
+                "max_session_minutes": p.max_session_minutes,
+                "price_inr_month": p.price_inr_month,
+                "price_usd_month": p.price_usd_month,
+                "tax_note": p.tax_note,
+                "price_display": p.price_display,
+                "blurb": p.blurb,
+            }
+            for p in PLANS.values()
+        ],
+        "addon": {
+            "minutes": ADDON_MINUTES,
+            "price_inr": ADDON_PRICE_INR,
+            "price_usd": ADDON_PRICE_USD,
+            "tax_note": ADDON_TAX_NOTE,
+            "max_session_minutes": ADDON_MAX_SESSION_MINUTES,
+            "price_display": f"₹{ADDON_PRICE_INR:,} {ADDON_TAX_NOTE}",
+            "note": ADDON_NOTE,
+        },
+        "purchasing_available": payments.configured(),
+    }
 
 
 PAYMENT_MESSAGES = {
@@ -56,11 +88,22 @@ def _payment_state(sub):
 
 def _sub_out(sub):
     p = PLANS[sub["plan"]]
-    return {"plan": p.id, "plan_name": p.name, "status": sub["status"], "period_start": sub["period_start"],
-            "renews_or_resets_at": sub["period_end"], "cancel_at_period_end": sub["cancel_at_period_end"],
-            # when cancelled, paid access lasts until the end of the period already paid for
-            "access_ends_at": sub["period_end"] if sub["cancel_at_period_end"] else None,
-            "price_usd_month": p.price_usd_month, "payment": _payment_state(sub)}
+    return {
+        "plan": p.id,
+        "plan_name": p.name,
+        "status": sub["status"],
+        "period_start": sub["period_start"],
+        "renews_or_resets_at": sub["period_end"],
+        "cancel_at_period_end": sub["cancel_at_period_end"],
+        # when cancelled, paid access lasts until the end of the period already paid for
+        "access_ends_at": sub["period_end"] if sub["cancel_at_period_end"] else None,
+        "price_inr_month": p.price_inr_month,
+        "price_usd_month": p.price_usd_month,
+        "price_display": p.price_display,
+        "currency": "inr",
+        "tax_note": p.tax_note,
+        "payment": _payment_state(sub),
+    }
 
 
 @router.get("/subscription")

@@ -49,7 +49,12 @@ export const fmtSecs = (s: number | null | undefined) => {
 };
 export const fmtMinutes = (s: number | null | undefined) => (s == null ? "unavailable" : `${Math.floor(Math.max(0, s) / 60).toLocaleString()} min`);
 export const fmtDate = (s: number | null | undefined) => (s == null ? "unavailable" : new Date(s * 1000).toLocaleDateString(undefined, { dateStyle: "medium" }));
-export const fmtMoney = (cents: number, currency = "usd") => new Intl.NumberFormat(undefined, { style: "currency", currency: currency.toUpperCase() }).format(cents / 100);
+export const fmtMoney = (cents: number, currency = "inr") =>
+  new Intl.NumberFormat(currency.toLowerCase() === "inr" ? "en-IN" : undefined, {
+    style: "currency",
+    currency: currency.toUpperCase(),
+    maximumFractionDigits: cents % 100 === 0 ? 0 : 2,
+  }).format(cents / 100);
 
 /** Public viewer link on the origin the user is browsing from. The API's configured base URL may be localhost, which other devices cannot reach. */
 export const shareLink = (u: string): string => {

@@ -8,6 +8,15 @@ import { fmtDate, fmtMinutes } from "@/lib/format";
 import { PaymentBanner } from "@/components/payment-banner";
 import type { PaymentIssue, Plans, UsageSummary } from "@/lib/types";
 
+function fmtSessionLimit(minutes?: number | null) {
+  if (!minutes) return "No time limit per session";
+  if (minutes % 60 === 0) {
+    const hours = minutes / 60;
+    return `Up to ${hours} ${hours === 1 ? "hour" : "hours"} per session`;
+  }
+  return `Up to ${minutes} minutes per session`;
+}
+
 export default function PlansPage() {
   const { token } = useAuth();
   const [plans, setPlans] = useState<Plans | null>(null);
@@ -53,11 +62,17 @@ export default function PlansPage() {
                 <h2 className="text-lg font-semibold">{p.name}</h2>
                 {current && <Badge tone="primary">Your plan</Badge>}
               </div>
-              <div className="mt-2 text-3xl font-semibold">{p.price_usd_month ? `$${p.price_usd_month}` : "Free"}<span className="text-sm font-normal text-ink-2">{p.price_usd_month ? " / month" : ""}</span></div>
+              <div className="mt-2 text-3xl font-semibold">
+                {p.price_display ?? ((p.price_inr_month ?? p.price_usd_month) > 0 ? `₹${(p.price_inr_month ?? p.price_usd_month).toLocaleString()}${p.tax_note ? ` ${p.tax_note}` : ""}` : "Free")}
+                <span className="text-sm font-normal text-ink-2">
+                  {(p.price_inr_month ?? p.price_usd_month) > 0 ? " / month" : ""}
+                </span>
+              </div>
               <p className="mt-1 text-sm text-ink-2">{p.blurb}</p>
               <ul className="mt-4 space-y-1.5 text-sm">
                 <li className="flex gap-2"><Check className="mt-0.5 size-4 text-primary" /> {p.included_minutes.toLocaleString()} minutes every month</li>
-                <li className="flex gap-2"><Check className="mt-0.5 size-4 text-primary" /> {p.max_session_minutes ? `Up to ${p.max_session_minutes} minutes per session` : "No time limit per session"}</li>
+                <li className="flex gap-2"><Check className="mt-0.5 size-4 text-primary" /> {fmtSessionLimit(p.max_session_minutes)}</li>
+                <li className="flex gap-2"><Check className="mt-0.5 size-4 text-primary" /> Add-ons supported</li>
                 <li className="flex gap-2"><Check className="mt-0.5 size-4 text-primary" /> Unlimited viewers on shared links</li>
                 <li className="flex gap-2"><Check className="mt-0.5 size-4 text-primary" /> Use it on any device</li>
               </ul>
@@ -70,7 +85,9 @@ export default function PlansPage() {
 
       <Card className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="font-semibold">Add-on: {plans.addon.minutes.toLocaleString()} minutes for ${plans.addon.price_usd}</h2>
+          <h2 className="font-semibold">
+            Add-on: {plans.addon.minutes.toLocaleString()} minutes for {plans.addon.price_display || `₹${plans.addon.price_inr ?? 499} ${plans.addon.tax_note || "+ GST"}`}
+          </h2>
           <p className="text-sm text-ink-2">{plans.addon.note}</p>
           <p className="mt-1 text-sm">Add-on balance now: <b>{fmtMinutes(usage.addon_remaining_seconds)}</b></p>
         </div>

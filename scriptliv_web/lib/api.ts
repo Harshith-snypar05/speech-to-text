@@ -1,6 +1,7 @@
 import { config } from "./config";
 import { apiMessage } from "./friendly-errors";
 import type {
+  AdminAnalytics, AdminSessionItem, AdminUserItem,
   AuthResult, BillingDetails, RegisterResult, Delivery, PaymentMethod, PaymentRow, Plans, SessionItem, SettingsResponse, SharedView,
   Subscription, UsageSession, UsageSummary, User,
 } from "./types";
@@ -79,4 +80,15 @@ export const api = {
   share: (t: string, id: string) => request<SessionItem>(`/v1/sessions/${sid(id)}/share`, { method: "POST", token: t }),
   unshare: (t: string, id: string) => request<SessionItem>(`/v1/sessions/${sid(id)}/share`, { method: "DELETE", token: t }),
   shared: (token: string) => request<SharedView>(`/v1/shared/${encodeURIComponent(token)}`),
+
+  // Admin endpoints
+  adminAnalytics: (t: string) => request<AdminAnalytics>("/v1/admin/analytics", { token: t }),
+  adminUsers: (t: string, q?: string) =>
+    request<{ users: AdminUserItem[]; count: number }>(`/v1/admin/users${q ? `?q=${encodeURIComponent(q)}` : ""}`, { token: t }),
+  adminUpdateUser: (t: string, id: string, patch: { is_admin?: boolean; disabled?: boolean; email_verified?: boolean; plan?: string; grant_addon_minutes?: number }) =>
+    request<AdminUserItem>(`/v1/admin/users/${id}`, { method: "PATCH", token: t, body: patch }),
+  adminSessions: (t: string, limit = 50) =>
+    request<{ sessions: AdminSessionItem[] }>(`/v1/admin/sessions?limit=${limit}`, { token: t }),
+  adminDeleteSession: (t: string, id: string) =>
+    request<void>(`/v1/admin/sessions/${sid(id)}`, { method: "DELETE", token: t }),
 };

@@ -16,7 +16,7 @@ import websockets
 from . import flush_diagnostics as diag
 from . import transcript_store
 from .audio_processor import UtteranceBuffer
-from .config import FINAL_FLUSH_TIMEOUT_SECONDS, PARTIAL_CYCLE_SECONDS, SESSION_MAX_DURATION_SECONDS
+from .config import BYTES_PER_SAMPLE, FINAL_FLUSH_TIMEOUT_SECONDS, PARTIAL_CYCLE_SECONDS, SAMPLE_RATE, SESSION_MAX_DURATION_SECONDS
 from .scheduler import FinalExpired, JobTicket
 from .protocol import final_message, partial_message
 from .session_manager import SessionRegistry
@@ -56,6 +56,7 @@ async def run_speaker_session(
     buffer: UtteranceBuffer,
     registry: SessionRegistry,
     access_code: str | None = None,
+    billing=None,
 ):
     words_sent = 0
     generation = 0  # bumped on every flush; lets a slow partial notice it's stale
@@ -197,6 +198,13 @@ async def run_speaker_session(
                 logger.info(f"Session {session_id} hit the max duration cap; ending it")
                 await websocket.close(code=1000, reason="session time limit reached")
                 break
+            if billing is not None:
+                n_samples = len(message) // BYTES_PER_SAMPLE
+                fit_samples = billing.take(n_samples, SAMPLE_RATE)
+                if fit_samples <= 0:
+                    break
+                if fit_samples < n_samples:
+                    message = message[:fit_samples * BYTES_PER_SAMPLE]
             try:
                 boundary = buffer.add_chunk(message)
             except Exception as e:
@@ -209,6 +217,11 @@ async def run_speaker_session(
             audio_bytes_received += len(message)
             if boundary:
                 await flush(_flush_reason())
+            if billing is not None and billing.exhausted:
+                break
+        if billing is not None and billing.exhausted:
+            logger.info("session %s exhausted quota; closing", session_id)
+            await websocket.close(code=4402, reason="session_limit" if billing.hit_session_cap else "out_of_minutes")
     except websockets.exceptions.ConnectionClosed:
         pass
     finally:
@@ -223,5 +236,10 @@ async def run_speaker_session(
             await flush("disconnect")
         except Exception as e:
             logger.exception(f"final flush on disconnect failed: {e}")
+        if billing is not None:
+            try:
+                await billing.finish()
+            except Exception as e:
+                logger.exception(f"final billing finish failed: {e}")
         await registry.speaker_disconnected(session_id)
         logger.info(f"Speaker disconnected (session={session_id})")

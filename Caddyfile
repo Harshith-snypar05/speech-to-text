@@ -1,0 +1,11 @@
+:5600 {
+	@relay {
+		query role=speaker
+	}
+	@viewer {
+		query role=viewer
+	}
+	reverse_proxy @relay 127.0.0.1:8772
+	reverse_proxy @viewer 127.0.0.1:8772
+	reverse_proxy 127.0.0.1:3100
+}

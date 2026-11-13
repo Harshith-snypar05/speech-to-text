@@ -52,6 +52,16 @@ import os
 import sys
 from pathlib import Path
 
+# Load staging secrets before anything else reads env vars (mirrors run_staging.py for the API).
+# Safe to call unconditionally: uses setdefault so explicit env vars always win.
+_env_file = Path(__file__).resolve().parent.parent / "staging_secrets" / "api.env"
+if _env_file.exists():
+    for _line in _env_file.read_text(encoding="utf8").splitlines():
+        _line = _line.strip()
+        if _line and not _line.startswith("#") and "=" in _line:
+            _k, _v = _line.split("=", 1)
+            os.environ.setdefault(_k.strip(), _v.strip())
+
 import websockets
 
 from core.audio_processor import UtteranceBuffer
@@ -180,8 +190,8 @@ async def _speaker_admitted(websocket, params):
     billing_ctx = None
     if billing_mod.enabled():
         # customer account: the ScriptLiv API validates the token and the remaining minutes; fail closed
-        if not STREAMING or not params.session_id:
-            await websocket.close(code=1013 if not STREAMING else 4400, reason="not available")
+        if not params.session_id:
+            await websocket.close(code=4400, reason="malformed session id")
             return
         verdict = await billing_mod.authorize_start(params.token, params.session_id)
         if not verdict.get("allowed"):
@@ -193,7 +203,7 @@ async def _speaker_admitted(websocket, params):
     if STREAMING:
         await run_streaming_session(websocket, params.session_id, engine, registry, params.access_code, billing=billing_ctx, refiner=refiner)
     else:
-        await run_speaker_session(websocket, params.session_id, engine, _new_buffer(), registry, params.access_code)
+        await run_speaker_session(websocket, params.session_id, engine, _new_buffer(), registry, params.access_code, billing=billing_ctx)
 
 
 # Optional second pass (off unless STT_REFINE_ENGINE is set): re-listens to each finalized utterance with a Nemotron

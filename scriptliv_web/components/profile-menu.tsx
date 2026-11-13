@@ -1,5 +1,5 @@
 "use client";
-import { CreditCard, LogOut, Settings } from "lucide-react";
+import { CreditCard, LogOut, Settings, ShieldCheck, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import type { User } from "@/lib/types";
@@ -43,10 +43,26 @@ export function ProfileMenu({ user, onSignOut }: { user: User; onSignOut: () => 
       {open && (
         <div id={menuId} role="menu" className="absolute right-0 top-[calc(100%+10px)] z-40 w-64 rounded-2xl border border-line bg-surface p-2 shadow-xl backdrop-blur-md">
           <div className="px-3 pb-2 pt-1.5">
-            {user.name && <div className="truncate text-sm font-semibold">{user.name}</div>}
-            <div className="truncate text-xs text-ink-2" title={user.email}>{user.email}</div>
+            <div className="flex items-center justify-between gap-2">
+              <div className="truncate text-sm font-semibold">{user.name || user.email.split("@")[0]}</div>
+              {user.plan === "pro" ? (
+                <span className="shrink-0 flex items-center gap-1 rounded-full bg-gradient-to-r from-violet to-primary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm">
+                  <Sparkles className="size-2.5" /> PRO
+                </span>
+              ) : (
+                <span className="shrink-0 rounded-full bg-surface-alt border border-line px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-ink-2">
+                  FREE
+                </span>
+              )}
+            </div>
+            <div className="truncate text-xs text-ink-2 mt-0.5" title={user.email}>{user.email}</div>
           </div>
           <div className="my-1 h-px bg-line" />
+          {user.is_admin && (
+            <Link role="menuitem" href="/app/admin" onClick={() => setOpen(false)} className={cn(item, "text-primary hover:text-primary font-medium")}>
+              <ShieldCheck className="size-4" aria-hidden /> Admin Dashboard
+            </Link>
+          )}
           <Link role="menuitem" href="/app/settings" onClick={() => setOpen(false)} className={item}><Settings className="size-4" aria-hidden /> Settings</Link>
           <Link role="menuitem" href="/app/plans" onClick={() => setOpen(false)} className={item}><CreditCard className="size-4" aria-hidden /> My plans</Link>
           <div className="my-1 h-px bg-line" />

@@ -1,5 +1,5 @@
 /** Shapes returned by the ScriptLiv API (/v1/*). Times are unix seconds. */
-export interface User { id: string; name: string; email: string; email_verified: boolean; pending_email: string | null; created_at: number }
+export interface User { id: string; name: string; email: string; email_verified: boolean; pending_email: string | null; created_at: number; is_admin?: boolean; plan?: string }
 export interface Delivery { delivery: "email" | "dev" | "unavailable" | "failed"; dev_token?: string }
 export interface AuthResult { token: string; user: User }
 /** Sign-up never signs in: the account must verify its email first. */
@@ -27,11 +27,46 @@ export interface UsageSession {
   metered_seconds: number; included_seconds: number; addon_seconds: number; unbilled_overshoot_seconds: number;
 }
 
-export interface PlanInfo { id: string; name: string; included_minutes: number; price_usd_month: number; blurb: string; max_session_minutes?: number | null }
-export interface Plans { plans: PlanInfo[]; addon: { minutes: number; price_usd: number; note: string }; purchasing_available: boolean }
+export interface PlanInfo {
+  id: string;
+  name: string;
+  included_minutes: number;
+  price_inr_month?: number;
+  price_usd_month: number;
+  tax_note?: string;
+  price_display?: string;
+  blurb: string;
+  max_session_minutes?: number | null;
+}
+export interface AddonInfo {
+  minutes: number;
+  price_inr?: number;
+  price_usd: number;
+  tax_note?: string;
+  max_session_minutes?: number;
+  price_display?: string;
+  note: string;
+}
+export interface Plans {
+  currency?: string;
+  currency_symbol?: string;
+  plans: PlanInfo[];
+  addon: AddonInfo;
+  purchasing_available: boolean;
+}
 export interface Subscription {
-  plan: string; plan_name: string; status: string; period_start: number; renews_or_resets_at: number;
-  cancel_at_period_end: boolean; access_ends_at: number | null; price_usd_month: number;
+  plan: string;
+  plan_name: string;
+  status: string;
+  period_start: number;
+  renews_or_resets_at: number;
+  cancel_at_period_end: boolean;
+  access_ends_at: number | null;
+  price_inr_month?: number;
+  price_usd_month: number;
+  price_display?: string;
+  currency?: string;
+  tax_note?: string;
   payment?: PaymentIssue | null;
 }
 export interface PaymentIssue {
@@ -49,4 +84,39 @@ export interface SessionItem {
 export interface SharedView {
   session_id: string; title: string; live: boolean; started_at: number | null; ended_at: number | null; transcript: string[];
   app_links: { deep_link: string; android_store: string | null; ios_store: string | null };
+}
+
+export interface AdminAnalytics {
+  users: { total: number; verified: number; disabled: number; admins: number };
+  sessions: { total: number; live: number; total_seconds: number; total_hours: number };
+  subscriptions: { pro: number; free: number };
+  revenue_usd: number;
+  revenue_inr?: number;
+  currency?: string;
+  currency_symbol?: string;
+}
+
+export interface AdminUserItem {
+  id: string;
+  name: string;
+  email: string;
+  email_verified: boolean;
+  is_admin: boolean;
+  disabled: boolean;
+  created_at: number;
+  plan: string;
+  total_sessions: number;
+  total_minutes: number;
+}
+
+export interface AdminSessionItem {
+  session_id: string;
+  owner_id: string | null;
+  owner_email: string;
+  title: string;
+  started_at: number | null;
+  ended_at: number | null;
+  duration_seconds: number;
+  sharing: boolean;
+  live: boolean;
 }

@@ -81,3 +81,5 @@ export function Progress({ value, tone = "primary", label }: { value: number; to
 export function Copyright({ className }: { className?: string }) {
   return <p className={cn("text-xs text-ink-3", className)}>© {new Date().getFullYear()} Snypar Tech. All rights reserved.</p>;
 }
+
+export * from "./pagination";

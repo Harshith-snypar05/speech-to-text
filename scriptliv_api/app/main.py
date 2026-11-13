@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from .config import get_settings
-from .routers import account, billing, internal, sessions, usage_routes
+from .routers import account, admin, billing, internal, sessions, usage_routes
 
 # Interactive docs / openapi.json list every route (incl. /internal/*); published only when explicitly enabled for local dev.
 _DOCS = os.environ.get("SCRIPTLIV_ENABLE_DOCS", "").lower() in ("1", "true", "yes")
@@ -57,5 +57,5 @@ def healthz():
     return {"ok": True}
 
 
-for r in (account.router, billing.router, usage_routes.router, sessions.router, internal.router):
+for r in (account.router, admin.router, billing.router, usage_routes.router, sessions.router, internal.router):
     app.include_router(r)

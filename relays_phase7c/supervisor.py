@@ -28,6 +28,17 @@ ROOT = Path(__file__).resolve().parent
 LOG_DIR = ROOT / "logs"
 PID_FILE = ROOT / "supervisor.pid"
 
+# Load staging secrets into the process environment so child relay processes inherit them.
+# Mirrors the pattern in scriptliv_api/run_staging.py. The file is optional (CI / prod
+# may inject env vars another way), so we silently skip it if it doesn't exist.
+_ENV_FILE = ROOT.parent / "staging_secrets" / "api.env"
+if _ENV_FILE.exists():
+    for _line in _ENV_FILE.read_text(encoding="utf8").splitlines():
+        _line = _line.strip()
+        if _line and not _line.startswith("#") and "=" in _line:
+            _k, _v = _line.split("=", 1)
+            os.environ.setdefault(_k.strip(), _v.strip())
+
 # whisper.cpp, openai/whisper, and faster-whisper relays were removed after
 # head-to-head testing showed Parakeet TDT ahead on both accuracy and
 # latency (see relays/parakeet_relay.py's docstring for the numbers) --

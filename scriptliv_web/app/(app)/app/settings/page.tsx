@@ -102,7 +102,7 @@ function Preferences() {
   const [langs, setLangs] = useState<string[]>(["en"]);
   const [err, setErr] = useState<string | null>(null);
   const { token } = useAuth();
-  useEffect(() => { if (token) api.settings(token).then((r) => setLangs(r.supported_languages)).catch(() => {}); }, [token]);
+  useEffect(() => { if (token) api.settings(token).then((r) => setLangs(r.supported_languages)).catch(() => { }); }, [token]);
   if (!settings) return null;
   const save = async (p: Partial<Settings>) => { setErr(null); try { await saveSettings(p); } catch (e) { setErr(errText(e)); } };
   const themes: Settings["theme"][] = ["light", "dark", "system"];
@@ -233,7 +233,7 @@ function Billing() {
             </div>
             <p className="text-sm text-ink-2">
               {sub.cancel_at_period_end ? `You keep Pro access until ${fmtDate(sub.access_ends_at ?? sub.renews_or_resets_at)}. After that you move to Basic.`
-                : paid ? `Renews ${fmtDate(sub.renews_or_resets_at)} · $${sub.price_usd_month}/month` : `Your free minutes reset ${fmtDate(sub.renews_or_resets_at)}.`}
+                : paid ? `Renews ${fmtDate(sub.renews_or_resets_at)} · ${sub.price_display ?? (sub.price_inr_month ? `₹${sub.price_inr_month.toLocaleString()}${sub.tax_note ? ` ${sub.tax_note}` : ""}` : "₹999 + GST")}/month` : `Your free minutes reset ${fmtDate(sub.renews_or_resets_at)}.`}
             </p>
             <div className="flex flex-wrap gap-2">
               <Link href="/app/plans"><Button variant="outline">{paid ? "View plans and add-ons" : "Upgrade or buy minutes"}</Button></Link>
@@ -304,12 +304,12 @@ function Microphone() {
     <Section title="Microphone" hint="Stored in this browser only.">
       {!mics ? <Button variant="outline" onClick={loadMics}>Choose microphone…</Button>
         : mics.length === 0 ? <Notice tone="warning" title="No microphone available or permission denied" />
-        : (
-          <select value={mic} aria-label="Microphone" onChange={(e) => { setMic(e.target.value); try { localStorage.setItem("sl-mic", e.target.value); } catch { /* ignore */ } }} className={inputCls + " mt-0"}>
-            <option value="">System default</option>
-            {mics.map((m) => <option key={m.deviceId} value={m.deviceId}>{m.label || "Microphone"}</option>)}
-          </select>
-        )}
+          : (
+            <select value={mic} aria-label="Microphone" onChange={(e) => { setMic(e.target.value); try { localStorage.setItem("sl-mic", e.target.value); } catch { /* ignore */ } }} className={inputCls + " mt-0"}>
+              <option value="">System default</option>
+              {mics.map((m) => <option key={m.deviceId} value={m.deviceId}>{m.label || "Microphone"}</option>)}
+            </select>
+          )}
     </Section>
   );
 }
