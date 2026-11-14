@@ -1,13 +1,18 @@
 "use client";
 import { Smartphone } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Logo, ThemeToggle } from "@/components/brand";
 import { Card, Copyright, Notice, Spinner } from "@/components/ui";
 import { api, ApiError } from "@/lib/api";
 import { config } from "@/lib/config";
 import { LiveTranscriptParser } from "@/lib/transcript-parser";
 import type { SharedView } from "@/lib/types";
+import { cn } from "@/lib/utils";
+
+// How far (px) a scroll has to move before it counts as a direction change -- avoids
+// the header flickering open/closed on sub-pixel scroll jitter.
+const SCROLL_HIDE_THRESHOLD = 6;
 
 function resolveViewerWsUrl(): string {
   if (config.wsUrl) return config.wsUrl;
@@ -29,6 +34,18 @@ export default function SharedPage() {
   const wsRef = useRef<WebSocket | null>(null);
   const isLiveRef = useRef(false);
   isLiveRef.current = isLive;
+
+  // Instagram-Explore-style header: slides away on scroll down, back on scroll up (or at the top).
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const lastScrollTop = useRef(0);
+  const onScroll = useCallback(() => {
+    const top = scroller.current?.scrollTop ?? 0;
+    const delta = top - lastScrollTop.current;
+    if (top <= SCROLL_HIDE_THRESHOLD) setHeaderHidden(false);
+    else if (delta > SCROLL_HIDE_THRESHOLD) setHeaderHidden(true);
+    else if (delta < -SCROLL_HIDE_THRESHOLD) setHeaderHidden(false);
+    lastScrollTop.current = top;
+  }, []);
 
   // Auto-scroll the inner transcript box whenever finals or partial change
   useEffect(() => {
@@ -168,21 +185,22 @@ export default function SharedPage() {
     };
   }, [v?.session_id, isLive]);
 
+  const statusBadge = v && (isLive ? (
+    <span className="flex items-center gap-1.5 text-xs font-medium text-success">
+      <span className="size-1.5 animate-pulse rounded-full bg-current" /> Live
+    </span>
+  ) : (
+    <span className="text-xs font-medium text-ink-3">Ended</span>
+  ));
+
   return (
     <div className="flex h-dvh max-h-dvh w-full flex-col overflow-hidden px-4 py-3 sm:py-4">
-      <header className="flex-shrink-0 mb-3 flex items-center justify-between">
-        <Logo className="h-7 w-auto sm:h-8" />
-        <div className="flex items-center gap-2">
-          {v && (isLive ? (
-            <span className="flex items-center gap-1.5 text-xs font-medium text-success">
-              <span className="size-1.5 animate-pulse rounded-full bg-current" /> Live
-            </span>
-          ) : (
-            <span className="text-xs font-medium text-ink-3">Ended</span>
-          ))}
+      {!v && (
+        <header className="flex-shrink-0 mb-3 flex items-center justify-between">
+          <Logo className="h-7 w-auto sm:h-8" />
           <ThemeToggle />
-        </div>
-      </header>
+        </header>
+      )}
 
       {err && (
         <div className="flex-shrink-0 mb-3">
@@ -197,12 +215,28 @@ export default function SharedPage() {
       )}
 
       {v && (
-        <main className="flex flex-1 min-h-0 flex-col gap-3">
+        <main className="relative flex flex-1 min-h-0 flex-col gap-3">
+          {/* Instagram-Explore-style floating header: overlays the transcript and slides away on
+              scroll down, back on scroll up, instead of taking up permanent space above it. */}
+          <header
+            className={cn(
+              "absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-bg via-bg/80 to-transparent px-1 pb-4 pt-1 transition-transform duration-300 ease-out sm:px-2",
+              headerHidden && "-translate-y-full",
+            )}
+          >
+            <Logo className="h-7 w-auto sm:h-8" />
+            <div className="flex items-center gap-2">
+              {statusBadge}
+              <ThemeToggle />
+            </div>
+          </header>
+
           {/* No title, no boxed card -- the transcript is the page, dynamically filling whatever
               screen size it's viewed on. */}
           <div
             ref={scroller}
-            className="flex-1 min-h-0 overflow-y-auto px-1 sm:px-2"
+            onScroll={onScroll}
+            className="flex-1 min-h-0 overflow-y-auto px-1 pt-12 sm:px-2 sm:pt-14"
             aria-live="polite"
           >
             {finals.length === 0 && !partial ? (
