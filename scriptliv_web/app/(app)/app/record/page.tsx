@@ -141,12 +141,16 @@ export default function RecordPage() {
               type="button"
               onClick={handleShare}
               disabled={shareBusy}
-              title={shareUrl ? "Share the live link again" : "Share live link"}
-              aria-label={shareUrl ? "Share the live link again" : "Share live link"}
-              className="relative rounded-full p-2 text-ink-2 transition-colors hover:bg-line/50 hover:text-ink disabled:opacity-50"
+              title={shareUrl ? "Shared -- tap to share the link again" : "Share live link"}
+              aria-label={shareUrl ? "Shared -- tap to share the link again" : "Share live link"}
+              className={cn(
+                "grid size-10 place-items-center rounded-full border transition-colors disabled:opacity-50",
+                shareUrl
+                  ? "border-success bg-success/15 text-success"
+                  : "border-line bg-surface/60 text-ink-2 hover:border-violet hover:text-ink",
+              )}
             >
-              <Share2 className="size-5" />
-              {shareUrl && <span className="absolute right-1 top-1 size-2 rounded-full bg-success" aria-hidden />}
+              <Share2 className="size-[18px]" />
             </button>
           )}
         </div>

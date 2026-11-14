@@ -22,7 +22,7 @@ export function Logo({ className, href = "/", icon = false }: { className?: stri
 
 /* Round sun/moon switch (reference navbar). Shows the icon of the theme you will switch to. */
 export function ThemeToggle() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
   useEffect(() => setDark(document.documentElement.classList.contains("dark")), []);
   return (
     <button

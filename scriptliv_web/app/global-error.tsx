@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { ErrorView } from "@/components/error-view";
 import { buttonCls } from "@/components/ui/button-styles";
 
-const themeScript = `try{var t=localStorage.getItem('sl-theme');var d=t==='system'?matchMedia('(prefers-color-scheme: dark)').matches:t!=='light';if(d)document.documentElement.classList.add('dark')}catch(e){document.documentElement.classList.add('dark')}`;
+const themeScript = `try{var t=localStorage.getItem('sl-theme');var d=t==='dark'?true:t==='system'?matchMedia('(prefers-color-scheme: dark)').matches:false;if(d)document.documentElement.classList.add('dark')}catch(e){}`;
 
 /** Last resort: the root layout itself failed, so this supplies its own <html>. Plain anchors only, no app providers. */
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {

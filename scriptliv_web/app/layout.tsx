@@ -11,11 +11,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0d0618",
+  themeColor: "#faf7ff", // light theme's --bg, now the default
 };
 
-// Dark is the brand default (the reference design) for anyone with no saved choice; 'light' wins, 'system' follows the OS.
-const themeScript = `try{var t=localStorage.getItem('sl-theme');var d=t==='system'?matchMedia('(prefers-color-scheme: dark)').matches:t!=='light';if(d)document.documentElement.classList.add('dark')}catch(e){document.documentElement.classList.add('dark')}`;
+// Light is the default for anyone with no saved choice; 'dark' wins, 'system' follows the OS.
+const themeScript = `try{var t=localStorage.getItem('sl-theme');var d=t==='dark'?true:t==='system'?matchMedia('(prefers-color-scheme: dark)').matches:false;if(d)document.documentElement.classList.add('dark')}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
