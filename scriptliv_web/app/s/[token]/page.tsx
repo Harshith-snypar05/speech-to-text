@@ -3,10 +3,9 @@ import { Smartphone } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo, ThemeToggle } from "@/components/brand";
-import { Badge, Card, Copyright, Notice, Spinner } from "@/components/ui";
+import { Card, Copyright, Notice, Spinner } from "@/components/ui";
 import { api, ApiError } from "@/lib/api";
 import { config } from "@/lib/config";
-import { fmtTime } from "@/lib/format";
 import { LiveTranscriptParser } from "@/lib/transcript-parser";
 import type { SharedView } from "@/lib/types";
 
@@ -170,10 +169,19 @@ export default function SharedPage() {
   }, [v?.session_id, isLive]);
 
   return (
-    <div className="mx-auto flex h-dvh max-h-dvh w-full max-w-2xl flex-col overflow-hidden px-4 py-3 sm:py-4">
+    <div className="flex h-dvh max-h-dvh w-full flex-col overflow-hidden px-4 py-3 sm:py-4">
       <header className="flex-shrink-0 mb-3 flex items-center justify-between">
         <Logo className="h-7 w-auto sm:h-8" />
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          {v && (isLive ? (
+            <span className="flex items-center gap-1.5 text-xs font-medium text-success">
+              <span className="size-1.5 animate-pulse rounded-full bg-current" /> Live
+            </span>
+          ) : (
+            <span className="text-xs font-medium text-ink-3">Ended</span>
+          ))}
+          <ThemeToggle />
+        </div>
       </header>
 
       {err && (
@@ -190,58 +198,32 @@ export default function SharedPage() {
 
       {v && (
         <main className="flex flex-1 min-h-0 flex-col gap-3">
-          <div className="flex-shrink-0">
-            <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-lg sm:text-xl font-semibold">{v.title || "Shared transcript"}</h1>
-              {isLive ? (
-                <Badge tone="success">
-                  <span className="size-1.5 animate-pulse rounded-full bg-current" />
-                  Live
-                </Badge>
-              ) : (
-                <Badge tone="neutral">Ended</Badge>
-              )}
-            </div>
-            <p className="text-xs text-ink-2">{fmtTime(v.started_at)}</p>
+          {/* No title, no boxed card -- the transcript is the page, dynamically filling whatever
+              screen size it's viewed on. */}
+          <div
+            ref={scroller}
+            className="flex-1 min-h-0 overflow-y-auto px-1 sm:px-2"
+            aria-live="polite"
+          >
+            {finals.length === 0 && !partial ? (
+              <p className="text-sm text-ink-3">
+                {isLive ? "Waiting for speech… text appears here as the speaker talks." : "Nothing was transcribed in this session."}
+              </p>
+            ) : (
+              <>
+                {finals.map((t, i) => (
+                  <p key={i} className="mb-3 text-lg leading-relaxed text-ink sm:text-xl">
+                    {t}
+                  </p>
+                ))}
+                {partial && (
+                  <p className="italic text-lg leading-relaxed text-ink-3 sm:text-xl" data-testid="partial">
+                    {partial}
+                  </p>
+                )}
+              </>
+            )}
           </div>
-
-          {/* Transcript Box statically fills the remaining device screen height (no dynamic expanding, no page scrolling) */}
-          <Card className="flex flex-1 min-h-0 flex-col p-0 overflow-hidden">
-            <div className="flex-shrink-0 flex items-center justify-between border-b border-line px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-medium">
-              <span>Live transcript</span>
-              {isLive ? (
-                <span className="flex items-center gap-1.5 text-xs text-success">
-                  <span className="size-1.5 animate-pulse rounded-full bg-current" /> Live
-                </span>
-              ) : (
-                <span className="text-xs text-ink-3">Ended</span>
-              )}
-            </div>
-            <div
-              ref={scroller}
-              className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 py-3 sm:py-4"
-              aria-live="polite"
-            >
-              {finals.length === 0 && !partial ? (
-                <p className="text-sm text-ink-3">
-                  {isLive ? "Waiting for speech… text appears here as the speaker talks." : "Nothing was transcribed in this session."}
-                </p>
-              ) : (
-                <>
-                  {finals.map((t, i) => (
-                    <p key={i} className="mb-2 leading-relaxed text-ink">
-                      {t}
-                    </p>
-                  ))}
-                  {partial && (
-                    <p className="italic leading-relaxed text-ink-3" data-testid="partial">
-                      {partial}
-                    </p>
-                  )}
-                </>
-              )}
-            </div>
-          </Card>
 
           <Card className="flex-shrink-0 flex flex-wrap items-center justify-between gap-2 bg-lavender/50 px-3.5 py-2 sm:px-4 sm:py-2.5">
             <div className="flex items-center gap-2.5 text-xs sm:text-sm">
