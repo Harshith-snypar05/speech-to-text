@@ -1,9 +1,9 @@
 "use client";
-import { Check, Copy, Link2, Link2Off, Mic, RotateCcw, Square } from "lucide-react";
+import { Mic, RotateCcw, Share2, Square } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Waveform } from "@/components/waveform";
-import { Badge, Button, Card, Notice, inputCls } from "@/components/ui";
+import { Badge, Button, Card, Notice } from "@/components/ui";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { config, isWsConfigured } from "@/lib/config";
@@ -41,7 +41,6 @@ export default function RecordPage() {
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [shareBusy, setShareBusy] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
   const client = useRef<LiveClient | null>(null);
   const t0 = useRef(0);
   const scroller = useRef<HTMLDivElement>(null);
@@ -73,7 +72,7 @@ export default function RecordPage() {
     const id = newSessionId(); // one session per press; reconnects reuse it
     setSessionId(id);
     setFinals([]); setPartial(""); setLevels([]); setLost(0); setElapsed(0);
-    setShareUrl(null); setShareMsg(null); setCopied(false);
+    setShareUrl(null); setShareMsg(null);
     t0.current = Date.now();
     let micDeviceId: string | undefined;
     try { micDeviceId = localStorage.getItem("sl-mic") || undefined; } catch { /* ignore */ }
@@ -90,28 +89,42 @@ export default function RecordPage() {
 
   const stop = () => void client.current?.stop();
 
-  // Live share link. The session record is created when the relay authorizes the speaker, which can lag the button by a moment, so a 404 is retried briefly.
-  async function toggleShare() {
+  // Share icon: turns sharing on (first click only -- the session record is created when the
+  // relay authorizes the speaker, which can lag the button by a moment, so a 404 is retried
+  // briefly), then hands the link straight to the OS share sheet (Mail, WhatsApp, Messages, etc.)
+  // via the Web Share API. No separate share card/box -- one icon, one action.
+  async function handleShare() {
     if (!token || !sessionId) return;
     setShareBusy(true); setShareMsg(null);
     try {
-      let r: Awaited<ReturnType<typeof api.share>> | undefined;
-      for (let i = 0; ; i++) {
-        try { r = shareUrl ? await api.unshare(token, sessionId) : await api.share(token, sessionId); break; }
-        catch (e) {
-          if (!(e instanceof ApiError && e.status === 404) || shareUrl || i >= 4) throw e;
-          await new Promise((res) => setTimeout(res, 1000));
+      let url = shareUrl;
+      if (!url) {
+        let r: Awaited<ReturnType<typeof api.share>> | undefined;
+        for (let i = 0; ; i++) {
+          try { r = await api.share(token, sessionId); break; }
+          catch (e) {
+            if (!(e instanceof ApiError && e.status === 404) || i >= 4) throw e;
+            await new Promise((res) => setTimeout(res, 1000));
+          }
+        }
+        url = r.sharing && r.share_url ? shareLink(r.share_url) : null;
+        setShareUrl(url);
+      }
+      if (!url) return;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: "ScriptLiv live transcript", text: "Follow along live:", url });
+          return;
+        } catch (e) {
+          if (e instanceof Error && e.name === "AbortError") return; // user dismissed the share sheet
         }
       }
-      setShareUrl(r.sharing && r.share_url ? shareLink(r.share_url) : null);
+      // No Web Share API (most desktop browsers): fall back to copying the link.
+      try { await navigator.clipboard.writeText(url); setShareMsg("Link copied to clipboard."); }
+      catch { setShareMsg(url); }
     } catch (e) {
-      setShareMsg(e instanceof ApiError && e.status === 404 ? "The session is still connecting. Wait a moment and try again." : e instanceof ApiError ? e.message : "Could not update sharing. Try again.");
+      setShareMsg(e instanceof ApiError && e.status === 404 ? "The session is still connecting. Wait a moment and try again." : e instanceof ApiError ? e.message : "Could not create the share link. Try again.");
     } finally { setShareBusy(false); }
-  }
-  async function copyShare() {
-    if (!shareUrl) return;
-    try { await navigator.clipboard.writeText(shareUrl); setCopied(true); setTimeout(() => setCopied(false), 1500); }
-    catch { setShareMsg("Could not copy. Select the link and copy it by hand."); }
   }
   const unverified = !!user && !user.email_verified;
   const lbl = LABEL[state];
@@ -123,8 +136,22 @@ export default function RecordPage() {
         <div className="flex items-center gap-3">
           {state === "live" && <span className="tabular-nums text-sm text-ink-2">{fmtDuration(elapsed)}</span>}
           <Badge tone={lbl.tone}><span className={cn("size-1.5 rounded-full bg-current", state === "live" && "animate-pulse")} />{lbl.text}{state === "reconnecting" && detail ? ` (${detail})` : ""}</Badge>
+          {sessionId && (
+            <button
+              type="button"
+              onClick={handleShare}
+              disabled={shareBusy}
+              title={shareUrl ? "Share the live link again" : "Share live link"}
+              aria-label={shareUrl ? "Share the live link again" : "Share live link"}
+              className="relative rounded-full p-2 text-ink-2 transition-colors hover:bg-line/50 hover:text-ink disabled:opacity-50"
+            >
+              <Share2 className="size-5" />
+              {shareUrl && <span className="absolute right-1 top-1 size-2 rounded-full bg-success" aria-hidden />}
+            </button>
+          )}
         </div>
       </div>
+      {shareMsg && <p role="status" className="text-sm text-warning">{shareMsg}</p>}
 
       {unverified && (
         <Notice tone="warning" title="Verify your email to start recording">
@@ -156,27 +183,6 @@ export default function RecordPage() {
           <div className="text-xs text-ink-2">{busy ? "Press to stop" : "Press to start"}</div>
         </div>
       </Card>
-
-      {sessionId && (
-        <Card className="space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div>
-              <h2 className="font-semibold">Share live</h2>
-              <p className="text-sm text-ink-2">{shareUrl ? "Anyone with the link sees the transcript update live. They never use your minutes." : "Create a link so others can follow this transcript as you speak."}</p>
-            </div>
-            <Button variant={shareUrl ? "outline" : "primary"} onClick={toggleShare} disabled={shareBusy}>
-              {shareUrl ? <><Link2Off className="size-4" /> Stop sharing</> : <><Link2 className="size-4" /> Share live link</>}
-            </Button>
-          </div>
-          {shareMsg && <p role="status" className="text-sm text-warning">{shareMsg}</p>}
-          {shareUrl && (
-            <div className="flex gap-2">
-              <input readOnly aria-label="Live share link" value={shareUrl} onFocus={(e) => e.currentTarget.select()} className={inputCls + " mt-0"} />
-              <Button variant="outline" onClick={copyShare}>{copied ? <><Check className="size-4" /> Copied</> : <><Copy className="size-4" /> Copy</>}</Button>
-            </div>
-          )}
-        </Card>
-      )}
 
       <div className="grid gap-5 md:grid-cols-[1fr_260px]">
       <Card className="p-0">
