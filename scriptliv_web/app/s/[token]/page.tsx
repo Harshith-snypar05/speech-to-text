@@ -217,10 +217,12 @@ export default function SharedPage() {
       {v && (
         <main className="relative flex flex-1 min-h-0 flex-col gap-3">
           {/* Instagram-Explore-style floating header: overlays the transcript and slides away on
-              scroll down, back on scroll up, instead of taking up permanent space above it. */}
+              scroll down, back on scroll up, instead of taking up permanent space above it. No
+              background fill -- a solid/gradient fill here reads as a separate boxed layer
+              sitting on top of the page instead of being part of it. */}
           <header
             className={cn(
-              "absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-bg via-bg/80 to-transparent px-1 pb-4 pt-1 transition-transform duration-300 ease-out sm:px-2",
+              "absolute inset-x-0 top-0 z-20 flex items-center justify-between px-1 pb-4 pt-1 transition-transform duration-300 ease-out sm:px-2",
               headerHidden && "-translate-y-full",
             )}
           >
