@@ -240,15 +240,13 @@ class _SharedViewScreenState extends State<SharedViewScreen> {
                             duration: const Duration(milliseconds: 250),
                             curve: Curves.easeOut,
                             offset: _headerHidden ? const Offset(0, -1) : Offset.zero,
-                            child: Container(
+                            // No background fill here -- WaveBackdrop is never a flat color (it's
+                            // wave art + a haze gradient), so any solid/gradient fill on this row
+                            // reads as a separate boxed layer sitting on top of it. Every other
+                            // screen floats its top-bar icons directly on the backdrop with no
+                            // panel behind them (see session_screen.dart); matching that here.
+                            child: Padding(
                               padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [c.bg, c.bg.withValues(alpha: 0)],
-                                ),
-                              ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
