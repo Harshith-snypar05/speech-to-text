@@ -7,6 +7,7 @@ import 'package:share_plus/share_plus.dart';
 import '../config/app_config.dart';
 import '../services/platform_api.dart';
 import '../theme.dart';
+import '../widgets/brand.dart';
 
 /// One saved session of the signed-in account: transcript, share on/off with a copyable link, delete.
 class PlatformSessionScreen extends StatefulWidget {
@@ -146,6 +147,12 @@ class _SharedViewScreenState extends State<SharedViewScreen> {
   String? _error;
   Timer? _timer;
 
+  // Instagram-Explore-style header: slides away on scroll down, back on scroll up (or near the
+  // top) -- matches the web viewer at scriptliv_web/app/s/[token]/page.tsx. 6px avoids flicker
+  // from sub-pixel scroll jitter, same threshold as the web version.
+  bool _headerHidden = false;
+  static const _scrollHideThreshold = 6.0;
+
   @override
   void initState() {
     super.initState();
@@ -178,35 +185,93 @@ class _SharedViewScreenState extends State<SharedViewScreen> {
     _timer = Timer(Duration(seconds: (_view?.live ?? false) ? 1 : 15), _poll);
   }
 
+  bool _onScrollNotification(ScrollNotification n) {
+    if (n is ScrollUpdateNotification) {
+      final pixels = n.metrics.pixels;
+      final delta = n.scrollDelta ?? 0;
+      if (pixels <= _scrollHideThreshold) {
+        if (_headerHidden) setState(() => _headerHidden = false);
+      } else if (delta > _scrollHideThreshold) {
+        if (!_headerHidden) setState(() => _headerHidden = true);
+      } else if (delta < -_scrollHideThreshold) {
+        if (_headerHidden) setState(() => _headerHidden = false);
+      }
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final c = AppColors.of(context);
     final v = _view;
     return Scaffold(
-      appBar: AppBar(title: Text(v?.title.isNotEmpty == true ? v!.title : 'Shared transcript', style: const TextStyle(fontSize: 16))),
-      body: v == null
-          ? Center(child: _error == null ? const CircularProgressIndicator() : Text(_error!, style: TextStyle(color: c.recordRed)))
-          : Column(children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
-                child: Row(children: [
-                  Icon(Icons.circle, size: 10, color: v.live ? c.recordRed : c.textSecondary),
-                  const SizedBox(width: 8),
-                  Text(v.live ? 'Live now' : 'Session ended', style: TextStyle(color: c.textSecondary, fontSize: 13)),
-                ]),
+      // Transparent, not themed/elevated like a default AppBar -- the wave backdrop behind every
+      // screen (see WaveBackdrop) shows through instead of a boxed bar sitting on top of it.
+      backgroundColor: Colors.transparent,
+      body: SafeArea(
+        child: v == null
+            ? Center(child: _error == null ? const CircularProgressIndicator() : Text(_error!, style: TextStyle(color: c.recordRed)))
+            : Column(
+                children: [
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        NotificationListener<ScrollNotification>(
+                          onNotification: _onScrollNotification,
+                          child: v.transcript.isEmpty
+                              ? Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
+                                    child: Text(v.live ? 'Waiting for the speaker...' : 'No transcript text.', style: TextStyle(color: c.textSecondary)),
+                                  ),
+                                )
+                              : ListView.separated(
+                                  padding: const EdgeInsets.fromLTRB(20, 64, 20, 20),
+                                  itemCount: v.transcript.length,
+                                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                                  itemBuilder: (_, i) => Text(v.transcript[i], style: TextStyle(fontSize: 16, height: 1.5, color: c.textPrimary)),
+                                ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          child: AnimatedSlide(
+                            duration: const Duration(milliseconds: 250),
+                            curve: Curves.easeOut,
+                            offset: _headerHidden ? const Offset(0, -1) : Offset.zero,
+                            child: Container(
+                              padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [c.bg, c.bg.withValues(alpha: 0)],
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const ScriptLivLogo(height: 22),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.circle, size: 8, color: v.live ? c.recordRed : c.textSecondary),
+                                      const SizedBox(width: 6),
+                                      Text(v.live ? 'Live' : 'Ended', style: TextStyle(color: c.textSecondary, fontSize: 13, fontWeight: FontWeight.w600)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(padding: const EdgeInsets.all(8), child: Text(AppConfig.copyright, style: TextStyle(color: c.textSecondary, fontSize: 11))),
+                ],
               ),
-              Expanded(
-                child: v.transcript.isEmpty
-                    ? Center(child: Text(v.live ? 'Waiting for the speaker...' : 'No transcript text.', style: TextStyle(color: c.textSecondary)))
-                    : ListView.separated(
-                        padding: const EdgeInsets.all(20),
-                        itemCount: v.transcript.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 12),
-                        itemBuilder: (_, i) => Text(v.transcript[i], style: TextStyle(fontSize: 16, height: 1.5, color: c.textPrimary)),
-                      ),
-              ),
-              Padding(padding: const EdgeInsets.all(8), child: Text(AppConfig.copyright, style: TextStyle(color: c.textSecondary, fontSize: 11))),
-            ]),
+      ),
     );
   }
 }
