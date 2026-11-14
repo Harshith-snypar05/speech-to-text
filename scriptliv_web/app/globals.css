@@ -114,6 +114,11 @@ body:has(.sl-marketing)::before { display: none; }
 ::selection { background: rgba(160, 43, 230, 0.4); color: #fff; }
 :focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; border-radius: 8px; }
 * { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+/* Opt out of the thin scrollbar above for a specific element. Has to live here, unlayered, like
+   the rule it overrides -- a Tailwind utility (which Tailwind puts in @layer utilities) can never
+   beat an unlayered rule, no matter its specificity; that's the whole point of CSS layers. */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; width: 0; height: 0; }
 input, textarea, select { caret-color: var(--violet); }
 input::placeholder, textarea::placeholder { color: var(--text-3); }
 .tabular { font-variant-numeric: tabular-nums; }

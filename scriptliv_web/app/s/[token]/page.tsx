@@ -238,7 +238,7 @@ export default function SharedPage() {
           <div
             ref={scroller}
             onScroll={onScroll}
-            className="flex-1 min-h-0 overflow-y-auto px-1 pt-12 sm:px-2 sm:pt-14"
+            className="no-scrollbar flex-1 min-h-0 overflow-y-auto px-1 pt-12 sm:px-2 sm:pt-14"
             aria-live="polite"
           >
             {finals.length === 0 && !partial ? (
