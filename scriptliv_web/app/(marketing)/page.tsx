@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, AudioLines, Check, Download, FileText, Gift, GraduationCap, Infinity as Inf, Languages, Laptop, Layers, Link2, Mic, Phone, PlayCircle, Search, ShieldCheck, Target, Users, Zap,
+  ArrowRight, AudioLines, Check, Download, FileText, Gift, GraduationCap, Infinity as Inf, Laptop, Layers, Link2, Mic, Phone, PlayCircle, Search, ShieldCheck, Target, Users, Zap,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +24,7 @@ const facts = [
 ];
 const keyFeatures = [
   { i: Mic, t: "Live Transcription", d: "See text as you speak, with low latency." },
-  { i: Languages, t: "Multilingual Engine", d: "Transcribe in your language, with more languages on the way." },
+  { i: Target, t: "Tuned for English", d: "The engine is optimized specifically for clear, accurate English transcription." },
   { i: Inf, t: "Continuous Sessions", d: "Record as long as you need. Reconnects keep the same session." },
   { i: Laptop, t: "Web & Mobile", d: "Use it in your browser or on the Android and iOS app." },
   { i: Download, t: "Export Anywhere", d: "Download the transcript as text or CSV, and your own audio." },

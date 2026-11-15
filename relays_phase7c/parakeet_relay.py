@@ -81,7 +81,7 @@ logger = logging.getLogger("parakeet_relay")
 
 ROOT = Path(__file__).resolve().parent.parent
 WHISPER_CPP = ROOT / "whisper.cpp"
-MODEL = WHISPER_CPP / "models" / "ggml-parakeet-tdt-0.6b-v3-q8_0.bin"
+MODEL = WHISPER_CPP / "models" / "ggml-parakeet-tdt-0.6b-v2-q8_0.bin"  # English-only: v3's multilingual auto-detect mixed languages on short/ambiguous utterances (e.g. acronyms)
 SHARED_BUILD_DIR = WHISPER_CPP / "build-shared" / "bin"
 PARAKEET_CLI = WHISPER_CPP / "build" / "bin" / ("parakeet-cli.exe" if sys.platform == "win32" else "parakeet-cli")
 LISTEN_PORT = int(os.environ.get("STT_LISTEN_PORT", "8768"))
