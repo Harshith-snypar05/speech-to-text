@@ -12,7 +12,8 @@ SECRETS = {"SCRIPTLIV_JWT_SECRET": "test-jwt-secret-not-real-0123456789abcdef", 
 def env(monkeypatch):
     for k, v in SECRETS.items():
         monkeypatch.setenv(k, v)
-    for k in ("STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "SMTP_HOST"):
+    for k in ("STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "SMTP_HOST",
+              "CASHFREE_TEST_APP_ID", "CASHFREE_APP_ID", "CASHFREE_SECRET_KEY", "CASHFREE_LIVE"):
         monkeypatch.delenv(k, raising=False)
 
 

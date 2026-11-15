@@ -63,7 +63,8 @@ export const api = {
 
   plans: () => request<Plans>("/v1/plans"),
   subscription: (t: string) => request<{ subscription: Subscription; purchasing_available: boolean }>("/v1/subscription", { token: t }),
-  checkout: (t: string, kind: "pro" | "addon") => request<{ url: string }>("/v1/billing/checkout", { method: "POST", token: t, body: { kind } }),
+  checkout: (t: string, kind: "pro" | "addon") =>
+    request<{ kind: "order" | "subscription"; session_id: string; live: boolean }>("/v1/billing/checkout", { method: "POST", token: t, body: { kind } }),
   retryPayment: (t: string) => request<{ result: string; subscription: Subscription }>("/v1/billing/retry-payment", { method: "POST", token: t }),
   portal: (t: string) => request<{ url: string }>("/v1/billing/portal", { method: "POST", token: t }),
   cancelPlan: (t: string) => request<{ subscription: Subscription }>("/v1/subscription/cancel", { method: "POST", token: t }).then((r) => r.subscription),

@@ -26,6 +26,14 @@ class Settings:
     stripe_webhook_secret: str = field(default_factory=lambda: os.environ.get("STRIPE_WEBHOOK_SECRET", ""))
     stripe_pro_price_id: str = field(default_factory=lambda: os.environ.get("STRIPE_PRO_PRICE_ID", ""))
     stripe_addon_price_id: str = field(default_factory=lambda: os.environ.get("STRIPE_ADDON_PRICE_ID", ""))
+    # Cashfree (Orders + Subscriptions APIs). Test App ID/secret for now; CASHFREE_LIVE=1 switches the base
+    # URL and should only be set once real (non-test-prefixed) keys are in place.
+    cashfree_app_id: str = field(default_factory=lambda: os.environ.get("CASHFREE_TEST_APP_ID") or os.environ.get("CASHFREE_APP_ID", ""))
+    cashfree_secret_key: str = field(default_factory=lambda: os.environ.get("CASHFREE_SECRET_KEY", ""))
+    cashfree_live: bool = field(default_factory=lambda: os.environ.get("CASHFREE_LIVE") == "1")
+    # Base id only -- payments_cashfree.py appends the GST-inclusive amount so a price change always
+    # creates a fresh Cashfree plan instead of reusing one with a stale amount baked in.
+    cashfree_pro_plan_id: str = field(default_factory=lambda: os.environ.get("CASHFREE_PRO_PLAN_ID", "scriptliv-pro-monthly"))
     # Payment failure policy (documented in docs/SCRIPTLIV_PLATFORM.md). All values are configurable.
     payment_max_retries: int = field(default_factory=lambda: _int("SCRIPTLIV_PAYMENT_MAX_RETRIES", 3))
     payment_retry_days: str = field(default_factory=lambda: os.environ.get("SCRIPTLIV_PAYMENT_RETRY_DAYS", "1,3,5"))

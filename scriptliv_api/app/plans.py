@@ -2,6 +2,13 @@
 from dataclasses import dataclass
 
 BASIC, PRO = "basic", "pro"
+GST_RATE = 0.18
+
+
+def with_gst(amount_inr: float) -> float:
+    """price_inr_month/ADDON_PRICE_INR below are the pre-tax catalogue price; this is what's actually
+    charged (and what price_display shows) once India's 18% GST is added on top."""
+    return round(amount_inr * (1 + GST_RATE), 2)
 
 
 @dataclass(frozen=True)
@@ -39,7 +46,7 @@ PLANS = {
         0,
         0,
         "",
-        "300 free minutes every month. Up to 30 minutes per session. Add-ons supported.",
+        "300 free minutes every month. Up to 30 minutes per session.",
         30,
     ),
     PRO: Plan(
@@ -55,9 +62,9 @@ PLANS = {
 }
 
 ADDON_MINUTES = 1000
-ADDON_PRICE_INR = 499
+ADDON_PRICE_INR = 599
 ADDON_PRICE_USD = 10
 ADDON_TAX_NOTE = "+ GST"
 ADDON_MAX_SESSION_MINUTES = 120
-ADDON_NOTE = "1,000 extra minutes for ₹499 + GST. Up to 2 hours per session. Only valid till plan end."
+ADDON_NOTE = f"1,000 extra minutes for ₹{ADDON_PRICE_INR:,} {ADDON_TAX_NOTE}. Up to 2 hours per session. Only valid till plan end."
 

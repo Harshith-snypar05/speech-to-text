@@ -131,7 +131,7 @@ def test_billing_endpoints_need_auth_and_act_only_on_own_subscription(client, tw
     db.subscriptions.update_one({"user_id": a["id"]}, {"$set": {"plan": "pro", "status": "past_due", "provider_customer_id": "cus_A"}}, upsert=True)
     r = client.post("/v1/billing/retry-payment", headers=b["h"])
     assert r.status_code == 409
-    assert client.post("/v1/billing/portal", headers=b["h"]).status_code == 404
+    assert client.post("/v1/billing/portal", headers=b["h"]).status_code == 503  # no Cashfree hosted portal exists at all
     assert "cus_A" not in client.get("/v1/subscription", headers=b["h"]).text
 
 

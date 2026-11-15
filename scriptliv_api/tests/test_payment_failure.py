@@ -76,6 +76,11 @@ def test_restricted_new_session_gets_free_allowance_then_payment_required(client
     assert c.status_code == 402 and c.json()["error"]["code"] == "payment_required"
 
 
+def test_addon_purchase_requires_pro(client, user, db):
+    c = client.post("/v1/billing/checkout", headers=user["h"], json={"kind": "addon"})  # still on free Basic
+    assert c.status_code == 409 and c.json()["error"]["code"] == "addon_requires_pro"
+
+
 def test_running_recording_is_not_cut_and_not_extended_by_a_temporary_failure(client, user, db, monkeypatch):
     _pro(client, user, db, monkeypatch)
     a = client.post("/internal/v1/sessions/start", headers=R, json={"token": user["token"], "session_id": "sess-01"}).json()
