@@ -1,5 +1,5 @@
 "use client";
-import { CreditCard, History, LayoutDashboard, Mic, ShieldCheck } from "lucide-react";
+import { History, LayoutDashboard, Mic, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -35,7 +35,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     { href: "/app", label: "Home", icon: LayoutDashboard },
     { href: "/app/record", label: "Transcribe", icon: Mic },
     { href: "/app/history", label: "Transcripts", icon: History },
-    { href: "/app/plans", label: "Plans", icon: CreditCard },
     ...(user.is_admin ? [{ href: "/app/admin", label: "Admin", icon: ShieldCheck }] : []),
   ];
   const active = (h: string) => (h === "/app" ? path === "/app" : path.startsWith(h));

@@ -42,7 +42,7 @@ export default function HomePage() {
         </Notice>
       )}
       {usage.warnings.map((w) => <Notice key={w.level} tone={out ? "error" : "warning"} title={w.message}>
-        <Link href="/app/plans" className="font-medium text-primary underline">See plans and add-ons</Link>
+        <Link href="/pricing" className="font-medium text-primary underline">See plans and add-ons</Link>
       </Notice>)}
 
       <section>

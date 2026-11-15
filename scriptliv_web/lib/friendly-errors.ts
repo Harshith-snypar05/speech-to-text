@@ -40,7 +40,7 @@ export interface CloseNotice { title: string; body: string; tone: "error" | "war
 /** Live connection closed by the relay: `code` is the WebSocket close code, `reason` its reason text. */
 export function closeNotice(code: number | string, reason = ""): CloseNotice {
   const c = String(code);
-  const plans = { href: "/app/plans", label: "See plans and add-ons" };
+  const plans = { href: "/pricing", label: "See plans and add-ons" };
   if (c === "4403") return { tone: "warning", title: "Verify your email to record", body: "Transcription turns on once your email address is verified. Open the link we emailed you, or resend it from Settings.", link: { href: "/app/settings", label: "Open Settings" } };
   if (c === "4409") return { tone: "info", title: "Recording continued on another connection", body: "A newer connection took over this session, for example after a network change. Your transcript so far is saved." };
   if (c === "4402") {

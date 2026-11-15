@@ -20,6 +20,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
             <Link href="/#features" className={link}>Features</Link>
             <Link href="/#use-cases" className={link}>Use Cases</Link>
             <Link href="/#how" className={link}>How it works</Link>
+            <Link href="/pricing" className={link}>Pricing</Link>
           </nav>
           <div className="flex items-center gap-2 whitespace-nowrap text-sm">
             <ThemeToggle />
@@ -42,6 +43,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
               <li><Link className={item} href="/#features">Features</Link></li>
               <li><Link className={item} href="/#use-cases">Use Cases</Link></li>
               <li><Link className={item} href="/#how">How it Works</Link></li>
+              <li><Link className={item} href="/pricing">Pricing</Link></li>
             </ul>
           </div>
           <div>

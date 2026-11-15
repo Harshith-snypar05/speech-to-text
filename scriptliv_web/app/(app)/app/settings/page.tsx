@@ -236,7 +236,7 @@ function Billing() {
                 : paid ? `Renews ${fmtDate(sub.renews_or_resets_at)} · ${sub.price_display ?? (sub.price_inr_month ? `₹${sub.price_inr_month.toLocaleString()}${sub.tax_note ? ` ${sub.tax_note}` : ""}` : "₹999 + GST")}/month` : `Your free minutes reset ${fmtDate(sub.renews_or_resets_at)}.`}
             </p>
             <div className="flex flex-wrap gap-2">
-              <Link href="/app/plans"><Button variant="outline">{paid ? "View plans and add-ons" : "Upgrade or buy minutes"}</Button></Link>
+              <Link href="/pricing"><Button variant="outline">{paid ? "View plans and add-ons" : "Upgrade or buy minutes"}</Button></Link>
               {paid && sub.cancel_at_period_end && <Button onClick={() => act(() => api.resumePlan(token!))}>Keep my plan</Button>}
               {paid && !sub.cancel_at_period_end && !confirm && <Button variant="ghost" className="text-error" onClick={() => setConfirm(true)}>Cancel plan</Button>}
             </div>

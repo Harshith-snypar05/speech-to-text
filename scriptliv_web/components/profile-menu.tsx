@@ -64,7 +64,7 @@ export function ProfileMenu({ user, onSignOut }: { user: User; onSignOut: () => 
             </Link>
           )}
           <Link role="menuitem" href="/app/settings" onClick={() => setOpen(false)} className={item}><Settings className="size-4" aria-hidden /> Settings</Link>
-          <Link role="menuitem" href="/app/plans" onClick={() => setOpen(false)} className={item}><CreditCard className="size-4" aria-hidden /> My plans</Link>
+          <Link role="menuitem" href="/pricing" onClick={() => setOpen(false)} className={item}><CreditCard className="size-4" aria-hidden /> My plans</Link>
           <div className="my-1 h-px bg-line" />
           <button type="button" role="menuitem" onClick={() => { setOpen(false); onSignOut(); }} className={item}><LogOut className="size-4" aria-hidden /> Log out</button>
         </div>
