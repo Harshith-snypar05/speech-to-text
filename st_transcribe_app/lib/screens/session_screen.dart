@@ -3,9 +3,11 @@ import 'dart:ui' show PointerDeviceKind;
 import 'package:flutter/material.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../config/app_config.dart';
 import '../services/app_settings.dart';
 import '../services/auth_service.dart';
 import '../services/connection_status.dart';
+import '../services/platform_api.dart';
 import '../services/session_id.dart' show generateSessionId, generateAccessCode;
 import '../services/transcription_client.dart';
 import '../services/transcript_storage.dart';
@@ -149,7 +151,30 @@ class _SessionScreenState extends State<SessionScreen>
     if (mounted) Navigator.of(context).pop();
   }
 
-  void _openShareSheet() {
+  /// Signed-in accounts share the same backend-tracked link the web app and transcript history use
+  /// (`https://host/s/TOKEN`, backed by `POST /v1/sessions/ID/share`) -- the relay already created this
+  /// session's row the moment recording started, so the share token works immediately, live or not.
+  /// Without an account there is no backend session row to attach a token to, so that case falls back to
+  /// a direct link into the relay's own viewer role (session id + optional access code, no server state).
+  Future<void> _openShareSheet() async {
+    if (AppConfig.platformMode && AuthService.token != null) {
+      try {
+        final shared = await PlatformApi.share(_sessionId);
+        if (mounted && shared.shareUrl != null) {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (_) => ShareLinkSheet(link: shared.shareUrl!),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not create the share link: $e')));
+        }
+      }
+      return;
+    }
     final code = _accessCode;
     final link =
         '${viewerLinkOrigin()}/#/viewer?session=$_sessionId${code != null ? '&code=$code' : ''}';

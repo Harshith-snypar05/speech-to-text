@@ -27,7 +27,6 @@ class _AppShellState extends State<AppShell> {
 
   @override
   Widget build(BuildContext context) {
-    final c = AppColors.of(context);
     return Scaffold(
       body: Column(
         children: [
@@ -47,34 +46,21 @@ class _AppShellState extends State<AppShell> {
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Semantics(
-        label: 'Start recording',
-        button: true,
-        child: GestureDetector(
-          onTap: _record,
-          child: Container(
-            width: 64,
-            height: 64,
-            decoration: BoxDecoration(
-              gradient: brandGradient,
-              shape: BoxShape.circle,
-              boxShadow: [BoxShadow(color: c.primaryBlue.withValues(alpha: 0.35), blurRadius: 16, offset: const Offset(0, 6))],
-            ),
-            child: const Icon(Icons.mic, color: Colors.white, size: 30),
-          ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom, top: 8),
+        height: 64 + MediaQuery.of(context).padding.bottom,
+        decoration: BoxDecoration(
+          color: AppColors.of(context).surface,
+          borderRadius: const BorderRadius.only(topLeft: Radius.circular(28), topRight: Radius.circular(28)),
+          border: Border(top: BorderSide(color: AppColors.of(context).cardBorder)),
+          boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 16, offset: const Offset(0, -4))],
         ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: c.surface,
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 8,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Expanded(child: _NavItem(icon: Icons.home_outlined, label: 'Home', selected: _tab == 0, onTap: () => setState(() => _tab = 0))),
-            const SizedBox(width: 88), // space for the centre button
-            Expanded(child: _NavItem(icon: Icons.description_outlined, label: 'Transcripts', selected: _tab == 1, onTap: () => setState(() => _tab = 1))),
+            _NavIcon(icon: Icons.home_outlined, selected: _tab == 0, onTap: () => setState(() => _tab = 0)),
+            _RecordButton(onTap: _record),
+            _NavIcon(icon: Icons.description_outlined, selected: _tab == 1, onTap: () => setState(() => _tab = 1)),
           ],
         ),
       ),
@@ -82,25 +68,49 @@ class _AppShellState extends State<AppShell> {
   }
 }
 
-class _NavItem extends StatelessWidget {
+/// Single flush icon inside the one-piece floating nav bar (iOS tab-bar style -- no separate boxes).
+class _NavIcon extends StatelessWidget {
   final IconData icon;
-  final String label;
   final bool selected;
   final VoidCallback onTap;
-  const _NavItem({required this.icon, required this.label, required this.selected, required this.onTap});
+  const _NavIcon({required this.icon, required this.selected, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final c = AppColors.of(context);
-    final color = selected ? c.primaryBlue : c.textSecondary;
     return InkWell(
+      customBorder: const CircleBorder(),
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Icon(icon, color: color),
-          Text(label, style: TextStyle(fontSize: 11, color: color, fontWeight: selected ? FontWeight.w700 : FontWeight.w500)),
-        ]),
+        padding: const EdgeInsets.all(12),
+        child: Icon(icon, color: selected ? c.primaryBlue : c.textSecondary, size: 24),
+      ),
+    );
+  }
+}
+
+/// The centre record action, inline with the other two icons (not floating/overlapping).
+class _RecordButton extends StatelessWidget {
+  final VoidCallback onTap;
+  const _RecordButton({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      label: 'Start recording',
+      button: true,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            gradient: centerActionGradient,
+            shape: BoxShape.circle,
+            boxShadow: [BoxShadow(color: const Color(0xFFE0239C).withValues(alpha: 0.4), blurRadius: 12, spreadRadius: 1)],
+          ),
+          child: const Icon(Icons.mic, color: Colors.white, size: 22),
+        ),
       ),
     );
   }

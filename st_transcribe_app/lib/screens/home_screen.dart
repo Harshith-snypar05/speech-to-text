@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../config/app_config.dart';
 import '../models/transcript.dart';
+import '../services/app_settings.dart';
 import '../services/auth_service.dart';
 import '../services/platform_api.dart';
 import '../services/transcript_storage.dart';
@@ -151,6 +153,14 @@ String _fmtMin(double seconds) {
   return '$m min';
 }
 
+/// Subscribing/buying add-ons happens on the website, not in-app (no native purchase flow exists, and
+/// routing it through the browser avoids App Store/Play Store in-app-purchase requirements entirely).
+Future<void> _openPlans() async {
+  final origin = viewerLinkOrigin();
+  if (origin.isEmpty) return;
+  await launchUrl(Uri.parse('$origin/pricing'), mode: LaunchMode.externalApplication);
+}
+
 /// Plan, remaining minutes, add-on balance, reset date and any usage warnings.
 class UsageCard extends StatelessWidget {
   final Future<UsageInfo> future;
@@ -183,6 +193,14 @@ class UsageCard extends StatelessWidget {
                 '${u.addonRemainingSeconds > 0 ? ' · add-on ${_fmtMin(u.addonRemainingSeconds)}' : ''}',
                 style: TextStyle(color: c.textSecondary, fontSize: 13)),
             for (final w in u.warnings) Padding(padding: const EdgeInsets.only(top: 6), child: Text(w, style: TextStyle(color: c.recordRed, fontSize: 13))),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: _openPlans,
+                style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                child: const Text('Manage plan'),
+              ),
+            ),
           ]),
         );
       },

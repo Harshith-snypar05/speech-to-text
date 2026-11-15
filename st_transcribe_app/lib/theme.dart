@@ -190,3 +190,10 @@ const brandGradient = LinearGradient(
   end: Alignment.bottomRight,
   colors: [Color(0xFF6701EB), Color(0xFFA810F8)],
 );
+
+/// Pink/magenta gradient for the floating centre action on the bottom nav.
+const centerActionGradient = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [Color(0xFFFF4FD8), Color(0xFFE0239C)],
+);
