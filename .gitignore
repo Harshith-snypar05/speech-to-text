@@ -2,14 +2,14 @@
 #   https://github.com/Harshith-snypar05/whisper.cpp
 whisper.cpp/
 
-# Python virtualenv -- regenerate with: uv venv stt-compare-venv && uv pip install -r relays/requirements.txt
+# Python virtualenv -- regenerate with: uv venv stt-compare-venv && uv pip install -r relays_phase7c/requirements.txt
 stt-compare-venv/
 
 __pycache__/
 *.pyc
-relays/logs/
-relays/supervisor.pid
-relays/data/
+relays_phase7c/logs/
+relays_phase7c/supervisor.pid
+relays_phase7c/data/
 
 relays_phase7c/data/refine_log.jsonl
 

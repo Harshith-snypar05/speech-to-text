@@ -1,4 +1,0 @@
-websockets
-numpy
-pytest
-pytest-asyncio

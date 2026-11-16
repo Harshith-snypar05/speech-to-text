@@ -2,7 +2,7 @@
 
 ## Delivered
 - **Website** `scriptliv_web/`: landing (matches img_ref), login, consent, app (home, record, history, settings), admin-only `/console`.
-- **Flutter** `st_transcribe_app/`: splash, onboarding, sign-in, home ("Hello, <name>"), recording with real mic-driven waveform, live transcription, history, transcript view/share, settings; Home/Transcripts/Settings nav with centre mic.
+- **Flutter** `st_transcribe_app/`: splash, onboarding, sign-in, home ("Hello, <name>"), recording with real mic-driven waveform, live transcription, history, transcript view/share, settings (flat list: account, membership, help, cancel/delete account, log out); Home/Transcripts nav in a floating notch bar with centre mic, Settings in the top-right corner.
 - **Backend** (`relays_phase7c`, branch `redesign-staging`): Phase 7D QA layer; Parakeet and scheduler untouched.
 - Docs in `speech-to-text/docs/SCRIPTLIV_*.md`.
 
@@ -19,7 +19,7 @@
 ## Run commands
 Staging backend:
 ```
-python benchmarks/results/phase7d/start_redesign_relay.py      # listens on :8772
+python benchmarks/results/phase7d/start_platform_relay.py      # listens on :8772
 ```
 Website:
 ```
