@@ -70,7 +70,7 @@ def test_checkout_session_addon_posts_to_orders_and_returns_session(configured, 
     assert captured["headers"]["x-api-version"] == cf.API_VERSION
     assert captured["json"]["customer_details"]["customer_id"] == "user1"
     assert cf.parse_reference(captured["json"]["order_id"]) == ("addon", "user1")
-    assert captured["json"]["order_amount"] == 706.82  # 599 base + 18% GST
+    assert captured["json"]["order_amount"] == 588.82  # 499 base + 18% GST
 
 
 def test_checkout_session_pro_creates_plan_then_subscription(configured, monkeypatch):
