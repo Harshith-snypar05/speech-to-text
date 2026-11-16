@@ -16,7 +16,7 @@ QA admin pages were removed; every account is a normal customer account on the p
 - Flutter: `lib/services/platform_api.dart`, `lib/services/auth_service.dart` (token kept by the platform session), `lib/config/app_config.dart`.
 
 ## Endpoints used
-- `/v1/auth/*` register (no token returned; verify email first), login (403 `email_not_verified` until verified), resend-verification, verify-email, forgot-password, reset-password; `/v1/me`, `/v1/usage`, `/v1/subscription`, `/v1/sessions`, share links, billing.
+- `/v1/auth/*` register (no token returned; verify email first), login (403 `email_not_verified` until verified), resend-verification, verify-email, forgot-password, reset-password; `/v1/me` (GET, PATCH, DELETE to remove the account), `/v1/feedback` (feature requests, emailed to info@scriptliv.com), `/v1/usage`, `/v1/subscription`, `/v1/sessions`, share links, billing.
 - WebSocket `?role=speaker&session=<id>&token=<t>`: binary 16 kHz mono PCM16 up; `{text, partial}` JSON down.
   Close codes: 4401 not allowed, 4402 out of minutes / allowance held / payment required, 4403 email not verified,
   4409 superseded by a newer connection for the same session. 4401/4402/4403 are terminal (no retry).

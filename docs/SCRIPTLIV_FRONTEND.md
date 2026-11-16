@@ -59,15 +59,20 @@ Web must be rebuilt (`npx next build`) and restarted after a source change; `NEX
 | `/app/record` | `.../record/page.tsx` | Record live. Makes a new session id, asks mic permission, streams audio, shows partial/final text, timer, "Open in history" when stopped | **WebSocket** `NEXT_PUBLIC_WS_URL/?role=speaker&session=<id>&token=<JWT>` (see A3) |
 | `/app/history` | `.../history/page.tsx` | List of saved transcripts | `GET /v1/sessions` |
 | `/app/history/{id}` | `.../history/[id]/page.tsx` | One transcript: read, rename, share on/off with copyable link, delete | `GET /v1/sessions/{id}`, `PATCH /v1/sessions/{id}`, `POST /v1/sessions/{id}/share`, `DELETE /v1/sessions/{id}/share`, `DELETE /v1/sessions/{id}` |
-| `/app/settings` | `.../settings/page.tsx` | Profile, email change, password, preferences, usage warnings and personal limit, billing section. "View plans and add-ons" / "Upgrade or buy minutes" links out to the public `/pricing` | see below |
+| `/app/settings` | `.../settings/page.tsx` | Account (pencil opens a popup to edit the name; email shows a Verified badge), Security (Change password popup emails a reset link), preferences, usage warnings and personal limit, Membership details (plan, next payment, payment method, Change plan and "View plans and add-ons" go to the public `/pricing`, View payment history), billing details, Help links, Cancel membership / Delete account (above Log out), Log out | see below |
+| `/app/settings/payments` | `.../settings/payments/page.tsx` | Payment history: date, amount, status, receipt link | `GET /v1/billing/payments` |
+| `/app/settings/request-feature` | `.../settings/request-feature/page.tsx` | Form: type (feature / bug / other), title, details. Goes to info@scriptliv.com; a mailto link shows if sending fails | `POST /v1/feedback` |
+| `/app/settings/connection-help` | `.../settings/connection-help/page.tsx` | Troubleshooting list (expandable steps) for connection, mic, email and payment problems. Static page | none |
 
 Settings page calls, by section:
 
 | Section | Calls |
 |---|---|
-| Name | `PATCH /v1/me` |
+| Name (edit popup) | `PATCH /v1/me` |
 | Email change | `POST /v1/me/email`; if unverified, `POST /v1/me/email/resend` |
-| Password | `POST /v1/me/password` (token in the browser is replaced by the new one) |
+| Password | `POST /v1/me/password`, or the Change password popup: `POST /v1/auth/forgot-password` (a reset link is emailed) |
+| Delete account | `DELETE /v1/me` (asks for the password; a paid plan must be cancelled first) |
+| Help > Request a feature | `POST /v1/feedback` |
 | Preferences (theme, language, keep awake, warnings, personal limit) | `GET /v1/settings`, `PUT /v1/settings` (through `lib/auth.tsx`) |
 | Billing | `GET /v1/subscription`, `GET /v1/billing/payment-method` (always reports unavailable -- Cashfree has no saved-card listing), `GET /v1/billing/payments`, `GET /v1/billing/details`, `PUT /v1/billing/details`, `POST /v1/billing/portal` (always 503 -- Cashfree has no hosted billing portal), `POST /v1/subscription/cancel`, `POST /v1/subscription/resume` (409 resume_not_supported once Cashfree's mandate is already cancelled -- cancellation is immediate and irreversible there, unlike Stripe) |
 
@@ -99,6 +104,8 @@ No dedicated "server busy" screen yet for 1013.
 | `verifyEmail` | `POST /v1/auth/verify-email` | `/verify-email` |
 | `me` | `GET /v1/me` | `lib/auth.tsx` on load |
 | `updateName` | `PATCH /v1/me` | Settings |
+| `deleteAccount` | `DELETE /v1/me` | Settings (Delete account) |
+| `sendFeedback` | `POST /v1/feedback` | Request a feature page |
 | `changeEmail` | `POST /v1/me/email` | Settings |
 | `resendVerification` | `POST /v1/me/email/resend` | Settings |
 | `changePassword` | `POST /v1/me/password` | Settings |
@@ -112,7 +119,7 @@ No dedicated "server busy" screen yet for 1013.
 | `portal` | `POST /v1/billing/portal` | Payment banner, Settings |
 | `cancelPlan` / `resumePlan` | `POST /v1/subscription/cancel` / `resume` | Settings |
 | `paymentMethod` | `GET /v1/billing/payment-method` | Settings |
-| `payments` | `GET /v1/billing/payments` | Settings |
+| `payments` | `GET /v1/billing/payments` | Settings, Payment history page |
 | `billingDetails` / `saveBillingDetails` | `GET` / `PUT /v1/billing/details` | Settings |
 | `sessions` | `GET /v1/sessions` | History list |
 | `session` | `GET /v1/sessions/{id}` | History detail |
@@ -154,15 +161,16 @@ Not called by any frontend: `/healthz`, `/internal/v1/*` (relay only), `/v1/bill
 | Splash | `splash_screen.dart` | Start-up | none |
 | Auth gate | `auth_gate.dart` | Logged in -> app shell, otherwise login | restores session with `GET /v1/me` (in `AuthService`) |
 | Login / Register | `login_screen.dart` | Sign in, sign up, forgot password. After register or an unverified login shows "Verify your email" with **Resend verification email** and **I have verified, sign in**. Password field is cleared | `POST /v1/auth/login`, `POST /v1/auth/register`, `POST /v1/auth/resend-verification`, `POST /v1/auth/forgot-password` |
-| App shell | `app_shell.dart` | Top bar (logo + Settings gear icon); bottom nav is a single full-width rounded-top bar, icon only: Home / centre record button / Transcripts (no separate boxes, no labels) | none |
+| App shell | `app_shell.dart` | Transparent top bar (logo + Settings). Floating pill-shaped bottom bar with a curved notch: tabs Home / Transcripts and a raised round mic button that opens recording. No solid strip behind the bar | none |
 | Home | `home_screen.dart` | Usage card (with a "Manage plan" link that opens the public `/pricing` page in the browser via `url_launcher` -- no native purchase flow), recent items | `GET /v1/usage`, `GET /v1/sessions` (via `loadHistory`) |
-| Recording | `session_screen.dart` | Live recording; makes a session id, connects with the JWT, shows partial/final text, messages for 4402/4403/4409 and a payment banner. Share button (signed in): calls `POST /v1/sessions/{id}/share` for the real backend-issued `/s/{token}` link, same mechanism as transcript history -- not a hand-built link | **WebSocket** `SL_WS/?role=speaker&session=<id>&token=<JWT>` |
+| Recording | `session_screen.dart` | Live recording; makes a session id, connects with the JWT, shows partial/final text in a draggable transcription sheet (opens at mid-screen, snaps low / middle / high), share-link sheet (Share calls `POST /v1/sessions/{id}/share` for the real backend `/s/{token}` link, same as transcript history), messages for 4402/4403/4409 and a payment banner | **WebSocket** `SL_WS/?role=speaker&session=<id>&token=<JWT>` |
 | Transcripts | `history_screen.dart` | List of saved sessions | `GET /v1/sessions` |
 | Transcript detail | `transcript_detail_screen.dart` | Read / export local transcript | local storage only |
 | Platform session | `platform_session_screen.dart` | One account session: view, share on/off, delete | `GET /v1/sessions/{id}`, `POST` / `DELETE /v1/sessions/{id}/share`, `DELETE /v1/sessions/{id}` |
 | Shared link | `platform_session_screen.dart` (shared view, from deep link) | Public view, no account needed | `GET /v1/shared/{token}` |
 | Viewer | `viewer_screen.dart` | Watch a live session | **WebSocket** `?role=viewer&session=...` |
-| Settings | `settings_screen.dart` | Account info, verify notice, preferences, sign out, copyright "Snypar Tech" | `GET /v1/me`; unverified: `POST /v1/me/email/resend`; logout is local |
+| Settings | `settings_screen.dart`, `settings_sections.dart` | Flat full-width rows: grey section titles, thick bands between sections, thin right arrows at the screen edge. Account (pencil edits the name in a popup), Security (Change password emails a reset link), preferences, usage and limits, Membership details (plan, next payment, payment method, Change plan opens the web pricing page, View payment history), microphone, Help, Cancel membership / Delete account, then a plain Log out button (no email shown), copyright "Snypar Tech" | `GET /v1/me`, `PATCH /v1/me`, `POST /v1/auth/forgot-password`, `GET /v1/subscription`, `GET /v1/billing/payment-method`, `POST /v1/subscription/cancel` / `resume`, `DELETE /v1/me`; unverified: `POST /v1/me/email/resend`; logout is local |
+| Help screens | `help_screens.dart` | Request a feature (type, title, details), Fix a connection issue (troubleshooting list), Privacy Policy and Terms & Conditions (text inside the app), Payment history | `POST /v1/feedback` (falls back to an email to info@scriptliv.com when the server cannot take it), `GET /v1/billing/payments` |
 
 ## B3. Every `PlatformApi` call and where it is used
 
@@ -174,6 +182,11 @@ Not called by any frontend: `/healthz`, `/internal/v1/*` (relay only), `/v1/bill
 | `forgotPassword` | `POST /v1/auth/forgot-password` | login screen |
 | `resendVerification()` | `POST /v1/me/email/resend` | Settings (signed in) |
 | `me` | `GET /v1/me` | `AuthService` restore, Settings |
+| `updateName` | `PATCH /v1/me` | Settings (Account) |
+| `subscription`, `paymentMethod`, `payments` | `GET /v1/subscription`, `GET /v1/billing/payment-method`, `GET /v1/billing/payments` | Settings (Membership), Payment history |
+| `cancelPlan` / `resumePlan` | `POST /v1/subscription/cancel` / `resume` | Settings (Account) |
+| `deleteAccount` | `DELETE /v1/me` | Settings (Delete account) |
+| `sendFeedback` | `POST /v1/feedback` | Request a feature |
 | `usage` | `GET /v1/usage` | Home |
 | `sessions` | `GET /v1/sessions` | Home, Transcripts |
 | `session(id)` | `GET /v1/sessions/{id}` | Platform session screen |
@@ -181,7 +194,7 @@ Not called by any frontend: `/healthz`, `/internal/v1/*` (relay only), `/v1/bill
 | `deleteSession(id)` | `DELETE /v1/sessions/{id}` | Platform session screen |
 | `shared(token)` | `GET /v1/shared/{token}` | Shared-link screen (deep link) |
 
-Phone app does **not** have native plans/checkout/billing screens (the Home usage card's "Manage plan" link opens the public `/pricing` page in the browser instead), settings sync, rename, email/password change, or reset-password screen (reset is done on the web via the emailed link). Those are web-only today.
+Phone app does **not** have: native plans/checkout screens (Change plan and the Home "Manage plan" link open the public `/pricing` page in the browser), billing details, settings sync, email change, typing a new password in Settings (Change password emails a reset link), or a reset-password screen (reset is done on the web via the emailed link).
 
 ## B4. Close codes on the phone
 
@@ -195,8 +208,9 @@ Phone app does **not** have native plans/checkout/billing screens (the Home usag
 
 ## B5. Build and checks
 
-- Flutter at `C:/flutter_3479`: `flutter analyze` (4 old infos), `flutter test` (57 of 58 pass, 1 known pre-existing failure unrelated to recent changes).
-- Debug build uses the `.staging` app id. **The APK on the phone is old (before verify-before-login); rebuild to see the new screens.**
+- Flutter at `C:/flutter_3479`: `flutter analyze` (4 old infos), `flutter test` (59 pass).
+- Debug build uses the `.staging` app id. Release APK: `flutter build apk --release --dart-define=SL_API_HTTP=<api>/sl --dart-define=SL_WS=<wss host>`, then `adb install -r build/app/outputs/flutter-apk/app-release.apk`.
+- Delete account and the server side of Request a feature need the updated backend on the machine behind the ngrok address; until it is redeployed, Request a feature opens an email to info@scriptliv.com and Delete account shows an error.
 
 ---
 
@@ -211,16 +225,18 @@ Phone app does **not** have native plans/checkout/billing screens (the Home usag
 | `POST /v1/auth/forgot-password` | forgot-password | login screen |
 | `POST /v1/auth/reset-password` | reset-password | (web link) |
 | `GET /v1/me` | auth bootstrap | restore session, Settings |
-| `PATCH /v1/me` | Settings | - |
+| `PATCH /v1/me` | Settings | Settings (edit name popup) |
+| `DELETE /v1/me` | Settings | Settings |
+| `POST /v1/feedback` | Request a feature | Request a feature |
 | `POST /v1/me/email`, `/email/resend` | Settings | resend only (Settings) |
 | `POST /v1/me/password` | Settings | - |
 | `GET`/`PUT /v1/settings` | auth bootstrap, Settings | - |
 | `GET /v1/plans` | Pricing (public) | - |
-| `GET /v1/subscription` | Pricing (if signed in), Settings | - |
+| `GET /v1/subscription` | Pricing (if signed in), Settings | Settings (Membership) |
 | `POST /v1/billing/checkout` | Pricing | - |
 | `POST /v1/billing/portal`, `retry-payment` | Banner, Settings | - |
-| `POST /v1/subscription/cancel`, `resume` | Settings | - |
-| `GET /v1/billing/payment-method`, `payments`, `details`; `PUT details` | Settings | - |
+| `POST /v1/subscription/cancel`, `resume` | Settings | Settings |
+| `GET /v1/billing/payment-method`, `payments`, `details`; `PUT details` | Settings (+ payment history page) | payment method and payments only |
 | `GET /v1/usage` | Dashboard, Pricing (if signed in) | Home |
 | `GET /v1/usage/sessions` | Dashboard | - |
 | `GET /v1/usage/sessions/{id}/minutes` | not used yet | not used yet |

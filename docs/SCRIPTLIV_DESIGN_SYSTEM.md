@@ -20,7 +20,7 @@ Logo is a **vector redraw** of the reference, not the original artwork. Masters,
 Hand-written cva components (shadcn-style, not the shadcn CLI), framer-motion, lucide-react, Inter variable font.
 
 ## Flutter
-Splash → 2 onboarding pages → sign in → shell with a single full-width, rounded-top nav bar (Home / centre record button / Transcripts, icon only, no separate boxes -- iOS tab-bar style); Settings is a gear icon in the header, not a bottom-bar tab. Waveform widget is driven by real PCM RMS (`pcm16Rms`).
+Splash → 2 onboarding pages → sign in → shell with a transparent header (logo + Settings), a floating notch-style bottom bar with Home / Transcripts and a raised centre mic button. Settings is a flat Instagram-style list: full-width rows, grey section titles, thick bands between sections, thin right arrows at the edge. Waveform widget is driven by real PCM RMS (`pcm16Rms`).
 
 ## Behavioural rules
 - Partial text is visually distinct from final text; a partial is cleared when its final arrives and on stop.

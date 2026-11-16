@@ -12,7 +12,7 @@ Every second of audio is metered against the user's plan, transcripts are saved 
 
 | Component | Folder | Port | Role |
 |---|---|---|---|
-| Platform API (FastAPI) | `scriptliv_api` | 8790 | Accounts, JWT, email verification, plans, usage ledger, reservations, billing, sessions, sharing, settings |
+| Platform API (FastAPI) | `scriptliv_api` | 8790 | Accounts (incl. delete account), JWT, email verification, plans, usage ledger, reservations, billing, sessions, sharing, settings, feature requests (`/v1/feedback`, emailed to info@scriptliv.com) |
 | Relay | `relays_phase7c` | 8772 | WebSocket speaker/viewer endpoint, billing enforcement, concurrency cap, talks to ASR workers |
 | ASR worker EOU | `asr_worker` (venv `asr_venv`) | 8780 | Streaming Parakeet EOU 120M model (live text, end-of-utterance) |
 | ASR worker Nemotron | `asr_worker` | 8781 | Nemotron 0.6B second-pass refinement of finished utterances |
@@ -57,8 +57,8 @@ In staging `SCRIPTLIV_DEV_RETURN_TOKENS=1` returns the token in the API response
 
 ## 6. Web app (`scriptliv_web`)
 
-Pages: marketing home, register, login, forgot/reset password, verify email, then the signed-in app: dashboard with usage card, record, transcripts (list, detail, rename, delete), share on/off with copyable link, plans and checkout, billing and payment status banner, settings, and the public shared viewer `/s/{token}` (live while the session runs).
-Refreshed using the ScriptLiv gradient-play logo assets, with Settings placed in the top bar beside the logo.
+Pages: marketing home, register, login, forgot/reset password, verify email, then the signed-in app: dashboard with usage card, record, transcripts (list, detail, rename, delete), share on/off with copyable link, plans and checkout, billing and payment status banner, settings (account, security, membership details, payment history, Help with Request a feature and connection help, cancel membership, delete account), and the public shared viewer `/s/{token}` (live while the session runs).
+Refreshed using the ScriptLiv gradient-play logo assets, with Settings placed in the top bar beside the logo. The phone app Settings follows a flat Instagram-style list, with a floating notch-style bottom bar, a transparent header and a transcription sheet that opens mid-screen.
 Auth screens: "check your email" panel (address, Resend, staging link) after sign-up and when sign-in is refused for an unverified account.
 Stack: Next.js, Tailwind, shared UI primitives (`components/ui`), `components/check-email.tsx`, `lib/api.ts` typed client. Checks: tsc clean, eslint clean, 10 vitest, `next build` succeeds.
 

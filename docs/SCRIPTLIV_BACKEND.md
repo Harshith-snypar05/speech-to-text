@@ -66,6 +66,8 @@ The web client (`ApiError`) and phone client (`ApiException`) read `code` and `m
 | `POST /v1/auth/reset-password` | none | `token, new_password` | ok | 400 `invalid_token`, 422 `weak_password` | Sets new password, kills old sessions |
 | `GET /v1/me` | auth | - | `{user}` | 401 | Who am I |
 | `PATCH /v1/me` | auth | `name` | `{user}` | - | Rename |
+| `DELETE /v1/me` | auth | `password` | `{deleted: true}` | 403 `bad_password`, 409 `active_subscription` (cancel a paid plan first; one set to end at period end is fine), 429 throttled | Permanently delete the account: transcripts, sessions, usage rows, add-ons, subscription, settings, billing details, email tokens |
+| `POST /v1/feedback` | auth | `kind` (`feature`/`bug`/`other`), `title` (1-120), `message` (up to 4000) | `201 {received: true}` | 422, 429 (5 per hour per user) | Feature request or suggestion. Stored in `feedback` and emailed to info@scriptliv.com in a background task (a mail failure never fails the request) |
 | `POST /v1/me/email` | auth | `new_email, password` | `{pending_email, delivery}` | 403 `bad_password`, 409 `same_email`/`email_taken`, 503 `email_not_configured` | Start email change; mails a "change" link to the new address |
 | `POST /v1/me/email/resend` | auth | - | delivery info | 409 `already_verified`, 503 `email_not_configured` | Signed-in resend of verify link |
 | `POST /v1/me/password` | auth | `current_password, new_password` | `{token}` (new one) | 403 `bad_password`, 422 | Change password; old tokens die, caller gets a fresh one |
@@ -221,6 +223,7 @@ users (_id)  <-- the center. Every other collection points back to the user id.
   |-- user_id --> addons             0..many (extra minute packs)
   |-- user_id --> settings           0..1
   |-- user_id --> billing_details    0..1
+  |-- user_id --> feedback           0..many (feature requests; kept when the account is deleted)
   |-- user_id --> payments           0..many
   |-- user_id --> email_tokens       0..many (verify / reset / change links)
   |-- user_id --> email_deliveries   0..many (mail send log)
@@ -286,6 +289,8 @@ Index: `(session_id, seq)` unique. Written by the relay mirror. The API only rea
 
 **`settings`** — per-user preferences. Document: `user_id` plus `theme`, `language`, `prevent_auto_lock`, `usage_warnings`, `warn_percents`, `personal_limit_minutes`. Missing keys fall back to defaults (`system`, `en`, true, true, `[80, 95]`, null). Index: `user_id` (unique when old data allows).
 
+**`feedback`** — requests sent from Settings > Help > Request a feature (phone app and web). Fields: `user_id`, `email`, `kind` (`feature` / `bug` / `other`), `title`, `message`, `created_at`. Each one is also emailed to info@scriptliv.com. Not removed when the account is deleted.
+
 **`billing_details`** — invoice info. Document: `user_id`, `details{name, company, address, country, tax_id}`. Index: `user_id` unique.
 
 **`payments`** — payment history, written from Stripe or Cashfree webhooks.
@@ -313,6 +318,8 @@ The relay first writes finals to a local SQLite file (`relays_phase7c/data/trans
 | Start recording | `usage_sessions` created or reopened (reservation); `sessions` upserted with `owner_id` |
 | While recording | relay mirror writes `transcript_events`; `usage_sessions` counters grow; `usage_ledger` and `usage_minutes` rows added; `subscriptions.included_used_seconds` and `addons.seconds_used` grow |
 | End of recording | `usage_sessions.ended_at` and `sessions.ended_at` set (reservation released) |
+| Delete account (`DELETE /v1/me`) | Removed: `transcript_events`, `sessions`, `usage_minutes`, `usage_sessions`, `usage_ledger`, `addons`, `subscriptions`, `settings`, `billing_details`, `email_tokens`, `usage_locks`, `users`. **Kept**: `payments` (billing record), `email_deliveries` (only a domain, no address), `feedback`. Refused with 409 while a paid plan is still active and not set to cancel at period end |
+| Send a feature request (`POST /v1/feedback`) | `feedback` row inserted; mail sent to info@scriptliv.com in the background |
 | Delete a transcript | `transcript_events` and `sessions` rows removed; `usage_sessions`, `usage_minutes`, `usage_ledger` **kept** (billing history stays correct) |
 | Share on / off | `sessions.share_token` and `shared_at` set / removed |
 | Pro paid (webhook) | `subscriptions` set to Pro, period reset; `payments` row; `provider_events` row |
