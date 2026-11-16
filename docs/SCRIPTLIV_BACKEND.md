@@ -12,15 +12,15 @@ State: staging only. Nothing deployed, nothing committed.
 | Part | Folder | Port | One-line job |
 |---|---|---|---|
 | Platform API (FastAPI) | `scriptliv_api` | 8790 | Accounts, login, email verification, plans, usage minutes, billing, saved transcripts, sharing, settings |
-| Relay (WebSocket) | `relays_phase7c` | 8772 | Takes live audio from the app, enforces the minute limit, sends text back |
-| ASR worker EOU | `asr_worker` (venv `asr_venv`) | 8780 (local only) | Speech model that turns audio into live text |
-| ASR worker Nemotron | `asr_worker` | 8781 (local only) | Second, bigger model that cleans up finished sentences |
+| Relay (WebSocket) | `relays_phase7c` | 8772 | Takes live audio from the app, enforces the minute limit, runs the ASR engine in-process, sends text back |
+| ASR engine | in-process inside the relay (no separate port) | Parakeet TDT 0.6B v2 (English-only), whisper.cpp native binding, q8_0 quantized, GPU-accelerated. This is what's actually running -- see 4.4 |
+| ASR worker EOU/Nemotron (alternate, not deployed) | `asr_worker` (venv `asr_venv`) | 8780, 8781 | Code for a streaming EOU120M + Nemotron-refine worker pair exists (`STT_ENGINE=eou120m`) but no worker process runs in this environment -- see section 5 |
 | Database | MongoDB Atlas, db `scriptliv_staging` | - | Stores everything |
 
 How they talk:
 
 ```
-Phone / Web  --HTTP-->  API (8790)  <--HTTP, secret header--  Relay (8772)  --local WebSocket-->  ASR workers
+Phone / Web  --HTTP-->  API (8790)  <--HTTP, secret header--  Relay (8772)  (ASR engine runs in-process here)
 Phone / Web  --WebSocket (audio + JWT)-------------------->  Relay
 API  <---->  MongoDB          Relay  ---->  MongoDB (transcript mirror)
 ```
@@ -78,28 +78,31 @@ Throttles (in memory, per process): login, forgot (5 per 15 min), resend (5), em
 
 ### 2.4 Plans and billing endpoints (`routers/billing.py`)
 
-Plans: **Basic** 300 free min/month, **Pro** 2,500 min/month for $20, **Add-on** 1,000 min for $10.
+Plans: **Basic** 300 free min/month, **Pro** 2,500 min/month for ₹999 + GST (18%, charged on top), **Add-on** 1,000 min for ₹499 + GST, Pro plan required.
 
 | Method + path | Auth | Body | Success | Errors | What it does |
 |---|---|---|---|---|---|
-| `GET /v1/plans` | none | - | plans, add-on, `purchasing_available` | - | Catalogue. `purchasing_available` is false until Stripe keys exist (that is why Upgrade is greyed out) |
+| `GET /v1/plans` | none | - | plans, add-on, `purchasing_available` | - | Catalogue. `purchasing_available` is true once Cashfree keys exist (sandbox keys count) |
 | `GET /v1/subscription` | auth | - | `{subscription:{plan, plan_name, status, period_start, renews_or_resets_at, cancel_at_period_end, access_ends_at, price_usd_month, payment:{state, access_restricted, message, failed_attempts, max_retries, next_attempt_at, can_retry, retry_in_seconds}}, purchasing_available}` | - | My plan and payment state |
-| `POST /v1/billing/checkout` | verified | `kind: "pro"` or `"addon"` | `{url}` | 409 `already_pro`, 402 `payment_required` (add-on while payment outstanding), 503 `payments_not_configured`, 502 `provider_error` | Gives a Stripe Checkout URL |
-| `POST /v1/billing/portal` | auth | - | `{url}` | 404 `no_billing_account` | Stripe customer portal URL |
-| `POST /v1/billing/retry-payment` | auth | - | `{result, subscription}` | 409 `nothing_to_retry`, 429 `retry_too_soon`, 402 `payment_failed` | Retry failed invoice. Access restored only if Stripe confirms |
-| `POST /v1/subscription/cancel` | auth | - | `{subscription}` | 409 `nothing_to_cancel` | Cancel at period end |
-| `POST /v1/subscription/resume` | auth | - | `{subscription}` | 409 `nothing_to_resume` | Undo cancel |
-| `GET /v1/billing/payment-method` | auth | - | `{available, payment_method}` | - | Card brand/last4 from Stripe |
-| `GET /v1/billing/payments` | auth | - | `{available, payments[]}` up to 100 | - | Payment history |
+| `POST /v1/billing/checkout` | verified | `kind: "pro"` or `"addon"` | `{kind: "order"\|"subscription", session_id, live}` | 409 `already_pro`, 409 `addon_requires_pro` (add-on without an active Pro plan), 402 `payment_required` (add-on while payment outstanding), 503 `payments_not_configured`, 502 `provider_error` | Starts a Cashfree Order (add-on) or Subscription (Pro). Returns a session id for Cashfree's JS SDK, **not a redirect URL** -- the frontend calls `cashfree.checkout()`/`subscriptionsCheckout()` with it |
+| `POST /v1/billing/portal` | auth | - | - | always 503 `payments_not_configured` | Cashfree has no hosted billing portal (unlike Stripe). Always unavailable by design; cancel/resume below cover it instead |
+| `POST /v1/billing/retry-payment` | auth | - | `{result, subscription}` | 409 `nothing_to_retry`, 429 `retry_too_soon`, 402 `payment_failed` | Still wired to the (unconfigured) Stripe adapter -- no confirmed Cashfree "retry this charge" endpoint exists, so this intentionally 503s for every Cashfree subscription today |
+| `POST /v1/subscription/cancel` | auth | - | `{subscription}` | 409 `nothing_to_cancel` | Cashfree subscriptions cancel immediately and permanently (calls Cashfree's cancel API right away); paid-for access this period is still honored locally until period end, same as the user sees with Stripe's cancel-at-period-end |
+| `POST /v1/subscription/resume` | auth | - | `{subscription}` | 409 `nothing_to_resume`, 409 `resume_not_supported` (Cashfree subscription already cancelled -- nothing to resume, must resubscribe) | Undo a scheduled cancel. Only possible if the provider mandate is still live |
+| `GET /v1/billing/payment-method` | auth | - | `{available: false, payment_method: null}` | - | Always unavailable -- Cashfree has no "list this customer's saved cards/UPI" endpoint the way Stripe does |
+| `GET /v1/billing/payments` | auth | - | `{available, payments[]}` up to 100 | - | Payment history (Stripe and/or Cashfree rows) |
 | `GET /v1/billing/details` | auth | - | `{details}` | - | Invoice name/address |
 | `PUT /v1/billing/details` | auth | `name, company, address, country (2 letters), tax_id` | `{details}` | 422 | Save invoice details |
-| `POST /v1/billing/webhook` | Stripe signature header (no JWT) | raw Stripe event | 200 | 400 bad signature | Stripe tells us what happened |
+| `POST /v1/billing/webhook` | Stripe signature header (no JWT) | raw Stripe event | 200 | 400 bad signature | Stripe tells us what happened. Unused -- no Stripe keys configured |
+| `POST /v1/billing/webhook/cashfree` | Cashfree signature headers `x-webhook-signature`/`x-webhook-timestamp` (no JWT) | raw Cashfree event | 200 | 400 bad signature/payload, 500 (provider should retry) | Cashfree tells us what happened |
 
-Webhook events handled: `checkout.session.completed`, `invoice.paid`, `invoice.payment_failed`, `customer.subscription.updated`, `customer.subscription.deleted`. Signature is HMAC-SHA256, 300 s tolerance, each `event_id` processed once (`provider_events`).
+Stripe webhook events handled: `checkout.session.completed`, `invoice.paid`, `invoice.payment_failed`, `customer.subscription.updated`, `customer.subscription.deleted`. Signature is HMAC-SHA256, 300 s tolerance, each `event_id` processed once (`provider_events`).
+
+Cashfree webhook events handled: `PAYMENT_SUCCESS_WEBHOOK` (add-on order paid), `SUBSCRIPTION_PAYMENT_SUCCESS` (Pro activated or renewed), `SUBSCRIPTION_PAYMENT_FAILED`, `SUBSCRIPTION_STATUS_CHANGE_WEBHOOK` (cancelled/expired). Signature is HMAC-SHA256 of `timestamp + raw body`, using the **same secret as API auth** -- Cashfree, unlike Stripe, issues no separate webhook secret. Cashfree sends no event id, so a hash of the signed timestamp+payload stands in for dedup (`provider_events`, prefixed `cf:`). User id and purchase kind are parsed back out of the order/subscription id itself (`addon-<user_id>-<rand>` / `pro-<user_id>-<rand>`) since Cashfree orders/subscriptions carry no free-form metadata field the way Stripe's do.
 
 **Payment states**: `active` -> (payment fails) `past_due` (paid access kept, but a running recording is never extended) -> after configured retries `restricted` (falls back to free Basic; account and transcripts kept) -> or `canceled`.
 
-**Not run against real Stripe yet.** Only tested with a fake provider.
+**Cashfree: verified end to end against Cashfree's sandbox** (not a mock) -- checkout session creation for both Orders and Subscriptions, webhook signature verification, cancellation. Not yet switched to live/production Cashfree keys (`CASHFREE_LIVE=1`). The Stripe adapter (`payments.py`) still exists in the code and is left as inert dead code, never configured.
 
 ### 2.5 Transcript sessions and sharing (`routers/sessions.py`)
 
@@ -186,18 +189,21 @@ A "refine" message may follow a final when Nemotron has cleaned a sentence; stor
 - `core/session_manager.py`: who is speaking and who is viewing a session; broadcasts to viewers.
 - `core/transcript_store.py` + `core/mongo_mirror.py`: every final is saved (local SQLite) and mirrored into Mongo `transcript_events`.
 - `core/refiner.py`: queues finished sentences + their audio for Nemotron.
-- `engines/streaming_worker_engine.py`: the relay-side client to the ASR worker. The older whisper.cpp engine (`parakeet_engine.py`) is kept but unused.
+- `engines/parakeet_native_engine.py`: **this is the deployed engine** -- Parakeet TDT 0.6B v2 (English-only) loaded once via whisper.cpp's native ctypes binding, running in-process (no separate worker, no network hop). `STT_ENGINE` unset or `"parakeet"` selects this path.
+- `engines/streaming_worker_engine.py`: the relay-side client for the *alternate* EOU120M + Nemotron streaming-worker architecture (section 5). Exists in the code, selected only by setting `STT_ENGINE=eou120m`, but no worker process is running in this environment -- this is the one that's currently unused, not the whisper.cpp engine.
 
 ### 4.5 Relay settings (env)
 `STT_LISTEN_PORT`, `STT_ENGINE`, `STT_ASR_WORKER_URL`, `STT_REFINE_ENGINE`, `STT_REFINE_WORKER_URL`, `STT_MAX_ACTIVE_STREAMS`, `STT_MAX_TOTAL_CONNECTIONS`, `STT_MAX_VIEWERS_PER_SESSION`, `STT_SESSION_MAX_DURATION_SECONDS` (default 4 h), `STT_STREAM_ENDPOINT_SECONDS` (0.5), `STT_STREAM_TAIL_HOLD_SECONDS` (0.25), `STT_STREAM_MAX_UTTERANCE_SECONDS` (25), `STT_SILENCE_RMS_THRESHOLD`, `SCRIPTLIV_API_URL`, `SCRIPTLIV_RELAY_SECRET`, `SCRIPTLIV_REPORT_EVERY_SECONDS`, `MONGODB_URI`.
 
 ---
 
-## 5. ASR workers (`asr_worker/stream_worker.py`)
+## 5. ASR workers (`asr_worker/stream_worker.py`) -- alternate architecture, not deployed
+
+**This whole section describes a streaming worker pair that exists in the code but does not run in this environment.** The relay's default (`STT_ENGINE` unset or `parakeet`) runs Parakeet TDT 0.6B v2 in-process instead -- see section 1 and 4.4. Switching to this section's architecture means setting `STT_ENGINE=eou120m` and actually starting the `asr_worker` process below, neither of which `start_all.sh` does today. Kept here for when/if that path is revisited.
 
 - One Python process per model, WebSocket on `127.0.0.1` only (not reachable from outside).
 - EOU on 8780 (Parakeet EOU 120M, live text + end-of-utterance), Nemotron on 8781 (0.6B, refinement).
-- Runs on the GPU with NeMo. Capacity on this machine: **about 3 simultaneous live streams** per worker. More needs more workers/GPUs and routing.
+- Runs on the GPU with NeMo. Capacity figures from this architecture (about 3 simultaneous live streams per worker) do **not** describe the currently-deployed in-process engine -- see the STT Performance & Infrastructure Report for that engine's real measured numbers.
 - Keepalive pings are off on these loopback sockets (they caused false disconnects under load).
 
 ---
@@ -228,8 +234,11 @@ sessions.session_id == usage_sessions.session_id == transcript_events.session_id
 
 addons._id   <--  usage_ledger.addon_id    (which add-on pack paid for those seconds)
 payments._id <--  addons.payment_id        (which payment bought the pack)
-subscriptions.provider_customer_id  <--  Stripe webhook events (found by this id)
-provider_events.event_id == Stripe event id (dedupe only, no link)
+subscriptions.provider_customer_id  <--  Stripe webhook events (found by this id);
+    for Cashfree, provider_customer_id holds our own user_id (Cashfree has no customer object),
+    and webhook events are matched by parsing user_id out of the order/subscription id instead
+provider_events.event_id == Stripe event id, or a hash of Cashfree's signed timestamp+payload
+    prefixed `cf:` (Cashfree issues no event id of its own) -- dedupe only, no link
 ```
 
 Two ids to keep apart:
@@ -243,7 +252,7 @@ Fields: `_id`, `name`, `email` (lower case), `email_verified` (false until the l
 Index: `email` unique. Used by login, register, verify, reset.
 
 **`subscriptions`** — exactly one per user (made right after register as free Basic).
-Fields: `user_id`, `plan` (`basic`/`pro`), `status` (`active`/`past_due`/`restricted`/`canceled`), `anchor`, `period_start`, `period_end`, `included_used_seconds` (seconds spent this period), `cancel_at_period_end`, `provider` (`stripe` or null), `provider_customer_id`, `provider_subscription_id`, `created_at`, and payment-failure fields `payment_failed_count`, `last_payment_failed_at`, `next_payment_attempt_at`, `payment_state_at` (time of the newest Stripe event applied; older events never override it).
+Fields: `user_id`, `plan` (`basic`/`pro`), `status` (`active`/`past_due`/`restricted`/`canceled`), `anchor`, `period_start`, `period_end`, `included_used_seconds` (seconds spent this period), `cancel_at_period_end`, `provider` (`stripe`/`cashfree`/null), `provider_customer_id` (for Cashfree: our own user_id, since Cashfree has no customer object), `provider_subscription_id`, `created_at`, and payment-failure fields `payment_failed_count`, `last_payment_failed_at`, `next_payment_attempt_at`, `payment_state_at` (time of the newest provider event applied; older events never override it).
 The period rolls forward automatically when read after `period_end` (usage resets).
 Indexes: `user_id` unique; `provider_customer_id`, `provider_subscription_id` sparse (webhook lookups).
 
@@ -279,11 +288,11 @@ Index: `(session_id, seq)` unique. Written by the relay mirror. The API only rea
 
 **`billing_details`** — invoice info. Document: `user_id`, `details{name, company, address, country, tax_id}`. Index: `user_id` unique.
 
-**`payments`** — payment history, written only from Stripe webhooks.
-Fields: `user_id`, `created_at`, `description`, `amount_cents`, `currency`, `status` (`paid` / `failed`), `provider_ref` (Stripe id; failed attempts use `failed:<invoice id>`), `receipt_url`.
+**`payments`** — payment history, written from Stripe or Cashfree webhooks.
+Fields: `user_id`, `created_at`, `description`, `amount_cents` (Cashfree amounts, quoted in rupees, are converted to paise to match), `currency`, `status` (`paid` / `failed`), `provider_ref` (Stripe invoice id, or a Cashfree order/subscription reference; failed attempts use `failed:<id>`), `receipt_url`.
 Indexes: `(user_id, created_at)`; `provider_ref` unique (partial, strings only) so a payment can never be stored twice.
 
-**`provider_events`** — Stripe event ids already handled. Fields: `event_id`, `type`, `at`. Index: `event_id` unique. If processing fails, the row is deleted so the Stripe retry gets processed.
+**`provider_events`** — Stripe or Cashfree event ids already handled. Fields: `event_id`, `type`, `at`. Index: `event_id` unique. If processing fails, the row is deleted so the provider's retry gets processed.
 
 **`email_tokens`** — mailed links.
 Fields: `token_hash` (SHA-256; the real token is never stored), `user_id`, `kind` (`verify` / `reset` / `change`), `email` (address the link was sent to), `created_at`, `expires_at`, `expires_dt` (a real date for the cleanup index), `used`.
@@ -312,7 +321,7 @@ The relay first writes finals to a local SQLite file (`relays_phase7c/data/trans
 | Period ends | `subscriptions.included_used_seconds` back to 0 when next read; expired `addons` stop counting |
 
 ### 6.5 Notes
-- No document stores a plain password, a plain email token, or a card number. Cards live only at Stripe.
+- No document stores a plain password, a plain email token, or a card number. Cards live only at the payment provider (Stripe or Cashfree), never in our database.
 - All audited queries use an index (checked with `explain()`). Staging data is tiny; nothing is tested at production volume.
 - Deleting a user account is not implemented (no endpoint), so there is no cascade rule yet. A retention/deletion policy is a production to-do.
 - Backups and retention are Atlas settings, not set up by this project yet.
@@ -343,7 +352,8 @@ The relay first writes finals to a local SQLite file (`relays_phase7c/data/trans
 | `SCRIPTLIV_ENABLE_DOCS` | Turns on API docs; off by default |
 | `SCRIPTLIV_ANDROID_STORE_URL`, `SCRIPTLIV_IOS_STORE_URL` | Store links in shared view |
 | `SCRIPTLIV_PAYMENT_MAX_RETRIES` (3), `SCRIPTLIV_PAYMENT_RETRY_DAYS` ("1,3,5"), `SCRIPTLIV_PAYMENT_FINAL_STATUS` ("restricted"), `SCRIPTLIV_PAYMENT_RETRY_COOLDOWN` (60 s) | Payment failure flow |
-| `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRO_PRICE_ID`, `STRIPE_ADDON_PRICE_ID` | Stripe (empty now) |
+| `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRO_PRICE_ID`, `STRIPE_ADDON_PRICE_ID` | Stripe (empty now, unused) |
+| `CASHFREE_TEST_APP_ID`/`CASHFREE_APP_ID`, `CASHFREE_SECRET_KEY`, `CASHFREE_LIVE`, `CASHFREE_PRO_PLAN_ID` | Cashfree. Test keys by default; `CASHFREE_LIVE=1` switches the base URL to production -- only set once real (non-test-prefixed) keys are in place. No separate webhook secret: signatures use `CASHFREE_SECRET_KEY` |
 | `GMAIL_CLIENT_ID/SECRET/REFRESH_TOKEN/SENDER`, `RESEND_API_KEY`, `RESEND_FROM`, `SMTP_HOST`... | Email providers (empty now) |
 
 ---
@@ -354,10 +364,11 @@ The relay first writes finals to a local SQLite file (`relays_phase7c/data/trans
 |---|---|
 | Web + phone app | All `/v1/*` public/auth endpoints, plus the relay WebSocket |
 | Relay | `/internal/v1/sessions/start`, `/internal/v1/usage` |
-| Stripe | `/v1/billing/webhook` |
+| Stripe | `/v1/billing/webhook` (unused -- no keys configured) |
+| Cashfree | `/v1/billing/webhook/cashfree` |
 | Anyone with a link | `/v1/shared/{token}` |
-| API | MongoDB, Stripe API, email providers |
-| Relay | ASR workers, MongoDB (mirror) |
+| API | MongoDB, Cashfree API (Stripe API unused), email providers |
+| Relay | ASR engine (in-process; or ASR workers if `STT_ENGINE=eou120m`, not the default), MongoDB (mirror) |
 
 ---
 
@@ -371,6 +382,6 @@ Open: `/internal/*` on public port; throttles in memory; no pen test; no depende
 ## 11. Run and test
 
 - API: `python run_staging.py` in `scriptliv_api` (reads `staging_secrets/api.env`).
-- Relay: `python benchmarks/results/phase7d/start_platform_relay.py` from repo root (set `STT_MAX_ACTIVE_STREAMS` first for another cap).
-- ASR workers: from `asr_worker` with `asr_venv`, `stream_worker.py --port 8780` / `8781`.
-- Tests: `python -m pytest -q -p no:warnings` in `scriptliv_api` (113 pass) and `relays_phase7c` (187 pass, 1 skipped).
+- Relay: `STT_LISTEN_PORT=8772 python parakeet_relay.py` from `relays_phase7c` (set `STT_MAX_ACTIVE_STREAMS` first for another cap). This is the actual command `start_all.sh` runs; it also starts the API, web, Caddy and ngrok together.
+- ASR workers (`STT_ENGINE=eou120m` only -- not the default, not started by `start_all.sh`): from `asr_worker` with `asr_venv`, `stream_worker.py --port 8780` / `8781`.
+- Tests: `python -m pytest -q -p no:warnings` in `scriptliv_api` (135 of 136 pass, 1 known pre-existing failure unrelated to recent changes) and `relays_phase7c` (176 of 177 pass, 12 skipped, 1 known pre-existing failure unrelated).

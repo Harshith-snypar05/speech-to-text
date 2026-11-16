@@ -48,6 +48,7 @@ Web must be rebuilt (`npx next build`) and restarted after a source change; `NEX
 | `/forgot-password` | `forgot-password/page.tsx` | Ask for a reset link | `POST /v1/auth/forgot-password` |
 | `/reset-password?token=` | `reset-password/page.tsx` | Choose a new password | `POST /v1/auth/reset-password` |
 | `/verify-email?token=` | `verify-email/page.tsx` | Opened from the email. On success says "Email confirmed", goes to `/login` after ~2 s (plus a Sign in button). Does not sign in | `POST /v1/auth/verify-email` |
+| `/pricing` | `(marketing)/pricing/page.tsx` | Public plans/pricing page (moved out of the signed-in app). Signed-out: Get Started CTA. Signed-in: real Upgrade/Buy add-on buttons -> Cashfree checkout (a session id for Cashfree's JS SDK, not a redirect URL) | `GET /v1/plans`; signed-in also `GET /v1/usage`, `GET /v1/subscription`, `POST /v1/billing/checkout` |
 | `/s/{token}` | `s/[token]/page.tsx` | Public shared transcript viewer (no account). Shows live while the session runs; has links to open the phone app | `GET /v1/shared/{token}` |
 
 ### Signed-in pages (`(app)/app/*`, guarded by `(app)/layout.tsx`: no token = redirect to login). Top bar has the logo and Settings beside it.
@@ -58,8 +59,7 @@ Web must be rebuilt (`npx next build`) and restarted after a source change; `NEX
 | `/app/record` | `.../record/page.tsx` | Record live. Makes a new session id, asks mic permission, streams audio, shows partial/final text, timer, "Open in history" when stopped | **WebSocket** `NEXT_PUBLIC_WS_URL/?role=speaker&session=<id>&token=<JWT>` (see A3) |
 | `/app/history` | `.../history/page.tsx` | List of saved transcripts | `GET /v1/sessions` |
 | `/app/history/{id}` | `.../history/[id]/page.tsx` | One transcript: read, rename, share on/off with copyable link, delete | `GET /v1/sessions/{id}`, `PATCH /v1/sessions/{id}`, `POST /v1/sessions/{id}/share`, `DELETE /v1/sessions/{id}/share`, `DELETE /v1/sessions/{id}` |
-| `/app/plans` | `.../plans/page.tsx` | Plans and add-on. Upgrade / Buy buttons. **Disabled right now** because `purchasing_available` is false (no Stripe keys) | `GET /v1/plans`, `GET /v1/subscription`, `GET /v1/usage`, `POST /v1/billing/checkout` |
-| `/app/settings` | `.../settings/page.tsx` | Profile, email change, password, preferences, usage warnings and personal limit, billing section | see below |
+| `/app/settings` | `.../settings/page.tsx` | Profile, email change, password, preferences, usage warnings and personal limit, billing section. "View plans and add-ons" / "Upgrade or buy minutes" links out to the public `/pricing` | see below |
 
 Settings page calls, by section:
 
@@ -69,7 +69,7 @@ Settings page calls, by section:
 | Email change | `POST /v1/me/email`; if unverified, `POST /v1/me/email/resend` |
 | Password | `POST /v1/me/password` (token in the browser is replaced by the new one) |
 | Preferences (theme, language, keep awake, warnings, personal limit) | `GET /v1/settings`, `PUT /v1/settings` (through `lib/auth.tsx`) |
-| Billing | `GET /v1/subscription`, `GET /v1/billing/payment-method`, `GET /v1/billing/payments`, `GET /v1/billing/details`, `PUT /v1/billing/details`, `POST /v1/billing/portal`, `POST /v1/subscription/cancel`, `POST /v1/subscription/resume` |
+| Billing | `GET /v1/subscription`, `GET /v1/billing/payment-method` (always reports unavailable -- Cashfree has no saved-card listing), `GET /v1/billing/payments`, `GET /v1/billing/details`, `PUT /v1/billing/details`, `POST /v1/billing/portal` (always 503 -- Cashfree has no hosted billing portal), `POST /v1/subscription/cancel`, `POST /v1/subscription/resume` (409 resume_not_supported once Cashfree's mandate is already cancelled -- cancellation is immediate and irreversible there, unlike Stripe) |
 
 The payment banner (any signed-in page when payment is not healthy): `POST /v1/billing/retry-payment`, `POST /v1/billing/portal`.
 On every app load: `GET /v1/me` and `GET /v1/settings` (`lib/auth.tsx`).
@@ -103,11 +103,11 @@ No dedicated "server busy" screen yet for 1013.
 | `resendVerification` | `POST /v1/me/email/resend` | Settings |
 | `changePassword` | `POST /v1/me/password` | Settings |
 | `settings` / `saveSettings` | `GET` / `PUT /v1/settings` | `lib/auth.tsx`, Settings |
-| `usage` | `GET /v1/usage` | Dashboard, Plans |
+| `usage` | `GET /v1/usage` | Dashboard, Pricing (if signed in) |
 | `usageSessions` | `GET /v1/usage/sessions` | Dashboard |
-| `plans` | `GET /v1/plans` | Plans |
-| `subscription` | `GET /v1/subscription` | Plans, Settings |
-| `checkout` | `POST /v1/billing/checkout` | Plans (Upgrade / Add-on) |
+| `plans` | `GET /v1/plans` | Pricing (public) |
+| `subscription` | `GET /v1/subscription` | Pricing (if signed in), Settings |
+| `checkout` | `POST /v1/billing/checkout` | Pricing (Upgrade / Add-on; returns a Cashfree session id, not a URL) |
 | `retryPayment` | `POST /v1/billing/retry-payment` | Payment banner |
 | `portal` | `POST /v1/billing/portal` | Payment banner, Settings |
 | `cancelPlan` / `resumePlan` | `POST /v1/subscription/cancel` / `resume` | Settings |
@@ -121,7 +121,7 @@ No dedicated "server busy" screen yet for 1013.
 | `share` / `unshare` | `POST` / `DELETE /v1/sessions/{id}/share` | History detail |
 | `shared` | `GET /v1/shared/{token}` | `/s/{token}` |
 
-Not called by any frontend: `/healthz`, `/internal/v1/*` (relay only), `/v1/billing/webhook` (Stripe only).
+Not called by any frontend: `/healthz`, `/internal/v1/*` (relay only), `/v1/billing/webhook` (Stripe, unused -- no keys configured), `/v1/billing/webhook/cashfree` (Cashfree's own servers call this, not the frontend).
 
 ## A5. Checks
 
@@ -154,9 +154,9 @@ Not called by any frontend: `/healthz`, `/internal/v1/*` (relay only), `/v1/bill
 | Splash | `splash_screen.dart` | Start-up | none |
 | Auth gate | `auth_gate.dart` | Logged in -> app shell, otherwise login | restores session with `GET /v1/me` (in `AuthService`) |
 | Login / Register | `login_screen.dart` | Sign in, sign up, forgot password. After register or an unverified login shows "Verify your email" with **Resend verification email** and **I have verified, sign in**. Password field is cleared | `POST /v1/auth/login`, `POST /v1/auth/register`, `POST /v1/auth/resend-verification`, `POST /v1/auth/forgot-password` |
-| App shell | `app_shell.dart` | Top bar (logo + Settings), bottom tabs Home / Transcripts, centre mic button opens recording | none |
-| Home | `home_screen.dart` | Usage card, recent items | `GET /v1/usage`, `GET /v1/sessions` (via `loadHistory`) |
-| Recording | `session_screen.dart` | Live recording; makes a session id, connects with the JWT, shows partial/final text, share-link sheet, messages for 4402/4403/4409 and a payment banner | **WebSocket** `SL_WS/?role=speaker&session=<id>&token=<JWT>` |
+| App shell | `app_shell.dart` | Top bar (logo + Settings gear icon); bottom nav is a single full-width rounded-top bar, icon only: Home / centre record button / Transcripts (no separate boxes, no labels) | none |
+| Home | `home_screen.dart` | Usage card (with a "Manage plan" link that opens the public `/pricing` page in the browser via `url_launcher` -- no native purchase flow), recent items | `GET /v1/usage`, `GET /v1/sessions` (via `loadHistory`) |
+| Recording | `session_screen.dart` | Live recording; makes a session id, connects with the JWT, shows partial/final text, messages for 4402/4403/4409 and a payment banner. Share button (signed in): calls `POST /v1/sessions/{id}/share` for the real backend-issued `/s/{token}` link, same mechanism as transcript history -- not a hand-built link | **WebSocket** `SL_WS/?role=speaker&session=<id>&token=<JWT>` |
 | Transcripts | `history_screen.dart` | List of saved sessions | `GET /v1/sessions` |
 | Transcript detail | `transcript_detail_screen.dart` | Read / export local transcript | local storage only |
 | Platform session | `platform_session_screen.dart` | One account session: view, share on/off, delete | `GET /v1/sessions/{id}`, `POST` / `DELETE /v1/sessions/{id}/share`, `DELETE /v1/sessions/{id}` |
@@ -181,7 +181,7 @@ Not called by any frontend: `/healthz`, `/internal/v1/*` (relay only), `/v1/bill
 | `deleteSession(id)` | `DELETE /v1/sessions/{id}` | Platform session screen |
 | `shared(token)` | `GET /v1/shared/{token}` | Shared-link screen (deep link) |
 
-Phone app does **not** have: plans/checkout/billing screens, settings sync, rename, email/password change, or reset-password screen (reset is done on the web via the emailed link). Those are web-only today.
+Phone app does **not** have native plans/checkout/billing screens (the Home usage card's "Manage plan" link opens the public `/pricing` page in the browser instead), settings sync, rename, email/password change, or reset-password screen (reset is done on the web via the emailed link). Those are web-only today.
 
 ## B4. Close codes on the phone
 
@@ -195,7 +195,7 @@ Phone app does **not** have: plans/checkout/billing screens, settings sync, rena
 
 ## B5. Build and checks
 
-- Flutter at `C:/flutter_3479`: `flutter analyze` (4 old infos), `flutter test` (59 pass).
+- Flutter at `C:/flutter_3479`: `flutter analyze` (4 old infos), `flutter test` (57 of 58 pass, 1 known pre-existing failure unrelated to recent changes).
 - Debug build uses the `.staging` app id. **The APK on the phone is old (before verify-before-login); rebuild to see the new screens.**
 
 ---
@@ -215,13 +215,13 @@ Phone app does **not** have: plans/checkout/billing screens, settings sync, rena
 | `POST /v1/me/email`, `/email/resend` | Settings | resend only (Settings) |
 | `POST /v1/me/password` | Settings | - |
 | `GET`/`PUT /v1/settings` | auth bootstrap, Settings | - |
-| `GET /v1/plans` | Plans | - |
-| `GET /v1/subscription` | Plans, Settings | - |
-| `POST /v1/billing/checkout` | Plans | - |
+| `GET /v1/plans` | Pricing (public) | - |
+| `GET /v1/subscription` | Pricing (if signed in), Settings | - |
+| `POST /v1/billing/checkout` | Pricing | - |
 | `POST /v1/billing/portal`, `retry-payment` | Banner, Settings | - |
 | `POST /v1/subscription/cancel`, `resume` | Settings | - |
 | `GET /v1/billing/payment-method`, `payments`, `details`; `PUT details` | Settings | - |
-| `GET /v1/usage` | Dashboard, Plans | Home |
+| `GET /v1/usage` | Dashboard, Pricing (if signed in) | Home |
 | `GET /v1/usage/sessions` | Dashboard | - |
 | `GET /v1/usage/sessions/{id}/minutes` | not used yet | not used yet |
 | `GET /v1/sessions` | History | Home, Transcripts |
@@ -233,4 +233,5 @@ Phone app does **not** have: plans/checkout/billing screens, settings sync, rena
 | Relay WebSocket (speaker) | Record page | Recording screen |
 | Relay WebSocket (viewer) | - | Viewer screen |
 | `/internal/v1/*` | - | - (relay only) |
-| `/v1/billing/webhook` | - | - (Stripe only) |
+| `/v1/billing/webhook` | - | - (Stripe, unused) |
+| `/v1/billing/webhook/cashfree` | - | - (Cashfree's servers only) |
