@@ -1,0 +1,41 @@
+# ScriptLiv production stack: API + web + Caddy (HTTPS). The speech relay is not containerised (it needs the Parakeet
+# model and the native whisper.cpp build); run it on the host and point SCRIPTLIV_API_URL at the API (see docs/PRODUCTION_RUNBOOK.md).
+#   cp deploy/production.env.example deploy/production.env   # fill in
+#   docker compose -f deploy/docker-compose.yml --env-file deploy/production.env up -d --build
+services:
+  api:
+    build: ../scriptliv_api
+    env_file: production.env
+    environment:
+      SCRIPTLIV_TRUST_PROXY: "1"
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8790:8790"   # reachable by the relay on the same host only, never public
+
+  web:
+    build:
+      context: ../scriptliv_web
+      args:
+        NEXT_PUBLIC_SL_API_BASE: /sl
+        SL_BACKEND_HTTP: http://api:8790
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    env_file: production.env
+    ports:
+      - "80:80"
+      - "443:443"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    depends_on:
+      - web
+    restart: unless-stopped
+
+volumes:
+  caddy_data:

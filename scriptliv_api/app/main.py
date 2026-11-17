@@ -5,8 +5,14 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from .config import get_settings
+from .config import get_settings, production_problems
+from .db import get_db
 from .routers import account, admin, billing, internal, sessions, usage_routes
+
+if os.environ.get("SCRIPTLIV_ENV", "").lower() == "production":
+    _problems = production_problems()
+    if _problems:
+        raise RuntimeError("Refusing to start in production: " + "; ".join(_problems))
 
 # Interactive docs / openapi.json list every route (incl. /internal/*); published only when explicitly enabled for local dev.
 _DOCS = os.environ.get("SCRIPTLIV_ENABLE_DOCS", "").lower() in ("1", "true", "yes")
@@ -54,6 +60,11 @@ async def unexpected_error(_: Request, exc: Exception):
 
 @app.get("/healthz")
 def healthz():
+    """Liveness plus a database round trip, so a load balancer stops routing to an instance that cannot reach MongoDB."""
+    try:
+        get_db().command("ping")
+    except Exception:
+        return JSONResponse({"ok": False, "db": "unreachable"}, status_code=503)
     return {"ok": True}
 
 

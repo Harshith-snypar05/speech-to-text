@@ -17,13 +17,6 @@ def env(monkeypatch):
         monkeypatch.delenv(k, raising=False)
 
 
-@pytest.fixture(autouse=True)
-def fresh_throttle():
-    from app.routers import account
-    account._attempts.clear()
-    yield
-
-
 @pytest.fixture
 def db():
     d = mongomock.MongoClient().scriptliv_test

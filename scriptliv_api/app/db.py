@@ -39,6 +39,8 @@ def _per_user(coll):
 
 def ensure_indexes(db):
     db.users.create_index("email", unique=True)
+    db.throttle.create_index("expires_at", expireAfterSeconds=0)   # attempt-limit hits expire on their own
+    db.throttle.create_index([("key", ASCENDING), ("ts", ASCENDING)])
     db.subscriptions.create_index("user_id", unique=True)
     # webhook / retry lookups by provider ids (previously collection scans). Sparse, not partial: the planner uses a sparse
     # index for an equality match, but cannot prove an equality satisfies a partial {"$type": "string"} filter.

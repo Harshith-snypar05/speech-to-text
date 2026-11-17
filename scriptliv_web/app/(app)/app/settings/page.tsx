@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ChevronRight, LogOut, Pencil } from "lucide-react";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { Badge, Button, Card, Field, Notice, Progress, Spinner, Stat, inputCls } from "@/components/ui";
 import { PaymentBanner } from "@/components/payment-banner";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
-import { fmtDate, fmtMinutes, fmtMoney, fmtSecs } from "@/lib/format";
-import type { BillingDetails, Delivery, PaymentMethod, PaymentRow, Settings, Subscription, UsageSummary } from "@/lib/types";
+import { fmtDate, fmtMinutes, fmtSecs } from "@/lib/format";
+import type { BillingDetails, Delivery, PaymentMethod, Settings, Subscription, UsageSummary } from "@/lib/types";
 
 const errText = (e: unknown) => (e instanceof ApiError ? e.message : "That did not work. Try again.");
 
@@ -27,27 +29,67 @@ function DeliveryNote({ d }: { d: Delivery | null }) {
   return <Notice tone="warning" title="We could not send the email">Email delivery is not available right now. Try again later.</Notice>;
 }
 
+function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div role="dialog" aria-modal="true" aria-label={title} className="w-full max-w-md space-y-4 rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-xl">
+        <h2 className="text-lg font-semibold">{title}</h2>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/** One tappable settings line: label left, value / chevron right. */
+function Row({ label, value, onClick, href, tone, trailing, chevron }: {
+  label: string; value?: ReactNode; onClick?: () => void; href?: string; tone?: "danger" | "primary"; trailing?: ReactNode; chevron?: boolean;
+}) {
+  const cls = "flex w-full items-center justify-between gap-3 py-3 text-left text-sm " + (onClick || href ? "hover:text-primary " : "");
+  const color = tone === "danger" ? "text-error" : tone === "primary" ? "text-primary" : "";
+  const inner = (
+    <>
+      <span className={"font-medium " + color}>{label}</span>
+      <span className="flex min-w-0 items-center gap-2 text-ink-2">
+        {value != null && <span className="truncate">{value}</span>}
+        {trailing}
+        {chevron && <ChevronRight className="-mr-1 size-5 shrink-0" aria-hidden />}
+      </span>
+    </>
+  );
+  if (href) return <Link href={href} className={cls}>{inner}</Link>;
+  if (onClick) return <button type="button" onClick={onClick} className={cls}>{inner}</button>;
+  return <div className={cls}>{inner}</div>;
+}
+
 function Account() {
   const { token, user, refresh } = useAuth();
+  const [editing, setEditing] = useState(false);
   const [name, setName] = useState(user?.name ?? "");
-  const [email, setEmail] = useState("");
-  const [pw, setPw] = useState("");
+  const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [del, setDel] = useState<Delivery | null>(null);
   if (!user || !token) return null;
 
-  const saveName = async () => { try { await api.updateName(token, name.trim()); await refresh(); setMsg({ ok: true, text: "Name saved." }); } catch (e) { setMsg({ ok: false, text: errText(e) }); } };
-  const changeEmail = async (ev: React.FormEvent) => {
+  const saveName = async (ev: React.FormEvent) => {
     ev.preventDefault();
-    try { setDel(await api.changeEmail(token, email.trim(), pw)); setEmail(""); setPw(""); await refresh(); setMsg(null); } catch (e) { setMsg({ ok: false, text: errText(e) }); }
+    setBusy(true);
+    try { await api.updateName(token, name.trim()); await refresh(); setEditing(false); setMsg({ ok: true, text: "Name saved." }); }
+    catch (e) { setMsg({ ok: false, text: errText(e) }); }
+    setBusy(false);
   };
   const resend = async () => { try { setDel(await api.resendVerification(token)); setMsg(null); } catch (e) { setMsg({ ok: false, text: errText(e) }); } };
 
   return (
     <Section title="Account details">
-      <div className="flex flex-wrap items-center gap-2 text-sm">
-        <span>{user.email}</span>
-        <Badge tone={user.email_verified ? "success" : "warning"}>{user.email_verified ? "Verified" : "Not verified"}</Badge>
+      <div className="divide-y divide-line">
+        <Row label="Name" value={user.name || "-"} onClick={() => { setName(user.name ?? ""); setMsg(null); setEditing(true); }}
+          trailing={<Pencil className="size-4 text-primary" aria-label="Edit name" />} />
+        <Row label="Email" value={user.email} trailing={<Badge tone={user.email_verified ? "success" : "warning"}>{user.email_verified ? "Verified" : "Not verified"}</Badge>} />
       </div>
       {user.pending_email && (
         <Notice tone="info" title={`Waiting to confirm ${user.pending_email}`}>
@@ -56,46 +98,68 @@ function Account() {
       )}
       {!user.email_verified && !user.pending_email && <Button variant="outline" size="sm" onClick={resend}>Resend verification email</Button>}
       <DeliveryNote d={del} />
-      <form onSubmit={(e) => { e.preventDefault(); void saveName(); }} className="flex items-end gap-2">
-        <div className="flex-1"><Field label="Name"><input value={name} maxLength={80} required onChange={(e) => setName(e.target.value)} className={inputCls} /></Field></div>
-        <Button type="submit" variant="outline" disabled={!name.trim() || name.trim() === user.name}>Save</Button>
-      </form>
-      <form onSubmit={changeEmail} className="grid gap-3 border-t border-line pt-4 sm:grid-cols-2">
-        <Field label="New email"><input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} autoComplete="off" /></Field>
-        <Field label="Current password"><input type="password" required value={pw} onChange={(e) => setPw(e.target.value)} className={inputCls} autoComplete="current-password" /></Field>
-        <div className="sm:col-span-2"><Button type="submit" variant="outline">Change email</Button></div>
-      </form>
       {msg && <Notice tone={msg.ok ? "success" : "error"} title={msg.text} />}
+      {editing && (
+        <Modal title="Edit name" onClose={() => setEditing(false)}>
+          <form onSubmit={saveName} className="space-y-4">
+            <Field label="Name"><input autoFocus value={name} maxLength={80} required onChange={(e) => setName(e.target.value)} className={inputCls} /></Field>
+            {msg && !msg.ok && <Notice tone="error" title={msg.text} />}
+            <div className="flex justify-end gap-2">
+              <Button type="button" variant="ghost" onClick={() => setEditing(false)}>Cancel</Button>
+              <Button type="submit" disabled={busy || !name.trim()}>{busy ? "Saving..." : "Save"}</Button>
+            </div>
+          </form>
+        </Modal>
+      )}
     </Section>
   );
 }
 
+/** Password changes go through an emailed reset link, the same flow as "Forgot password" on the login page. */
 function Password() {
-  const { token, setToken } = useAuth();
-  const [cur, setCur] = useState("");
-  const [next, setNext] = useState("");
-  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
-  async function submit(e: React.FormEvent) {
+  const { user } = useAuth();
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState<string | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const close = useCallback(() => setOpen(false), []);
+  const send = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token) return;
-    if (next.length < 8) { setMsg({ ok: false, text: "New password must be at least 8 characters." }); return; }
-    try {
-      const r = await api.changePassword(token, cur, next);
-      await setToken(r.token); // other devices are signed out; this one keeps going
-      setCur(""); setNext(""); setMsg({ ok: true, text: "Password changed. Other devices were signed out." });
-    } catch (x) { setMsg({ ok: false, text: errText(x) }); }
-  }
+    setBusy(true); setErr(null);
+    try { const r = await api.forgotPassword(email.trim()); setSent(r.message || "If that email has an account, a reset link is on its way."); }
+    catch (x) { setErr(errText(x)); }
+    setBusy(false);
+  };
   return (
-    <Section title="Password">
-      <form onSubmit={submit} className="grid gap-3 sm:grid-cols-2">
-        <Field label="Current password"><input type="password" required value={cur} onChange={(e) => setCur(e.target.value)} className={inputCls} autoComplete="current-password" /></Field>
-        <Field label="New password" hint="At least 8 characters."><input type="password" required minLength={8} value={next} onChange={(e) => setNext(e.target.value)} className={inputCls} autoComplete="new-password" /></Field>
-        <div className="sm:col-span-2"><Button type="submit" variant="outline">Change password</Button></div>
-      </form>
-      {msg && <Notice tone={msg.ok ? "success" : "error"} title={msg.text} />}
+    <Section title="Security">
+      <div className="divide-y divide-line">
+        <Row label="Change password" chevron onClick={() => { setEmail(user?.email ?? ""); setSent(null); setErr(null); setOpen(true); }} />
+      </div>
+      {open && (
+        <Modal title={sent ? "Check your email" : "Change password"} onClose={close}>
+          {sent ? (
+            <>
+              <Notice tone="success" title={sent} />
+              <div className="flex justify-end"><Button onClick={close}>Done</Button></div>
+            </>
+          ) : (
+            <form onSubmit={send} className="space-y-4">
+              <p className="text-sm text-ink-2">To keep your account safe we email you a link to choose a new password.</p>
+              <Field label="Email"><input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} /></Field>
+              {err && <Notice tone="error" title={err} />}
+              <div className="flex justify-end gap-2">
+                <Button type="button" variant="ghost" onClick={close}>Cancel</Button>
+                <Button type="submit" disabled={busy}>{busy ? "Sending..." : "Send reset link"}</Button>
+              </div>
+            </form>
+          )}
+        </Modal>
+      )}
     </Section>
   );
 }
+
 
 function Preferences() {
   const { settings, saveSettings } = useAuth();
@@ -195,84 +259,49 @@ function Limits() {
   );
 }
 
-function Billing() {
+function Membership() {
   const { token } = useAuth();
   const [sub, setSub] = useState<Subscription | null>(null);
   const [avail, setAvail] = useState(true);
   const [pm, setPm] = useState<PaymentMethod | null>(null);
-  const [pays, setPays] = useState<PaymentRow[]>([]);
   const [det, setDet] = useState<BillingDetails>({});
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
-  const [confirm, setConfirm] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   const load = useCallback(async () => {
     if (!token) return;
     try {
-      const [s, m, p, d] = await Promise.all([api.subscription(token), api.paymentMethod(token), api.payments(token), api.billingDetails(token)]);
-      setSub(s.subscription); setAvail(s.purchasing_available && m.available); setPm(m.payment_method); setPays(p.payments); setDet(d);
+      const [s, m, d] = await Promise.all([api.subscription(token), api.paymentMethod(token), api.billingDetails(token)]);
+      setSub(s.subscription); setAvail(s.purchasing_available && m.available); setPm(m.payment_method); setDet(d);
     } catch (e) { setMsg({ ok: false, text: errText(e) }); }
     setLoaded(true);
   }, [token]);
   useEffect(() => { void load(); }, [load]);
 
   if (!loaded) return <Card><Spinner /></Card>;
-  const act = async (fn: () => Promise<Subscription>) => { try { setSub(await fn()); setConfirm(false); setMsg(null); } catch (e) { setMsg({ ok: false, text: errText(e) }); } };
   const portal = async () => { try { window.location.assign((await api.portal(token!)).url); } catch (e) { setMsg({ ok: false, text: errText(e) }); } };
   const paid = sub && sub.plan !== "basic";
+  const price = sub ? (sub.price_display ?? (sub.price_inr_month ? `₹${sub.price_inr_month.toLocaleString()}${sub.tax_note ? ` ${sub.tax_note}` : ""}` : "₹999 + GST")) : "";
+  const next = !sub ? "-" : !paid ? "None (free plan)" : sub.cancel_at_period_end ? `None (ends ${fmtDate(sub.access_ends_at ?? sub.renews_or_resets_at)})` : `${fmtDate(sub.renews_or_resets_at)} · ${price}`;
+  const badge = sub ? (sub.payment ? (sub.payment.access_restricted ? "Payment required" : "Payment failed") : sub.cancel_at_period_end ? "Cancelled" : "Active") : "";
+  const badgeTone = sub ? (sub.payment ? (sub.payment.access_restricted ? "error" : "warning") : sub.cancel_at_period_end ? "warning" : "success") : "neutral";
 
   return (
     <>
-      <Section title="Subscription">
+      <Section title="Membership details">
         {sub?.payment && <PaymentBanner payment={sub.payment} onChanged={(n) => (n ? setSub(n) : void load())} />}
         {sub && (
-          <>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-lg font-semibold">{sub.plan_name}</span>
-              <Badge tone={sub.payment ? (sub.payment.access_restricted ? "error" : "warning") : sub.cancel_at_period_end ? "warning" : "success"}>{sub.payment ? (sub.payment.access_restricted ? "Payment required" : "Payment failed") : sub.cancel_at_period_end ? "Cancelled" : "Active"}</Badge>
-            </div>
-            <p className="text-sm text-ink-2">
-              {sub.cancel_at_period_end ? `You keep Pro access until ${fmtDate(sub.access_ends_at ?? sub.renews_or_resets_at)}. After that you move to Basic.`
-                : paid ? `Renews ${fmtDate(sub.renews_or_resets_at)} · ${sub.price_display ?? (sub.price_inr_month ? `₹${sub.price_inr_month.toLocaleString()}${sub.tax_note ? ` ${sub.tax_note}` : ""}` : "₹999 + GST")}/month` : `Your free minutes reset ${fmtDate(sub.renews_or_resets_at)}.`}
-            </p>
-            <div className="flex flex-wrap gap-2">
-              <Link href="/pricing"><Button variant="outline">{paid ? "View plans and add-ons" : "Upgrade or buy minutes"}</Button></Link>
-              {paid && sub.cancel_at_period_end && <Button onClick={() => act(() => api.resumePlan(token!))}>Keep my plan</Button>}
-              {paid && !sub.cancel_at_period_end && !confirm && <Button variant="ghost" className="text-error" onClick={() => setConfirm(true)}>Cancel plan</Button>}
-            </div>
-            {confirm && sub && (
-              <div className="rounded-xl border border-error/30 bg-error/10 p-3 text-sm">
-                <p>Cancel Pro? You keep access until <b>{fmtDate(sub.renews_or_resets_at)}</b>, then move to Basic.</p>
-                <div className="mt-2 flex gap-2"><Button variant="danger" size="sm" onClick={() => act(() => api.cancelPlan(token!))}>Cancel plan</Button><Button variant="ghost" size="sm" onClick={() => setConfirm(false)}>Keep it</Button></div>
-              </div>
-            )}
-          </>
+          <div className="divide-y divide-line">
+            <Row label="Plan" value={sub.plan_name} trailing={<Badge tone={badgeTone}>{badge}</Badge>} />
+            <Row label="Next payment" value={next} />
+            <Row label="Payment method" value={pm?.last4 ? <span className="capitalize">{pm.brand} ending {pm.last4}</span> : paid ? "No card on file" : "-"}
+              trailing={pm?.last4 ? <button type="button" onClick={portal} className="text-primary underline">Update</button> : undefined} />
+            <Row label="Change plan" chevron href="/pricing" />
+            <Row label="View payment history" chevron href="/app/settings/payments" />
+          </div>
         )}
         {!avail && <Notice tone="info" title="Payments are not switched on yet">Plan purchases, payment methods and receipts appear here once billing is enabled.</Notice>}
         {msg && <Notice tone={msg.ok ? "success" : "error"} title={msg.text} />}
-      </Section>
-
-      <Section title="Payment method">
-        {pm?.last4 ? (
-          <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
-            <span className="capitalize">{pm.brand} ending {pm.last4} · expires {pm.exp_month}/{pm.exp_year}</span>
-            <Button variant="outline" size="sm" onClick={portal}>Update</Button>
-          </div>
-        ) : <p className="text-sm text-ink-2">{avail ? "No card on file." : "Not available yet."}</p>}
-      </Section>
-
-      <Section title="Payment history">
-        {pays.length === 0 ? <p className="text-sm text-ink-2">No payments yet.</p> : (
-          <ul className="divide-y divide-line text-sm">
-            {pays.map((p) => (
-              <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
-                <span>{fmtDate(p.created_at)} · {p.description}</span>
-                <span className="flex items-center gap-3 tabular-nums">{fmtMoney(p.amount_cents, p.currency)} <Badge tone={p.status === "paid" ? "success" : "neutral"}>{p.status}</Badge>
-                  {p.receipt_url && <a href={p.receipt_url} target="_blank" rel="noreferrer" className="text-primary underline">Receipt</a>}</span>
-              </li>
-            ))}
-          </ul>
-        )}
       </Section>
 
       <Section title="Billing details" hint="Printed on your receipts.">
@@ -286,6 +315,97 @@ function Billing() {
         </form>
       </Section>
     </>
+  );
+}
+
+/** Help links: feature requests, connection troubleshooting and the legal pages. */
+function Help() {
+  return (
+    <Section title="Help">
+      <div className="divide-y divide-line">
+        <Row label="Request a feature" chevron href="/app/settings/request-feature" />
+        <Row label="Fix a connection issue" chevron href="/app/settings/connection-help" />
+        <Row label="Privacy Policy" chevron href="/privacy" />
+        <Row label="Terms & Conditions" chevron href="/terms" />
+      </div>
+    </Section>
+  );
+}
+
+/** Account actions, shown just above Log out: cancel membership and delete account, each behind a confirmation. */
+function AccountActions() {
+  const { token, signOut } = useAuth();
+  const router = useRouter();
+  const [sub, setSub] = useState<Subscription | null>(null);
+  const [dlg, setDlg] = useState<"cancel" | "delete" | null>(null);
+  const [pw, setPw] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+
+  useEffect(() => { if (token) api.subscription(token).then((r) => setSub(r.subscription)).catch(() => { }); }, [token]);
+  if (!token) return null;
+  const paid = sub && sub.plan !== "basic";
+  const close = () => { setDlg(null); setPw(""); setErr(null); };
+
+  const doCancel = async () => {
+    setBusy(true); setErr(null);
+    try { setSub(await api.cancelPlan(token)); setMsg({ ok: true, text: "Membership cancelled. You keep access until the period ends." }); close(); }
+    catch (e) { setErr(errText(e)); }
+    setBusy(false);
+  };
+  const keep = async () => { try { setSub(await api.resumePlan(token)); setMsg({ ok: true, text: "Membership kept." }); } catch (e) { setMsg({ ok: false, text: errText(e) }); } };
+  const doDelete = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBusy(true); setErr(null);
+    try { await api.deleteAccount(token, pw); signOut(); router.replace("/login"); return; }
+    catch (x) { setErr(errText(x)); }
+    setBusy(false);
+  };
+
+  return (
+    <Card className="space-y-1">
+      <div className="divide-y divide-line">
+        {paid && (sub.cancel_at_period_end
+          ? <Row label="Keep my membership" tone="primary" onClick={keep} />
+          : <Row label="Cancel membership" tone="danger" onClick={() => { setErr(null); setDlg("cancel"); }} />)}
+        <Row label="Delete account" tone="danger" onClick={() => { setErr(null); setDlg("delete"); }} />
+      </div>
+      {msg && <Notice tone={msg.ok ? "success" : "error"} title={msg.text} />}
+      {dlg === "cancel" && sub && (
+        <Modal title="Cancel membership?" onClose={close}>
+          <p className="text-sm text-ink-2">You keep Pro until <b>{fmtDate(sub.renews_or_resets_at)}</b>. After that you move to the free Basic plan.</p>
+          {err && <Notice tone="error" title={err} />}
+          <div className="flex justify-end gap-2">
+            <Button variant="ghost" onClick={close}>Not now</Button>
+            <Button variant="danger" disabled={busy} onClick={doCancel}>Cancel membership</Button>
+          </div>
+        </Modal>
+      )}
+      {dlg === "delete" && (
+        <Modal title="Delete account?" onClose={close}>
+          <form onSubmit={doDelete} className="space-y-4">
+            <p className="text-sm text-ink-2">This permanently deletes your account, transcripts and usage. It cannot be undone.</p>
+            <Field label="Your password"><input type="password" required autoFocus value={pw} onChange={(e) => setPw(e.target.value)} className={inputCls} autoComplete="current-password" /></Field>
+            {err && <Notice tone="error" title={err} />}
+            <div className="flex justify-end gap-2">
+              <Button type="button" variant="ghost" onClick={close}>Cancel</Button>
+              <Button type="submit" variant="danger" disabled={busy || !pw}>{busy ? "Deleting..." : "Delete account"}</Button>
+            </div>
+          </form>
+        </Modal>
+      )}
+    </Card>
+  );
+}
+
+function LogoutButton() {
+  const { signOut } = useAuth();
+  const router = useRouter();
+  return (
+    <Button variant="outline" size="lg" className="w-full text-error" onClick={() => { signOut(); router.replace("/login"); }}>
+      <LogOut className="size-4" aria-hidden /> Log out
+    </Button>
   );
 }
 
@@ -323,8 +443,11 @@ export default function SettingsPage() {
       <Preferences />
       <Usage />
       <Limits />
-      <Billing />
+      <Membership />
       <Microphone />
+      <Help />
+      <AccountActions />
+      <LogoutButton />
     </div>
   );
 }

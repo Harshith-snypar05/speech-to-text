@@ -356,6 +356,7 @@ def _apply_cashfree_event(db, ev: dict):
                 except Exception:
                     db.payments.delete_one({"_id": pid})
                     raise
+                _send_invoice(db, uid, pid)
 
     elif t == "SUBSCRIPTION_PAYMENT_SUCCESS":
         subscription_id = _dig(data, "subscription_details.subscription_id", "subscription_id")
@@ -369,9 +370,11 @@ def _apply_cashfree_event(db, ev: dict):
                 subscriptions.payment_succeeded(db, uid, ts)  # renewal of an already-active Pro subscription
             else:
                 subscriptions.activate_pro(db, uid, provider="cashfree", customer_id=uid, subscription_id=subscription_id)
-            _record_payment(db, {"user_id": uid, "created_at": ts, "description": "ScriptLiv Pro",
-                                 "amount_cents": int(round(float(amount) * 100)), "currency": "inr",
-                                 "status": "paid", "provider_ref": cf_subscription_id or subscription_id})
+            pid = _record_payment(db, {"user_id": uid, "created_at": ts, "description": "ScriptLiv Pro",
+                                       "amount_cents": int(round(float(amount) * 100)), "currency": "inr",
+                                       "status": "paid", "provider_ref": cf_subscription_id or subscription_id})
+            if pid is not None:   # a duplicate delivery recorded nothing, so it sends no second invoice
+                _send_invoice(db, uid, pid)
 
     elif t == "SUBSCRIPTION_PAYMENT_FAILED":
         subscription_id = _dig(data, "subscription_details.subscription_id", "subscription_id")
@@ -394,6 +397,20 @@ def _apply_cashfree_event(db, ev: dict):
             sub = db.subscriptions.find_one({"provider_subscription_id": subscription_id})
             if sub:
                 db.subscriptions.update_one({"_id": sub["_id"]}, {"$set": {"cancel_at_period_end": True}})
+
+
+def _send_invoice(db, uid: str, payment_id):
+    """Email the invoice for a just-recorded paid payment. Best effort: it never fails the webhook."""
+    from bson import ObjectId
+
+    from .. import invoice
+    try:
+        user = db.users.find_one({"_id": ObjectId(uid)})
+        payment = db.payments.find_one({"_id": payment_id})
+        if user and payment:
+            invoice.send(db, user, payment, db.subscriptions.find_one({"user_id": uid}))
+    except Exception:
+        pass
 
 
 def _record_payment(db, row: dict):

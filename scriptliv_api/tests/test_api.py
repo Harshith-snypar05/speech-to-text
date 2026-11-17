@@ -161,3 +161,29 @@ def test_verifying_unblocks_transcription(client, unverified_user):
     client.post("/v1/auth/verify-email", json={"token": u["verify"]["dev_token"]})
     r = client.post("/internal/v1/sessions/start", headers=R, json={"token": u["token"], "session_id": "sess-01"}).json()
     assert r["allowed"] is True
+
+
+def test_delete_account_needs_password_and_removes_data(client, user, db):
+    h = user["h"]
+    r = client.request("DELETE", "/v1/me", json={"password": "wrong"}, headers=h)
+    assert r.status_code == 403
+    assert client.request("DELETE", "/v1/me", json={"password": "correct-horse-1"}, headers=h).json() == {"deleted": True}
+    assert client.get("/v1/me", headers=h).status_code == 401
+    assert client.post("/v1/auth/login", json={"email": "ann@example.com", "password": "correct-horse-1"}).status_code == 401
+    assert db.users.count_documents({}) == 0
+
+
+def test_delete_account_blocked_while_paid_plan_active(client, user, db):
+    client.get("/v1/subscription", headers=user["h"])  # creates the subscription doc
+    db.subscriptions.update_one({"user_id": user["id"]}, {"$set": {"plan": "pro", "cancel_at_period_end": False}})
+    r = client.request("DELETE", "/v1/me", json={"password": "correct-horse-1"}, headers=user["h"])
+    assert r.status_code == 409 and r.json()["error"]["code"] == "active_subscription"
+    db.subscriptions.update_one({"user_id": user["id"]}, {"$set": {"cancel_at_period_end": True}})
+    assert client.request("DELETE", "/v1/me", json={"password": "correct-horse-1"}, headers=user["h"]).status_code == 200
+
+
+def test_feedback_is_stored(client, user, db):
+    r = client.post("/v1/feedback", json={"kind": "feature", "title": "Dark mode", "message": "please"}, headers=user["h"])
+    assert r.status_code == 201
+    assert db.feedback.find_one({"title": "Dark mode"})["email"] == "ann@example.com"
+    assert client.post("/v1/feedback", json={"title": "x"}).status_code == 401

@@ -53,3 +53,27 @@ class Settings:
 
 def get_settings() -> Settings:
     return Settings()
+
+
+def production_problems(s: Settings | None = None, env: dict | None = None) -> list[str]:
+    """Settings that must not reach a production deploy. Empty list = fine. Checked at startup when SCRIPTLIV_ENV=production."""
+    s = s or get_settings()
+    env = os.environ if env is None else env
+    bad = []
+    if not s.mongodb_uri:
+        bad.append("MONGODB_URI is not set")
+    if len(s.jwt_secret) < 32:
+        bad.append("SCRIPTLIV_JWT_SECRET must be at least 32 characters")
+    if len(s.relay_secret) < 16:
+        bad.append("SCRIPTLIV_RELAY_SECRET must be at least 16 characters")
+    if "localhost" in s.app_base_url or "127.0.0.1" in s.app_base_url or not s.app_base_url.startswith("https://"):
+        bad.append("SCRIPTLIV_APP_URL must be the public https:// address of the web app")
+    if not s.cors_origins or any("localhost" in o or "127.0.0.1" in o or not o.startswith("https://") for o in s.cors_origins):
+        bad.append("SCRIPTLIV_CORS_ORIGINS must list only the public https:// origins")
+    if s.dev_return_tokens:
+        bad.append("SCRIPTLIV_DEV_RETURN_TOKENS must not be set (it returns verification tokens in API responses)")
+    if str(env.get("SCRIPTLIV_ENABLE_DOCS", "")).lower() in ("1", "true", "yes"):
+        bad.append("SCRIPTLIV_ENABLE_DOCS must not be set (it publishes every route, including /internal/*)")
+    if s.cashfree_live and s.cashfree_app_id.upper().startswith("TEST"):
+        bad.append("CASHFREE_LIVE=1 but the Cashfree App ID is a test key")
+    return bad

@@ -55,6 +55,9 @@ export const api = {
   changePassword: (t: string, current_password: string, new_password: string) =>
     request<{ token: string }>("/v1/me/password", { method: "POST", token: t, body: { current_password, new_password } }),
 
+  deleteAccount: (t: string, password: string) => request<{ deleted: boolean }>("/v1/me", { method: "DELETE", token: t, body: { password } }),
+  sendFeedback: (t: string, kind: "feature" | "bug" | "other", title: string, message: string) =>
+    request<{ received: boolean }>("/v1/feedback", { method: "POST", token: t, body: { kind, title, message } }),
   settings: (t: string) => request<SettingsResponse>("/v1/settings", { token: t }),
   saveSettings: (t: string, patch: Partial<SettingsResponse["settings"]>) => request<SettingsResponse>("/v1/settings", { method: "PUT", token: t, body: patch }),
 

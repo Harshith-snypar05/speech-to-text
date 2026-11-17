@@ -1,0 +1,27 @@
+# Production edge. Caddy gets and renews the HTTPS certificate for {$SCRIPTLIV_DOMAIN} on its own.
+{$SCRIPTLIV_DOMAIN} {
+	encode zstd gzip
+
+	# Machine-to-machine routes (relay -> API) are never public.
+	@internal path /internal/* /sl/internal/*
+	respond @internal 404
+
+	# Live transcription sockets go to the relay (running on the host, port 8772).
+	@relay {
+		query role=speaker
+	}
+	@viewer {
+		query role=viewer
+	}
+	reverse_proxy @relay host.docker.internal:8772
+	reverse_proxy @viewer host.docker.internal:8772
+
+	# Everything else is the web app. The web app proxies /sl/* to the API.
+	reverse_proxy web:3100
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options nosniff
+		-Server
+	}
+}

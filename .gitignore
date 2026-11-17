@@ -38,3 +38,6 @@ benchmarks/_retired_qa/
 *.m4a
 *.sqlite
 *.db
+
+# production deploy secrets
+deploy/production.env

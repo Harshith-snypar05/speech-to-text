@@ -153,9 +153,13 @@ def test_free_cap_applies_to_a_reconnect_of_the_same_session_and_not_to_a_new_on
     assert fresh["allowed"] and fresh["remaining_seconds"] == 300
 
 
-def test_pro_has_no_session_cap(db):
+def test_pro_session_is_capped_at_two_hours(db):
+    """Pro allows long sessions (2 hours, see plans.PLANS), not the 30 minutes of Basic."""
     subs.activate_pro(db, U, T0)
     a = usage.authorize(db, U, T0, session_id="sess-pro")
-    assert a["allowed"] and "session_cap_seconds" not in a
+    assert a["allowed"] and a["session_cap_seconds"] == 7200
     usage.record(db, U, "sess-pro", 4000, T0 + 4000)
     assert usage.authorize(db, U, T0 + 4000, session_id="sess-pro", midsession=True)["allowed"]
+    usage.record(db, U, "sess-pro", 7200, T0 + 7200)
+    end = usage.authorize(db, U, T0 + 7200, session_id="sess-pro", midsession=True)
+    assert not end["allowed"] and end["reason"] == "session_limit"

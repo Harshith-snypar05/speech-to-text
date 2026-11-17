@@ -3,11 +3,11 @@ import time
 from typing import Literal
 
 from bson import ObjectId
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from pydantic import BaseModel, EmailStr, Field
 from pymongo.errors import DuplicateKeyError
 
-from .. import email_service, subscriptions
+from .. import email_providers, email_service, subscriptions, throttle
 from ..config import get_settings
 from ..deps import current_user, db_dep, now, public_user
 from ..security import hash_opaque, hash_password, make_token, new_opaque_token, verify_password
@@ -16,7 +16,6 @@ router = APIRouter(prefix="/v1", tags=["account"])
 
 SUPPORTED_LANGUAGES = ["en"]  # only languages the apps are actually translated into
 EMAIL_TOKEN_TTL = 24 * 3600
-_attempts: dict[str, list[float]] = {}
 
 
 def _err(status, code, message):
@@ -24,12 +23,7 @@ def _err(status, code, message):
 
 
 def _throttle(key: str, limit=10, window=300):
-    t = time.time()
-    hits = [x for x in _attempts.get(key, []) if t - x < window]
-    if len(hits) >= limit:
-        _err(429, "too_many_attempts", "Too many attempts. Try again in a few minutes.")
-    hits.append(t)
-    _attempts[key] = hits
+    throttle.hit(key, limit, window)
 
 
 def _check_password_strength(pw: str):
@@ -57,7 +51,8 @@ def _deliver_token(db, token: str, to: str, kind: str, user_id: str | None = Non
 
 
 @router.post("/auth/register", status_code=201)
-def register(body: RegisterIn, db=Depends(db_dep)):
+def register(body: RegisterIn, request: Request, db=Depends(db_dep)):
+    throttle.hit_ip(request, 'register', limit=10, window=3600)
     _check_password_strength(body.password)
     email = body.email.lower()
     doc = {"name": body.name.strip(), "email": email, "email_verified": False, "pwhash": hash_password(body.password),
@@ -78,7 +73,8 @@ def register(body: RegisterIn, db=Depends(db_dep)):
 
 
 @router.post("/auth/login")
-def login(body: LoginIn, db=Depends(db_dep)):
+def login(body: LoginIn, request: Request, db=Depends(db_dep)):
+    throttle.hit_ip(request, 'login', limit=30)
     email = body.email.lower()
     _throttle("login:" + email)
     u = db.users.find_one({"email": email})
@@ -86,7 +82,7 @@ def login(body: LoginIn, db=Depends(db_dep)):
     ok = verify_password(body.password, u["pwhash"]) if u else verify_password(body.password, "$2b$12$" + "x" * 53)
     if not u or not ok or u.get("disabled"):
         _err(401, "bad_credentials", "Email or password is incorrect.")
-    _attempts.pop("login:" + email, None)
+    throttle.forget("login:" + email)
     if not u.get("email_verified"):
         # correct password, unverified email: no token. Only someone who knows the password learns this.
         _err(403, "email_not_verified", "Verify your email first. Open the link we sent you, then sign in.")
@@ -101,9 +97,10 @@ RESEND_REPLY = {"status": "ok", "message": "If that account still needs verifica
 
 
 @router.post("/auth/resend-verification", status_code=202)
-def resend_verification_public(body: ResendIn, db=Depends(db_dep)):
+def resend_verification_public(body: ResendIn, request: Request, db=Depends(db_dep)):
     """Signed-out resend for a new account that has not verified yet. Same reply whether or not the account exists."""
     email = body.email.lower()
+    throttle.hit_ip(request, "resendpub", limit=20, window=3600)
     _throttle("resendpub:" + email, limit=5)
     u = db.users.find_one({"email": email})
     if not u or u.get("email_verified") or u.get("disabled") or not email_service.delivery_possible(email):
@@ -193,9 +190,10 @@ FORGOT_REPLY = {"status": "ok", "message": "If an account exists for that email,
 
 
 @router.post("/auth/forgot-password", status_code=202)
-def forgot_password(body: ForgotIn, db=Depends(db_dep)):
+def forgot_password(body: ForgotIn, request: Request, db=Depends(db_dep)):
     """Always the same answer (no account enumeration). The link is mailed only to the address on the account."""
     email = body.email.lower()
+    throttle.hit_ip(request, "forgot", limit=20, window=3600)
     _throttle("forgot:" + email, limit=5, window=900)
     u = db.users.find_one({"email": email})
     if u and not u.get("disabled") and email_service.delivery_possible(email):
@@ -278,3 +276,70 @@ def put_settings(body: SettingsIn, user=Depends(current_user), db=Depends(db_dep
     if upd:
         db.settings.update_one({"user_id": str(user["_id"])}, {"$set": upd}, upsert=True)
     return _settings_out(db.settings.find_one({"user_id": str(user["_id"])}))
+
+
+class DeleteAccountIn(BaseModel):
+    password: str = Field(max_length=256)
+
+
+@router.delete("/me")
+def delete_account(body: DeleteAccountIn, user=Depends(current_user), db=Depends(db_dep)):
+    """Permanently removes the account and everything tied to it. Needs the password, and a paid plan must be cancelled first
+    (so no recurring charge is left behind at the payment provider)."""
+    uid = str(user["_id"])
+    _throttle("acctdel:" + uid, limit=5)
+    if not verify_password(body.password, user["pwhash"]):
+        _err(403, "bad_password", "Password is incorrect.")
+    sub = db.subscriptions.find_one({"user_id": uid}) or {}
+    if sub.get("plan", "basic") != "basic" and not sub.get("cancel_at_period_end"):
+        _err(409, "active_subscription", "Cancel your membership first, then you can delete your account.")
+    session_ids = [s["session_id"] for s in db.sessions.find({"owner_id": uid}, {"session_id": 1})]
+    if session_ids:
+        db.transcript_events.delete_many({"session_id": {"$in": session_ids}})
+    db.sessions.delete_many({"owner_id": uid})
+    usage_ids = [s["session_id"] for s in db.usage_sessions.find({"user_id": uid}, {"session_id": 1})]
+    if usage_ids:
+        db.usage_minutes.delete_many({"session_id": {"$in": usage_ids}})
+    for coll in ("usage_sessions", "usage_ledger", "addons", "subscriptions", "settings", "billing_details", "email_tokens"):
+        db[coll].delete_many({"user_id": uid})
+    db.usage_locks.delete_many({"_id": uid})
+    db.users.delete_one({"_id": user["_id"]})
+    return {"deleted": True}
+
+
+class FeedbackIn(BaseModel):
+    kind: Literal["feature", "bug", "other"] = "feature"
+    title: str = Field(min_length=1, max_length=120)
+    message: str = Field(default="", max_length=4000)
+
+
+FEEDBACK_TO = "info@scriptliv.com"
+
+
+def _mail_feedback(doc: dict) -> None:
+    """Forward a stored request to the team inbox. Never raises: the request is already saved in the database."""
+    try:
+        text = chr(10).join([
+            "From: %s (user %s)" % (doc["email"], doc["user_id"]),
+            "Type: %s" % doc["kind"],
+            "",
+            doc["title"],
+            "",
+            doc["message"],
+        ])
+        email_providers.deliver(email_providers.Message(
+            to=FEEDBACK_TO, subject=f"[ScriptLiv {doc['kind']}] {doc['title']}"[:200], text=text))
+    except Exception:
+        pass
+
+
+@router.post("/feedback", status_code=201)
+def send_feedback(body: FeedbackIn, background: BackgroundTasks, user=Depends(current_user), db=Depends(db_dep)):
+    """Feature requests / suggestions from signed-in users: stored for review and emailed to info@scriptliv.com."""
+    uid = str(user["_id"])
+    _throttle("feedback:" + uid, limit=5, window=3600)
+    doc = {"user_id": uid, "email": user["email"], "kind": body.kind, "title": body.title.strip(),
+           "message": body.message.strip(), "created_at": now()}
+    db.feedback.insert_one(dict(doc))
+    background.add_task(_mail_feedback, doc)
+    return {"received": True}
