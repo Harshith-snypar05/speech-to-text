@@ -42,8 +42,8 @@ void main() {
   });
 
   test('theme uses the img_ref palette', () {
-    expect(AppColors.light.primaryBlue, const Color(0xFF9B2AE0));
-    expect(AppColors.light.bg, const Color(0xFFFAF7FF));
-    expect(AppColors.light.textPrimary, const Color(0xFF1B0F2F));
+    expect(AppColors.light.primaryBlue, const Color(0xFF8400E6));
+    expect(AppColors.light.bg, const Color(0xFFF8F5FF));
+    expect(AppColors.light.textPrimary, const Color(0xFF140B33));
   });
 }

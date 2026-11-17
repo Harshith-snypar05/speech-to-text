@@ -64,7 +64,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         Padding(padding: const EdgeInsets.all(32), child: Text(all.isEmpty ? 'No transcripts yet.' : 'No matches.', textAlign: TextAlign.center, style: TextStyle(color: c.textSecondary))),
                       ]);
                     }
-                    return ListView(padding: const EdgeInsets.only(bottom: 100), children: [for (final i in items) HistoryTile(item: i)]);
+                    return ListView(padding: const EdgeInsets.only(bottom: 140), children: [for (final i in items) HistoryTile(item: i)]);
                   },
                 ),
               ),

@@ -32,8 +32,11 @@ class UsageInfo {
   final DateTime resetAt;
   final bool cancelAtPeriodEnd;
   final List<String> warnings;
+  /// Earliest expiry among add-ons that still have minutes left; null when there are none.
+  final DateTime? addonExpiresAt;
   UsageInfo(this.planName, this.includedMinutes, this.includedUsedSeconds, this.includedRemainingSeconds,
-      this.addonRemainingSeconds, this.totalRemainingSeconds, this.percentUsed, this.resetAt, this.cancelAtPeriodEnd, this.warnings);
+      this.addonRemainingSeconds, this.totalRemainingSeconds, this.percentUsed, this.resetAt, this.cancelAtPeriodEnd, this.warnings,
+      {this.addonExpiresAt});
   factory UsageInfo.fromJson(Map<String, dynamic> j) => UsageInfo(
         j['plan_name'] as String? ?? '',
         (j['included_minutes'] as num?)?.toInt() ?? 0,
@@ -45,7 +48,45 @@ class UsageInfo {
         DateTime.fromMillisecondsSinceEpoch(((j['reset_at'] as num?) ?? 0).toInt() * 1000),
         j['cancel_at_period_end'] == true,
         [for (final w in (j['warnings'] as List? ?? const [])) (w as Map<String, dynamic>)['message'] as String],
+        addonExpiresAt: _earliestAddonExpiry(j['addons']),
       );
+
+  static DateTime? _earliestAddonExpiry(Object? addons) {
+    num? best;
+    for (final a in (addons as List? ?? const [])) {
+      final m = a as Map<String, dynamic>;
+      if (((m['remaining_seconds'] as num?) ?? 0) <= 0) continue;
+      final e = m['expires_at'] as num?;
+      if (e != null && (best == null || e < best)) best = e;
+    }
+    return best == null ? null : DateTime.fromMillisecondsSinceEpoch(best.toInt() * 1000);
+  }
+}
+
+/// Server-synced preferences (same record the website's Settings page edits).
+class ServerSettings {
+  final String theme; // light | dark | system
+  final String language;
+  final bool preventAutoLock;
+  final bool usageWarnings;
+  final List<int> warnPercents;
+  final int? personalLimitMinutes;
+  final List<String> supportedLanguages;
+  ServerSettings(this.theme, this.language, this.preventAutoLock, this.usageWarnings, this.warnPercents, this.personalLimitMinutes,
+      this.supportedLanguages);
+  factory ServerSettings.fromJson(Map<String, dynamic> j) {
+    final s = (j['settings'] as Map<String, dynamic>?) ?? const {};
+    final percents = [for (final p in (s['warn_percents'] as List? ?? const [])) (p as num).toInt()]..sort();
+    return ServerSettings(
+      s['theme'] as String? ?? 'system',
+      s['language'] as String? ?? 'en',
+      s['prevent_auto_lock'] != false,
+      s['usage_warnings'] != false,
+      percents,
+      (s['personal_limit_minutes'] as num?)?.toInt(),
+      [for (final l in (j['supported_languages'] as List? ?? const [])) l as String],
+    );
+  }
 }
 
 class SessionItem {
@@ -155,4 +196,55 @@ class PlatformApi {
 
   static Future<SharedView> shared(String token) async =>
       SharedView.fromJson(await _call('GET', '/v1/shared/${Uri.encodeComponent(token)}', auth: false) as Map<String, dynamic>);
+
+  // ---- account ----
+  static Future<Map<String, dynamic>> updateName(String name) async =>
+      ((await _call('PATCH', '/v1/me', body: {'name': name})) as Map<String, dynamic>)['user'] as Map<String, dynamic>;
+
+  /// Starts an email change; the new address stays pending until its link is opened. Returns the pending address.
+  static Future<String> changeEmail(String newEmail, String password) async {
+    final d = await _call('POST', '/v1/me/email', body: {'new_email': newEmail, 'password': password}) as Map<String, dynamic>;
+    return d['pending_email'] as String? ?? newEmail;
+  }
+
+  /// Returns the replacement token: every other device is signed out by the change.
+  static Future<String> changePassword(String current, String next) async {
+    final d = await _call('POST', '/v1/me/password', body: {'current_password': current, 'new_password': next}) as Map<String, dynamic>;
+    return d['token'] as String;
+  }
+
+  // ---- settings ----
+  static Future<ServerSettings> settings() async => ServerSettings.fromJson(await _call('GET', '/v1/settings') as Map<String, dynamic>);
+
+  static Future<ServerSettings> saveSettings(Map<String, dynamic> patch) async =>
+      ServerSettings.fromJson(await _call('PUT', '/v1/settings', body: patch) as Map<String, dynamic>);
+
+  // ---- billing (read + cancel/resume; buying happens on the website) ----
+  static Future<Map<String, dynamic>> subscription() async => await _call('GET', '/v1/subscription') as Map<String, dynamic>;
+
+  static Future<void> cancelPlan() async => _call('POST', '/v1/subscription/cancel');
+
+  static Future<void> resumePlan() async => _call('POST', '/v1/subscription/resume');
+
+  static Future<Map<String, dynamic>?> paymentMethod() async =>
+      ((await _call('GET', '/v1/billing/payment-method')) as Map<String, dynamic>)['payment_method'] as Map<String, dynamic>?;
+
+  static Future<List<Map<String, dynamic>>> payments() async {
+    final d = await _call('GET', '/v1/billing/payments') as Map<String, dynamic>;
+    return [for (final p in (d['payments'] as List? ?? const [])) p as Map<String, dynamic>];
+  }
+
+  static Future<Map<String, dynamic>> billingDetails() async =>
+      ((await _call('GET', '/v1/billing/details')) as Map<String, dynamic>)['details'] as Map<String, dynamic>? ?? {};
+
+  static Future<Map<String, dynamic>> saveBillingDetails(Map<String, dynamic> d) async =>
+      ((await _call('PUT', '/v1/billing/details', body: d)) as Map<String, dynamic>)['details'] as Map<String, dynamic>? ?? {};
+
+  // ---- account removal / feedback ----
+  /// Permanently deletes the account and its data. Needs the password; a live paid plan must be cancelled first.
+  static Future<void> deleteAccount(String password) async => _call('DELETE', '/v1/me', body: {'password': password});
+
+  /// kind: feature | bug | other
+  static Future<void> sendFeedback(String kind, String title, String message) async =>
+      _call('POST', '/v1/feedback', body: {'kind': kind, 'title': title, 'message': message});
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:record/record.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -53,6 +54,7 @@ class TranscriptionClient {
   ConnectionStatus _status = ConnectionStatus.connecting;
   String _currentPartial = '';
   bool _userStopped = false;
+  bool _paused = false;
   int _generation = 0;
   int _retryCount = 0;
 
@@ -109,10 +111,39 @@ class TranscriptionClient {
       device: device,
     ));
     _audioSub = audioStream.listen((chunk) {
+      // While paused nothing is sent, so the relay meters no audio and no minutes are used.
+      if (_paused) return;
       _channel?.sink.add(chunk);
       if (!_levelController.isClosed) _levelController.add(pcm16Rms(chunk));
     });
   }
+
+  bool get isPaused => _paused;
+
+  /// Stops sending audio (the session and its viewers stay connected). A short stretch of silence is sent first
+  /// so the relay closes any sentence still in flight instead of leaving it stuck as a partial.
+  Future<void> pause() async {
+    if (_paused || _userStopped) return;
+    _channel?.sink.add(Uint8List(_pauseFlushBytes));
+    _paused = true;
+    if (!_levelController.isClosed) _levelController.add(0);
+    try {
+      await _recorder.pause();
+    } catch (_) {
+      // Some platforms cannot pause a stream; chunks are already dropped above, which is what matters.
+    }
+  }
+
+  Future<void> resume() async {
+    if (!_paused || _userStopped) return;
+    try {
+      await _recorder.resume();
+    } catch (_) {}
+    _paused = false;
+  }
+
+  // 0.8 s of 16 kHz mono PCM16 silence.
+  static const _pauseFlushBytes = 16000 * 2 * 8 ~/ 10;
 
   Future<void> _connect(int myGen, {required bool isInitial}) async {
     if (myGen != _generation) return; // superseded by a newer start()/retry
@@ -223,10 +254,11 @@ class TranscriptionClient {
 
   Future<void> stop() async {
     _userStopped = true;
+    _paused = false;
     _generation++; // invalidate any in-flight retry/connect attempt
     await _audioSub?.cancel();
     _audioSub = null;
-    if (await _recorder.isRecording()) await _recorder.stop();
+    if (await _recorder.isRecording() || await _recorder.isPaused()) await _recorder.stop();
     // Grace period: only if an utterance is genuinely mid-flight. Closing
     // instantly would race the relay's pause-triggered flush and lose the
     // speaker's own last sentence (it still reaches viewers via broadcast,

@@ -53,6 +53,13 @@ class AuthService {
     await _prefs?.setString(_kPlatformToken, t);
   }
 
+  /// Stores a replacement token (after a password change) while staying signed in.
+  static Future<void> replaceToken(String t) async {
+    PlatformSession.token = t;
+    token = t;
+    await _prefs?.setString(_kPlatformToken, t);
+  }
+
   /// Returns null on success, else a message safe to show. A null return with [unverifiedEmail] set means the account
   /// exists but must verify its email first: the user is NOT signed in.
   static Future<String?> login(String email, String password) async {

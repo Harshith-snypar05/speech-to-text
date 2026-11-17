@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: RefreshIndicator(
         onRefresh: _refresh,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(20, 12, 20, 100),
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 140),
           children: [
             Text('Hello, $_name', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: c.textPrimary)),
             const SizedBox(height: 4),

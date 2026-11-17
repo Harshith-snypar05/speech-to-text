@@ -7,6 +7,8 @@ import '../config/app_config.dart';
 import '../services/auth_service.dart';
 import '../services/platform_api.dart';
 import '../theme.dart';
+import 'help_screens.dart';
+import 'settings_sections.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -24,6 +26,54 @@ class _SettingsScreenState extends State<SettingsScreen> {
     text: AppSettings.backendUrl.value,
   );
   String? _urlError;
+
+  /// Server-held preferences (same record the website edits). Null until loaded / offline.
+  ServerSettings? _server;
+
+  @override
+  void initState() {
+    super.initState();
+    if (AppConfig.platformMode) _loadServerSettings();
+  }
+
+  Future<void> _loadServerSettings() async {
+    try {
+      final s = await PlatformApi.settings();
+      if (!mounted) return;
+      // The account's saved theme / auto-lock win over the device's local copy, like on the website.
+      final mode = ThemeMode.values.firstWhere((m) => m.name == s.theme, orElse: () => AppSettings.themeMode.value);
+      await AppSettings.setThemeMode(mode);
+      await AppSettings.setPreventAutoLock(s.preventAutoLock);
+      if (mounted) setState(() => _server = s);
+    } catch (_) {
+      // offline: local settings still work
+    }
+  }
+
+  /// Saves a partial update to the account; returns the stored settings, or null on failure.
+  Future<ServerSettings?> _saveServer(Map<String, dynamic> patch) async {
+    try {
+      final s = await PlatformApi.saveSettings(patch);
+      if (mounted) setState(() => _server = s);
+      return s;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> _pickLanguage() async {
+    final s = _server;
+    if (s == null || s.supportedLanguages.isEmpty) return;
+    final picked = await _showOptionSheet<String>(
+      context: context,
+      title: 'Language',
+      options: [for (final l in s.supportedLanguages) _Option(value: l, label: _languageLabel(l))],
+      selected: s.language,
+    );
+    if (picked != null && picked != s.language) await _saveServer({'language': picked});
+  }
+
+  static String _languageLabel(String code) => code == 'en' ? 'English' : code;
 
   @override
   void dispose() {
@@ -55,8 +105,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ],
       selected: AppSettings.themeMode.value,
     );
-    if (picked != null) await AppSettings.setThemeMode(picked);
+    if (picked != null) {
+      await AppSettings.setThemeMode(picked);
+      if (AppConfig.platformMode) _saveServer({'theme': picked.name});
+    }
   }
+
+  void _push(Widget page) => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => page));
 
   Future<void> _logout() async {
     await AuthService.logout();
@@ -112,126 +167,172 @@ class _SettingsScreenState extends State<SettingsScreen> {
           AppSettings.themeMode,
           AppSettings.micDeviceLabel,
           AppSettings.backendUrl,
-          AuthService.currentEmail,
         ]),
         builder: (context, _) {
           return ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.zero,
             children: [
-              if (AppConfig.platformMode) const _EmailVerifyBanner(),
-              Row(
+              const SizedBox(height: 4),
+              if (AppConfig.platformMode) ...[
+                const AccountSection(),
+                const PasswordSection(),
+              ],
+              SettingsSection(
+                title: 'Preferences',
                 children: [
-                  Icon(
-                    Icons.text_fields,
-                    color: colors.textSecondary,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Text(
-                      'Text size',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                        color: colors.textPrimary,
+                  Row(
+                    children: [
+                      Icon(Icons.text_fields, color: colors.textSecondary, size: 20),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Text(
+                          'Text size',
+                          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: colors.textPrimary),
+                        ),
                       ),
-                    ),
+                      _segmented(
+                        colors: colors,
+                        options: const ['S', 'M', 'L'],
+                        selected: AppTextSize.values.indexOf(AppSettings.textSize.value),
+                        compact: true,
+                        onChanged: (i) => AppSettings.setTextSize(AppTextSize.values[i]),
+                      ),
+                    ],
                   ),
-                  _segmented(
+                  Divider(height: 24, color: colors.cardBorder),
+                  _settingsRow(
                     colors: colors,
-                    options: const ['S', 'M', 'L'],
-                    selected: AppTextSize.values.indexOf(
-                      AppSettings.textSize.value,
+                    icon: Icons.brightness_6_outlined,
+                    label: 'Theme',
+                    value: _themeLabel(AppSettings.themeMode.value),
+                    onTap: _pickTheme,
+                  ),
+                  if (AppConfig.platformMode && _server != null) ...[
+                    Divider(height: 1, color: colors.cardBorder),
+                    _settingsRow(
+                      colors: colors,
+                      icon: Icons.language,
+                      label: 'Language',
+                      value: _languageLabel(_server!.language),
+                      onTap: _pickLanguage,
                     ),
-                    compact: true,
-                    onChanged: (i) =>
-                        AppSettings.setTextSize(AppTextSize.values[i]),
+                  ],
+                  Divider(height: 1, color: colors.cardBorder),
+                  SwitchListTile(
+                    contentPadding: EdgeInsets.zero,
+                    secondary: Icon(Icons.screen_lock_portrait_outlined, color: colors.textSecondary),
+                    title: const Text('Prevent auto-lock while live'),
+                    subtitle: const Text('Keeps the screen on during a session.'),
+                    value: AppSettings.preventAutoLock.value,
+                    onChanged: (v) async {
+                      await AppSettings.setPreventAutoLock(v);
+                      if (AppConfig.platformMode) _saveServer({'prevent_auto_lock': v});
+                      if (mounted) setState(() {});
+                    },
                   ),
                 ],
               ),
-              Divider(height: 32, color: colors.cardBorder),
-              _settingsRow(
-                colors: colors,
-                icon: Icons.brightness_6_outlined,
-                label: 'Theme',
-                value: _themeLabel(AppSettings.themeMode.value),
-                onTap: _pickTheme,
+              if (AppConfig.platformMode) ...[
+                const UsageSection(),
+                if (_server != null) LimitsSection(settings: _server!, onSave: _saveServer),
+                const MembershipSection(),
+              ],
+              SettingsSection(
+                title: 'Microphone',
+                children: [
+                  _settingsRow(
+                    colors: colors,
+                    icon: Icons.mic_none,
+                    label: 'Input device',
+                    value: AppSettings.micDeviceLabel.value ?? 'Default',
+                    onTap: _pickMicrophone,
+                  ),
+                ],
               ),
-              Divider(height: 1, color: colors.cardBorder),
-              Divider(height: 1, color: colors.cardBorder),
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                secondary: Icon(Icons.screen_lock_portrait_outlined, color: colors.textSecondary),
-                title: const Text('Prevent auto-lock while live'),
-                subtitle: const Text('Keeps the screen on during a session.'),
-                value: AppSettings.preventAutoLock.value,
-                onChanged: (v) async {
-                  await AppSettings.setPreventAutoLock(v);
-                  if (mounted) setState(() {});
-                },
-              ),
-              Divider(height: 1, color: colors.cardBorder),
-              _settingsRow(
-                colors: colors,
-                icon: Icons.mic_none,
-                label: 'Microphone',
-                value: AppSettings.micDeviceLabel.value ?? 'Default',
-                onTap: _pickMicrophone,
-              ),
-              if (!kIsWeb && !AppConfig.platformMode) ...[
-                Divider(height: 32, color: colors.cardBorder),
-                Text(
-                  'Connection',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                    color: colors.textPrimary,
+              if (!kIsWeb && !AppConfig.platformMode)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Divider(height: 32, color: colors.cardBorder),
+                      Text('Connection', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: colors.textPrimary)),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Icon(Icons.dns_outlined, color: colors.textSecondary, size: 20),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: TextField(
+                              controller: _urlController,
+                              onSubmitted: (_) => _submitUrl(),
+                              style: TextStyle(fontSize: 14, color: colors.textPrimary),
+                              decoration: InputDecoration(
+                                labelText: 'Backend address',
+                                hintText: 'wss://your-tunnel.trycloudflare.com',
+                                errorText: _urlError,
+                                border: const OutlineInputBorder(),
+                                suffixIcon: IconButton(icon: const Icon(Icons.check), onPressed: _submitUrl),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text('The address of the computer running the transcription server.', style: TextStyle(color: colors.textSecondary, fontSize: 12)),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.dns_outlined,
-                      color: colors.textSecondary,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 14),
-                    Expanded(
-                      child: TextField(
-                        controller: _urlController,
-                        onSubmitted: (_) => _submitUrl(),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: colors.textPrimary,
-                        ),
-                        decoration: InputDecoration(
-                          labelText: 'Backend address',
-                          hintText: 'wss://your-tunnel.trycloudflare.com',
-                          errorText: _urlError,
-                          border: const OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.check),
-                            onPressed: _submitUrl,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+              SettingsSection(
+                title: 'Help',
+                children: [
+                  _settingsRow(
+                    colors: colors,
+                    icon: Icons.lightbulb_outline,
+                    label: 'Request a feature',
+                    value: '',
+                    onTap: () => _push(const RequestFeatureScreen()),
+                  ),
+                  Divider(height: 1, color: colors.cardBorder),
+                  _settingsRow(
+                    colors: colors,
+                    icon: Icons.wifi_off_outlined,
+                    label: 'Fix a connection issue',
+                    value: '',
+                    onTap: () => _push(const ConnectionHelpScreen()),
+                  ),
+                  Divider(height: 1, color: colors.cardBorder),
+                  _settingsRow(
+                    colors: colors,
+                    icon: Icons.privacy_tip_outlined,
+                    label: 'Privacy Policy',
+                    value: '',
+                    onTap: () => _push(const LegalScreen(privacy: true)),
+                  ),
+                  Divider(height: 1, color: colors.cardBorder),
+                  _settingsRow(
+                    colors: colors,
+                    icon: Icons.description_outlined,
+                    label: 'Terms & Conditions',
+                    value: '',
+                    onTap: () => _push(const LegalScreen(privacy: false)),
+                  ),
+                ],
+              ),
+              if (AppConfig.platformMode) const AccountActionsSection(),
+              Container(height: 8, color: colors.neutralChipBg),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 28),
+                child: OutlinedButton.icon(
+                  onPressed: _logout,
+                  icon: const Icon(Icons.logout),
+                  label: const Text('Log out'),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                    foregroundColor: colors.recordRed,
+                    side: BorderSide(color: colors.recordRed.withValues(alpha: 0.5)),
+                  ),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  'The address of the computer running the transcription server.',
-                  style: TextStyle(color: colors.textSecondary, fontSize: 12),
-                ),
-              ],
-              Divider(height: 32, color: colors.cardBorder),
-              _settingsRow(
-                colors: colors,
-                icon: Icons.logout,
-                label: 'Log out',
-                value: AuthService.currentEmail.value ?? '',
-                onTap: _logout,
               ),
             ],
           );
@@ -271,16 +372,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            Flexible(
-              child: Text(
-                value,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.right,
-                style: TextStyle(color: colors.textSecondary, fontSize: 14),
+            if (value.isNotEmpty)
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 150),
+                child: Text(
+                  value,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
+                  style: TextStyle(color: colors.textSecondary, fontSize: 14),
+                ),
               ),
-            ),
             const SizedBox(width: 4),
-            Icon(Icons.chevron_right, color: colors.textSecondary, size: 18),
+            const SettingsChevron(),
           ],
         ),
       ),
@@ -425,73 +528,4 @@ Future<T?> _showOptionSheet<T>({
       );
     },
   );
-}
-
-
-/// Shown while the account's email is unverified: recording, share links and purchases need a verified email.
-class _EmailVerifyBanner extends StatefulWidget {
-  const _EmailVerifyBanner();
-
-  @override
-  State<_EmailVerifyBanner> createState() => _EmailVerifyBannerState();
-}
-
-class _EmailVerifyBannerState extends State<_EmailVerifyBanner> {
-  bool _unverified = false;
-  bool _busy = false;
-  String? _note;
-
-  @override
-  void initState() {
-    super.initState();
-    PlatformApi.me().then((u) {
-      if (mounted) setState(() => _unverified = u['email_verified'] == false);
-    }).catchError((_) {});
-  }
-
-  Future<void> _resend() async {
-    setState(() {
-      _busy = true;
-      _note = null;
-    });
-    String note;
-    try {
-      await PlatformApi.resendVerification();
-      note = 'Verification email sent. Open the link in it, then come back.';
-    } on ApiException catch (e) {
-      note = e.message;
-    } catch (_) {
-      note = 'Could not reach the server. Try again.';
-    }
-    if (mounted) {
-      setState(() {
-        _busy = false;
-        _note = note;
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (!_unverified) return const SizedBox.shrink();
-    final colors = AppColors.of(context);
-    return Container(
-      margin: const EdgeInsets.only(top: 8, bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: colors.recordRed.withValues(alpha: 0.08), borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Verify your email', style: TextStyle(fontWeight: FontWeight.w700, color: colors.textPrimary)),
-          const SizedBox(height: 4),
-          Text('Recording, share links and purchases need a verified email address.', style: TextStyle(fontSize: 13, color: colors.textSecondary)),
-          if (_note != null) Padding(padding: const EdgeInsets.only(top: 6), child: Text(_note!, style: TextStyle(fontSize: 13, color: colors.textPrimary))),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton(onPressed: _busy ? null : _resend, child: Text(_busy ? 'Sending...' : 'Resend verification email')),
-          ),
-        ],
-      ),
-    );
-  }
 }

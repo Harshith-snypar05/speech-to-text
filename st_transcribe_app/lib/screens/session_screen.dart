@@ -1,5 +1,3 @@
-import 'dart:ui' show PointerDeviceKind;
-
 import 'package:flutter/material.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -27,6 +25,7 @@ class _SessionScreenState extends State<SessionScreen>
     with SingleTickerProviderStateMixin {
   bool _recording = false;
   bool _connecting = false;
+  bool _paused = false;
   String? _error;
   ConnectionStatus _connStatus = ConnectionStatus.stopped;
   final List<String> _utterances = [];
@@ -57,14 +56,6 @@ class _SessionScreenState extends State<SessionScreen>
 
   String get _transcript => _utterances.join(' ');
 
-  Future<void> _toggle() async {
-    if (_recording) {
-      await _stop();
-    } else {
-      await _start();
-    }
-  }
-
   Future<void> _start() async {
     setState(() {
       _connecting = true;
@@ -72,6 +63,7 @@ class _SessionScreenState extends State<SessionScreen>
       _utterances.clear();
       _currentPartial = '';
       _levels.clear();
+      _paused = false;
     });
     final client = TranscriptionClient(
       wsUrl: AppSettings.backendUrl.value,
@@ -126,12 +118,33 @@ class _SessionScreenState extends State<SessionScreen>
 
   void _retryConnection() => _client?.retry();
 
+  Future<void> _togglePause() async {
+    final client = _client;
+    if (client == null || !_recording) return;
+    if (_paused) {
+      await client.resume();
+      if (AppSettings.preventAutoLock.value) WakelockPlus.enable().catchError((_) {});
+    } else {
+      await client.pause();
+      WakelockPlus.disable().catchError((_) {});
+    }
+    if (!mounted) return;
+    setState(() {
+      _paused = client.isPaused;
+      if (_paused) {
+        _currentPartial = '';
+        _levels.clear();
+      }
+    });
+  }
+
   Future<void> _stop() async {
     WakelockPlus.disable().catchError((_) {});
     await _client?.stop();
     final saved = await TranscriptStorage.save(_transcript);
     setState(() {
       _recording = false;
+      _paused = false;
       _client = null;
       _currentPartial = '';
       _levels.clear();
@@ -189,210 +202,254 @@ class _SessionScreenState extends State<SessionScreen>
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
-    final color = _recording ? colors.recordRed : colors.primaryBlue;
 
     return Scaffold(
       body: SafeArea(
-        child: Stack(
+        child: Column(
           children: [
-            _mainColumn(colors, color),
-            Positioned.fill(
-              child: _TranscriptionSheet(
+            _topBar(colors),
+            // Transcript fills the top and follows the newest text; it is not a draggable sheet.
+            Expanded(
+              child: _TranscriptPanel(
                 recording: _recording,
+                paused: _paused,
                 transcript: _transcript,
                 currentPartial: _currentPartial,
               ),
             ),
+            _controls(colors),
           ],
         ),
       ),
     );
   }
 
-  Widget _mainColumn(AppColors colors, Color color) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 90,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget _topBar(AppColors colors) {
+    return SizedBox(
+      height: 64,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.settings_outlined, color: colors.textPrimary),
+                  onPressed: () => Navigator.of(context).pushNamed('/settings'),
+                ),
+                Stack(
+                  clipBehavior: Clip.none,
                   children: [
                     IconButton(
-                      icon: Icon(
-                        Icons.settings_outlined,
-                        color: colors.textPrimary,
-                      ),
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed('/settings'),
+                      icon: Icon(Icons.ios_share, color: colors.textPrimary),
+                      onPressed: _openShareSheet,
                     ),
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            Icons.ios_share,
-                            color: colors.textPrimary,
-                          ),
-                          onPressed: _openShareSheet,
+                    Positioned(
+                      right: 6,
+                      top: 6,
+                      child: Container(
+                        width: 9,
+                        height: 9,
+                        decoration: BoxDecoration(
+                          color: _recording ? colors.liveGreen : const Color(0xFFFFC107),
+                          shape: BoxShape.circle,
                         ),
-                        Positioned(
-                          right: 6,
-                          top: 6,
-                          child: Container(
-                            width: 9,
-                            height: 9,
-                            decoration: BoxDecoration(
-                              color: _recording
-                                  ? colors.liveGreen
-                                  : const Color(0xFFFFC107),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
-              ),
-              const IgnorePointer(child: ScriptLivMark(size: 64)),
-            ],
-          ),
-        ),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Waveform(levels: _levels, active: _recording && _connStatus == ConnectionStatus.connected),
-        ),
-        const SizedBox(height: 16),
-        GestureDetector(
-          onTap: _connecting ? null : _toggle,
-          child: AnimatedBuilder(
-            animation: _pulse,
-            builder: (context, _) {
-              return SizedBox(
-                width: 180,
-                height: 180,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    _ring(color, 180, 0.12),
-                    _ring(color, 140 + 20 * _pulse.value, 0.18),
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: color,
-                        shape: BoxShape.circle,
-                      ),
-                      child: _connecting
-                          ? const Padding(
-                              padding: EdgeInsets.all(28),
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 3,
-                              ),
-                            )
-                          : const Icon(
-                              Icons.mic,
-                              color: Colors.white,
-                              size: 40,
-                            ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 16),
-        Text(
-          _connecting
-              ? 'Connecting...'
-              : (_recording ? 'Tap to stop' : 'Tap to start'),
-          style: TextStyle(color: colors.textSecondary, fontSize: 14),
-        ),
-        if (!_recording && !_connecting) ...[
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Require access code',
-                style: TextStyle(color: colors.textSecondary, fontSize: 13),
-              ),
-              Switch(
-                value: _requireAccessCode,
-                onChanged: (v) => setState(() {
-                  _requireAccessCode = v;
-                  _accessCode = v ? generateAccessCode() : null;
-                }),
-              ),
-            ],
-          ),
-        ],
-        if (_recording) ...[
-          const SizedBox(height: 12),
-          TextButton.icon(
-            onPressed: _endSession,
-            icon: Icon(
-              Icons.stop_circle_outlined,
-              color: colors.recordRed,
-              size: 18,
-            ),
-            label: Text(
-              'End Session',
-              style: TextStyle(
-                color: colors.recordRed,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-        ],
-        if (_recording && _connStatus != ConnectionStatus.connected) ...[
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              children: [
-                Text(
-                  _statusMessage(_connStatus),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: colors.recordRed, fontSize: 13),
-                ),
-                if (_connStatus == ConnectionStatus.connectionFailed) ...[
-                  const SizedBox(height: 4),
-                  TextButton(
-                    onPressed: _retryConnection,
-                    child: Text(
-                      'Retry',
-                      style: TextStyle(
-                        color: colors.primaryBlue,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ],
               ],
             ),
           ),
+          const IgnorePointer(child: ScriptLivMark(size: 44)),
         ],
-        if (_error != null) ...[
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Text(
-              _error!,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: colors.recordRed, fontSize: 13),
-            ),
+      ),
+    );
+  }
+
+  /// Bottom dock: waveform, then the mic. Before a session the mic starts it; once recording, the mic becomes a
+  /// status indicator flanked by Pause/Resume and End Session.
+  Widget _controls(AppColors colors) {
+    final active = _recording && !_paused;
+    final micColor = !_recording
+        ? colors.primaryBlue
+        : (_paused ? const Color(0xFFF59E0B) : colors.recordRed);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 14),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        boxShadow: const [BoxShadow(color: Color(0x14000000), blurRadius: 16, offset: Offset(0, -4))],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Waveform(
+            levels: _levels,
+            active: active && _connStatus == ConnectionStatus.connected,
+            height: 48,
           ),
+          const SizedBox(height: 10),
+          if (_recording)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _actionButton(
+                  key: const Key('pause_resume_button'),
+                  icon: _paused ? Icons.play_arrow_rounded : Icons.pause_rounded,
+                  label: _paused ? 'Resume' : 'Pause',
+                  color: colors.primaryBlue,
+                  onTap: _togglePause,
+                ),
+                _micButton(micColor, tappable: false),
+                _actionButton(
+                  key: const Key('end_session_button'),
+                  icon: Icons.stop_rounded,
+                  label: 'End Session',
+                  color: colors.recordRed,
+                  onTap: _endSession,
+                ),
+              ],
+            )
+          else ...[
+            _micButton(micColor, tappable: !_connecting),
+            const SizedBox(height: 6),
+            Text(
+              _connecting ? 'Connecting...' : 'Tap to start',
+              style: TextStyle(color: colors.textSecondary, fontSize: 14),
+            ),
+            if (!_connecting)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Require access code', style: TextStyle(color: colors.textSecondary, fontSize: 13)),
+                  Switch(
+                    value: _requireAccessCode,
+                    onChanged: (v) => setState(() {
+                      _requireAccessCode = v;
+                      _accessCode = v ? generateAccessCode() : null;
+                    }),
+                  ),
+                ],
+              ),
+          ],
+          if (_recording && _paused)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                'Paused. Nothing is being transcribed or counted against your minutes.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: colors.textSecondary, fontSize: 12),
+              ),
+            ),
+          if (_recording && _connStatus != ConnectionStatus.connected)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Column(
+                children: [
+                  Text(
+                    _statusMessage(_connStatus),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: colors.recordRed, fontSize: 13),
+                  ),
+                  if (_connStatus == ConnectionStatus.connectionFailed)
+                    TextButton(
+                      onPressed: _retryConnection,
+                      child: Text(
+                        'Retry',
+                        style: TextStyle(color: colors.primaryBlue, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          if (_error != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                _error!,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: colors.recordRed, fontSize: 13),
+              ),
+            ),
         ],
-      ],
+      ),
+    );
+  }
+
+  Widget _micButton(Color color, {required bool tappable}) {
+    return GestureDetector(
+      key: const Key('mic_button'),
+      onTap: tappable ? _start : null,
+      child: AnimatedBuilder(
+        animation: _pulse,
+        builder: (context, _) {
+          final pulsing = _recording && !_paused;
+          return SizedBox(
+            width: 112,
+            height: 112,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                _ring(color, 112, 0.12),
+                _ring(color, pulsing ? 88 + 18 * _pulse.value : 88, 0.18),
+                Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                  child: _connecting
+                      ? const Padding(
+                          padding: EdgeInsets.all(18),
+                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3),
+                        )
+                      : Icon(_paused ? Icons.mic_off : Icons.mic, color: Colors.white, size: 30),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _actionButton({
+    required Key key,
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 22),
+      child: GestureDetector(
+        key: key,
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: SizedBox(
+          width: 84,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 54,
+                height: 54,
+                decoration: BoxDecoration(color: color.withValues(alpha: 0.12), shape: BoxShape.circle),
+                child: Icon(icon, color: color, size: 28),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                label,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -442,50 +499,53 @@ class _SessionScreenState extends State<SessionScreen>
   }
 }
 
-/// Drag the handle up to reveal the transcript; collapsed, only the
-/// "Transcription / Live|Ready" header strip shows (see the screenshot
-/// this was built from). Scrolls itself to the bottom as new text comes
-/// in so an expanded sheet behaves like a live auto-scrolling log.
-class _TranscriptionSheet extends StatefulWidget {
+/// Fixed (not draggable) transcript area at the top of the screen. It keeps the newest text in view: whenever
+/// text arrives and the reader is at (or near) the bottom, it scrolls down. Scrolling up to re-read pauses the
+/// following until the reader returns to the bottom.
+class _TranscriptPanel extends StatefulWidget {
   final bool recording;
+  final bool paused;
   final String transcript;
   final String currentPartial;
-  const _TranscriptionSheet({
+  const _TranscriptPanel({
     required this.recording,
+    required this.paused,
     required this.transcript,
     required this.currentPartial,
   });
 
   @override
-  State<_TranscriptionSheet> createState() => _TranscriptionSheetState();
+  State<_TranscriptPanel> createState() => _TranscriptPanelState();
 }
 
-class _TranscriptionSheetState extends State<_TranscriptionSheet> {
-  static const _collapsedSize = 0.1;
-  static const _expandedSize = 0.85;
-
-  ScrollController? _scrollController;
+class _TranscriptPanelState extends State<_TranscriptPanel> {
+  static const _followSlack = 96.0;
+  final ScrollController _scroll = ScrollController();
 
   @override
-  void didUpdateWidget(covariant _TranscriptionSheet old) {
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  bool get _nearBottom =>
+      !_scroll.hasClients || _scroll.position.maxScrollExtent - _scroll.offset <= _followSlack;
+
+  @override
+  void didUpdateWidget(covariant _TranscriptPanel old) {
     super.didUpdateWidget(old);
-    if (widget.transcript != old.transcript ||
-        widget.currentPartial != old.currentPartial) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+    if (widget.transcript != old.transcript || widget.currentPartial != old.currentPartial) {
+      // Decide before the new text is laid out: were we following the end?
+      final follow = _nearBottom;
+      if (follow) WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     }
   }
 
   void _scrollToBottom() {
-    final controller = _scrollController;
-    if (controller == null || !controller.hasClients) return;
-    final position = controller.position;
-    // Lands with the latest text roughly in the lower half of the screen
-    // rather than jammed against the very bottom edge.
-    final target = (position.maxScrollExtent - position.viewportDimension * 0.4)
-        .clamp(0.0, position.maxScrollExtent);
-    controller.animateTo(
-      target,
-      duration: const Duration(milliseconds: 200),
+    if (!_scroll.hasClients) return;
+    _scroll.animateTo(
+      _scroll.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 180),
       curve: Curves.easeOut,
     );
   }
@@ -493,175 +553,100 @@ class _TranscriptionSheetState extends State<_TranscriptionSheet> {
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
-    // The default ScrollBehavior only accepts touch for drag-to-scroll/
-    // resize -- without this override, dragging the handle with a mouse
-    // (desktop browser, e.g. testing over the Cloudflare tunnel) does
-    // nothing even though the exact same drag works fine on a touchscreen.
-    return ScrollConfiguration(
-      behavior: _MouseDragScrollBehavior(),
-      child: DraggableScrollableSheet(
-        initialChildSize: _collapsedSize,
-        minChildSize: _collapsedSize,
-        maxChildSize: _expandedSize,
-        snap: true,
-        snapSizes: const [_collapsedSize, _expandedSize],
-        builder: (context, scrollController) {
-          _scrollController = scrollController;
-          return ValueListenableBuilder<TranscriptionMode>(
-            valueListenable: AppSettings.transcriptionMode,
-            builder: (context, mode, _) {
-              // "Accurate (per-sentence)" mode hides the in-progress partial
-              // and only shows committed finals -- same relay messages either
-              // way, this is purely a client-side display choice.
-              final showPartial = mode == TranscriptionMode.live;
-              final isEmpty =
-                  widget.transcript.isEmpty &&
-                  (!showPartial || widget.currentPartial.isEmpty);
-              return Container(
-                decoration: BoxDecoration(
-                  color: colors.surface,
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(24),
+    final stateColor = widget.paused ? const Color(0xFFF59E0B) : colors.primaryBlue;
+    final stateLabel = widget.recording ? (widget.paused ? 'Paused' : 'Live') : 'Ready';
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Transcription',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: colors.textPrimary),
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(color: stateColor, shape: BoxShape.circle),
                   ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x14000000),
-                      blurRadius: 16,
-                      offset: Offset(0, -4),
-                    ),
-                  ],
-                ),
-                child: ListView(
-                  controller: scrollController,
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 24),
-                  children: [
-                    Center(
-                      child: Container(
-                        width: 36,
-                        height: 4,
-                        margin: const EdgeInsets.only(bottom: 16),
-                        decoration: BoxDecoration(
-                          color: colors.cardBorder,
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Transcription',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: colors.textPrimary,
+                  const SizedBox(width: 6),
+                  Text(
+                    stateLabel,
+                    style: TextStyle(color: colors.textSecondary, fontSize: 13, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Expanded(
+            child: ValueListenableBuilder<TranscriptionMode>(
+              valueListenable: AppSettings.transcriptionMode,
+              builder: (context, mode, _) {
+                // "Accurate (per-sentence)" mode hides the in-progress partial and only shows committed
+                // finals -- a client-side display choice, the relay sends the same messages either way.
+                final showPartial = mode == TranscriptionMode.live;
+                final isEmpty = widget.transcript.isEmpty && (!showPartial || widget.currentPartial.isEmpty);
+                if (isEmpty) return _empty(colors);
+                return SingleChildScrollView(
+                  key: const Key('transcript_scroll'),
+                  controller: _scroll,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: widget.transcript,
+                            style: TextStyle(fontSize: 16, height: 1.55, color: colors.textPrimary),
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 8,
-                              height: 8,
-                              decoration: BoxDecoration(
-                                color: colors.primaryBlue,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            const SizedBox(width: 6),
-                            Text(
-                              widget.recording ? 'Live' : 'Ready',
-                              style: TextStyle(
-                                color: colors.textSecondary,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    if (isEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 24),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              width: 56,
-                              height: 56,
-                              decoration: BoxDecoration(
-                                color: colors.lightBlueBg,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.graphic_eq,
-                                color: colors.primaryBlue,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              'Start speaking...',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15,
-                                color: colors.textPrimary,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              'Your words will appear here in real time.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: colors.textSecondary,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    else
-                      Text.rich(
-                        TextSpan(
-                          children: [
+                          if (showPartial && widget.currentPartial.isNotEmpty)
                             TextSpan(
-                              text: widget.transcript,
-                              style: TextStyle(
-                                fontSize: 15,
-                                height: 1.5,
-                                color: colors.textPrimary,
-                              ),
+                              text: '${widget.transcript.isEmpty ? '' : ' '}${widget.currentPartial}',
+                              style: TextStyle(fontSize: 16, height: 1.55, color: colors.textSecondary),
                             ),
-                            if (showPartial && widget.currentPartial.isNotEmpty)
-                              TextSpan(
-                                text:
-                                    '${widget.transcript.isEmpty ? '' : ' '}${widget.currentPartial}',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  height: 1.5,
-                                  color: colors.textSecondary,
-                                ),
-                              ),
-                          ],
-                        ),
+                        ],
                       ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
-}
 
-class _MouseDragScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-    PointerDeviceKind.touch,
-    PointerDeviceKind.mouse,
-    PointerDeviceKind.stylus,
-    PointerDeviceKind.trackpad,
-  };
+  Widget _empty(AppColors colors) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(color: colors.lightBlueBg, shape: BoxShape.circle),
+            child: Icon(Icons.graphic_eq, color: colors.primaryBlue),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Start speaking...',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15, color: colors.textPrimary),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Your words will appear here in real time.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: colors.textSecondary, fontSize: 13),
+          ),
+        ],
+      ),
+    );
+  }
 }
