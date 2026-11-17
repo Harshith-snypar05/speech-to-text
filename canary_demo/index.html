@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Parakeet + Canary live</title>
+<style>
+body{font:16px system-ui,sans-serif;max-width:820px;margin:32px auto;padding:0 16px;color:#111}
+h1{font-size:22px} button{font:inherit;padding:10px 18px;border-radius:8px;border:1px solid #6a00ff;background:#6a00ff;color:#fff;cursor:pointer}
+button.rec{background:#d11;border-color:#d11}button:disabled{opacity:.5}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0}
+.card{border:1px solid #ddd;border-radius:10px;padding:12px 14px;margin:10px 0}
+.meta{color:#595959;font-size:13px;margin-top:6px} audio{width:100%;margin-top:8px}
+.line{padding:6px 0;border-bottom:1px solid #eee;font-size:18px;line-height:1.5}
+.line .tag{font-size:11px;font-weight:700;letter-spacing:.5px;padding:2px 6px;border-radius:6px;margin-right:8px;vertical-align:middle}
+.draft .tag{background:#eee;color:#444}.refined .tag{background:#e3f6e8;color:#14702f}
+.draft .txt{color:#444}.old{font-size:13px;color:#595959;margin-top:2px}
+.part{color:#7a5bd0;font-size:18px;line-height:1.5;padding-top:6px}
+</style></head><body>
+<h1>Parakeet TDT (instant) + Canary-Qwen (accurate)</h1>
+<div class="card">
+  <div class="row"><button id="live">Start live</button><span id="lstat" class="meta"></span></div>
+  <div id="lines" style="min-height:90px"><span class="meta">Speak. Purple = Parakeet live guess. Grey DRAFT = Parakeet final. Green CANARY = replaced by Canary a moment later.</span></div>
+  <div id="lmeta" class="meta"></div>
+</div>
+<div class="card"><strong>One clip</strong> (Canary only)
+<div class="row"><button id="rec">Record</button><span>or</span><input type="file" id="file" accept="audio/*"><span id="status" class="meta"></span></div></div>
+<div id="out"></div>
+<script>
+function wav16(f32,sr){const b=new ArrayBuffer(44+f32.length*2),v=new DataView(b);
+ const w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i))};
+ w(0,'RIFF');v.setUint32(4,36+f32.length*2,true);w(8,'WAVEfmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+ v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,f32.length*2,true);
+ for(let i=0;i<f32.length;i++){const s=Math.max(-1,Math.min(1,f32[i]));v.setInt16(44+i*2,s<0?s*0x8000:s*0x7fff,true)}
+ return new Blob([b],{type:'audio/wav'})}
+async function post(path,f32){const r=await fetch(path,{method:'POST',body:wav16(f32,16000)});return r.json()}
+
+// ---- hybrid live: Parakeet partials/finals fast, Canary re-listens to each finished line ----
+(()=>{
+ const SR=16000,TICK=350,SIL_MS=600,MAX_S=25,TH=0.012;
+ let on=false,ctx,stream,proc,seg=[],segLen=0,speech=false,silMs=0,busy=false,partial='',timer=null,lines=[],nextId=1,cq=Promise.resolve();
+ const $=id=>document.getElementById(id);
+ function render(){const box=$('lines');box.textContent='';
+  for(const l of lines){const d=document.createElement('div');d.className='line '+l.state;
+   const tag=document.createElement('span');tag.className='tag';tag.textContent=l.state==='refined'?'CANARY':'DRAFT';
+   const t=document.createElement('span');t.className='txt';t.textContent=l.text;d.append(tag,t);
+   if(l.state==='refined'&&l.fast!==l.text){const o=document.createElement('div');o.className='old';o.textContent='Parakeet said: '+l.fast;d.append(o)}
+   if(l.ms){const m=document.createElement('div');m.className='old';m.textContent=l.ms;d.append(m)}
+   box.append(d)}
+  if(partial){const p=document.createElement('div');p.className='part';p.textContent=partial;box.append(p)}
+  if(!lines.length&&!partial){box.textContent='Listening...'}}
+ function flat(n){const o=new Float32Array(n);let k=0;for(const c of seg){if(k>=n)break;const m=Math.min(c.length,n-k);o.set(c.subarray(0,m),k);k+=m}return o}
+ function drop(n){let left=n;while(left>0&&seg.length){if(seg[0].length<=left){left-=seg[0].length;seg.shift()}else{seg[0]=seg[0].subarray(left);left=0}}segLen=seg.reduce((a,c)=>a+c.length,0)}
+ function refine(line,audio){ // background, serial, never blocks the fast path
+  cq=cq.then(async()=>{try{const r=await post('/',audio);
+    if(r.text&&r.text.trim()){line.text=r.text.trim();line.state='refined';line.ms=`Parakeet ${line.fastMs}s, Canary ${r.infer_s}s for ${r.audio_s}s of audio`}
+    else{line.ms='Canary returned nothing, kept Parakeet'}
+    render()}catch(e){line.ms='Canary failed, kept Parakeet'}})}
+ async function tick(){
+  if(!on||busy)return;
+  if(!speech){const keep=Math.floor(SR*0.4);if(segLen>keep)drop(segLen-keep);return}
+  if(segLen<SR*0.4)return;
+  const commit=silMs>=SIL_MS||segLen>=SR*MAX_S;
+  busy=true;const n=segLen,audio=flat(n);
+  try{const r=await post('/fast',audio);
+   if(r.error){$('lstat').textContent=r.error}
+   else{$('lmeta').textContent=`Parakeet last pass: ${r.infer_s}s for ${r.audio_s}s audio`;
+    if(commit){const txt=(r.text||'').trim();partial='';
+     if(txt){const line={id:nextId++,text:txt,fast:txt,fastMs:r.infer_s,state:'draft'};lines.push(line);refine(line,audio)}
+     drop(n);if(silMs>=SIL_MS){speech=false;silMs=0}}
+    else{partial=(r.text||'').trim()}
+    render()}
+  }catch(e){$('lstat').textContent=''+e}
+  busy=false}
+ $('live').onclick=async()=>{
+  if(on){on=false;clearInterval(timer);stream.getTracks().forEach(t=>t.stop());proc.disconnect();await ctx.close();
+   if(speech&&segLen>=SR*0.3&&!busy){const a=flat(segLen);const r=await post('/fast',a);if(r.text&&r.text.trim()){const line={id:nextId++,text:r.text.trim(),fast:r.text.trim(),fastMs:r.infer_s,state:'draft'};lines.push(line);refine(line,a)}}
+   partial='';render();$('live').textContent='Start live';$('live').className='';$('lstat').textContent='stopped';return}
+  lines=[];partial='';seg=[];segLen=0;speech=false;silMs=0;cq=Promise.resolve();render();
+  stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:false,noiseSuppression:false}});
+  ctx=new AudioContext({sampleRate:SR});const src=ctx.createMediaStreamSource(stream);proc=ctx.createScriptProcessor(4096,1,1);
+  proc.onaudioprocess=e=>{if(!on)return;const d=new Float32Array(e.inputBuffer.getChannelData(0));
+   let s=0;for(let i=0;i<d.length;i++)s+=d[i]*d[i];const rms=Math.sqrt(s/d.length);
+   seg.push(d);segLen+=d.length;
+   if(rms>TH){speech=true;silMs=0}else if(speech){silMs+=d.length/SR*1000}};
+  src.connect(proc);proc.connect(ctx.destination);on=true;timer=setInterval(tick,TICK);
+  $('live').textContent='Stop live';$('live').className='rec';$('lstat').textContent='listening'};
+})();
+
+// ---- one clip, Canary only ----
+(()=>{
+ const $=id=>document.getElementById(id),st=m=>$('status').textContent=m;
+ async function to16k(buf){const n=Math.ceil(buf.duration*16000);
+  const oc=new OfflineAudioContext(1,n,16000),s=oc.createBufferSource();s.buffer=buf;s.connect(oc.destination);s.start();
+  return (await oc.startRendering()).getChannelData(0)}
+ async function run(f32,label){
+  st('transcribing...');
+  const card=document.createElement('div');card.className='card';
+  const a=document.createElement('audio');a.controls=true;a.src=URL.createObjectURL(wav16(f32,16000));
+  const t=document.createElement('div');t.textContent='...';const m=document.createElement('div');m.className='meta';
+  card.append(document.createTextNode(label),t,m,a);$('out').prepend(card);
+  try{const r=await post('/',f32);
+   if(r.error){t.textContent='Error: '+r.error}else{t.textContent=r.text;m.textContent=`${r.audio_s}s audio, ${r.infer_s}s to transcribe`}}
+  catch(e){t.textContent='Error: '+e}
+  st('')}
+ $('file').onchange=async e=>{const f=e.target.files[0];if(!f)return;st('decoding...');
+  const ctx=new AudioContext();const buf=await ctx.decodeAudioData(await f.arrayBuffer());
+  run(await to16k(buf),f.name);e.target.value=''};
+ let rec=null,chunks=[],stream,ctx,proc;
+ $('rec').onclick=async()=>{
+  if(rec){rec=null;stream.getTracks().forEach(t=>t.stop());proc.disconnect();
+   const len=chunks.reduce((a,c)=>a+c.length,0),all=new Float32Array(len);let o=0;for(const c of chunks){all.set(c,o);o+=c.length}
+   const sr=ctx.sampleRate;await ctx.close();$('rec').textContent='Record';$('rec').className='';
+   const ob=new OfflineAudioContext(1,Math.ceil(len*16000/sr),16000),bf=ob.createBuffer(1,len,sr);bf.copyToChannel(all,0);
+   const s=ob.createBufferSource();s.buffer=bf;s.connect(ob.destination);s.start();
+   run((await ob.startRendering()).getChannelData(0),'Microphone');return}
+  stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:false,noiseSuppression:false}});
+  ctx=new AudioContext();const src=ctx.createMediaStreamSource(stream);proc=ctx.createScriptProcessor(4096,1,1);chunks=[];
+  proc.onaudioprocess=e=>chunks.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+  src.connect(proc);proc.connect(ctx.destination);rec=true;$('rec').textContent='Stop (max 40s)';$('rec').className='rec';st('recording...')};
+})();
+</script></body></html>

@@ -114,7 +114,7 @@ Not done (**OWNER**):
 
 Parakeet TDT stays the live engine, so the words appear at once. Each finished line is then re-listened to by `nvidia/canary-qwen-2.5b`, and if the result is a safe correction the line is replaced in place on the web and in the app (a `refine` message). If the worker is down, slow or answers something odd, the live text simply stays. Nothing is lost.
 
-- Worker: `asr_worker/canary_worker.py`, run with the `asr_venv` Python (torch cu128, NeMo, peft): `asr_venv\Scripts\python.exe asr_worker\canary_worker.py --port 8781`. It binds to `127.0.0.1` only. First start downloads about 5 GB and loads in about 70 s.
+- Worker: `asr_worker/canary_worker.py`, run from the repo root with a Python that has torch (CUDA), NeMo and peft (on the staging laptop that is the `asr_venv` next to the repo): `<venv>\Scripts\python.exe asr_worker\canary_worker.py --port 8781`. It binds to `127.0.0.1` only. First start downloads about 5 GB and loads in about 70 s.
 - Relay switch: set `STT_REFINE_ENGINE=canary` (and optionally `STT_REFINE_WORKER_URL=ws://127.0.0.1:8781`, `STT_REFINE_LOG_FILE=<path>`) in the relay's environment. Unset means no second pass.
 - GPU: about 5.2 GB of VRAM for Canary. Measured on an RTX 5050 8 GB: 1.1 s median per utterance, 2.7 s at the 95th percentile. Parakeet through the whisper.cpp build runs on CPU, so both fit on one 8 GB card. The second pass is one utterance at a time, so under heavy load the corrections lag behind but the live text never does.
 - Limits: English only, about 40 s per clip (the worker cuts longer audio). It writes brand names it does not know phonetically (a test clip turned "Bisleri" into "pissillary"), which is why a change is accepted only when it keeps most of the live words.
