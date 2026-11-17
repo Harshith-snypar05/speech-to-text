@@ -203,14 +203,16 @@ async def _speaker_admitted(websocket, params):
     if STREAMING:
         await run_streaming_session(websocket, params.session_id, engine, registry, params.access_code, billing=billing_ctx, refiner=refiner)
     else:
-        await run_speaker_session(websocket, params.session_id, engine, _new_buffer(), registry, params.access_code, billing=billing_ctx)
+        await run_speaker_session(websocket, params.session_id, engine, _new_buffer(), registry, params.access_code, billing=billing_ctx, refiner=refiner)
 
 
-# Optional second pass (off unless STT_REFINE_ENGINE is set): re-listens to each finalized utterance with a Nemotron
-# worker in its own process and swaps the line in place. Never on the live path; see core/refiner.py.
+# Optional second pass (off unless STT_REFINE_ENGINE is set): re-listens to each finalized utterance with a separate
+# worker process (canary = Canary-Qwen-2.5B, or nemotron) and swaps the line in place. Works with every live engine,
+# including the default Parakeet TDT. Never on the live path; see core/refiner.py.
 refiner = None
-if STREAMING and os.environ.get("STT_REFINE_ENGINE"):
+if os.environ.get("STT_REFINE_ENGINE"):
     from core.refiner import Refiner
+    from engines.streaming_worker_engine import StreamingWorkerEngine
     _refine_engine = StreamingWorkerEngine(os.environ["STT_REFINE_ENGINE"].strip().lower(),
                                            os.environ.get("STT_REFINE_WORKER_URL", "ws://127.0.0.1:8781"))
     refiner = Refiner(_refine_engine, log_path=os.environ.get("STT_REFINE_LOG_FILE") or None)

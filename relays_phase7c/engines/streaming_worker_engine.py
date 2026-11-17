@@ -21,6 +21,8 @@ MODELS = {
     "nemotron": "nvidia/nemotron-speech-streaming-en-0.6b",
     "nemotron35": "nvidia/nemotron-3.5-asr-streaming-0.6b",
     "multitalker": "nvidia/multitalker-parakeet-streaming-0.6b-v1",
+    # offline speech-LLM, second pass only (asr_worker/canary_worker.py); not usable as the live STT_ENGINE
+    "canary": "nvidia/canary-qwen-2.5b",
 }
 
 

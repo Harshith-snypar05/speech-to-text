@@ -212,3 +212,60 @@ async def test_speaker_connected_and_disconnected_tracked_in_registry():
     ws.disconnect()
     await task
     assert "registrytest1" not in registry.active_speakers
+
+
+class _FakeRefiner:
+    """Records submissions; `fire` runs the refined-text handler the way the real Refiner does after the second pass."""
+    def __init__(self):
+        self.submitted = []
+
+    def submit(self, pcm, original, on_refined):
+        self.submitted.append((pcm, original, on_refined))
+
+
+async def test_final_is_submitted_to_refiner_and_refine_is_stored_and_sent():
+    ws = FakeWebSocket()
+    engine = FakeEngine(final_text="hello wrld")
+    registry = SessionRegistry()
+    refiner = _FakeRefiner()
+    task = asyncio.create_task(run_speaker_session(ws, "refinetest1", engine, _buf(), registry, refiner=refiner))
+    await asyncio.sleep(0.02)
+
+    for _ in range(3):
+        ws.feed(make_speech_chunk(amplitude=0.5, seconds=0.1))
+        await asyncio.sleep(0.01)
+    for _ in range(4):
+        ws.feed(make_speech_chunk(amplitude=0.001, seconds=0.1))
+        await asyncio.sleep(0.01)
+    await asyncio.sleep(0.05)
+
+    assert len(refiner.submitted) == 1
+    pcm, original, on_refined = refiner.submitted[0]
+    assert original == "hello wrld" and len(pcm) > 0
+    # the live final went out first, untouched
+    assert [p["text"] for p in _sent_payloads(ws) if p.get("partial") is False] == ["hello wrld"]
+
+    await on_refined("hello world")
+    refines = [p for p in _sent_payloads(ws) if p.get("type") == "refine"]
+    assert refines == [{"type": "refine", "seq": 0, "original": "hello wrld", "refined": "hello world"}]
+    assert transcript_store.get_history("refinetest1") == ["hello world"]
+
+    ws.disconnect()
+    await task
+
+
+async def test_no_refiner_means_no_refine_traffic():
+    ws = FakeWebSocket()
+    engine = FakeEngine(final_text="plain text")
+    task = asyncio.create_task(run_speaker_session(ws, "refinetest2", engine, _buf(), SessionRegistry()))
+    await asyncio.sleep(0.02)
+    for _ in range(3):
+        ws.feed(make_speech_chunk(amplitude=0.5, seconds=0.1))
+        await asyncio.sleep(0.01)
+    for _ in range(4):
+        ws.feed(make_speech_chunk(amplitude=0.001, seconds=0.1))
+        await asyncio.sleep(0.01)
+    await asyncio.sleep(0.05)
+    assert not [p for p in _sent_payloads(ws) if p.get("type") == "refine"]
+    ws.disconnect()
+    await task

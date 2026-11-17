@@ -18,7 +18,7 @@ from . import transcript_store
 from .audio_processor import UtteranceBuffer
 from .config import BYTES_PER_SAMPLE, FINAL_FLUSH_TIMEOUT_SECONDS, PARTIAL_CYCLE_SECONDS, SAMPLE_RATE, SESSION_MAX_DURATION_SECONDS
 from .scheduler import FinalExpired, JobTicket
-from .protocol import final_message, partial_message
+from .protocol import final_message, partial_message, refine_message
 from .session_manager import SessionRegistry
 from engines.base_engine import TranscriptionEngine
 
@@ -57,6 +57,7 @@ async def run_speaker_session(
     registry: SessionRegistry,
     access_code: str | None = None,
     billing=None,
+    refiner=None,
 ):
     words_sent = 0
     generation = 0  # bumped on every flush; lets a slow partial notice it's stale
@@ -100,6 +101,12 @@ async def run_speaker_session(
             if new_words:
                 words_sent = len(words)
                 await send(partial_message(" ".join(new_words)))
+
+    def make_refined_handler(store_seq, original):
+        async def apply(refined):
+            if transcript_store.update_event(session_id, store_seq, original, refined):
+                await send(refine_message(store_seq, original, refined))
+        return apply
 
     def _flush_reason() -> str:
         # Diagnostic classification only; mirrors UtteranceBuffer.add_chunk.
@@ -168,8 +175,9 @@ async def run_speaker_session(
         if rec is not None:
             rec.update(_ticket_fields(ticket))
         if text:
+            store_seq = None
             if session_id:
-                transcript_store.record_event(session_id, text)
+                store_seq = transcript_store.record_event(session_id, text)
             msg = final_message(text)
             if rec is not None:
                 rec.update(decode_s=decode_s, text_empty=False, text_len=len(text),
@@ -182,6 +190,9 @@ async def run_speaker_session(
                                   send_s=round(time.monotonic() - t_send, 4), exception=repr(e))
                 raise
             _finish(rec, "final_sent", send_s=round(time.monotonic() - t_send, 4))
+            # Optional second pass (core/refiner.py): queued after the live final went out, never awaited here.
+            if refiner is not None and store_seq is not None:
+                refiner.submit(snapshot, text, make_refined_handler(store_seq, text))
         else:
             _finish(rec, "dropped_empty_text", early_return="empty_text", decode_s=decode_s,
                               text_empty=True, text_len=len(text) if text is not None else None,
