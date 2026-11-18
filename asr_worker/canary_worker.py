@@ -39,14 +39,32 @@ _FILLER = re.compile(r"\b(?:uh+|um+|uhm+|erm+|hmm+|mm+)\b[,.]?\s*", re.IGNORECAS
 
 _model = None
 
+# CUDA by default; Apple Silicon (no NVIDIA GPU) uses Metal via MPS instead. bf16 is what the CUDA path already
+# used; MPS's bf16 op coverage is still incomplete in places NeMo's SALM touches, so MPS gets float16 instead
+# (CPU gets float32 since it has no fp16 speed benefit and worse numerical behavior for this model).
+if torch.cuda.is_available():
+    DEVICE, DTYPE = "cuda", torch.bfloat16
+elif torch.backends.mps.is_available():
+    DEVICE, DTYPE = "mps", torch.float16
+else:
+    DEVICE, DTYPE = "cpu", torch.float32
+
+
+def _memory_gb() -> float:
+    if DEVICE == "cuda":
+        return torch.cuda.memory_allocated() / 1e9
+    if DEVICE == "mps":
+        return torch.mps.current_allocated_memory() / 1e9
+    return 0.0
+
 
 def load():
     global _model
     if _model is None:
         from nemo.collections.speechlm2.models import SALM
         t = time.time()
-        _model = SALM.from_pretrained(MODEL_NAME).eval().to(torch.bfloat16).to("cuda")
-        log.info("loaded %s in %.0fs, vram %.1f GB", MODEL_NAME, time.time() - t, torch.cuda.memory_allocated() / 1e9)
+        _model = SALM.from_pretrained(MODEL_NAME).eval().to(DTYPE).to(DEVICE)
+        log.info("loaded %s in %.0fs on %s, mem %.1f GB", MODEL_NAME, time.time() - t, DEVICE, _memory_gb())
         _transcribe_array(np.zeros(SR, dtype=np.float32))  # warm-up
     return _model
 

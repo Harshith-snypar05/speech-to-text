@@ -5,6 +5,9 @@ whisper.cpp/
 # Python virtualenv -- regenerate with: uv venv stt-compare-venv && uv pip install -r relays_phase7c/requirements.txt
 stt-compare-venv/
 
+# Canary-Qwen worker venv (Python 3.11, torch+NeMo) -- regenerate per asr_worker/canary_worker.py's docstring
+asr_venv/
+
 __pycache__/
 *.pyc
 relays_phase7c/logs/

@@ -7,5 +7,12 @@
 	}
 	reverse_proxy @relay 127.0.0.1:8772
 	reverse_proxy @viewer 127.0.0.1:8772
+
+	# Direct path to the platform API, for a frontend deployed elsewhere (e.g. Vercel) that can't reach
+	# 127.0.0.1 on this machine. Local dev still goes through Next's own /sl/* rewrite, not this.
+	handle_path /__api/* {
+		reverse_proxy 127.0.0.1:8790
+	}
+
 	reverse_proxy 127.0.0.1:3100
 }

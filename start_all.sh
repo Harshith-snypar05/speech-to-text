@@ -8,6 +8,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 RELAY_PY="$ROOT/stt-compare-venv/bin/python3"
 API_PY="$ROOT/scriptliv_api/.venv/bin/python3"
+ASR_PY="$ROOT/asr_venv/bin/python3"
 NPM=/opt/homebrew/bin/npm
 CADDY=/opt/homebrew/bin/caddy
 NGROK=/usr/local/bin/ngrok
@@ -23,6 +24,7 @@ mkdir -p "$LOG_DIR"
 echo "⏹  Stopping existing processes..."
 pkill -f "parakeet_relay.py"   2>/dev/null || true
 pkill -f "run_staging.py"      2>/dev/null || true
+pkill -f "canary_worker.py"    2>/dev/null || true
 pkill -f "next dev"            2>/dev/null || true
 pkill -f "next-server"         2>/dev/null || true
 pkill -f "caddy run"           2>/dev/null || true
@@ -36,6 +38,20 @@ echo "🚀 Starting API (port 8790)..."
   > "$LOG_DIR/api.log" 2>&1 &
 API_PID=$!
 echo "   PID $API_PID → logs/api.log"
+
+# ── 2b. CANARY REFINE WORKER (port 8781, optional) ────────────────────────────
+# Started first since the model takes several minutes to load on first run (cold HF download + MPS warm-up).
+# The relay's refiner degrades gracefully if this isn't ready yet -- finals just go out unrefined until it is.
+CANARY_PID=""
+if [ -x "$ASR_PY" ]; then
+  echo "🐤 Starting Canary refine worker (port 8781, warming up in the background)..."
+  cd "$ROOT/asr_worker"
+  "$ASR_PY" canary_worker.py --port 8781 \
+    > "$LOG_DIR/canary.log" 2>&1 &
+  CANARY_PID=$!
+  cd "$ROOT"
+  echo "   PID $CANARY_PID → logs/canary.log (ready once it logs 'Canary worker listening')"
+fi
 
 # ── 3. RELAY  (port 8772) ─────────────────────────────────────────────────────
 echo "🎙  Starting relay (port 8772)..."
@@ -96,6 +112,7 @@ echo "  Relay   ws://127.0.0.1:8772      (PID $RELAY_PID)"
 echo "  Web     http://localhost:$WEB_PORT      (PID $WEB_PID)"
 echo "  Caddy   http://localhost:$CADDY_PORT      (PID $CADDY_PID)"
 echo "  ngrok   https://$NGROK_DOMAIN  (PID $NGROK_PID)"
+[ -n "$CANARY_PID" ] && echo "  Canary  ws://127.0.0.1:8781      (PID $CANARY_PID, warming up -- see logs/canary.log)"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "  Public URL: https://$NGROK_DOMAIN"
@@ -103,7 +120,7 @@ echo ""
 echo "Press Ctrl+C to stop everything."
 
 # ── 9. WAIT & CLEANUP ON EXIT ─────────────────────────────────────────────────
-trap 'echo ""; echo "🛑 Shutting down..."; kill $API_PID $RELAY_PID $WEB_PID $CADDY_PID $NGROK_PID 2>/dev/null; echo "Done."; exit 0' INT TERM
+trap 'echo ""; echo "🛑 Shutting down..."; kill $API_PID $RELAY_PID $WEB_PID $CADDY_PID $NGROK_PID $CANARY_PID 2>/dev/null; echo "Done."; exit 0' INT TERM
 
 wait
 
