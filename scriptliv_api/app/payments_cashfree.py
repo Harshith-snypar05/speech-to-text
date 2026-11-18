@@ -147,7 +147,7 @@ def checkout_session(kind: str, user_id: str, email: str, name: str, phone: str 
             "order_currency": "INR",
             "customer_details": {"customer_id": user_id, "customer_phone": phone, "customer_email": email},
             "order_meta": {
-                "return_url": f"{base}/app/plans?billing=success",
+                "return_url": f"{base}/pricing?billing=success",
                 "notify_url": f"{base}/sl/v1/billing/webhook/cashfree",
             },
         })
