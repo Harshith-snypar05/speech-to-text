@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Badge, Button, Card, Empty, Notice, Spinner } from "@/components/ui";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
-import { fmtTime } from "@/lib/format";
+import { fmtDate, fmtTime } from "@/lib/format";
 import type { SessionItem, UsageSummary } from "@/lib/types";
 
 export default function HomePage() {
@@ -39,6 +39,11 @@ export default function HomePage() {
       {user && !user.email_verified && (
         <Notice tone="warning" title="Confirm your email">
           We sent a link to {user.email}. <Link href="/app/settings" className="font-medium text-primary underline">Resend it from Settings</Link>.
+        </Notice>
+      )}
+      {usage.unlimited && (
+        <Notice tone="success" title={usage.promo?.label ?? "Inaugural offer: free, unlimited minutes"}>
+          {usage.promo?.until ? `Runs until ${fmtDate(usage.promo.until)}. ` : ""}Only the person speaking is metered; nothing is taken from your plan.
         </Notice>
       )}
       {usage.warnings.map((w) => <Notice key={w.level} tone={out ? "error" : "warning"} title={w.message}>

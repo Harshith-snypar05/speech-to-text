@@ -65,7 +65,8 @@ export default function PricingPage() {
           {plans && (
             <>
               {token && pay && <div className="mx-auto mt-8 max-w-3xl"><PaymentBanner payment={pay} onChanged={loadPay} /></div>}
-              {!can && <div className="mx-auto mt-8 max-w-3xl"><Notice tone="info" title="Purchases are not switched on yet">Plans and add-ons can be bought once billing is enabled. Free minutes work as normal.</Notice></div>}
+              {plans.promo_active && <div className="mx-auto mt-8 max-w-3xl"><Notice tone="success" title="Inaugural offer: free, unlimited minutes">Transcribe as much as you like while the offer runs. Paid plans and add-ons open when it ends.</Notice></div>}
+              {!can && !plans.promo_active && <div className="mx-auto mt-8 max-w-3xl"><Notice tone="info" title="Purchases are not switched on yet">Plans and add-ons can be bought once billing is enabled. Free minutes work as normal.</Notice></div>}
 
               <div className="mx-auto mt-12 grid max-w-3xl gap-5 sm:grid-cols-2">
                 {plans.plans.map((p) => {

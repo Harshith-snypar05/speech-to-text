@@ -121,3 +121,13 @@ Parakeet TDT stays the live engine, so the words appear at once. Each finished l
 - Measured: Canary alone scored 6.8% WER on 60 Indian-English clips (Svarah). Parakeet was not scored on the same clips, so the gain is not measured. This is not a promise for your audio.
 - Check it: `STT_REFINE_LOG_FILE` gets one JSON line per utterance with `accepted` true or false and both texts.
 - Tested end to end on 2026-11-17 against the real worker with a stand-in live engine. Not yet tested with the real Parakeet engine, a real microphone, or the Flutter app.
+
+## 13. Inaugural offer (free, unlimited minutes)
+
+Payments are postponed; everyone gets free, unlimited transcription from 2026-11-19 through 2026-11-30.
+
+- Switch on: set `SCRIPTLIV_PROMO_UNLIMITED_UNTIL=YYYY-MM-DD` in the API environment and restart the API. The offer runs to the end of that day. Blank or past date means off, so it ends by itself.
+- What changes: usage is still recorded (ledger, sessions, per-minute buckets) but nothing is taken from the plan or add-ons, so nobody reaches the end of the offer with minutes already spent. `/v1/usage` reports `unlimited: true` and a `promo` block; web and app show the offer instead of minute counts. `/v1/plans` reports `purchasing_available: false` and `promo_active: true`, and `POST /v1/billing/checkout` answers 409 `offer_active`.
+- What still applies: 240 min per session, the account's own personal monthly limit, email verification, the relay's `STT_MAX_ACTIVE_STREAMS` and 4 h session cap. Unlimited is about minutes, not server capacity: with the GPU box the real limit is a few simultaneous speakers.
+- Ending it: remove the variable (or let the date pass). Plans, add-ons and checkout come back with the same release; Cashfree live keys and KYC must be ready before then.
+

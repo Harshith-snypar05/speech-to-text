@@ -161,6 +161,27 @@ Future<void> _openPlans() async {
   await launchUrl(Uri.parse('$origin/pricing'), mode: LaunchMode.externalApplication);
 }
 
+/// Shown instead of minute counts while the inaugural offer (free, unlimited minutes) is running.
+class PromoBanner extends StatelessWidget {
+  final DateTime? until;
+  const PromoBanner({super.key, this.until});
+  @override
+  Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final end = until == null ? null : '${until!.year}-${_two(until!.month)}-${_two(until!.day)}';
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: c.surface, borderRadius: BorderRadius.circular(16), border: Border.all(color: c.cardBorder)),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text('Inaugural offer', style: TextStyle(fontWeight: FontWeight.w700, color: c.textPrimary)),
+        const SizedBox(height: 6),
+        Text('Free, unlimited minutes${end != null ? ' until $end' : ''}.', style: TextStyle(color: c.textSecondary, fontSize: 13)),
+      ]),
+    );
+  }
+}
+
 /// Plan, remaining minutes, add-on balance, reset date and any usage warnings.
 class UsageCard extends StatelessWidget {
   final Future<UsageInfo> future;
@@ -174,6 +195,7 @@ class UsageCard extends StatelessWidget {
         if (snap.connectionState != ConnectionState.done) return const SizedBox(height: 90, child: Center(child: CircularProgressIndicator()));
         if (snap.hasError) return Text('Usage is unavailable right now. Pull down to retry.', style: TextStyle(color: c.textSecondary, fontSize: 13));
         final u = snap.data!;
+        if (u.unlimited) return PromoBanner(until: u.promoUntil);
         final reset = '${u.resetAt.year}-${_two(u.resetAt.month)}-${_two(u.resetAt.day)}';
         return Container(
           padding: const EdgeInsets.all(16),

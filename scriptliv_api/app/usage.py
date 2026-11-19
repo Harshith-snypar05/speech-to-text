@@ -12,7 +12,8 @@ from contextlib import contextmanager
 
 from pymongo.errors import DuplicateKeyError
 
-from .plans import ADDON_MAX_SESSION_MINUTES, BASIC, PLANS
+from .config import get_settings, promo_active
+from .plans import ADDON_MAX_SESSION_MINUTES, BASIC, PLANS, PROMO_ALLOWANCE_SECONDS, PROMO_MAX_SESSION_MINUTES
 from .subscriptions import active_addons, get_subscription, is_restricted, plan_of
 
 DEFAULT_WARN_PERCENTS = [80, 95]
@@ -37,8 +38,10 @@ def remaining(db, user_id: str, now: float | None = None) -> dict:
     inc_rem = max(0.0, plan.included_seconds - sub["included_used_seconds"])
     addons = [] if restricted else active_addons(db, user_id, now)
     add_rem = sum(max(0.0, a["seconds_total"] - a["seconds_used"]) for a in addons)
+    promo = promo_active(now)
     return {"sub": sub, "plan": plan, "restricted": restricted, "included_remaining": inc_rem, "addon_remaining": add_rem,
-            "addons": addons, "total_remaining": inc_rem + add_rem}
+            "addons": addons, "promo": promo,
+            "total_remaining": PROMO_ALLOWANCE_SECONDS if promo else inc_rem + add_rem}
 
 
 @contextmanager
@@ -135,7 +138,9 @@ def authorize(db, user_id: str, now: float | None = None, session_id: str | None
 def _decide(db, user_id: str, now: float, held: float, session_metered: float | None = None) -> dict:
     r = remaining(db, user_id, now)
     cap = r["plan"].max_session_seconds
-    if r["addon_remaining"] > 0:
+    if r["promo"]:
+        cap = PROMO_MAX_SESSION_MINUTES * 60
+    elif r["addon_remaining"] > 0:
         addon_cap = ADDON_MAX_SESSION_MINUTES * 60
         cap = max(cap, addon_cap) if cap is not None else addon_cap
     if r["total_remaining"] <= 0:
@@ -200,6 +205,15 @@ def record(db, user_id: str, session_id: str, cumulative_seconds: float, now: fl
     _spread_minutes(db, user_id, session_id, prev, delta, now)
     r = remaining(db, user_id, now)
     sub = r["sub"]
+    if r["promo"]:
+        # inaugural offer: the time is recorded (ledger, session, minute buckets) but taken from no allowance, so nobody
+        # arrives at the end of the offer with their plan minutes already spent
+        db.usage_ledger.insert_one({"user_id": user_id, "session_id": session_id, "seconds": delta, "source": "promo",
+                                    "addon_id": None, "period_start": sub["period_start"], "ts": now})
+        upd = {"$set": {"ended_at": now}} if final else {}
+        if upd:
+            db.usage_sessions.update_one({"session_id": session_id}, upd)
+        return {"applied_seconds": delta, "included": 0.0, "addon": 0.0, "unbilled_overshoot": 0.0, "promo": delta}
     # Strict limit. Only seconds the account can still fund AND this session's reservation (grant) covers are deducted:
     # never past the plan, the add-ons, the account's personal limit or the grant. Whatever is left over (audio that got
     # through before the relay stopped, the up-to-1 s from rounding a closing report up) is NOT charged: it is recorded
@@ -245,11 +259,17 @@ def summary(db, user_id: str, now: float | None = None) -> dict:
     pct = 100.0 * used_inc / plan.included_seconds if plan.included_seconds else 0.0
     thresholds = st.get("warn_percents") or DEFAULT_WARN_PERCENTS
     exhausted = r["total_remaining"] <= 0
+    if r["promo"]:
+        pct = 0.0
     warnings = [{"level": t, "message": f"You have used {t}% of your included minutes."} for t in sorted(thresholds) if t <= pct < 100]
     if exhausted:
         warnings.append({"level": 100, "message": "Payment required: update your payment method to restore your plan."
                          if r["restricted"] else "You are out of minutes. Buy an add-on or wait for your reset date."})
+    promo_until = get_settings().promo_unlimited_until
+    promo = {"active": r["promo"], "until": promo_until if r["promo"] else None,
+             "label": "Inaugural offer: free, unlimited minutes" if r["promo"] else None}
     return {
+        "promo": promo, "unlimited": r["promo"],
         "plan": shown.id, "plan_name": shown.name, "effective_plan": plan.id, "restricted": r["restricted"],
         "period_start": sub["period_start"], "reset_at": sub["period_end"],
         "included_minutes": plan.included_minutes, "included_used_seconds": used_inc,

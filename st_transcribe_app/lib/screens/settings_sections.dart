@@ -464,6 +464,12 @@ class _UsageSectionState extends State<UsageSection> {
                 TextButton(onPressed: () => setState(() => _future = PlatformApi.usage()), child: const Text('Retry')),
               ]);
             }
+            if (u.unlimited) {
+              final e = u.promoUntil;
+              return _Note('Inaugural offer: free, unlimited minutes'
+                  '${e != null ? ' until ${e.year}-${e.month.toString().padLeft(2, '0')}-${e.day.toString().padLeft(2, '0')}' : ''}. '
+                  'Only the person speaking is metered; nothing is deducted from your plan.');
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -68,3 +68,7 @@ ADDON_TAX_NOTE = "+ GST"
 ADDON_MAX_SESSION_MINUTES = 120
 ADDON_NOTE = f"1,000 extra minutes for ₹{ADDON_PRICE_INR:,} {ADDON_TAX_NOTE}. Up to 2 hours per session. Only valid till plan end."
 
+
+# Inaugural offer (config.promo_active): no minute limit. One session may still run this long, same as the relay's own cap.
+PROMO_MAX_SESSION_MINUTES = 240
+PROMO_ALLOWANCE_SECONDS = 10 ** 9   # stand-in for "unlimited" in arithmetic; clients are told `unlimited` instead of this number

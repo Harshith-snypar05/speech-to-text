@@ -1,10 +1,29 @@
 """Environment-driven settings. Secrets come from the environment only; nothing here is logged."""
 import os
+import time
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 
 
 def _int(name, default):
     return int(os.environ.get(name, default))
+
+
+def _promo_until(raw: str) -> float:
+    """SCRIPTLIV_PROMO_UNLIMITED_UNTIL: an ISO date (2026-11-26, offer runs to the end of that day, UTC) or datetime.
+    Empty or unreadable = no offer (0). Never raises: a typo must not stop the API from starting."""
+    raw = (raw or "").strip()
+    if not raw:
+        return 0.0
+    try:
+        d = datetime.fromisoformat(raw)
+    except ValueError:
+        return 0.0
+    if d.tzinfo is None:
+        d = d.replace(tzinfo=timezone.utc)
+        if len(raw) <= 10:  # a bare date means "through that day"
+            d = d.replace(hour=23, minute=59, second=59)
+    return d.timestamp()
 
 
 @dataclass
@@ -48,11 +67,19 @@ class Settings:
     resend_from: str = field(default_factory=lambda: os.environ.get("RESEND_FROM", ""))
     # recipient domains delivered through Resend (default: Microsoft consumer mail); everything else goes through Gmail
     resend_domains: str = field(default_factory=lambda: os.environ.get("EMAIL_RESEND_DOMAINS", "outlook.com,hotmail.com,live.com,msn.com"))
+    # Inaugural offer: until this moment (epoch seconds, 0 = off) every account speaks without minute limits and nothing is
+    # deducted. Per-session length caps still apply. Ends by itself; no payment is taken while it runs.
+    promo_unlimited_until: float = field(default_factory=lambda: _promo_until(os.environ.get("SCRIPTLIV_PROMO_UNLIMITED_UNTIL", "")))
     cors_origins: list = field(default_factory=lambda: [o for o in os.environ.get("SCRIPTLIV_CORS_ORIGINS", "http://localhost:3100,http://127.0.0.1:3100").split(",") if o])
 
 
 def get_settings() -> Settings:
     return Settings()
+
+
+def promo_active(now: float | None = None, s: Settings | None = None) -> bool:
+    until = (s or get_settings()).promo_unlimited_until
+    return until > 0 and (now if now is not None else time.time()) < until
 
 
 def production_problems(s: Settings | None = None, env: dict | None = None) -> list[str]:

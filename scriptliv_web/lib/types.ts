@@ -21,6 +21,8 @@ export interface UsageSummary {
   included_minutes: number; included_used_seconds: number; included_remaining_seconds: number; percent_used: number;
   addon_remaining_seconds: number; addon_used_seconds: number; addons: Addon[];
   total_remaining_seconds: number; warnings: { level: number; message: string }[]; cancel_at_period_end: boolean;
+  /** Inaugural offer: free, unlimited minutes. `promo.until` is epoch seconds. */
+  unlimited?: boolean; promo?: { active: boolean; until: number | null; label: string | null };
 }
 export interface UsageSession {
   session_id: string; started_at: number; ended_at: number | null;
@@ -53,6 +55,7 @@ export interface Plans {
   plans: PlanInfo[];
   addon: AddonInfo;
   purchasing_available: boolean;
+  promo_active?: boolean;
 }
 export interface Subscription {
   plan: string;

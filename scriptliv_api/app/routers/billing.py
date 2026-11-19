@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from pymongo.errors import DuplicateKeyError
 
 from .. import payments, payments_cashfree, subscriptions, usage
-from ..config import get_settings
+from ..config import get_settings, promo_active
 from ..deps import current_user, db_dep, now, verified_user
 from ..plans import (
     ADDON_MAX_SESSION_MINUTES,
@@ -60,7 +60,9 @@ def plans():
             "price_display": f"₹{ADDON_PRICE_INR:,} {ADDON_TAX_NOTE}",
             "note": ADDON_NOTE,
         },
-        "purchasing_available": payments_cashfree.configured(),
+        # buying is paused while the inaugural offer (free, unlimited minutes) runs
+        "purchasing_available": payments_cashfree.configured() and not promo_active(),
+        "promo_active": promo_active(),
     }
 
 
@@ -122,6 +124,8 @@ def checkout(body: CheckoutIn, user=Depends(verified_user), db=Depends(db_dep)):
     """Unlike Stripe, Cashfree's checkout is not a URL: the frontend takes {kind, session_id} from
     here and hands it to Cashfree's own JS SDK (cashfree.checkout / cashfree.subscriptionsCheckout),
     which does the actual redirect. See scriptliv_web/lib/cashfree.ts."""
+    if promo_active():
+        _err(409, "offer_active", "Minutes are free and unlimited during our inaugural offer, so there is nothing to buy right now.")
     uid = str(user["_id"])
     sub = subscriptions.get_subscription(db, uid)
     if body.kind == "pro" and sub["plan"] == PRO:

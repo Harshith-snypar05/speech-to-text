@@ -34,9 +34,12 @@ class UsageInfo {
   final List<String> warnings;
   /// Earliest expiry among add-ons that still have minutes left; null when there are none.
   final DateTime? addonExpiresAt;
+  /// Inaugural offer: free, unlimited minutes. [promoUntil] is when it ends (null when open-ended).
+  final bool unlimited;
+  final DateTime? promoUntil;
   UsageInfo(this.planName, this.includedMinutes, this.includedUsedSeconds, this.includedRemainingSeconds,
       this.addonRemainingSeconds, this.totalRemainingSeconds, this.percentUsed, this.resetAt, this.cancelAtPeriodEnd, this.warnings,
-      {this.addonExpiresAt});
+      {this.addonExpiresAt, this.unlimited = false, this.promoUntil});
   factory UsageInfo.fromJson(Map<String, dynamic> j) => UsageInfo(
         j['plan_name'] as String? ?? '',
         (j['included_minutes'] as num?)?.toInt() ?? 0,
@@ -49,7 +52,14 @@ class UsageInfo {
         j['cancel_at_period_end'] == true,
         [for (final w in (j['warnings'] as List? ?? const [])) (w as Map<String, dynamic>)['message'] as String],
         addonExpiresAt: _earliestAddonExpiry(j['addons']),
+        unlimited: j['unlimited'] == true,
+        promoUntil: _promoUntil(j['promo']),
       );
+
+  static DateTime? _promoUntil(Object? promo) {
+    final u = promo is Map ? promo['until'] as num? : null;
+    return u == null ? null : DateTime.fromMillisecondsSinceEpoch((u * 1000).toInt());
+  }
 
   static DateTime? _earliestAddonExpiry(Object? addons) {
     num? best;
