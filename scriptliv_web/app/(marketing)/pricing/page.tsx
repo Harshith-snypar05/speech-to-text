@@ -55,18 +55,26 @@ export default function PricingPage() {
       <section className="relative isolate py-16">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-8">
           <div className="text-center">
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">Simple, <span className="gradient-text">Transparent Pricing</span></h1>
-            <p className="mx-auto mt-3 max-w-xl text-ink-2 sm:text-lg">Start free. Upgrade when you need more minutes. Only the speaker uses minutes &mdash; viewers are always free.</p>
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">{plans?.promo_active ? <>Free to <span className="gradient-text">Try, for Everyone</span></> : <>Simple, <span className="gradient-text">Transparent Pricing</span></>}</h1>
+            <p className="mx-auto mt-3 max-w-xl text-ink-2 sm:text-lg">{plans?.promo_active ? "Free while our launch offer runs." : "Start free. Upgrade when you need more minutes."} Only the speaker uses minutes &mdash; viewers are always free.</p>
           </div>
 
           {!plans && !err && <div className="py-16 text-center"><Spinner /></div>}
           {err && <div className="mx-auto mt-8 max-w-3xl"><Notice tone="error" title={err} /></div>}
 
-          {plans && (
+          {plans?.promo_active && (
+            <div className="mx-auto mt-10 max-w-2xl text-center">
+              <Notice tone="success" title={`Inaugural offer: ${(plans.promo_allowance_minutes ?? 1000).toLocaleString()} free minutes per user`}>
+                ScriptLiv is free for everyone right now. Create an account and get {(plans.promo_allowance_minutes ?? 1000).toLocaleString()} minutes of live transcription{plans.promo_until ? `, until ${fmtDate(plans.promo_until)}` : ""}. Only the person speaking uses minutes; viewers are always free.
+              </Notice>
+              {!token && <div className="mt-6"><AuthTrigger mode="register" className={buttonCls({ size: "md" })}>Get Started</AuthTrigger></div>}
+            </div>
+          )}
+
+          {plans && !plans.promo_active && (
             <>
               {token && pay && <div className="mx-auto mt-8 max-w-3xl"><PaymentBanner payment={pay} onChanged={loadPay} /></div>}
-              {plans.promo_active && <div className="mx-auto mt-8 max-w-3xl"><Notice tone="success" title="Inaugural offer: free, unlimited minutes">Transcribe as much as you like while the offer runs. Paid plans and add-ons open when it ends.</Notice></div>}
-              {!can && !plans.promo_active && <div className="mx-auto mt-8 max-w-3xl"><Notice tone="info" title="Purchases are not switched on yet">Plans and add-ons can be bought once billing is enabled. Free minutes work as normal.</Notice></div>}
+              {!can && <div className="mx-auto mt-8 max-w-3xl"><Notice tone="info" title="Purchases are not switched on yet">Plans and add-ons can be bought once billing is enabled. Free minutes work as normal.</Notice></div>}
 
               <div className="mx-auto mt-12 grid max-w-3xl gap-5 sm:grid-cols-2">
                 {plans.plans.map((p) => {

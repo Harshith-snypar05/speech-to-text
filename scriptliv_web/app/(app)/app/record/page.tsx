@@ -10,6 +10,7 @@ import { config, isWsConfigured } from "@/lib/config";
 import { LiveClient, newSessionId, type LiveState } from "@/lib/live-client";
 import { fmtDuration, shareLink } from "@/lib/format";
 import { closeNotice, micMessage } from "@/lib/friendly-errors";
+import { useOffer } from "@/lib/offer";
 import { cn } from "@/lib/utils";
 
 const LABEL: Record<LiveState, { text: string; tone: "neutral" | "success" | "error" | "warning" | "info" | "primary" }> = {
@@ -219,7 +220,8 @@ export default function RecordPage() {
 function RefusedNotice({ detail }: { detail?: string }) {
   const d = detail ?? "";
   const i = d.indexOf(":");
-  const n = closeNotice(i < 0 ? d : d.slice(0, i), i < 0 ? "" : d.slice(i + 1));
+  const offer = useOffer();
+  const n = closeNotice(i < 0 ? d : d.slice(0, i), i < 0 ? "" : d.slice(i + 1), !!offer?.active);
   return (
     <Notice tone={n.tone} title={n.title}>
       {n.body} {n.link && <Link href={n.link.href} className="font-medium text-primary underline">{n.link.label}</Link>}

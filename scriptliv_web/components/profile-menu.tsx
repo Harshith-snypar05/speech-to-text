@@ -2,6 +2,7 @@
 import { CreditCard, LogOut, Settings, ShieldCheck, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
+import { useOffer } from "@/lib/offer";
 import type { User } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +13,7 @@ export function ProfileMenu({ user, onSignOut }: { user: User; onSignOut: () => 
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const menuId = useId();
+  const offer = useOffer();
 
   useEffect(() => {
     if (!open) return;
@@ -64,7 +66,7 @@ export function ProfileMenu({ user, onSignOut }: { user: User; onSignOut: () => 
             </Link>
           )}
           <Link role="menuitem" href="/app/settings" onClick={() => setOpen(false)} className={item}><Settings className="size-4" aria-hidden /> Settings</Link>
-          <Link role="menuitem" href="/pricing" onClick={() => setOpen(false)} className={item}><CreditCard className="size-4" aria-hidden /> My plans</Link>
+          {offer && !offer.active && <Link role="menuitem" href="/pricing" onClick={() => setOpen(false)} className={item}><CreditCard className="size-4" aria-hidden /> My plans</Link>}
           <div className="my-1 h-px bg-line" />
           <button type="button" role="menuitem" onClick={() => { setOpen(false); onSignOut(); }} className={item}><LogOut className="size-4" aria-hidden /> Log out</button>
         </div>

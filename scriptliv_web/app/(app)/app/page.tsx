@@ -25,6 +25,7 @@ export default function HomePage() {
   if (!usage || !rows) return <div className="py-16 text-center"><Spinner /></div>;
 
   const out = usage.total_remaining_seconds <= 0;
+  const offer = !!usage.promo?.active;
 
   return (
     <div className="space-y-6">
@@ -41,13 +42,13 @@ export default function HomePage() {
           We sent a link to {user.email}. <Link href="/app/settings" className="font-medium text-primary underline">Resend it from Settings</Link>.
         </Notice>
       )}
-      {usage.unlimited && (
-        <Notice tone="success" title={usage.promo?.label ?? "Inaugural offer: free, unlimited minutes"}>
-          {usage.promo?.until ? `Runs until ${fmtDate(usage.promo.until)}. ` : ""}Only the person speaking is metered; nothing is taken from your plan.
+      {offer && (
+        <Notice tone="success" title={`Inaugural offer: ${Math.floor(Math.max(0, usage.total_remaining_seconds) / 60).toLocaleString()} of ${(usage.promo?.allowance_minutes ?? usage.included_minutes).toLocaleString()} free minutes left`}>
+          {usage.promo?.until ? `Runs until ${fmtDate(usage.promo.until)}. ` : ""}Only the person speaking uses minutes; people watching a shared link are free.
         </Notice>
       )}
       {usage.warnings.map((w) => <Notice key={w.level} tone={out ? "error" : "warning"} title={w.message}>
-        <Link href="/pricing" className="font-medium text-primary underline">See plans and add-ons</Link>
+        {!offer && <Link href="/pricing" className="font-medium text-primary underline">See plans and add-ons</Link>}
       </Notice>)}
 
       <section>

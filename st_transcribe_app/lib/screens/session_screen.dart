@@ -472,10 +472,12 @@ class _SessionScreenState extends State<SessionScreen>
           case 'payment_required':
             return 'Payment required. Your last payment failed, so paid minutes are paused. Update your payment method on the website, then retry.';
           case 'session_limit':
+            if (UsageInfo.lastOfferActive) return 'Sessions are limited to 4 hours. Your transcript is saved. Start a new session to keep going.';
             return 'Free sessions are limited to 30 minutes. Your transcript is saved. Start a new session to keep going, or upgrade to Pro for longer sessions.';
           case 'personal_limit':
             return 'You reached your personal limit. Recording stopped. Raise the limit in Settings to continue.';
           default:
+            if (UsageInfo.lastOfferActive) return 'You have used your free offer minutes. Recording stopped exactly when they ran out. Your transcript is saved.';
             return 'You are out of minutes. Recording stopped exactly when your balance ran out; add minutes or upgrade to continue.';
         }
       case ConnectionStatus.emailNotVerified:

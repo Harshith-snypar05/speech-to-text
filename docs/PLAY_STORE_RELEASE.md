@@ -1,6 +1,6 @@
 # Publishing ScriptLiv on Google Play
 
-Status 2026-11-19: signing is set up and a signed `.aab` builds. What is left is the production server, the Play Console forms and a device test.
+Status 2026-11-19: signing is set up, a signed `.aab` builds, and build 1.0.0+1 passed an internal test on a real phone. Build 1.0.0+2 adds the 1000-minutes-per-user offer rule (no plans shown). What is left is the Play Console forms, a closed test if the account needs one, and review.
 
 ## 1. Before you build
 
@@ -66,7 +66,7 @@ Also: data encrypted in transit (yes); users can request deletion (yes). Check t
   - Accuracy pass that fixes lines after they appear
   - Share a link so others can follow the transcript live, no sign-in needed
   - History, search and export of past sessions
-  - Free, unlimited minutes during our launch offer
+  - Free during our launch offer: 1000 minutes per user
 
   Needs the microphone and an internet connection. Only the person speaking uses minutes; people watching a shared link are free.
 
@@ -78,7 +78,7 @@ Also: data encrypted in transit (yes); users can request deletion (yes). Check t
 
 ## 7. After the offer (30 Nov)
 
-If the app lets people buy minutes after the offer, Google requires **Play Billing** for digital goods sold inside an Android app. The app currently has no purchase screen, only "Manage plan", which opens the website. Decide before 30 Nov: keep purchases on the website only and remove the link from the app (so the app never points users to external payment), or add Play Billing. Not decided yet.
+If the app lets people buy minutes after the offer, Google requires **Play Billing** for digital goods sold inside an Android app. During the offer the app shows no plan or "Manage plan" link (1.0.0+2). The app has no purchase screen; after the offer "Manage plan" opens the website. Decide before 30 Nov: keep purchases on the website only and remove the link from the app (so the app never points users to external payment), or add Play Billing. Not decided yet.
 
 ## 8. Known limits to tell reviewers and testers
 

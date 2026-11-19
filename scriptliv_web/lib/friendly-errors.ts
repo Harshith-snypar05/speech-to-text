@@ -38,16 +38,18 @@ export function micMessage(raw: string | undefined): string {
 export interface CloseNotice { title: string; body: string; tone: "error" | "warning" | "info"; link?: { href: string; label: string } }
 
 /** Live connection closed by the relay: `code` is the WebSocket close code, `reason` its reason text. */
-export function closeNotice(code: number | string, reason = ""): CloseNotice {
+export function closeNotice(code: number | string, reason = "", offer = false): CloseNotice {
   const c = String(code);
-  const plans = { href: "/pricing", label: "See plans and add-ons" };
+  const plans = offer ? undefined : { href: "/pricing", label: "See plans and add-ons" };
   if (c === "4403") return { tone: "warning", title: "Verify your email to record", body: "Transcription turns on once your email address is verified. Open the link we emailed you, or resend it from Settings.", link: { href: "/app/settings", label: "Open Settings" } };
   if (c === "4409") return { tone: "info", title: "Recording continued on another connection", body: "A newer connection took over this session, for example after a network change. Your transcript so far is saved." };
   if (c === "4402") {
+    if (reason === "session_limit" && offer) return { tone: "warning", title: "Sessions are limited to 4 hours", body: "This session reached the 4-hour limit and was stopped. Your transcript is saved. Start a new session to keep going." };
     if (reason === "session_limit") return { tone: "warning", title: "Free sessions are limited to 30 minutes", body: "This session reached the 30-minute limit and was stopped. Your transcript is saved. Start a new session to keep going, or upgrade to Pro for longer sessions.", link: plans };
     if (reason === "allowance_reserved") return { tone: "warning", title: "Your minutes are in use by another recording", body: "Another recording on your account is using your remaining minutes. Stop it, then start again." };
     if (reason === "payment_required") return { tone: "error", title: "Payment required", body: "Your last payment failed, so paid minutes and add-ons are paused. Update your payment method or retry the payment.", link: plans };
     if (reason === "personal_limit") return { tone: "error", title: "You reached your personal limit", body: "Recording stopped at the limit you set in Settings. Raise it there to continue.", link: { href: "/app/settings", label: "Open Settings" } };
+    if (offer) return { tone: "error", title: "You have used your free minutes", body: "Recording stopped when your free offer minutes ran out. Your transcript is saved. Nothing was recorded past your balance." };
     return { tone: "error", title: "You are out of minutes", body: "Recording stopped when your minutes ran out. Nothing was recorded past your balance. Add minutes or upgrade to continue.", link: plans };
   }
   if (c === "4400") return { tone: "error", title: "Recording could not start", body: "The connection was set up incorrectly. Refresh the page and try again." };

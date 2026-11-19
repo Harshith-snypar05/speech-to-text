@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AuthTrigger } from "@/components/auth-modal";
 import { Logo, ThemeToggle } from "@/components/brand";
 import { ScrollHeader } from "@/components/scroll-header";
+import { PricingLink } from "@/components/pricing-link";
 import { buttonCls } from "@/components/ui/button-styles";
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
@@ -20,7 +21,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
             <Link href="/#features" className={link}>Features</Link>
             <Link href="/#use-cases" className={link}>Use Cases</Link>
             <Link href="/#how" className={link}>How it works</Link>
-            <Link href="/pricing" className={link}>Pricing</Link>
+            <PricingLink className={link} />
           </nav>
           <div className="flex items-center gap-2 whitespace-nowrap text-sm">
             <ThemeToggle />
@@ -43,7 +44,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
               <li><Link className={item} href="/#features">Features</Link></li>
               <li><Link className={item} href="/#use-cases">Use Cases</Link></li>
               <li><Link className={item} href="/#how">How it Works</Link></li>
-              <li><Link className={item} href="/pricing">Pricing</Link></li>
+              <li><PricingLink className={item} /></li>
             </ul>
           </div>
           <div>

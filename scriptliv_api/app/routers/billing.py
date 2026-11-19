@@ -18,6 +18,7 @@ from ..plans import (
     ADDON_TAX_NOTE,
     PLANS,
     PRO,
+    PROMO_ALLOWANCE_MINUTES,
     with_gst,
 )
 
@@ -60,9 +61,11 @@ def plans():
             "price_display": f"₹{ADDON_PRICE_INR:,} {ADDON_TAX_NOTE}",
             "note": ADDON_NOTE,
         },
-        # buying is paused while the inaugural offer (free, unlimited minutes) runs
+        # buying is paused while the inaugural offer (free, fixed minutes per account) runs; clients hide plans and prices
         "purchasing_available": payments_cashfree.configured() and not promo_active(),
         "promo_active": promo_active(),
+        "promo_until": get_settings().promo_unlimited_until if promo_active() else None,
+        "promo_allowance_minutes": PROMO_ALLOWANCE_MINUTES if promo_active() else None,
     }
 
 
@@ -125,7 +128,7 @@ def checkout(body: CheckoutIn, user=Depends(verified_user), db=Depends(db_dep)):
     here and hands it to Cashfree's own JS SDK (cashfree.checkout / cashfree.subscriptionsCheckout),
     which does the actual redirect. See scriptliv_web/lib/cashfree.ts."""
     if promo_active():
-        _err(409, "offer_active", "Minutes are free and unlimited during our inaugural offer, so there is nothing to buy right now.")
+        _err(409, "offer_active", "Minutes are free during our inaugural offer (each account gets a fixed allowance), so there is nothing to buy right now.")
     uid = str(user["_id"])
     sub = subscriptions.get_subscription(db, uid)
     if body.kind == "pro" and sub["plan"] == PRO:

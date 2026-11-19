@@ -21,8 +21,10 @@ export interface UsageSummary {
   included_minutes: number; included_used_seconds: number; included_remaining_seconds: number; percent_used: number;
   addon_remaining_seconds: number; addon_used_seconds: number; addons: Addon[];
   total_remaining_seconds: number; warnings: { level: number; message: string }[]; cancel_at_period_end: boolean;
-  /** Inaugural offer: free, unlimited minutes. `promo.until` is epoch seconds. */
-  unlimited?: boolean; promo?: { active: boolean; until: number | null; label: string | null };
+  /** Inaugural offer: free, `allowance_minutes` per account for the whole offer. `promo.until` is epoch seconds. While it is
+   *  active, included_* and total_remaining_seconds describe that allowance, and plans and prices are not shown. */
+  unlimited?: boolean;
+  promo?: { active: boolean; until: number | null; label: string | null; allowance_minutes?: number | null; used_seconds?: number | null; remaining_seconds?: number | null };
 }
 export interface UsageSession {
   session_id: string; started_at: number; ended_at: number | null;
@@ -56,6 +58,8 @@ export interface Plans {
   addon: AddonInfo;
   purchasing_available: boolean;
   promo_active?: boolean;
+  promo_until?: number | null;
+  promo_allowance_minutes?: number | null;
 }
 export interface Subscription {
   plan: string;

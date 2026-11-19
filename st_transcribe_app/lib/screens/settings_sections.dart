@@ -464,11 +464,25 @@ class _UsageSectionState extends State<UsageSection> {
                 TextButton(onPressed: () => setState(() => _future = PlatformApi.usage()), child: const Text('Retry')),
               ]);
             }
-            if (u.unlimited) {
+            if (u.offerActive) {
               final e = u.promoUntil;
-              return _Note('Inaugural offer: free, unlimited minutes'
-                  '${e != null ? ' until ${e.year}-${e.month.toString().padLeft(2, '0')}-${e.day.toString().padLeft(2, '0')}' : ''}. '
-                  'Only the person speaking is metered; nothing is deducted from your plan.');
+              final total = u.offerMinutes > 0 ? u.offerMinutes : u.includedMinutes;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Inaugural offer: free minutes', style: TextStyle(fontWeight: FontWeight.w700, color: c.textPrimary)),
+                  const SizedBox(height: 8),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: LinearProgressIndicator(value: (u.percentUsed / 100).clamp(0.0, 1.0), minHeight: 8),
+                  ),
+                  const SizedBox(height: 6),
+                  Text('${_fmtMinutes(u.includedUsedSeconds)} of $total min used · ${_fmtMinutes(u.totalRemainingSeconds)} left',
+                      style: TextStyle(fontSize: 13, color: c.textSecondary)),
+                  _Note('Only the person speaking uses minutes. Viewers of a shared link are free.'
+                      '${e != null ? ' The offer runs until ${e.year}-${e.month.toString().padLeft(2, '0')}-${e.day.toString().padLeft(2, '0')}.' : ''}'),
+                ],
+              );
             }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -621,6 +635,7 @@ class _MembershipSectionState extends State<MembershipSection> {
   Map<String, dynamic>? _sub;
   Map<String, dynamic>? _pm;
   bool _loading = true;
+  bool _offer = false;
 
   @override
   void initState() {
@@ -647,9 +662,11 @@ class _MembershipSectionState extends State<MembershipSection> {
     final r = await Future.wait<Object?>([
       _try(PlatformApi.subscription()),
       _try(PlatformApi.paymentMethod()),
+      _try(PlatformApi.usage()),
     ]);
     if (!mounted) return;
     setState(() {
+      _offer = (r[2] as UsageInfo?)?.offerActive ?? false;
       _sub = (r[0] as Map<String, dynamic>?)?['subscription'] as Map<String, dynamic>?;
       _pm = r[1] as Map<String, dynamic>?;
       _loading = false;
@@ -662,6 +679,7 @@ class _MembershipSectionState extends State<MembershipSection> {
     if (_loading) {
       return const SettingsSection(title: 'Membership details', children: [LinearProgressIndicator()]);
     }
+    if (_offer) return const SizedBox.shrink(); // no plans, payments or billing while the inaugural offer runs
     final sub = _sub;
     if (sub == null) {
       return SettingsSection(

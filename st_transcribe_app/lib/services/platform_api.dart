@@ -34,13 +34,24 @@ class UsageInfo {
   final List<String> warnings;
   /// Earliest expiry among add-ons that still have minutes left; null when there are none.
   final DateTime? addonExpiresAt;
-  /// Inaugural offer: free, unlimited minutes. [promoUntil] is when it ends (null when open-ended).
+  /// Inaugural offer: free, [offerMinutes] per account. While [offerActive], included* and totalRemainingSeconds describe that
+  /// allowance, and plans, prices and "Manage plan" are not shown. [promoUntil] is when it ends (null when open-ended).
   final bool unlimited;
+  final bool offerActive;
+  final int offerMinutes;
   final DateTime? promoUntil;
+  /// Last offer state the server reported (screens that have no usage of their own use it for wording).
+  static bool lastOfferActive = false;
   UsageInfo(this.planName, this.includedMinutes, this.includedUsedSeconds, this.includedRemainingSeconds,
       this.addonRemainingSeconds, this.totalRemainingSeconds, this.percentUsed, this.resetAt, this.cancelAtPeriodEnd, this.warnings,
-      {this.addonExpiresAt, this.unlimited = false, this.promoUntil});
-  factory UsageInfo.fromJson(Map<String, dynamic> j) => UsageInfo(
+      {this.addonExpiresAt, this.unlimited = false, this.offerActive = false, this.offerMinutes = 0, this.promoUntil});
+  factory UsageInfo.fromJson(Map<String, dynamic> j) {
+    final u = UsageInfo._parse(j);
+    lastOfferActive = u.offerActive;
+    return u;
+  }
+
+  factory UsageInfo._parse(Map<String, dynamic> j) => UsageInfo(
         j['plan_name'] as String? ?? '',
         (j['included_minutes'] as num?)?.toInt() ?? 0,
         (j['included_used_seconds'] as num?)?.toDouble() ?? 0,
@@ -53,6 +64,8 @@ class UsageInfo {
         [for (final w in (j['warnings'] as List? ?? const [])) (w as Map<String, dynamic>)['message'] as String],
         addonExpiresAt: _earliestAddonExpiry(j['addons']),
         unlimited: j['unlimited'] == true,
+        offerActive: j['promo'] is Map && (j['promo'] as Map)['active'] == true,
+        offerMinutes: j['promo'] is Map ? ((j['promo'] as Map)['allowance_minutes'] as num?)?.toInt() ?? 0 : 0,
         promoUntil: _promoUntil(j['promo']),
       );
 

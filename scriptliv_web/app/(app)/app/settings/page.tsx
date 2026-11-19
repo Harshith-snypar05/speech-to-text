@@ -7,6 +7,7 @@ import { Badge, Button, Card, Field, Notice, Progress, Spinner, Stat, inputCls }
 import { PaymentBanner } from "@/components/payment-banner";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
+import { useOffer } from "@/lib/offer";
 import { fmtDate, fmtMinutes, fmtSecs } from "@/lib/format";
 import type { BillingDetails, Delivery, PaymentMethod, Settings, Subscription, UsageSummary } from "@/lib/types";
 
@@ -202,20 +203,23 @@ function Usage() {
   useEffect(() => { if (token) api.usage(token).then(setUsage).catch(() => setErr(true)); }, [token]);
   if (err) return <Notice tone="error" title="Could not load your usage" />;
   if (!usage) return <Card><Spinner /></Card>;
-  if (usage.unlimited) {
+  const pct = usage.percent_used;
+  if (usage.promo?.active) {
+    const total = usage.promo.allowance_minutes ?? usage.included_minutes;
     return (
       <Card>
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 className="font-semibold">{usage.promo?.label ?? "Inaugural offer: free, unlimited minutes"}</h2>
+          <h2 className="font-semibold">Inaugural offer: free minutes</h2>
           <Badge tone="success">Active</Badge>
         </div>
+        <div className="mt-4"><Progress value={pct} tone={usage.total_remaining_seconds <= 0 ? "error" : pct >= 80 ? "warning" : "primary"} label="Free minutes used" /></div>
         <p className="mt-2 text-sm text-ink-2">
-          {usage.promo?.until ? `Runs until ${fmtDate(usage.promo.until)}. ` : ""}Only the person speaking is metered; nothing is taken from your {usage.plan_name} plan, so your minutes are intact when the offer ends.
+          {fmtSecs(usage.included_used_seconds)} of {total.toLocaleString()} min used · {fmtSecs(usage.total_remaining_seconds)} left
+          {usage.promo.until ? `. The offer runs until ${fmtDate(usage.promo.until)}.` : "."} Only the person speaking uses minutes.
         </p>
       </Card>
     );
   }
-  const pct = usage.percent_used;
   const tone = usage.total_remaining_seconds <= 0 ? "error" : pct >= 80 ? "warning" : "primary";
   return (
     <>
@@ -274,6 +278,7 @@ function Limits() {
 
 function Membership() {
   const { token } = useAuth();
+  const offer = useOffer();
   const [sub, setSub] = useState<Subscription | null>(null);
   const [avail, setAvail] = useState(true);
   const [pm, setPm] = useState<PaymentMethod | null>(null);
@@ -291,7 +296,8 @@ function Membership() {
   }, [token]);
   useEffect(() => { void load(); }, [load]);
 
-  if (!loaded) return <Card><Spinner /></Card>;
+  if (!loaded || !offer) return <Card><Spinner /></Card>;
+  if (offer.active) return null;   // no plans, payments or billing while the inaugural offer runs
   const portal = async () => { try { window.location.assign((await api.portal(token!)).url); } catch (e) { setMsg({ ok: false, text: errText(e) }); } };
   const paid = sub && sub.plan !== "basic";
   const price = sub ? (sub.price_display ?? (sub.price_inr_month ? `₹${sub.price_inr_month.toLocaleString()}${sub.tax_note ? ` ${sub.tax_note}` : ""}` : "₹999 + GST")) : "";

@@ -13,7 +13,7 @@ from contextlib import contextmanager
 from pymongo.errors import DuplicateKeyError
 
 from .config import get_settings, promo_active
-from .plans import ADDON_MAX_SESSION_MINUTES, BASIC, PLANS, PROMO_ALLOWANCE_SECONDS, PROMO_MAX_SESSION_MINUTES
+from .plans import ADDON_MAX_SESSION_MINUTES, BASIC, PLANS, PROMO_ALLOWANCE_MINUTES, PROMO_ALLOWANCE_SECONDS, PROMO_MAX_SESSION_MINUTES
 from .subscriptions import active_addons, get_subscription, is_restricted, plan_of
 
 DEFAULT_WARN_PERCENTS = [80, 95]
@@ -39,9 +39,16 @@ def remaining(db, user_id: str, now: float | None = None) -> dict:
     addons = [] if restricted else active_addons(db, user_id, now)
     add_rem = sum(max(0.0, a["seconds_total"] - a["seconds_used"]) for a in addons)
     promo = promo_active(now)
+    promo_used = promo_used_seconds(db, user_id) if promo else 0.0
+    promo_rem = max(0.0, PROMO_ALLOWANCE_SECONDS - promo_used)
     return {"sub": sub, "plan": plan, "restricted": restricted, "included_remaining": inc_rem, "addon_remaining": add_rem,
-            "addons": addons, "promo": promo,
-            "total_remaining": PROMO_ALLOWANCE_SECONDS if promo else inc_rem + add_rem}
+            "addons": addons, "promo": promo, "promo_used": promo_used, "promo_remaining": promo_rem,
+            "total_remaining": promo_rem if promo else inc_rem + add_rem}
+
+
+def promo_used_seconds(db, user_id: str) -> float:
+    """Seconds this account has spent from its inaugural-offer allowance (ledger rows with source "promo")."""
+    return float(sum(x["seconds"] for x in db.usage_ledger.find({"user_id": user_id, "source": "promo"}, {"seconds": 1})))
 
 
 @contextmanager
@@ -84,6 +91,8 @@ def _personal_room(db, user_id: str, r: dict) -> float:
     if not cap_min:
         return float("inf")
     used = r["sub"]["included_used_seconds"] + sum(a["seconds_used"] for a in r["addons"])
+    if r["promo"]:
+        used += r["promo_used"]   # offer minutes count toward the account's own limit too
     return max(0.0, cap_min * 60 - used)
 
 
@@ -206,14 +215,27 @@ def record(db, user_id: str, session_id: str, cumulative_seconds: float, now: fl
     r = remaining(db, user_id, now)
     sub = r["sub"]
     if r["promo"]:
-        # inaugural offer: the time is recorded (ledger, session, minute buckets) but taken from no allowance, so nobody
-        # arrives at the end of the offer with their plan minutes already spent
-        db.usage_ledger.insert_one({"user_id": user_id, "session_id": session_id, "seconds": delta, "source": "promo",
-                                    "addon_id": None, "period_start": sub["period_start"], "ts": now})
-        upd = {"$set": {"ended_at": now}} if final else {}
-        if upd:
-            db.usage_sessions.update_one({"session_id": session_id}, upd)
-        return {"applied_seconds": delta, "included": 0.0, "addon": 0.0, "unbilled_overshoot": 0.0, "promo": delta}
+        # inaugural offer: seconds come out of the account's own free allowance (PROMO_ALLOWANCE_MINUTES for the whole offer);
+        # plan and add-on minutes are never touched, so nobody reaches the end of the offer with them already spent.
+        # Same strictness as below: never past the allowance, the personal limit or this session's grant. The rest is
+        # recorded as unbilled_overshoot (auditable, never extends the allowance).
+        left = min(delta, r["promo_remaining"], _personal_room(db, user_id, r))
+        grant = row.get("grant_seconds")
+        if grant is not None:
+            left = min(left, max(0.0, grant - prev))
+        left = max(0.0, left)
+        if left > 0:
+            db.usage_ledger.insert_one({"user_id": user_id, "session_id": session_id, "seconds": left, "source": "promo",
+                                        "addon_id": None, "period_start": sub["period_start"], "ts": now})
+        overshoot = max(0.0, delta - left)
+        if overshoot > 1e-9:
+            db.usage_ledger.insert_one({"user_id": user_id, "session_id": session_id, "seconds": overshoot, "source": "unbilled_overshoot",
+                                        "addon_id": None, "period_start": sub["period_start"], "ts": now})
+        upd = {"$inc": {"unbilled_overshoot_seconds": overshoot}}
+        if final:
+            upd["$set"] = {"ended_at": now}
+        db.usage_sessions.update_one({"session_id": session_id}, upd)
+        return {"applied_seconds": delta, "included": 0.0, "addon": 0.0, "unbilled_overshoot": overshoot, "promo": left}
     # Strict limit. Only seconds the account can still fund AND this session's reservation (grant) covers are deducted:
     # never past the plan, the add-ons, the account's personal limit or the grant. Whatever is left over (audio that got
     # through before the relay stopped, the up-to-1 s from rounding a closing report up) is NOT charged: it is recorded
@@ -257,23 +279,33 @@ def summary(db, user_id: str, now: float | None = None) -> dict:
     addon_used = sum(a["seconds_used"] for a in r["addons"])
     st = db.settings.find_one({"user_id": user_id}) or {}
     pct = 100.0 * used_inc / plan.included_seconds if plan.included_seconds else 0.0
+    if r["promo"]:
+        pct = 100.0 * r["promo_used"] / PROMO_ALLOWANCE_SECONDS
     thresholds = st.get("warn_percents") or DEFAULT_WARN_PERCENTS
     exhausted = r["total_remaining"] <= 0
-    if r["promo"]:
-        pct = 0.0
-    warnings = [{"level": t, "message": f"You have used {t}% of your included minutes."} for t in sorted(thresholds) if t <= pct < 100]
+    warnings = [{"level": t, "message": f"You have used {t}% of your {'free offer' if r['promo'] else 'included'} minutes."}
+                for t in sorted(thresholds) if t <= pct < 100]
     if exhausted:
-        warnings.append({"level": 100, "message": "Payment required: update your payment method to restore your plan."
-                         if r["restricted"] else "You are out of minutes. Buy an add-on or wait for your reset date."})
+        warnings.append({"level": 100, "message": "You have used all your free offer minutes." if r["promo"] else
+                         "Payment required: update your payment method to restore your plan." if r["restricted"] else
+                         "You are out of minutes. Buy an add-on or wait for your reset date."})
     promo_until = get_settings().promo_unlimited_until
     promo = {"active": r["promo"], "until": promo_until if r["promo"] else None,
-             "label": "Inaugural offer: free, unlimited minutes" if r["promo"] else None}
+             "label": f"Inaugural offer: free, {PROMO_ALLOWANCE_MINUTES} minutes per user" if r["promo"] else None,
+             "allowance_minutes": PROMO_ALLOWANCE_MINUTES if r["promo"] else None,
+             "used_seconds": r["promo_used"] if r["promo"] else None,
+             "remaining_seconds": r["promo_remaining"] if r["promo"] else None}
+    if r["promo"]:
+        # the same fields clients already draw their minute meter from now describe the offer allowance
+        used_inc, included_minutes, included_rem = r["promo_used"], PROMO_ALLOWANCE_MINUTES, r["promo_remaining"]
+    else:
+        included_minutes, included_rem = plan.included_minutes, r["included_remaining"]
     return {
-        "promo": promo, "unlimited": r["promo"],
+        "promo": promo, "unlimited": False,
         "plan": shown.id, "plan_name": shown.name, "effective_plan": plan.id, "restricted": r["restricted"],
         "period_start": sub["period_start"], "reset_at": sub["period_end"],
-        "included_minutes": plan.included_minutes, "included_used_seconds": used_inc,
-        "included_remaining_seconds": r["included_remaining"], "percent_used": round(pct, 1),
+        "included_minutes": included_minutes, "included_used_seconds": used_inc,
+        "included_remaining_seconds": included_rem, "percent_used": round(pct, 1),
         "addon_remaining_seconds": r["addon_remaining"], "addon_used_seconds": addon_used,
         "addons": [{"id": str(a["_id"]), "minutes_total": a["seconds_total"] / 60,
                     "remaining_seconds": max(0.0, a["seconds_total"] - a["seconds_used"]), "expires_at": a["expires_at"]}

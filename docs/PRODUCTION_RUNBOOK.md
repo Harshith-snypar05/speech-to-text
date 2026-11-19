@@ -122,12 +122,13 @@ Parakeet TDT stays the live engine, so the words appear at once. Each finished l
 - Check it: `STT_REFINE_LOG_FILE` gets one JSON line per utterance with `accepted` true or false and both texts.
 - Tested end to end on 2026-11-17 against the real worker with a stand-in live engine. Not yet tested with the real Parakeet engine, a real microphone, or the Flutter app.
 
-## 13. Inaugural offer (free, unlimited minutes)
+## 13. Inaugural offer (free, 1000 minutes per user)
 
-Payments are postponed; everyone gets free, unlimited transcription from 2026-11-19 through 2026-11-30.
+Payments are postponed. From 2026-11-19 through 2026-11-30 transcription is free and every account gets 1000 minutes for the whole offer (not per month, not reset). Plans, prices and purchase links are hidden everywhere while it runs.
 
-- Switch on: set `SCRIPTLIV_PROMO_UNLIMITED_UNTIL=YYYY-MM-DD` in the API environment and restart the API. The offer runs to the end of that day. Blank or past date means off, so it ends by itself.
-- What changes: usage is still recorded (ledger, sessions, per-minute buckets) but nothing is taken from the plan or add-ons, so nobody reaches the end of the offer with minutes already spent. `/v1/usage` reports `unlimited: true` and a `promo` block; web and app show the offer instead of minute counts. `/v1/plans` reports `purchasing_available: false` and `promo_active: true`, and `POST /v1/billing/checkout` answers 409 `offer_active`.
-- What still applies: 240 min per session, the account's own personal monthly limit, email verification, the relay's `STT_MAX_ACTIVE_STREAMS` and 4 h session cap. Unlimited is about minutes, not server capacity: with the GPU box the real limit is a few simultaneous speakers.
-- Ending it: remove the variable (or let the date pass). Plans, add-ons and checkout come back with the same release; Cashfree live keys and KYC must be ready before then.
-
+- Switch on: set `SCRIPTLIV_PROMO_UNLIMITED_UNTIL=YYYY-MM-DD` in the API environment and restart the API. The offer runs to the end of that day (UTC). Blank or past date means off, so it ends by itself. The variable name still says "unlimited"; it is kept so the existing environment keeps working.
+- The allowance is `PROMO_ALLOWANCE_MINUTES` in `scriptliv_api/app/plans.py` (1000). Used minutes are the account's ledger rows with `source: "promo"`; the plan's included minutes and add-ons are never touched, so nobody reaches the end of the offer with them already spent. Usage is also recorded in sessions and per-minute buckets as usual.
+- Out of allowance: the relay refuses a new session with close 4402 `quota_exhausted` and stops a running one at the limit. Audio that gets through before the stop is logged as `unbilled_overshoot`, never charged.
+- Clients: `/v1/usage` reports `promo {active, until, label, allowance_minutes, used_seconds, remaining_seconds}` and, while active, `included_*`, `percent_used` and `total_remaining_seconds` describe the allowance (`unlimited` is always false now). `/v1/plans` reports `purchasing_available: false`, `promo_active: true`, `promo_until`, `promo_allowance_minutes`; `POST /v1/billing/checkout` answers 409 `offer_active`. The web hides Pricing, My plans, Membership details and the plans page; the app hides Membership details and "Manage plan". Builds older than 1.0.0+2 show the allowance as a "Basic plan" meter and still show "Manage plan"; update the app.
+- What still applies: 240 min per session, the account's own personal limit (offer minutes count toward it), email verification, the relay's `STT_MAX_ACTIVE_STREAMS` and 4 h session cap. The allowance is about minutes, not server capacity: with the GPU box the real limit is a few simultaneous speakers.
+- Ending it: remove the variable (or let the date pass). Plans, add-ons and checkout come back with the same release; the offer minutes simply stop counting and each account is back on Basic (300 min a month). Cashfree live keys and KYC must be ready before then.

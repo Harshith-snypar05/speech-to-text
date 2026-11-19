@@ -69,6 +69,8 @@ ADDON_MAX_SESSION_MINUTES = 120
 ADDON_NOTE = f"1,000 extra minutes for ₹{ADDON_PRICE_INR:,} {ADDON_TAX_NOTE}. Up to 2 hours per session. Only valid till plan end."
 
 
-# Inaugural offer (config.promo_active): no minute limit. One session may still run this long, same as the relay's own cap.
+# Inaugural offer (config.promo_active): free, but each account gets a fixed number of minutes for the whole offer (not per
+# month, not reset). Plan and add-on minutes are untouched. One session may run PROMO_MAX_SESSION_MINUTES, same as the relay's cap.
 PROMO_MAX_SESSION_MINUTES = 240
-PROMO_ALLOWANCE_SECONDS = 10 ** 9   # stand-in for "unlimited" in arithmetic; clients are told `unlimited` instead of this number
+PROMO_ALLOWANCE_MINUTES = 1000
+PROMO_ALLOWANCE_SECONDS = PROMO_ALLOWANCE_MINUTES * 60

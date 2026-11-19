@@ -153,6 +153,8 @@ String _fmtMin(double seconds) {
   return '$m min';
 }
 
+String _fmtDay(DateTime d) => '${d.year}-${_two(d.month)}-${_two(d.day)}';
+
 /// Subscribing/buying add-ons happens on the website, not in-app (no native purchase flow exists, and
 /// routing it through the browser avoids App Store/Play Store in-app-purchase requirements entirely).
 Future<void> _openPlans() async {
@@ -161,22 +163,31 @@ Future<void> _openPlans() async {
   await launchUrl(Uri.parse('$origin/pricing'), mode: LaunchMode.externalApplication);
 }
 
-/// Shown instead of minute counts while the inaugural offer (free, unlimited minutes) is running.
+/// Shown instead of the plan card while the inaugural offer (free, a fixed number of minutes per account) is running.
+/// No plan, price or "Manage plan" link here by design.
 class PromoBanner extends StatelessWidget {
-  final DateTime? until;
-  const PromoBanner({super.key, this.until});
+  final UsageInfo usage;
+  const PromoBanner({super.key, required this.usage});
   @override
   Widget build(BuildContext context) {
     final c = AppColors.of(context);
-    final end = until == null ? null : '${until!.year}-${_two(until!.month)}-${_two(until!.day)}';
+    final until = usage.promoUntil;
+    final total = usage.offerMinutes > 0 ? usage.offerMinutes : usage.includedMinutes;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(color: c.surface, borderRadius: BorderRadius.circular(16), border: Border.all(color: c.cardBorder)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text('Inaugural offer', style: TextStyle(fontWeight: FontWeight.w700, color: c.textPrimary)),
-        const SizedBox(height: 6),
-        Text('Free, unlimited minutes${end != null ? ' until $end' : ''}.', style: TextStyle(color: c.textSecondary, fontSize: 13)),
+        Text('Inaugural offer: free', style: TextStyle(fontWeight: FontWeight.w700, color: c.textPrimary)),
+        const SizedBox(height: 10),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: LinearProgressIndicator(value: (usage.percentUsed / 100).clamp(0, 1).toDouble(), minHeight: 8),
+        ),
+        const SizedBox(height: 8),
+        Text('${_fmtMin(usage.totalRemainingSeconds)} of $total min left${until != null ? ' · until ${_fmtDay(until)}' : ''}',
+            style: TextStyle(color: c.textSecondary, fontSize: 13)),
+        for (final w in usage.warnings) Padding(padding: const EdgeInsets.only(top: 6), child: Text(w, style: TextStyle(color: c.recordRed, fontSize: 13))),
       ]),
     );
   }
@@ -195,7 +206,7 @@ class UsageCard extends StatelessWidget {
         if (snap.connectionState != ConnectionState.done) return const SizedBox(height: 90, child: Center(child: CircularProgressIndicator()));
         if (snap.hasError) return Text('Usage is unavailable right now. Pull down to retry.', style: TextStyle(color: c.textSecondary, fontSize: 13));
         final u = snap.data!;
-        if (u.unlimited) return PromoBanner(until: u.promoUntil);
+        if (u.offerActive) return PromoBanner(usage: u);
         final reset = '${u.resetAt.year}-${_two(u.resetAt.month)}-${_two(u.resetAt.day)}';
         return Container(
           padding: const EdgeInsets.all(16),
