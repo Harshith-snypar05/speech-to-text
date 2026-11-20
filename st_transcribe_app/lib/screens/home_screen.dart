@@ -3,7 +3,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../config/app_config.dart';
 import '../models/transcript.dart';
-import '../services/app_settings.dart';
 import '../services/auth_service.dart';
 import '../services/platform_api.dart';
 import '../services/transcript_storage.dart';
@@ -158,9 +157,7 @@ String _fmtDay(DateTime d) => '${d.year}-${_two(d.month)}-${_two(d.day)}';
 /// Subscribing/buying add-ons happens on the website, not in-app (no native purchase flow exists, and
 /// routing it through the browser avoids App Store/Play Store in-app-purchase requirements entirely).
 Future<void> _openPlans() async {
-  final origin = viewerLinkOrigin();
-  if (origin.isEmpty) return;
-  await launchUrl(Uri.parse('$origin/pricing'), mode: LaunchMode.externalApplication);
+  await launchUrl(Uri.parse('${AppConfig.webOrigin}/pricing'), mode: LaunchMode.externalApplication);
 }
 
 /// Shown instead of the plan card while the inaugural offer (free, a fixed number of minutes per account) is running.

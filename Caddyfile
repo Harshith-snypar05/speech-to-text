@@ -1,4 +1,13 @@
-:5600 {
+# Caddy terminates TLS itself for dev.scriptliv.com (replaces ngrok -- real DNS name now, no free tunnel).
+# Runs unprivileged on 5600/5680; the router forwards public 443->5600 and 80->5680 so ACME's HTTP-01
+# challenge and real HTTPS traffic both reach Caddy without it needing root to bind <1024.
+{
+	email sriharshith.g@snypartech.com
+	http_port 5680
+	https_port 5600
+}
+
+dev.scriptliv.com {
 	@relay {
 		query role=speaker
 	}
@@ -14,5 +23,22 @@
 		reverse_proxy 127.0.0.1:8790
 	}
 
+	reverse_proxy 127.0.0.1:3100
+}
+
+# Plain-port access for local-network debugging, unaffected by DNS/TLS (5600 itself now carries the
+# public HTTPS listener above, via https_port).
+:5601 {
+	@relay {
+		query role=speaker
+	}
+	@viewer {
+		query role=viewer
+	}
+	reverse_proxy @relay 127.0.0.1:8772
+	reverse_proxy @viewer 127.0.0.1:8772
+	handle_path /__api/* {
+		reverse_proxy 127.0.0.1:8790
+	}
 	reverse_proxy 127.0.0.1:3100
 }

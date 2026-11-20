@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# start_all.sh — Kill everything, then start API + relay + Next.js + Caddy + ngrok.
+# start_all.sh — Kill everything, then start API + relay + Next.js + Caddy.
+# Public access is dev.scriptliv.com (DNS + router port-forward: 443->5600, 80->5680), no ngrok.
 # Run from anywhere: bash /path/to/STT/start_all.sh
 
 set -euo pipefail
@@ -11,9 +12,8 @@ API_PY="$ROOT/scriptliv_api/.venv/bin/python3"
 ASR_PY="$ROOT/asr_venv/bin/python3"
 NPM=/opt/homebrew/bin/npm
 CADDY=/opt/homebrew/bin/caddy
-NGROK=/usr/local/bin/ngrok
 
-NGROK_DOMAIN="ouch-devouring-unhelpful.ngrok-free.dev"
+PUBLIC_DOMAIN="dev.scriptliv.com"
 CADDY_PORT=5600
 WEB_PORT=3100
 
@@ -28,7 +28,7 @@ pkill -f "canary_worker.py"    2>/dev/null || true
 pkill -f "next dev"            2>/dev/null || true
 pkill -f "next-server"         2>/dev/null || true
 pkill -f "caddy run"           2>/dev/null || true
-pkill -f "ngrok"               2>/dev/null || true
+pkill -f "ngrok"               2>/dev/null || true   # in case an old tunnel is still up from before the DNS switch
 sleep 2
 echo "   Done."
 
@@ -71,8 +71,8 @@ WEB_PID=$!
 cd "$ROOT"
 echo "   PID $WEB_PID → logs/web.log"
 
-# ── 5. CADDY  (port 5600 → routes relay + Next.js) ────────────────────────────
-echo "🔀 Starting Caddy (port $CADDY_PORT)..."
+# ── 5. CADDY  (terminates TLS for $PUBLIC_DOMAIN, routes relay + API + Next.js) ──
+echo "🔀 Starting Caddy (https on $CADDY_PORT, local debug on 5601)..."
 "$CADDY" run --config "$ROOT/Caddyfile" \
   > "$LOG_DIR/caddy.log" 2>&1 &
 CADDY_PID=$!
@@ -94,33 +94,22 @@ for i in $(seq 1 30); do
 done
 echo ""
 
-# ── 7. NGROK  (tunnel Caddy port → fixed domain) ──────────────────────────────
-echo "🌍 Starting ngrok tunnel → https://$NGROK_DOMAIN"
-"$NGROK" http "$CADDY_PORT" \
-  --domain="$NGROK_DOMAIN" \
-  --log=stdout \
-  > "$LOG_DIR/ngrok.log" 2>&1 &
-NGROK_PID=$!
-sleep 2
-echo "   PID $NGROK_PID → logs/ngrok.log"
-
-# ── 8. SUMMARY ────────────────────────────────────────────────────────────────
+# ── 7. SUMMARY ────────────────────────────────────────────────────────────────
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "  API     http://127.0.0.1:8790    (PID $API_PID)"
 echo "  Relay   ws://127.0.0.1:8772      (PID $RELAY_PID)"
 echo "  Web     http://localhost:$WEB_PORT      (PID $WEB_PID)"
-echo "  Caddy   http://localhost:$CADDY_PORT      (PID $CADDY_PID)"
-echo "  ngrok   https://$NGROK_DOMAIN  (PID $NGROK_PID)"
+echo "  Caddy   https on $CADDY_PORT / http on 5680 (PID $CADDY_PID)"
 [ -n "$CANARY_PID" ] && echo "  Canary  ws://127.0.0.1:8781      (PID $CANARY_PID, warming up -- see logs/canary.log)"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "  Public URL: https://$NGROK_DOMAIN"
+echo "  Public URL: https://$PUBLIC_DOMAIN  (needs router: 443->$CADDY_PORT, 80->5680)"
 echo ""
 echo "Press Ctrl+C to stop everything."
 
-# ── 9. WAIT & CLEANUP ON EXIT ─────────────────────────────────────────────────
-trap 'echo ""; echo "🛑 Shutting down..."; kill $API_PID $RELAY_PID $WEB_PID $CADDY_PID $NGROK_PID $CANARY_PID 2>/dev/null; echo "Done."; exit 0' INT TERM
+# ── 8. WAIT & CLEANUP ON EXIT ─────────────────────────────────────────────────
+trap 'echo ""; echo "🛑 Shutting down..."; kill $API_PID $RELAY_PID $WEB_PID $CADDY_PID $CANARY_PID 2>/dev/null; echo "Done."; exit 0' INT TERM
 
 wait
 

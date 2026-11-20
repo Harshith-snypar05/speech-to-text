@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../services/app_settings.dart';
+import '../config/app_config.dart';
 import '../services/auth_service.dart';
 import '../services/platform_api.dart';
 import '../theme.dart';
@@ -23,9 +23,7 @@ String _fmtDateTime(DateTime d) {
 String _fmtMinutes(double seconds) => '${(seconds / 60).floor()} min';
 
 Future<void> _openWeb(String path) async {
-  final origin = viewerLinkOrigin();
-  if (origin.isEmpty) return;
-  await launchUrl(Uri.parse('$origin$path'), mode: LaunchMode.externalApplication);
+  await launchUrl(Uri.parse('${AppConfig.webOrigin}$path'), mode: LaunchMode.externalApplication);
 }
 
 /// Card with a title, used for every section so the screen reads like the website's Settings page.

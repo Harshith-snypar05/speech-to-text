@@ -9,6 +9,10 @@ class AppConfig {
 
   static bool get platformMode => slHttp.isNotEmpty;
 
+  /// Public marketing/account site for links like "Change plan" -- always the real domain, even when
+  /// SL_API_HTTP/SL_WS point at a dev tunnel, so those links don't break or expire with the tunnel.
+  static const String webOrigin = String.fromEnvironment('SL_WEB_ORIGIN', defaultValue: 'https://scriptliv.com');
+
   static const String copyright = '© Snypar Tech';
 
   /// WebSocket base of the relay; empty when the build has none.
