@@ -7,6 +7,7 @@ import { Badge, Button, Card, Field, Notice, Progress, Spinner, Stat, inputCls }
 import { PaymentBanner } from "@/components/payment-banner";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
+import { SHOW_SUBSCRIPTIONS } from "@/lib/features";
 import { useOffer } from "@/lib/offer";
 import { fmtDate, fmtMinutes, fmtSecs } from "@/lib/format";
 import type { BillingDetails, Delivery, PaymentMethod, Settings, Subscription, UsageSummary } from "@/lib/types";
@@ -221,6 +222,18 @@ function Usage() {
     );
   }
   const tone = usage.total_remaining_seconds <= 0 ? "error" : pct >= 80 ? "warning" : "primary";
+  if (!SHOW_SUBSCRIPTIONS) {
+    // No plan name, add-ons or renewal wording: just the minutes meter.
+    return (
+      <Card>
+        <h2 className="font-semibold">Your minutes</h2>
+        <div className="mt-4"><Progress value={pct} tone={tone} label="Minutes used" /></div>
+        <p className="mt-2 text-sm text-ink-2">
+          {fmtSecs(usage.included_used_seconds)} of {usage.included_minutes.toLocaleString()} min used · {fmtSecs(usage.total_remaining_seconds)} left. Only the person speaking uses minutes.
+        </p>
+      </Card>
+    );
+  }
   return (
     <>
       <Card>
@@ -362,9 +375,9 @@ function AccountActions() {
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
-  useEffect(() => { if (token) api.subscription(token).then((r) => setSub(r.subscription)).catch(() => { }); }, [token]);
+  useEffect(() => { if (token && SHOW_SUBSCRIPTIONS) api.subscription(token).then((r) => setSub(r.subscription)).catch(() => { }); }, [token]);
   if (!token) return null;
-  const paid = sub && sub.plan !== "basic";
+  const paid = SHOW_SUBSCRIPTIONS && sub && sub.plan !== "basic";
   const close = () => { setDlg(null); setPw(""); setErr(null); };
 
   const doCancel = async () => {
@@ -462,7 +475,7 @@ export default function SettingsPage() {
       <Preferences />
       <Usage />
       <Limits />
-      <Membership />
+      {SHOW_SUBSCRIPTIONS && <Membership />}
       <Microphone />
       <Help />
       <AccountActions />

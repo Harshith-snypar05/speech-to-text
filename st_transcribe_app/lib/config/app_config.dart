@@ -13,6 +13,10 @@ class AppConfig {
   /// SL_API_HTTP/SL_WS point at a dev tunnel, so those links don't break or expire with the tunnel.
   static const String webOrigin = String.fromEnvironment('SL_WEB_ORIGIN', defaultValue: 'https://scriptliv.com');
 
+  /// Plans, prices, add-ons, membership and payment screens. Hidden by default: no subscription model is shown.
+  /// Re-enable with --dart-define=SL_SHOW_SUBSCRIPTIONS=true (web twin: NEXT_PUBLIC_SHOW_SUBSCRIPTIONS=1).
+  static const bool showSubscriptions = bool.fromEnvironment('SL_SHOW_SUBSCRIPTIONS');
+
   static const String copyright = '© Snypar Tech';
 
   /// WebSocket base of the relay; empty when the build has none.

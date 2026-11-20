@@ -5,6 +5,7 @@ import { CheckEmail } from "@/components/check-email";
 import { Button, Field, Notice, inputCls } from "@/components/ui";
 import { ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
+import { SHOW_SUBSCRIPTIONS } from "@/lib/features";
 
 export type AuthFormProps = {
   /** sign-in succeeded */
@@ -110,7 +111,7 @@ export function RegisterForm({ onSwitch }: AuthFormProps) {
 
   return (
     <>
-      <Heading title="Create your account" subtitle="Start with 300 free minutes every month. No card needed." />
+      <Heading title="Create your account" subtitle={SHOW_SUBSCRIPTIONS ? "Start with 300 free minutes every month. No card needed." : "Free to start. No card needed."} />
       <form onSubmit={submit} className="space-y-4">
         <Field label="Name">
           <input required autoFocus maxLength={80} autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} className={inputCls} />

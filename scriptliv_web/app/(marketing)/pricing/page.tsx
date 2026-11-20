@@ -1,5 +1,6 @@
 "use client";
 import { Check } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { AuthTrigger } from "@/components/auth-modal";
 import { PaymentBanner } from "@/components/payment-banner";
@@ -8,6 +9,7 @@ import { buttonCls } from "@/components/ui/button-styles";
 import { startCashfreeCheckout } from "@/lib/cashfree";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
+import { SHOW_SUBSCRIPTIONS } from "@/lib/features";
 import { fmtDate, fmtMinutes } from "@/lib/format";
 import type { PaymentIssue, Plans, UsageSummary } from "@/lib/types";
 
@@ -20,7 +22,14 @@ function fmtSessionLimit(minutes?: number | null) {
   return `Up to ${minutes} minutes per session`;
 }
 
+/** With subscriptions hidden there is no pricing page: send direct visits to the home page. */
 export default function PricingPage() {
+  const router = useRouter();
+  useEffect(() => { if (!SHOW_SUBSCRIPTIONS) router.replace("/"); }, [router]);
+  return SHOW_SUBSCRIPTIONS ? <Pricing /> : null;
+}
+
+function Pricing() {
   const { token } = useAuth();
   const [plans, setPlans] = useState<Plans | null>(null);
   const [usage, setUsage] = useState<UsageSummary | null>(null);

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CONTACT_EMAIL, LegalPage } from "@/components/legal-page";
+import { SHOW_SUBSCRIPTIONS } from "@/lib/features";
 
-export const metadata: Metadata = { title: "Terms & Conditions | ScriptLiv", description: "The rules for using ScriptLiv: accounts, plans, limits and acceptable use." };
+export const metadata: Metadata = { title: "Terms & Conditions | ScriptLiv", description: SHOW_SUBSCRIPTIONS ? "The rules for using ScriptLiv: accounts, plans, limits and acceptable use." : "The rules for using ScriptLiv: accounts, limits and acceptable use." };
 
 const mail = <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>;
 
@@ -25,6 +26,12 @@ export default function TermsPage() {
             <li>Tell us right away at {mail} if you think someone else has accessed your account.</li>
           </ul>
         ) },
+        ...(!SHOW_SUBSCRIPTIONS ? [{ id: "minutes", title: "Minutes and limits", body: (
+          <>
+            <p>ScriptLiv is currently free to use. Each account has an allowance of transcription minutes, shown in Settings, and sessions can have a maximum length. When a session reaches its limit it stops and your transcript is saved. You can start a new session while you still have minutes left.</p>
+            <p>Minutes are counted as the seconds you actually speak into a session. You can set your own personal limit in Settings. We may change allowances and limits with notice. If we ever introduce paid features, we will tell you first and they will not apply to what you have already used.</p>
+          </>
+        ) }] : [
         { id: "plans", title: "Plans, minutes and limits", body: (
           <>
             <p><strong>Basic (free)</strong> includes 300 minutes every month. Each free session can run for up to <strong>30 minutes</strong>. When a session reaches 30 minutes it stops, your transcript is saved, and you can start a new session while you still have minutes left.</p>
@@ -38,6 +45,7 @@ export default function TermsPage() {
             <p>If a payment fails, we will tell you and give you a chance to fix it. Until it is fixed, your account falls back to the free Basic allowance. Except where the law says otherwise, payments are not refundable once minutes have been used.</p>
           </>
         ) },
+        ]),
         { id: "content", title: "Your content", body: (
           <>
             <p>You own what you say and the transcripts made from it. You give us permission to process your audio and store your transcripts only so we can run the service for you.</p>

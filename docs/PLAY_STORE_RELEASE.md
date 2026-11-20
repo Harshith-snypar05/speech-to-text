@@ -78,7 +78,7 @@ Also: data encrypted in transit (yes); users can request deletion (yes). Check t
 
 ## 7. After the offer (30 Nov)
 
-If the app lets people buy minutes after the offer, Google requires **Play Billing** for digital goods sold inside an Android app. During the offer the app shows no plan or "Manage plan" link (1.0.0+2). The app has no purchase screen; after the offer "Manage plan" opens the website. Decide before 30 Nov: keep purchases on the website only and remove the link from the app (so the app never points users to external payment), or add Play Billing. Not decided yet.
+If the app lets people buy minutes after the offer, Google requires **Play Billing** for digital goods sold inside an Android app. From 1.0.0+3 the app shows no plan, price, membership, cancel or "Manage plan" UI at all (flag `SL_SHOW_SUBSCRIPTIONS`, default off), so this question only matters if subscriptions are switched back on. The app has no purchase screen; after the offer "Manage plan" opens the website. Decide before 30 Nov: keep purchases on the website only and remove the link from the app (so the app never points users to external payment), or add Play Billing. Not decided yet.
 
 ## 8. Known limits to tell reviewers and testers
 

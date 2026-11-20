@@ -9,6 +9,7 @@ import type { ReactNode } from "react";
 import { AuthTrigger } from "@/components/auth-modal";
 import { Chip } from "@/components/brand";
 import { buttonCls } from "@/components/ui/button-styles";
+import { SHOW_SUBSCRIPTIONS } from "@/lib/features";
 
 const tiles = [
   { i: AudioLines, t: "Real-Time Transcription" },
@@ -19,7 +20,7 @@ const tiles = [
 ];
 const facts = [
   { i: Zap, t: "Real-time" },
-  { i: Gift, t: "300 free minutes every month (30 min per session)" },
+  { i: Gift, t: SHOW_SUBSCRIPTIONS ? "300 free minutes every month (30 min per session)" : "Free to start, no card needed" },
   { i: Link2, t: "Share live transcripts" },
 ];
 const keyFeatures = [

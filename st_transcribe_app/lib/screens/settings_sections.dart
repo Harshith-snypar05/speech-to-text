@@ -482,6 +482,23 @@ class _UsageSectionState extends State<UsageSection> {
                 ],
               );
             }
+            if (!AppConfig.showSubscriptions) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Your minutes', style: TextStyle(fontWeight: FontWeight.w700, color: c.textPrimary)),
+                  const SizedBox(height: 8),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: LinearProgressIndicator(value: (u.percentUsed / 100).clamp(0.0, 1.0), minHeight: 8),
+                  ),
+                  const SizedBox(height: 6),
+                  Text('${_fmtMinutes(u.includedUsedSeconds)} of ${u.includedMinutes} min used · ${_fmtMinutes(u.totalRemainingSeconds)} left',
+                      style: TextStyle(fontSize: 13, color: c.textSecondary)),
+                  const _Note('Only the person speaking uses minutes. Viewers of a shared link are free.'),
+                ],
+              );
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -776,6 +793,7 @@ class _AccountActionsSectionState extends State<AccountActionsSection> {
   }
 
   Future<void> _load() async {
+    if (!AppConfig.showSubscriptions) return; // no membership UI, so no need to fetch it
     try {
       final r = await PlatformApi.subscription();
       if (mounted) setState(() => _sub = r['subscription'] as Map<String, dynamic>?);
@@ -852,7 +870,7 @@ class _AccountActionsSectionState extends State<AccountActionsSection> {
   Widget build(BuildContext context) {
     final c = AppColors.of(context);
     final sub = _sub;
-    final paid = sub != null && sub['plan'] != 'basic';
+    final paid = AppConfig.showSubscriptions && sub != null && sub['plan'] != 'basic';
     final cancelling = sub?['cancel_at_period_end'] == true;
     return SettingsSection(
       title: 'Account',

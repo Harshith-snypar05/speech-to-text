@@ -190,6 +190,32 @@ class PromoBanner extends StatelessWidget {
   }
 }
 
+/// Minutes left only: no plan name, reset date, add-on or "Manage plan" link (subscriptions hidden).
+class _MinutesCard extends StatelessWidget {
+  final UsageInfo usage;
+  const _MinutesCard({required this.usage});
+  @override
+  Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: c.surface, borderRadius: BorderRadius.circular(16), border: Border.all(color: c.cardBorder)),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text('Your minutes', style: TextStyle(fontWeight: FontWeight.w700, color: c.textPrimary)),
+        const SizedBox(height: 10),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: LinearProgressIndicator(value: (usage.percentUsed / 100).clamp(0, 1).toDouble(), minHeight: 8),
+        ),
+        const SizedBox(height: 8),
+        Text('${_fmtMin(usage.totalRemainingSeconds)} of ${usage.includedMinutes} min left', style: TextStyle(color: c.textSecondary, fontSize: 13)),
+        for (final w in usage.warnings) Padding(padding: const EdgeInsets.only(top: 6), child: Text(w, style: TextStyle(color: c.recordRed, fontSize: 13))),
+      ]),
+    );
+  }
+}
+
 /// Plan, remaining minutes, add-on balance, reset date and any usage warnings.
 class UsageCard extends StatelessWidget {
   final Future<UsageInfo> future;
@@ -204,6 +230,7 @@ class UsageCard extends StatelessWidget {
         if (snap.hasError) return Text('Usage is unavailable right now. Pull down to retry.', style: TextStyle(color: c.textSecondary, fontSize: 13));
         final u = snap.data!;
         if (u.offerActive) return PromoBanner(usage: u);
+        if (!AppConfig.showSubscriptions) return _MinutesCard(usage: u);
         final reset = '${u.resetAt.year}-${_two(u.resetAt.month)}-${_two(u.resetAt.day)}';
         return Container(
           padding: const EdgeInsets.all(16),

@@ -2,6 +2,7 @@
 import { CreditCard, LogOut, Settings, ShieldCheck, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
+import { SHOW_SUBSCRIPTIONS } from "@/lib/features";
 import { useOffer } from "@/lib/offer";
 import type { User } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -47,7 +48,7 @@ export function ProfileMenu({ user, onSignOut }: { user: User; onSignOut: () => 
           <div className="px-3 pb-2 pt-1.5">
             <div className="flex items-center justify-between gap-2">
               <div className="truncate text-sm font-semibold">{user.name || user.email.split("@")[0]}</div>
-              {user.plan === "pro" ? (
+              {!SHOW_SUBSCRIPTIONS ? null : user.plan === "pro" ? (
                 <span className="shrink-0 flex items-center gap-1 rounded-full bg-gradient-to-r from-violet to-primary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm">
                   <Sparkles className="size-2.5" /> PRO
                 </span>
@@ -66,7 +67,7 @@ export function ProfileMenu({ user, onSignOut }: { user: User; onSignOut: () => 
             </Link>
           )}
           <Link role="menuitem" href="/app/settings" onClick={() => setOpen(false)} className={item}><Settings className="size-4" aria-hidden /> Settings</Link>
-          {offer && !offer.active && <Link role="menuitem" href="/pricing" onClick={() => setOpen(false)} className={item}><CreditCard className="size-4" aria-hidden /> My plans</Link>}
+          {SHOW_SUBSCRIPTIONS && offer && !offer.active && <Link role="menuitem" href="/pricing" onClick={() => setOpen(false)} className={item}><CreditCard className="size-4" aria-hidden /> My plans</Link>}
           <div className="my-1 h-px bg-line" />
           <button type="button" role="menuitem" onClick={() => { setOpen(false); onSignOut(); }} className={item}><LogOut className="size-4" aria-hidden /> Log out</button>
         </div>

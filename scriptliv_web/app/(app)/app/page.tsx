@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Badge, Button, Card, Empty, Notice, Spinner } from "@/components/ui";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
+import { SHOW_SUBSCRIPTIONS } from "@/lib/features";
 import { fmtDate, fmtTime } from "@/lib/format";
 import type { SessionItem, UsageSummary } from "@/lib/types";
 
@@ -48,7 +49,7 @@ export default function HomePage() {
         </Notice>
       )}
       {usage.warnings.map((w) => <Notice key={w.level} tone={out ? "error" : "warning"} title={w.message}>
-        {!offer && <Link href="/pricing" className="font-medium text-primary underline">See plans and add-ons</Link>}
+        {SHOW_SUBSCRIPTIONS && !offer && <Link href="/pricing" className="font-medium text-primary underline">See plans and add-ons</Link>}
       </Notice>)}
 
       <section>

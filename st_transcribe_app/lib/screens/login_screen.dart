@@ -166,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 6),
                         Text(
                           _register
-                              ? 'Basic plan: 300 free minutes every month.'
+                              ? 'Free to start.'
                               : 'Sign in to start transcribing.',
                           textAlign: TextAlign.center,
                           style: TextStyle(color: colors.textSecondary),

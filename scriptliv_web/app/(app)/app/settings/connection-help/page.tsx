@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { Card } from "@/components/ui";
+import { SHOW_SUBSCRIPTIONS } from "@/lib/features";
 
 const FIXES: { problem: string; steps: string[] }[] = [
   {
@@ -54,11 +55,16 @@ const FIXES: { problem: string; steps: string[] }[] = [
     ],
   },
   {
-    problem: "Out of minutes or \"Payment required\"",
-    steps: [
-      "Open Settings to see your minutes left and your payment status.",
-      "Fix a failed payment from Change plan, or wait for your minutes to reset on the date shown.",
-    ],
+    problem: SHOW_SUBSCRIPTIONS ? "Out of minutes or \"Payment required\"" : "Out of minutes",
+    steps: SHOW_SUBSCRIPTIONS
+      ? [
+        "Open Settings to see your minutes left and your payment status.",
+        "Fix a failed payment from Change plan, or wait for your minutes to reset on the date shown.",
+      ]
+      : [
+        "Open Settings to see how many minutes you have left.",
+        "Still stuck? Email info@scriptliv.com from your account address and we will help.",
+      ],
   },
 ];
 

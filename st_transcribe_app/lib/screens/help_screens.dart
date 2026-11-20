@@ -173,10 +173,16 @@ const _fixes = [
     'Make sure you typed the right address, then ask for a new link; links expire after 24 hours.',
     'Still nothing after a few minutes? Email $_contactEmail from that address.',
   ]),
-  _Fix('Out of minutes or "Payment required"', [
-    'Open Settings > Usage to see what is left, or Settings > Membership for payment status.',
-    'Fix a failed payment on the website via Change plan, or wait for your minutes to reset on the date shown.',
-  ]),
+  if (AppConfig.showSubscriptions)
+    _Fix('Out of minutes or "Payment required"', [
+      'Open Settings > Usage to see what is left, or Settings > Membership for payment status.',
+      'Fix a failed payment on the website via Change plan, or wait for your minutes to reset on the date shown.',
+    ])
+  else
+    _Fix('Out of minutes', [
+      'Open Settings > Usage to see how many minutes you have left.',
+      'Still stuck? Email $_contactEmail from your account address and we will help.',
+    ]),
 ];
 
 class ConnectionHelpScreen extends StatelessWidget {
@@ -249,13 +255,16 @@ const _privacy = [
   _Sec('What we collect', [
     _Para('Your name, email address and a securely hashed password. We never store your password in readable form.', lead: 'Account details.'),
     _Para('When you record, your microphone audio is streamed to our transcription service and turned into text. We do not keep your audio recordings. We keep the resulting transcript so you can read, rename, share and delete it.', lead: 'Your speech and transcripts.'),
-    _Para('How many seconds each session used, when it started and ended, and your plan. We need this to count your minutes and apply limits.', lead: 'Usage records.'),
+    _Para('How many seconds each session used, when it started and ended. We need this to count your minutes and apply limits.', lead: 'Usage records.'),
     _Para('Preferences such as theme, text size and your personal minute limit.', lead: 'Settings.'),
-    _Para('If you buy a paid plan, payment is handled by our payment provider. We store your plan, invoices and billing details you enter. We do not store your full card number.', lead: 'Billing information.'),
+    if (AppConfig.showSubscriptions) _Para('If you buy a paid plan, payment is handled by our payment provider. We store your plan, invoices and billing details you enter. We do not store your full card number.', lead: 'Billing information.'),
   ]),
   _Sec('How we use it', [
     _Para('To provide transcription, save your sessions and let you share them.', bullet: true),
-    _Para('To count your minutes and enforce plan limits, including the 30-minute limit on each free session.', bullet: true),
+    if (AppConfig.showSubscriptions)
+      _Para('To count your minutes and enforce plan limits, including the 30-minute limit on each free session.', bullet: true)
+    else
+      _Para('To count your minutes and enforce usage limits.', bullet: true),
     _Para('To send account emails: verification, password reset and billing notices.', bullet: true),
     _Para('To keep the service secure, prevent abuse and fix problems.', bullet: true),
   ]),
@@ -266,7 +275,7 @@ const _privacy = [
   _Sec('Who helps us run ScriptLiv', [
     _Para('We use a small number of service providers, only for what they are needed for:'),
     _Para('to send you account emails (Resend and Gmail). They receive your email address and the message.', lead: 'Email delivery', bullet: true),
-    _Para('our payment provider takes payment for paid plans.', lead: 'Payments', bullet: true),
+    if (AppConfig.showSubscriptions) _Para('our payment provider takes payment for paid plans.', lead: 'Payments', bullet: true),
     _Para('to store your account and transcripts.', lead: 'Database and hosting', bullet: true),
     _Para('We do not sell your personal information, and we do not use your transcripts to advertise to you.'),
   ]),
@@ -301,15 +310,22 @@ const _terms = [
     _Para('You must be at least 13 years old, or the age of digital consent where you live.', bullet: true),
     _Para('Tell us right away at $_contactEmail if you think someone else has accessed your account.', bullet: true),
   ]),
-  _Sec('Plans, minutes and limits', [
-    _Para('includes 300 minutes every month. Each free session can run for up to 30 minutes. When a session reaches 30 minutes it stops, your transcript is saved, and you can start a new session while you still have minutes left.', lead: 'Basic (free)'),
-    _Para('includes 2,500 minutes every month, with no per-session time limit. Extra minutes can be bought as add-ons and are valid until the end of the period they were bought in.', lead: 'Pro'),
-    _Para('Minutes are counted as the seconds you actually speak into a session. Unused monthly minutes do not roll over. You can set your own personal limit in Settings. We may change plan details with notice; changes do not affect minutes you have already paid for.'),
-  ]),
-  _Sec('Payments', [
-    _Para('Paid plans renew monthly until you cancel. You can cancel in the app and keep Pro until the end of the period you paid for. Payments are processed by our payment provider and prices are shown before you pay.'),
-    _Para('If a payment fails, we will tell you and give you a chance to fix it. Until it is fixed, your account falls back to the free Basic allowance. Except where the law says otherwise, payments are not refundable once minutes have been used.'),
-  ]),
+  if (AppConfig.showSubscriptions)
+    _Sec('Plans, minutes and limits', [
+      _Para('includes 300 minutes every month. Each free session can run for up to 30 minutes. When a session reaches 30 minutes it stops, your transcript is saved, and you can start a new session while you still have minutes left.', lead: 'Basic (free)'),
+      _Para('includes 2,500 minutes every month, with no per-session time limit. Extra minutes can be bought as add-ons and are valid until the end of the period they were bought in.', lead: 'Pro'),
+      _Para('Minutes are counted as the seconds you actually speak into a session. Unused monthly minutes do not roll over. You can set your own personal limit in Settings. We may change plan details with notice; changes do not affect minutes you have already paid for.'),
+    ])
+  else
+    _Sec('Minutes and limits', [
+      _Para('ScriptLiv is currently free to use. Each account has an allowance of transcription minutes, shown in Settings, and sessions can have a maximum length. When a session reaches its limit it stops and your transcript is saved. You can start a new session while you still have minutes left.'),
+      _Para('Minutes are counted as the seconds you actually speak into a session. You can set your own personal limit in Settings. We may change allowances and limits with notice. If we ever introduce paid features, we will tell you first and they will not apply to what you have already used.'),
+    ]),
+  if (AppConfig.showSubscriptions)
+    _Sec('Payments', [
+      _Para('Paid plans renew monthly until you cancel. You can cancel in the app and keep Pro until the end of the period you paid for. Payments are processed by our payment provider and prices are shown before you pay.'),
+      _Para('If a payment fails, we will tell you and give you a chance to fix it. Until it is fixed, your account falls back to the free Basic allowance. Except where the law says otherwise, payments are not refundable once minutes have been used.'),
+    ]),
   _Sec('Your content', [
     _Para('You own what you say and the transcripts made from it. You give us permission to process your audio and store your transcripts only so we can run the service for you.'),
     _Para('Only record people who know they are being recorded, and follow the laws on recording where you are. You are responsible for getting any consent needed. If you share a transcript through a link, you are responsible for who you give that link to.'),

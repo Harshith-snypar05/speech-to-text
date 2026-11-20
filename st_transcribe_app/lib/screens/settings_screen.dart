@@ -235,7 +235,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               if (AppConfig.platformMode) ...[
                 const UsageSection(),
                 if (_server != null) LimitsSection(settings: _server!, onSave: _saveServer),
-                const MembershipSection(),
+                if (AppConfig.showSubscriptions) const MembershipSection(),
               ],
               SettingsSection(
                 title: 'Microphone',

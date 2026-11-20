@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CONTACT_EMAIL, LegalPage } from "@/components/legal-page";
+import { SHOW_SUBSCRIPTIONS } from "@/lib/features";
 
 export const metadata: Metadata = { title: "Privacy Policy | ScriptLiv", description: "What ScriptLiv collects, why, and the choices you have." };
 
@@ -18,15 +19,15 @@ export default function PrivacyPage() {
           <>
             <p><strong>Account details.</strong> Your name, email address and a securely hashed password. We never store your password in readable form.</p>
             <p><strong>Your speech and transcripts.</strong> When you record, your microphone audio is streamed to our transcription service and turned into text. We do not keep your audio recordings. We keep the resulting transcript so you can read, rename, share and delete it.</p>
-            <p><strong>Usage records.</strong> How many seconds each session used, when it started and ended, and your plan. We need this to count your minutes and apply limits.</p>
+            <p><strong>Usage records.</strong> How many seconds each session used, when it started and ended. We need this to count your minutes and apply limits.</p>
             <p><strong>Settings.</strong> Preferences such as theme, text size and your personal minute limit.</p>
-            <p><strong>Billing information.</strong> If you buy a paid plan, payment is handled by our payment provider. We store your plan, invoices and billing details you enter. We do not store your full card number.</p>
+            {SHOW_SUBSCRIPTIONS && <p><strong>Billing information.</strong> If you buy a paid plan, payment is handled by our payment provider. We store your plan, invoices and billing details you enter. We do not store your full card number.</p>}
           </>
         ) },
         { id: "use", title: "How we use it", body: (
           <ul>
             <li>To provide transcription, save your sessions and let you share them.</li>
-            <li>To count your minutes and enforce plan limits, including the 30-minute limit on each free session.</li>
+            <li>{SHOW_SUBSCRIPTIONS ? "To count your minutes and enforce plan limits, including the 30-minute limit on each free session." : "To count your minutes and enforce usage limits."}</li>
             <li>To send account emails: verification, password reset and billing notices.</li>
             <li>To keep the service secure, prevent abuse and fix problems.</li>
           </ul>
@@ -42,7 +43,7 @@ export default function PrivacyPage() {
             <p>We use a small number of service providers, only for what they are needed for:</p>
             <ul>
               <li><strong>Email delivery</strong> (Resend and Gmail) to send you account emails. They receive your email address and the message.</li>
-              <li><strong>Payments</strong> (our payment provider) to take payment for paid plans.</li>
+              {SHOW_SUBSCRIPTIONS && <li><strong>Payments</strong> (our payment provider) to take payment for paid plans.</li>}
               <li><strong>Database and hosting</strong> to store your account and transcripts.</li>
             </ul>
             <p>We do not sell your personal information, and we do not use your transcripts to advertise to you.</p>

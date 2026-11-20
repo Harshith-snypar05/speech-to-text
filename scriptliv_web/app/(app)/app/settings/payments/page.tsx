@@ -1,14 +1,23 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChevronLeft, Receipt } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Badge, Card, Notice, Spinner } from "@/components/ui";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
+import { SHOW_SUBSCRIPTIONS } from "@/lib/features";
 import { fmtDate, fmtMoney } from "@/lib/format";
 import type { PaymentRow } from "@/lib/types";
 
+/** With subscriptions hidden there is no payment history: send direct visits back to Settings. */
 export default function PaymentHistoryPage() {
+  const router = useRouter();
+  useEffect(() => { if (!SHOW_SUBSCRIPTIONS) router.replace("/app/settings"); }, [router]);
+  return SHOW_SUBSCRIPTIONS ? <PaymentHistory /> : null;
+}
+
+function PaymentHistory() {
   const { token } = useAuth();
   const [rows, setRows] = useState<PaymentRow[] | null>(null);
   const [err, setErr] = useState<string | null>(null);
