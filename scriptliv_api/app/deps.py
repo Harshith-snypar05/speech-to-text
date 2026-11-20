@@ -1,4 +1,5 @@
 import hmac
+import os
 import time
 
 from fastapi import Depends, Header, HTTPException
@@ -9,7 +10,21 @@ from .db import get_db
 from .security import decode_token
 
 
-ADMIN_EMAILS = {"sriharshith.g@snypartech.com", "sriharshith05ai@gmail.com"}
+def admin_emails() -> frozenset[str]:
+    """Addresses that are always administrators, from SCRIPTLIV_ADMIN_EMAILS (comma separated).
+
+    Fails closed: unset, empty or malformed entries grant nothing. Read on every call so a change needs no code edit.
+    """
+    out = set()
+    for raw in os.environ.get("SCRIPTLIV_ADMIN_EMAILS", "").split(","):
+        e = raw.strip().lower()
+        if e.count("@") == 1 and not e.startswith("@") and not e.endswith("@") and " " not in e:
+            out.add(e)
+    return frozenset(out)
+
+
+def is_admin_email(email: str | None) -> bool:
+    return bool(email) and email.strip().lower() in admin_emails()
 
 
 def db_dep():
@@ -30,7 +45,7 @@ def current_user(authorization: str | None = Header(default=None), db=Depends(db
         raise HTTPException(401, {"code": "invalid_token", "message": "Session expired. Sign in again."})
 
     # Automatically persist admin status if email is recognized as superadmin
-    if user.get("email") in ADMIN_EMAILS and not user.get("is_admin"):
+    if is_admin_email(user.get("email")) and not user.get("is_admin"):
         try:
             db.users.update_one({"_id": user["_id"]}, {"$set": {"is_admin": True}})
             user["is_admin"] = True
@@ -41,7 +56,7 @@ def current_user(authorization: str | None = Header(default=None), db=Depends(db
 
 
 def admin_user(user=Depends(current_user)) -> dict:
-    if not (user.get("is_admin") or user.get("email") in ADMIN_EMAILS):
+    if not (user.get("is_admin") or is_admin_email(user.get("email"))):
         raise HTTPException(403, {"code": "forbidden", "message": "Admin privileges required."})
     return user
 
@@ -84,7 +99,7 @@ def public_user(u: dict, db=None) -> dict:
     return {
         "id": str(u["_id"]), "name": u.get("name", ""), "email": u["email"], "email_verified": bool(u.get("email_verified")),
         "pending_email": u.get("pending_email"), "created_at": u.get("created_at"),
-        "is_admin": bool(u.get("is_admin") or u.get("email") in ADMIN_EMAILS),
+        "is_admin": bool(u.get("is_admin") or is_admin_email(u.get("email"))),
         "plan": plan,
     }
 

@@ -211,6 +211,8 @@ class _MinutesCard extends StatelessWidget {
         const SizedBox(height: 8),
         Text('${_fmtMin(usage.totalRemainingSeconds)} of ${usage.includedMinutes} min left', style: TextStyle(color: c.textSecondary, fontSize: 13)),
         for (final w in usage.warnings) Padding(padding: const EdgeInsets.only(top: 6), child: Text(w, style: TextStyle(color: c.recordRed, fontSize: 13))),
+        const SizedBox(height: 6),
+        Text('Contact support for more minutes.', style: TextStyle(color: c.textSecondary, fontSize: 12)),
       ]),
     );
   }

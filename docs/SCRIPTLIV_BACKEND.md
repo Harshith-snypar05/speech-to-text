@@ -352,6 +352,7 @@ The relay first writes finals to a local SQLite file (`relays_phase7c/data/trans
 | `SCRIPTLIV_JWT_SECRET` | Signs tokens |
 | `SCRIPTLIV_TOKEN_TTL_SECONDS` | Token life (default 7 days) |
 | `SCRIPTLIV_RELAY_SECRET` | Shared with relay for `/internal` |
+| `SCRIPTLIV_ADMIN_EMAILS` | Comma-separated always-admin emails. Unset/empty/malformed = no email-based admin (fails closed); accounts already flagged `is_admin` in the DB keep access |
 | `SCRIPTLIV_APP_URL` | Base for share links and email links (default http://localhost:3100) |
 | `SCRIPTLIV_API_URL` | (relay side) where the API is |
 | `SCRIPTLIV_CORS_ORIGINS` | Allowed web origins (never `*`) |

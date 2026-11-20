@@ -1,11 +1,12 @@
 """Admin dashboard endpoints: system-wide analytics, user access control, plan assignment, and session management."""
+import re
 import time
 from typing import Optional
 from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 
-from ..deps import ADMIN_EMAILS, admin_user, db_dep, now, public_user
+from ..deps import admin_emails, admin_user, db_dep, is_admin_email, now, public_user
 
 router = APIRouter(prefix="/v1/admin", tags=["admin"], dependencies=[Depends(admin_user)])
 
@@ -20,7 +21,7 @@ def get_analytics(db=Depends(db_dep)):
     total_users = db.users.count_documents({})
     verified_users = db.users.count_documents({"email_verified": True})
     disabled_users = db.users.count_documents({"disabled": True})
-    admin_users = db.users.count_documents({"$or": [{"is_admin": True}, {"email": {"$in": list(ADMIN_EMAILS)}}]})
+    admin_users = db.users.count_documents({"$or": [{"is_admin": True}, {"email": {"$in": list(admin_emails())}}]})
 
     total_sessions = db.sessions.count_documents({})
     live_sessions = db.sessions.count_documents({"ended_at": None})
@@ -79,7 +80,7 @@ def list_users(
     """List users with plan status, session counts, and access state."""
     filter_dict = {}
     if q and q.strip():
-        term = q.strip()
+        term = re.escape(q.strip()[:100])  # literal match only: no regex injection / ReDoS from the search box
         filter_dict["$or"] = [
             {"email": {"$regex": term, "$options": "i"}},
             {"name": {"$regex": term, "$options": "i"}},
@@ -107,7 +108,7 @@ def list_users(
             "name": u.get("name", ""),
             "email": u.get("email", ""),
             "email_verified": bool(u.get("email_verified")),
-            "is_admin": bool(u.get("is_admin") or u.get("email") in ADMIN_EMAILS),
+            "is_admin": bool(u.get("is_admin") or is_admin_email(u.get("email"))),
             "disabled": bool(u.get("disabled")),
             "created_at": u.get("created_at", 0),
             "plan": plan,
@@ -184,7 +185,7 @@ def update_user_access(user_id: str, body: UserAccessPatch, db=Depends(db_dep)):
         "name": refreshed.get("name", ""),
         "email": refreshed.get("email", ""),
         "email_verified": bool(refreshed.get("email_verified")),
-        "is_admin": bool(refreshed.get("is_admin") or refreshed.get("email") in ADMIN_EMAILS),
+        "is_admin": bool(refreshed.get("is_admin") or is_admin_email(refreshed.get("email"))),
         "disabled": bool(refreshed.get("disabled")),
         "created_at": refreshed.get("created_at", 0),
         "plan": sub.get("plan", "free") if sub else "free",
