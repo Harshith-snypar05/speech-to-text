@@ -153,6 +153,12 @@ class _SharedViewScreenState extends State<SharedViewScreen> {
   bool _headerHidden = false;
   static const _scrollHideThreshold = 6.0;
 
+  // Live sessions follow the newest text. Following pauses when the viewer scrolls up to
+  // re-read, and resumes once they scroll back near the bottom.
+  final _scrollController = ScrollController();
+  bool _follow = true;
+  static const _followSlack = 80.0;
+
   @override
   void initState() {
     super.initState();
@@ -162,7 +168,26 @@ class _SharedViewScreenState extends State<SharedViewScreen> {
   @override
   void dispose() {
     _timer?.cancel();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void _followLatest() {
+    if (!_follow) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_scrollController.hasClients) return;
+      final position = _scrollController.position;
+      _scrollController
+          .animateTo(position.maxScrollExtent, duration: const Duration(milliseconds: 200), curve: Curves.easeOut)
+          .whenComplete(() {
+        // ListView estimates the extent of items it has not built yet, so the first pass can
+        // stop short; settle on the real end.
+        if (mounted && _scrollController.hasClients && _follow) {
+          final p = _scrollController.position;
+          if (p.pixels < p.maxScrollExtent - 1) _scrollController.jumpTo(p.maxScrollExtent);
+        }
+      });
+    });
   }
 
   Future<void> _poll() async {
@@ -173,6 +198,7 @@ class _SharedViewScreenState extends State<SharedViewScreen> {
         _view = v;
         _error = null;
       });
+      if (v.live) _followLatest();
     } on ApiException catch (e) {
       if (!mounted) return;
       setState(() => _error = e.status == 404 ? 'This link is no longer available.' : e.message);
@@ -186,6 +212,11 @@ class _SharedViewScreenState extends State<SharedViewScreen> {
   }
 
   bool _onScrollNotification(ScrollNotification n) {
+    if (n is ScrollUpdateNotification && n.dragDetails != null) {
+      _follow = n.metrics.extentAfter < _followSlack;
+    } else if (n is ScrollEndNotification) {
+      _follow = n.metrics.extentAfter < _followSlack;
+    }
     if (n is ScrollUpdateNotification) {
       final pixels = n.metrics.pixels;
       final delta = n.scrollDelta ?? 0;
@@ -226,6 +257,7 @@ class _SharedViewScreenState extends State<SharedViewScreen> {
                                   ),
                                 )
                               : ListView.separated(
+                                  controller: _scrollController,
                                   padding: const EdgeInsets.fromLTRB(20, 64, 20, 20),
                                   itemCount: v.transcript.length,
                                   separatorBuilder: (_, __) => const SizedBox(height: 12),
