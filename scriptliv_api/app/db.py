@@ -39,6 +39,7 @@ def _per_user(coll):
 
 def ensure_indexes(db):
     db.users.create_index("email", unique=True)
+    db.users.create_index("deleting", sparse=True)   # recovery sweep and barriers: tombstoned accounts only (sparse = tiny)
     db.throttle.create_index("expires_at", expireAfterSeconds=0)   # attempt-limit hits expire on their own
     db.throttle.create_index([("key", ASCENDING), ("ts", ASCENDING)])
     db.subscriptions.create_index("user_id", unique=True)

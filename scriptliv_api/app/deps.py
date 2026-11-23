@@ -27,6 +27,22 @@ def is_admin_email(email: str | None) -> bool:
     return bool(email) and email.strip().lower() in admin_emails()
 
 
+def is_admin_account(u: dict | None) -> bool:
+    """True for an account that holds administrator rights: env-listed email or persisted is_admin flag."""
+    return bool(u) and bool(u.get("is_admin") or is_admin_email(u.get("email")))
+
+
+def other_admin_exists(db, exclude_oid) -> bool:
+    """True if some account other than `exclude_oid` is a usable administrator: enabled, not tombstoned, and not itself claimed
+    for deletion. Called AFTER the caller has published its own claim (see account_deletion): every concurrent deleter has
+    published its claim before it looks, so of any two simultaneous deleters at least one sees the other's claim and refuses
+    (never both succeed). An expired claim does not count as a claim (its tombstone step would be refused anyway)."""
+    emails = list(admin_emails())
+    clauses = [{"is_admin": True}] + ([{"email": {"$in": emails}}] if emails else [])
+    return db.users.count_documents({"_id": {"$ne": exclude_oid}, "disabled": {"$ne": True}, "deleting": {"$ne": True},
+                                     "$or": clauses, "delete_claim_until": {"$not": {"$gt": now()}}}) > 0
+
+
 def db_dep():
     return get_db()
 
@@ -41,7 +57,8 @@ def current_user(authorization: str | None = Header(default=None), db=Depends(db
         user = db.users.find_one({"_id": ObjectId(claims["sub"])})
     except Exception:
         user = None
-    if not user or user.get("disabled") or user.get("pwv", 0) != claims.get("pwv"):
+    # A tombstoned account (deleting) is refused exactly like a disabled or unknown one: a deletion in progress never reverts.
+    if not user or user.get("disabled") or user.get("deleting") or user.get("pwv", 0) != claims.get("pwv"):
         raise HTTPException(401, {"code": "invalid_token", "message": "Session expired. Sign in again."})
 
     # Automatically persist admin status if email is recognized as superadmin

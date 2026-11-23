@@ -43,8 +43,42 @@ _conn = _default_connection()
 
 RESUME_WINDOW_S = float(os.environ.get("STT_RESUME_WINDOW_SECONDS", "300"))
 
+# Sessions whose account was found to be deleting/deleted. Nothing is stored or mirrored for them any more.
+_blocked: "dict[str, float]" = {}
+_BLOCKED_MAX = 5000
+
+
+def block_session(session_id: str) -> None:
+    """The owning account is being deleted: purge this session's local rows and ignore every later write for it.
+    (Only this session's rows; the relay holds nothing else for the account.)"""
+    if not session_id:
+        return
+    _blocked[session_id] = time.time()
+    while len(_blocked) > _BLOCKED_MAX:
+        _blocked.pop(next(iter(_blocked)), None)
+    try:
+        _conn.execute("DELETE FROM transcript_events WHERE session_id = ?", (session_id,))
+        _conn.execute("DELETE FROM sessions WHERE session_id = ?", (session_id,))
+        _conn.commit()
+    except Exception:
+        pass   # never raise into the audio path
+    mongo_mirror.block_session(session_id)
+
+
+def is_blocked(session_id) -> bool:
+    """True once the owning account is known to be deleting/deleted, whether this module or the Mongo mirror found out.
+    A block found only by the mirror is adopted here (local rows purged) the first time it is seen."""
+    if session_id in _blocked:
+        return True
+    if mongo_mirror.is_blocked(session_id):
+        block_session(session_id)
+        return True
+    return False
+
 
 def start_session(session_id: str, access_code: str | None) -> None:
+    if is_blocked(session_id):
+        return
     prev = _conn.execute("SELECT ended_at FROM sessions WHERE session_id = ?", (session_id,)).fetchone()
     # Same id seen again: a reconnect of the same speaker if the previous run is still open or ended
     # within RESUME_WINDOW_S -- keep its history (Phase 7E fix; before this every reconnect wiped it).
@@ -63,12 +97,16 @@ def start_session(session_id: str, access_code: str | None) -> None:
 
 
 def end_session(session_id: str) -> None:
+    if is_blocked(session_id):
+        return
     _conn.execute("UPDATE sessions SET ended_at = ? WHERE session_id = ?", (time.time(), session_id))
     _conn.commit()
     mongo_mirror.end_session(session_id)
 
 
-def record_event(session_id: str, text: str) -> int:
+def record_event(session_id: str, text: str) -> int | None:
+    if is_blocked(session_id):
+        return None
     row = _conn.execute(
         "SELECT COALESCE(MAX(seq), -1) FROM transcript_events WHERE session_id = ?", (session_id,)
     ).fetchone()
@@ -84,6 +122,8 @@ def record_event(session_id: str, text: str) -> int:
 
 def update_event(session_id: str, seq: int, original: str, refined: str) -> bool:
     """Replace line `seq` with its refined text, only if it still holds `original` (a restarted session reuses seq numbers)."""
+    if is_blocked(session_id):
+        return False
     cur = _conn.execute(
         "UPDATE transcript_events SET text = ? WHERE session_id = ? AND seq = ? AND text = ?", (refined, session_id, seq, original)
     )

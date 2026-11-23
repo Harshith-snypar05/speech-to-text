@@ -1,10 +1,12 @@
 import os
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from . import account_deletion
 from .config import get_settings, production_problems
 from .db import get_db
 from .routers import account, admin, billing, internal, sessions, usage_routes
@@ -16,7 +18,18 @@ if os.environ.get("SCRIPTLIV_ENV", "").lower() == "production":
 
 # Interactive docs / openapi.json list every route (incl. /internal/*); published only when explicitly enabled for local dev.
 _DOCS = os.environ.get("SCRIPTLIV_ENABLE_DOCS", "").lower() in ("1", "true", "yes")
-app = FastAPI(title="ScriptLiv API", version="0.1.0",
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    """Start the bounded background sweep that finishes interrupted account deletions (see account_deletion.py). It is a
+    daemon thread whose first run is one interval after start-up, so it never delays the API coming up."""
+    stop = account_deletion.start_recovery_loop(get_db)
+    try:
+        yield
+    finally:
+        stop()
+
+
+app = FastAPI(title="ScriptLiv API", version="0.1.0", lifespan=lifespan,
               docs_url="/docs" if _DOCS else None, redoc_url="/redoc" if _DOCS else None,
               openapi_url="/openapi.json" if _DOCS else None)
 

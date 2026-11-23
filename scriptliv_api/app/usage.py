@@ -12,6 +12,7 @@ from contextlib import contextmanager
 
 from pymongo.errors import DuplicateKeyError
 
+from .account_deletion import is_deleting_uid
 from .config import get_settings, promo_active
 from .plans import ADDON_MAX_SESSION_MINUTES, BASIC, PLANS, PROMO_ALLOWANCE_MINUTES, PROMO_ALLOWANCE_SECONDS, PROMO_MAX_SESSION_MINUTES
 from .subscriptions import active_addons, get_subscription, is_restricted, plan_of
@@ -110,6 +111,8 @@ def authorize(db, user_id: str, now: float | None = None, session_id: str | None
     `midsession=True` is the answer to a periodic usage report: it extends the grant of a session that is still open, but
     never reopens a session that has already ended (a late report must not resurrect a released reservation)."""
     now = now or time.time()
+    if is_deleting_uid(db, user_id):   # defence in depth: the relay endpoints already refuse a tombstoned account
+        return {"allowed": False, "reason": "account_unavailable", "remaining_seconds": 0}
     if session_id is None:
         return _decide(db, user_id, now, 0.0)
     with user_lock(db, user_id):
@@ -188,6 +191,8 @@ def record(db, user_id: str, session_id: str, cumulative_seconds: float, now: fl
     now = now or time.time()
     cum = float(math.ceil(round(cumulative_seconds, 3))) if final else float(math.floor(round(cumulative_seconds, 3)))
     cum = max(0.0, cum)
+    if is_deleting_uid(db, user_id):
+        return {"applied_seconds": 0.0, "included": 0.0, "addon": 0.0, "unbilled_overshoot": 0.0, "note": "account deleting"}
     row = db.usage_sessions.find_one({"session_id": session_id})
     if row is None:
         try:

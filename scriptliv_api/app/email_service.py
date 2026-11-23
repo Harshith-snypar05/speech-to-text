@@ -35,6 +35,8 @@ def issue_token(db, user_id: str, kind: str, email: str) -> str:
     db.email_tokens.insert_one({"token_hash": h, "user_id": user_id, "kind": kind, "email": email, "created_at": t,
                                 "expires_at": t + TTL[kind], "expires_dt": dt.datetime.fromtimestamp(t + TTL[kind], dt.timezone.utc),
                                 "used": False})
+    from .account_deletion import reconcile_after_write   # local import: account_deletion -> deps -> db, not back here
+    reconcile_after_write(db, user_id, missing_is_gone=False)   # tombstone landed between the caller's check and the insert
     return token
 
 

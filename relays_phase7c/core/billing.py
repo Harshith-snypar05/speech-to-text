@@ -3,7 +3,7 @@
 The relay never decides who may speak or how much they have left; the ScriptLiv API does. This module only
   1. asks the API to validate the speaker's token and check their quota when they connect,
   2. reports the speaker's cumulative audio seconds every REPORT_EVERY_SECONDS and once more when they leave,
-  3. tells the speaker loop to stop when the API says the account has no minutes left.
+  3. tells the speaker loop to stop when the API says the account has no minutes left, or no longer exists.
 Viewers never touch this module, so viewers are never billed. The reports are cumulative, so a retry can't double-bill.
 The shared secret comes from SCRIPTLIV_RELAY_SECRET (environment only, never logged).
 """
@@ -12,6 +12,7 @@ import json
 import logging
 import math
 import os
+import time
 import urllib.request
 
 logger = logging.getLogger(__name__)
@@ -21,6 +22,26 @@ REPORT_EVERY_SECONDS = float(os.environ.get("SCRIPTLIV_REPORT_EVERY_SECONDS", "1
 TIMEOUT = 6.0
 FINAL_ATTEMPTS = 3
 FINAL_RETRY_DELAY = 1.0
+# If the API cannot be reached for this long while a session runs, the session is stopped instead of continuing
+# unverified (fail closed). It counts from the first FAILED report, so a healthy API, a quiet speaker or sparse audio
+# never trips it.
+UNVERIFIED_GRACE_SECONDS = float(os.environ.get("SCRIPTLIV_UNVERIFIED_GRACE_SECONDS", "60"))
+# Denial reasons meaning "this account/session may no longer be served", as opposed to "out of minutes".
+ACCOUNT_GONE_REASONS = ("account_unavailable", "invalid_token")
+NOT_ALLOWED_REASONS = ACCOUNT_GONE_REASONS + ("billing_unavailable",)
+
+
+def _now() -> float:
+    return time.monotonic()
+
+
+def close_params(billing) -> tuple:
+    """(websocket close code, reason) for a session the billing context has stopped. 4401 (not allowed) for a deleted or
+    unverifiable account, 4402 for quota or session-cap exhaustion."""
+    reason = getattr(billing, "deny_reason", None)
+    if reason in NOT_ALLOWED_REASONS:
+        return 4401, reason
+    return 4402, "session_limit" if billing is not None and billing.hit_session_cap else "out_of_minutes"
 
 
 def enabled() -> bool:
@@ -62,6 +83,7 @@ class BillingContext:
         self.deny_reason = None
         self.exhausted = False
         self.dropped_seconds = 0.0   # audio that arrived past the ceiling and was discarded unprocessed
+        self._failing_since = None   # monotonic time of the first report failure not yet followed by a success
 
     @property
     def hit_session_cap(self) -> bool:
@@ -76,6 +98,7 @@ class BillingContext:
     def take(self, n_samples: int, sample_rate: int) -> int:
         """How many of `n_samples` may be processed. Advances the meter by exactly that much; sets `exhausted` once
         the ceiling is reached (also when a chunk ends exactly on it)."""
+        self._check_account()
         fit = min(n_samples, max(0, int(math.floor(self.room() * sample_rate + 1e-6))))
         self.audio_seconds += fit / sample_rate
         if fit < n_samples:
@@ -87,13 +110,40 @@ class BillingContext:
             self._inflight = asyncio.create_task(self._report(False))
         return fit
 
+    def _stop(self, reason: str) -> None:
+        """Stop serving this session now: nothing past the audio already taken is processed."""
+        self.deny_reason = reason
+        self._remaining = min(self._remaining, self.audio_seconds)
+        self.exhausted = True
+
+    def _check_account(self) -> None:
+        """Cheap in-memory checks on every chunk (no I/O): the mirror or an earlier report found the account gone, or the
+        API has been unreachable for too long to keep serving unverified."""
+        if self.exhausted:
+            return
+        from . import transcript_store
+        if transcript_store.is_blocked(self.session_id):
+            self._stop("account_unavailable")
+        elif self._failing_since is not None and _now() - self._failing_since > UNVERIFIED_GRACE_SECONDS:
+            logger.error("usage reports failing for over %.0fs; stopping session %s (fail closed)", UNVERIFIED_GRACE_SECONDS, self.session_id)
+            self._stop("billing_unavailable")
+
+    def _account_gone(self) -> None:
+        from . import transcript_store
+        transcript_store.block_session(self.session_id)   # purge local rows, refuse every later write for this session
+
     async def _report(self, final: bool) -> bool:
         at = self.audio_seconds
         try:
             r = await asyncio.to_thread(_post, "/internal/v1/usage", {"user_id": self.user_id, "session_id": self.session_id,
                                                                        "cumulative_seconds": at, "final": final})
             self._reported_at = at
-            if not final:
+            self._failing_since = None
+            if not r.get("allowed", True) and r.get("reason") in ACCOUNT_GONE_REASONS:
+                # the account is deleting or gone (also on the final report): stop every write for this session
+                self._account_gone()
+                self._stop(r.get("reason"))
+            elif not final:
                 if r.get("session_cap_seconds") is not None:
                     self.session_cap = float(r["session_cap_seconds"])
                 if not r.get("allowed", True):
@@ -107,8 +157,10 @@ class BillingContext:
                     if base is not None:
                         self._remaining = float(base) + r.get("remaining_seconds", 0)
             return True
-        except Exception as e:  # keep serving the speaker; the next report carries the full cumulative total
+        except Exception as e:  # keep serving for now; the next report carries the full cumulative total
             logger.warning("usage report failed: %s", type(e).__name__)
+            if self._failing_since is None:
+                self._failing_since = _now()   # take() stops the session once this exceeds the grace period
             return False
 
     async def finish(self):

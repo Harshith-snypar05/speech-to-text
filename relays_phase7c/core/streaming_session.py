@@ -19,6 +19,7 @@ import numpy as np
 import websockets
 
 from . import transcript_store
+from .billing import NOT_ALLOWED_REASONS, close_params
 from .config import SESSION_MAX_DURATION_SECONDS, SILENCE_RMS_THRESHOLD, SAMPLE_RATE
 from .protocol import final_message, partial_message, refine_message
 from .session_manager import SessionRegistry
@@ -40,6 +41,7 @@ ASR_LOST = "asr_connection_lost"
 ASR_LOST_MESSAGE = "The transcription engine connection was interrupted. Your audio was not lost beyond this point; reconnect to continue."
 SESSION_LIMIT = "session_limit"
 SESSION_LIMIT_MESSAGE = "Free sessions are limited to 30 minutes. Start a new session to keep going, or upgrade to Pro for longer sessions."
+NOT_ALLOWED_MESSAGE = "This session can no longer be served: the account is unavailable or could not be verified."
 OUT_OF_MINUTES_MESSAGE = "You have used all your available transcription minutes. Add minutes or upgrade your plan to continue."
 
 
@@ -68,9 +70,11 @@ async def run_streaming_session(websocket, session_id, engine, registry: Session
 
     async def send_out_of_minutes():
         capped = billing is not None and billing.hit_session_cap
+        code, message = (SESSION_LIMIT if capped else OUT_OF_MINUTES), (SESSION_LIMIT_MESSAGE if capped else OUT_OF_MINUTES_MESSAGE)
+        if billing is not None and billing.deny_reason in NOT_ALLOWED_REASONS:
+            code, message = billing.deny_reason, NOT_ALLOWED_MESSAGE
         try:
-            await websocket.send(json.dumps({"type": "error", "code": SESSION_LIMIT if capped else OUT_OF_MINUTES,
-                                             "message": SESSION_LIMIT_MESSAGE if capped else OUT_OF_MINUTES_MESSAGE}))
+            await websocket.send(json.dumps({"type": "error", "code": code, "message": message}))
         except websockets.exceptions.ConnectionClosed:
             pass
 
@@ -196,7 +200,8 @@ async def run_streaming_session(websocket, session_id, engine, registry: Session
             pass
         if limit_hit:
             try:
-                await websocket.close(code=4402, reason=SESSION_LIMIT if (billing is not None and billing.hit_session_cap) else OUT_OF_MINUTES)
+                code, reason = close_params(billing)
+                await websocket.close(code=code, reason=reason)
             except Exception:
                 pass
         elif asr_lost:

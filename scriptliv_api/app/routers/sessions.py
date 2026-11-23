@@ -5,6 +5,7 @@ import secrets
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 
+from .. import account_deletion
 from ..config import get_settings
 from ..deps import current_user, db_dep, now, verified_user
 
@@ -81,7 +82,7 @@ def disable_share(session_id: str, user=Depends(current_user), db=Depends(db_dep
 def shared(token: str, db=Depends(db_dep)):
     """Public (no sign-in): viewers never consume minutes and need no account."""
     s = db.sessions.find_one({"share_token": token})
-    if not s:
+    if not s or account_deletion.is_deleting_uid(db, s.get("owner_id")):   # a tombstoned owner's links go dark immediately
         _err(404, "not_found", "This link is no longer active.")
     cfg = get_settings()
     ev = [e["text"] for e in db.transcript_events.find({"session_id": s["session_id"]}).sort("seq", 1)]
