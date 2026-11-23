@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { AdminCharts } from "@/components/admin-charts";
 import { Badge, Button, Card, Notice, PaginationControls, Spinner, inputCls } from "@/components/ui";
+import { canChangeAdminRole, canToggleDisabled, mayLoadAdminData } from "@/lib/admin-access";
 import { api, ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { fmtDate, fmtDuration, fmtTime } from "@/lib/format";
@@ -28,7 +29,6 @@ import type { AdminAnalytics, AdminSessionItem, AdminUserItem } from "@/lib/type
 import { cn } from "@/lib/utils";
 
 type Tab = "overview" | "users" | "sessions";
-const SUPERADMINS = new Set(["sriharshith.g@snypartech.com", "sriharshith05ai@gmail.com"]);
 
 export default function AdminPage() {
   const { token, user, ready } = useAuth();
@@ -81,7 +81,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (ready && token) {
-      if (!user?.is_admin) {
+      if (!mayLoadAdminData({ ready, token, user: { is_admin: user?.is_admin } })) {
         setErr("Access denied. Admin privileges required.");
         setLoading(false);
         return;
@@ -562,12 +562,17 @@ export default function AdminPage() {
                 <Button
                   size="sm"
                   variant={selectedUser.is_admin ? "danger" : "outline"}
-                  disabled={savingUser || SUPERADMINS.has(selectedUser.email)}
+                  disabled={savingUser || !canChangeAdminRole(selectedUser)}
                   onClick={() => handleSaveUser({ is_admin: !selectedUser.is_admin })}
                 >
                   {selectedUser.is_admin ? "Revoke Admin" : "Make Admin"}
                 </Button>
               </div>
+              {selectedUser.protected && (
+                <p className="text-xs text-ink-2">
+                  Protected account: administrators and your own account cannot be demoted or disabled here.
+                </p>
+              )}
 
               {/* Plan Switcher */}
               <div className="flex items-center justify-between rounded-xl border border-line p-3">
@@ -653,7 +658,7 @@ export default function AdminPage() {
                 <Button
                   size="sm"
                   variant={selectedUser.disabled ? "outline" : "danger"}
-                  disabled={savingUser || SUPERADMINS.has(selectedUser.email)}
+                  disabled={savingUser || !canToggleDisabled(selectedUser)}
                   onClick={() => handleSaveUser({ disabled: !selectedUser.disabled })}
                 >
                   {selectedUser.disabled ? "Enable Account" : "Disable Account"}

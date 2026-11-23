@@ -109,6 +109,8 @@ export interface AdminUserItem {
   email: string;
   email_verified: boolean;
   is_admin: boolean;
+  /** Set by the API: administrators and the signed-in caller cannot be disabled or demoted. */
+  protected: boolean;
   disabled: boolean;
   created_at: number;
   plan: string;

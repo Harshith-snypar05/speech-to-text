@@ -35,7 +35,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     { href: "/app", label: "Home", icon: LayoutDashboard },
     { href: "/app/record", label: "Transcribe", icon: Mic },
     { href: "/app/history", label: "Transcripts", icon: History },
-    ...(user.is_admin ? [{ href: "/app/admin", label: "Admin", icon: ShieldCheck }] : []),
+    ...(user.is_admin ? [{ href: "/app/control-room", label: "Admin", icon: ShieldCheck }] : []),
   ];
   const active = (h: string) => (h === "/app" ? path === "/app" : path.startsWith(h));
   const out = () => { signOut(); router.replace("/login"); };

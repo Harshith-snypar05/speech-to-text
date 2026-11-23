@@ -62,7 +62,7 @@ export function ProfileMenu({ user, onSignOut }: { user: User; onSignOut: () => 
           </div>
           <div className="my-1 h-px bg-line" />
           {user.is_admin && (
-            <Link role="menuitem" href="/app/admin" onClick={() => setOpen(false)} className={cn(item, "text-primary hover:text-primary font-medium")}>
+            <Link role="menuitem" href="/app/control-room" onClick={() => setOpen(false)} className={cn(item, "text-primary hover:text-primary font-medium")}>
               <ShieldCheck className="size-4" aria-hidden /> Admin Dashboard
             </Link>
           )}
