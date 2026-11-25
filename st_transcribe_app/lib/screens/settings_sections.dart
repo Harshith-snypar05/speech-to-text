@@ -495,7 +495,7 @@ class _UsageSectionState extends State<UsageSection> {
                   const SizedBox(height: 6),
                   Text('${_fmtMinutes(u.includedUsedSeconds)} of ${u.includedMinutes} min used · ${_fmtMinutes(u.totalRemainingSeconds)} left',
                       style: TextStyle(fontSize: 13, color: c.textSecondary)),
-                  const _Note('Only the person speaking uses minutes. Viewers of a shared link are free.'),
+                  const _Note('Only the person speaking uses minutes. Viewers of a shared link are free. Contact support for more minutes.'),
                 ],
               );
             }

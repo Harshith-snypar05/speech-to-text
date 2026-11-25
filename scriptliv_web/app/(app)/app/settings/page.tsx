@@ -229,7 +229,7 @@ function Usage() {
         <h2 className="font-semibold">Your minutes</h2>
         <div className="mt-4"><Progress value={pct} tone={tone} label="Minutes used" /></div>
         <p className="mt-2 text-sm text-ink-2">
-          {fmtSecs(usage.included_used_seconds)} of {usage.included_minutes.toLocaleString()} min used · {fmtSecs(usage.total_remaining_seconds)} left. Only the person speaking uses minutes.
+          {fmtSecs(usage.included_used_seconds)} of {usage.included_minutes.toLocaleString()} min used · {fmtSecs(usage.total_remaining_seconds)} left. Only the person speaking uses minutes. Contact support for more minutes.
         </p>
       </Card>
     );

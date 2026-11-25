@@ -16,6 +16,7 @@ import websockets
 from . import flush_diagnostics as diag
 from . import transcript_store
 from .audio_processor import UtteranceBuffer
+from .billing import close_params
 from .config import BYTES_PER_SAMPLE, FINAL_FLUSH_TIMEOUT_SECONDS, PARTIAL_CYCLE_SECONDS, SAMPLE_RATE, SESSION_MAX_DURATION_SECONDS
 from .scheduler import FinalExpired, JobTicket
 from .protocol import final_message, partial_message, refine_message
@@ -232,7 +233,8 @@ async def run_speaker_session(
                 break
         if billing is not None and billing.exhausted:
             logger.info("session %s exhausted quota; closing", session_id)
-            await websocket.close(code=4402, reason="session_limit" if billing.hit_session_cap else "out_of_minutes")
+            code, reason = close_params(billing)
+            await websocket.close(code=code, reason=reason)
     except websockets.exceptions.ConnectionClosed:
         pass
     finally:

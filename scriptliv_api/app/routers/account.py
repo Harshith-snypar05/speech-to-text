@@ -7,7 +7,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from pydantic import BaseModel, EmailStr, Field
 from pymongo.errors import DuplicateKeyError
 
-from .. import email_providers, email_service, subscriptions, throttle
+from .. import account_deletion, email_providers, email_service, subscriptions, throttle
 from ..config import get_settings
 from ..deps import current_user, db_dep, now, public_user
 from ..security import hash_opaque, hash_password, make_token, new_opaque_token, verify_password
@@ -80,7 +80,7 @@ def login(body: LoginIn, request: Request, db=Depends(db_dep)):
     u = db.users.find_one({"email": email})
     # same response and similar work whether the email exists or not
     ok = verify_password(body.password, u["pwhash"]) if u else verify_password(body.password, "$2b$12$" + "x" * 53)
-    if not u or not ok or u.get("disabled"):
+    if not u or not ok or u.get("disabled") or u.get("deleting"):   # a tombstoned account can never sign in again
         _err(401, "bad_credentials", "Email or password is incorrect.")
     throttle.forget("login:" + email)
     if not u.get("email_verified"):
@@ -103,7 +103,7 @@ def resend_verification_public(body: ResendIn, request: Request, db=Depends(db_d
     throttle.hit_ip(request, "resendpub", limit=20, window=3600)
     _throttle("resendpub:" + email, limit=5)
     u = db.users.find_one({"email": email})
-    if not u or u.get("email_verified") or u.get("disabled") or not email_service.delivery_possible(email):
+    if not u or u.get("email_verified") or u.get("disabled") or u.get("deleting") or not email_service.delivery_possible(email):
         return RESEND_REPLY
     uid = str(u["_id"])
     try:
@@ -127,9 +127,13 @@ def verify_email(body: VerifyIn, db=Depends(db_dep)):
         _err(400, "invalid_token", "This link is invalid or has expired. Request a new verification email.")
     uid = ObjectId(row["user_id"])
     try:
-        db.users.update_one({"_id": uid}, {"$set": {"email": row["email"], "email_verified": True}, "$unset": {"pending_email": ""}})
+        # never touches a tombstoned account (or one that no longer exists)
+        r = db.users.update_one({"_id": uid, "deleting": {"$ne": True}},
+                                {"$set": {"email": row["email"], "email_verified": True}, "$unset": {"pending_email": ""}})
     except DuplicateKeyError:
         _err(409, "email_taken", "That email is already used by another account.")
+    if r.matched_count != 1:
+        _err(400, "invalid_token", "This link is invalid or has expired. Request a new verification email.")
     return {"user": public_user(db.users.find_one({"_id": uid}))}
 
 
@@ -196,7 +200,7 @@ def forgot_password(body: ForgotIn, request: Request, db=Depends(db_dep)):
     throttle.hit_ip(request, "forgot", limit=20, window=3600)
     _throttle("forgot:" + email, limit=5, window=900)
     u = db.users.find_one({"email": email})
-    if u and not u.get("disabled") and email_service.delivery_possible(email):
+    if u and not u.get("disabled") and not u.get("deleting") and email_service.delivery_possible(email):
         uid = str(u["_id"])
         out = _deliver_token(db, _issue_email_token(db, uid, "reset", email), email, "reset", uid)
         if out.get("dev_token"):          # SCRIPTLIV_DEV_RETURN_TOKENS=1 only (local testing)
@@ -217,10 +221,12 @@ def reset_password(body: ResetIn, db=Depends(db_dep)):
     if not row:
         _err(400, "invalid_token", "This link is invalid or has expired. Request a new reset email.")
     u = db.users.find_one({"_id": ObjectId(row["user_id"])})
-    if not u or u.get("disabled"):
+    if not u or u.get("disabled") or u.get("deleting"):
         _err(400, "invalid_token", "This link is invalid or has expired. Request a new reset email.")
     # new password; the pwv bump signs out every existing session
-    db.users.update_one({"_id": u["_id"]}, {"$set": {"pwhash": hash_password(body.new_password), "pwv": u.get("pwv", 1) + 1}})
+    if db.users.update_one({"_id": u["_id"], "deleting": {"$ne": True}},
+                           {"$set": {"pwhash": hash_password(body.new_password), "pwv": u.get("pwv", 1) + 1}}).matched_count != 1:
+        _err(400, "invalid_token", "This link is invalid or has expired. Request a new reset email.")
     return {"status": "ok", "message": "Password updated. Sign in with your new password."}
 
 
@@ -275,6 +281,8 @@ def put_settings(body: SettingsIn, user=Depends(current_user), db=Depends(db_dep
         upd["warn_percents"] = sorted(set(upd["warn_percents"]))
     if upd:
         db.settings.update_one({"user_id": str(user["_id"])}, {"$set": upd}, upsert=True)
+        if account_deletion.reconcile_after_write(db, str(user["_id"])):   # tombstone landed mid-request: the row is swept
+            raise HTTPException(401, {"code": "invalid_token", "message": "Session expired. Sign in again."})
     return _settings_out(db.settings.find_one({"user_id": str(user["_id"])}))
 
 
@@ -285,26 +293,38 @@ class DeleteAccountIn(BaseModel):
 @router.delete("/me")
 def delete_account(body: DeleteAccountIn, user=Depends(current_user), db=Depends(db_dep)):
     """Permanently removes the account and everything tied to it. Needs the password, and a paid plan must be cancelled first
-    (so no recurring charge is left behind at the payment provider)."""
+    (so no recurring charge is left behind at the payment provider).
+
+    Tombstone-first (see app/account_deletion.py): claim -> re-check administrator safety on a fresh read -> subscription check
+    -> tombstone -> cascade -> delete the user document last. Once the tombstone is set the account can never be used again, so a
+    failure after that point is finished by the recovery sweep rather than rolled back."""
     uid = str(user["_id"])
     _throttle("acctdel:" + uid, limit=5)
     if not verify_password(body.password, user["pwhash"]):
         _err(403, "bad_password", "Password is incorrect.")
-    sub = db.subscriptions.find_one({"user_id": uid}) or {}
-    if sub.get("plan", "basic") != "basic" and not sub.get("cancel_at_period_end"):
-        _err(409, "active_subscription", "Cancel your membership first, then you can delete your account.")
-    session_ids = [s["session_id"] for s in db.sessions.find({"owner_id": uid}, {"session_id": 1})]
-    if session_ids:
-        db.transcript_events.delete_many({"session_id": {"$in": session_ids}})
-    db.sessions.delete_many({"owner_id": uid})
-    usage_ids = [s["session_id"] for s in db.usage_sessions.find({"user_id": uid}, {"session_id": 1})]
-    if usage_ids:
-        db.usage_minutes.delete_many({"session_id": {"$in": usage_ids}})
-    for coll in ("usage_sessions", "usage_ledger", "addons", "subscriptions", "settings", "billing_details", "email_tokens"):
-        db[coll].delete_many({"user_id": uid})
-    db.usage_locks.delete_many({"_id": uid})
-    db.users.delete_one({"_id": user["_id"]})
-    return {"deleted": True}
+    token = account_deletion.claim(db, user["_id"])   # every account, not only administrators
+    if token is None:
+        _err(409, "delete_in_progress", "A deletion of this account is already in progress.")
+    try:
+        try:
+            snapshot = account_deletion.verify_admin_safety(db, user["_id"], token)
+        except account_deletion.LastAdmin:
+            _err(409, "last_admin", "This is the only administrator account. Make another account an administrator before deleting it.")
+        except account_deletion.ClaimLost:
+            _err(409, "delete_conflict", "The deletion could not be completed. Try again.")
+        sub = db.subscriptions.find_one({"user_id": uid}) or {}
+        if sub.get("plan", "basic") != "basic" and not sub.get("cancel_at_period_end"):
+            _err(409, "active_subscription", "Cancel your membership first, then you can delete your account.")
+        if not account_deletion.tombstone(db, user["_id"], token, snapshot):
+            _err(409, "delete_conflict", "The deletion could not be completed. Try again.")
+    finally:
+        # a no-op once tombstoned (the tombstone consumed the claim); otherwise returns the account to ACTIVE
+        account_deletion.release_claim(db, user["_id"], token)
+    # Tombstoned: the account is already unusable. Finish the cascade now; if that fails, the recovery sweep resumes it.
+    outcome = account_deletion.run_deletion(db, user["_id"], token)
+    # Unchanged contract when finished. Otherwise the account is already gone from the user's point of view (it cannot be
+    # used) and `pending` says the cleanup will be completed by the recovery sweep.
+    return {"deleted": True} if outcome == "completed" else {"deleted": True, "pending": True}
 
 
 class FeedbackIn(BaseModel):

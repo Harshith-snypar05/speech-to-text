@@ -66,7 +66,7 @@ The web client (`ApiError`) and phone client (`ApiException`) read `code` and `m
 | `POST /v1/auth/reset-password` | none | `token, new_password` | ok | 400 `invalid_token`, 422 `weak_password` | Sets new password, kills old sessions |
 | `GET /v1/me` | auth | - | `{user}` | 401 | Who am I |
 | `PATCH /v1/me` | auth | `name` | `{user}` | - | Rename |
-| `DELETE /v1/me` | auth | `password` | `{deleted: true}` | 403 `bad_password`, 409 `active_subscription` (cancel a paid plan first; one set to end at period end is fine), 429 throttled | Permanently delete the account: transcripts, sessions, usage rows, add-ons, subscription, settings, billing details, email tokens |
+| `DELETE /v1/me` | auth | `password` | `{deleted: true}` (plus `pending: true` if the cleanup was interrupted; it finishes in the background) | 403 `bad_password`, 409 `last_admin`, 409 `active_subscription` (cancel a paid plan first; one set to end at period end is fine), 409 `delete_in_progress`, 409 `delete_conflict`, 429 throttled | Permanently delete the account: transcripts, sessions, usage rows, add-ons, subscription, settings, billing details, email tokens. The account is tombstoned first and is unusable from then on. See `architecture/ACCOUNT_DELETION.md` |
 | `POST /v1/feedback` | auth | `kind` (`feature`/`bug`/`other`), `title` (1-120), `message` (up to 4000) | `201 {received: true}` | 422, 429 (5 per hour per user) | Feature request or suggestion. Stored in `feedback` and emailed to info@scriptliv.com in a background task (a mail failure never fails the request) |
 | `POST /v1/me/email` | auth | `new_email, password` | `{pending_email, delivery}` | 403 `bad_password`, 409 `same_email`/`email_taken`, 503 `email_not_configured` | Start email change; mails a "change" link to the new address |
 | `POST /v1/me/email/resend` | auth | - | delivery info | 409 `already_verified`, 503 `email_not_configured` | Signed-in resend of verify link |
@@ -137,6 +137,8 @@ Only the relay calls these. Header `X-Relay-Secret` must match `SCRIPTLIV_RELAY_
 | `POST /internal/v1/sessions/start` | `token` (the user's JWT), `session_id` (6-64 chars) | `{allowed, reason, remaining_seconds, user_id}` | Checks JWT, rejects unverified (`email_not_verified`), rejects a session id owned by someone else (`session_taken`), asks `usage.authorize` for a reservation, creates the `sessions` row |
 | `POST /internal/v1/usage` | `user_id, session_id, cumulative_seconds, final` | allowed + remaining | Records seconds (idempotent, cumulative: repeating never double-bills), re-authorizes mid-session, sets `ended_at` when final. 409 `session_owner_mismatch` if the session is not that user's |
 
+A tombstoned (deleting) account is refused by both endpoints: `start` answers `invalid_token`; `usage` writes nothing and answers `account_unavailable`, which stops the relay session (close code 4401). See `docs/architecture/ACCOUNT_DELETION.md`, Phase 3.
+
 **Known gap**: these live on the same public port as the rest. Needs a network restriction before production.
 
 ---
@@ -195,7 +197,9 @@ A "refine" message may follow a final when Nemotron has cleaned a sentence; stor
 - `engines/streaming_worker_engine.py`: the relay-side client for the *alternate* EOU120M + Nemotron streaming-worker architecture (section 5). Exists in the code, selected only by setting `STT_ENGINE=eou120m`, but no worker process is running in this environment -- this is the one that's currently unused, not the whisper.cpp engine.
 
 ### 4.5 Relay settings (env)
-`STT_LISTEN_PORT`, `STT_ENGINE`, `STT_ASR_WORKER_URL`, `STT_REFINE_ENGINE`, `STT_REFINE_WORKER_URL`, `STT_MAX_ACTIVE_STREAMS`, `STT_MAX_TOTAL_CONNECTIONS`, `STT_MAX_VIEWERS_PER_SESSION`, `STT_SESSION_MAX_DURATION_SECONDS` (default 4 h), `STT_STREAM_ENDPOINT_SECONDS` (0.5), `STT_STREAM_TAIL_HOLD_SECONDS` (0.25), `STT_STREAM_MAX_UTTERANCE_SECONDS` (25), `STT_SILENCE_RMS_THRESHOLD`, `SCRIPTLIV_API_URL`, `SCRIPTLIV_RELAY_SECRET`, `SCRIPTLIV_REPORT_EVERY_SECONDS`, `MONGODB_URI`.
+`STT_LISTEN_PORT`, `STT_ENGINE`, `STT_ASR_WORKER_URL`, `STT_REFINE_ENGINE`, `STT_REFINE_WORKER_URL`, `STT_MAX_ACTIVE_STREAMS`, `STT_MAX_TOTAL_CONNECTIONS`, `STT_MAX_VIEWERS_PER_SESSION`, `STT_SESSION_MAX_DURATION_SECONDS` (default 4 h), `STT_STREAM_ENDPOINT_SECONDS` (0.5), `STT_STREAM_TAIL_HOLD_SECONDS` (0.25), `STT_STREAM_MAX_UTTERANCE_SECONDS` (25), `STT_SILENCE_RMS_THRESHOLD`, `SCRIPTLIV_API_URL`, `SCRIPTLIV_RELAY_SECRET`, `SCRIPTLIV_REPORT_EVERY_SECONDS`, `SCRIPTLIV_UNVERIFIED_GRACE_SECONDS` (default 60: stop a session whose usage reports have been failing this long), `MONGODB_URI`.
+
+When `SCRIPTLIV_API_URL` and `SCRIPTLIV_RELAY_SECRET` are set the relay never creates a `sessions` row and checks that the owning account exists and is not deleting before every Mongo mirror write (fail closed).
 
 ---
 
@@ -318,7 +322,7 @@ The relay first writes finals to a local SQLite file (`relays_phase7c/data/trans
 | Start recording | `usage_sessions` created or reopened (reservation); `sessions` upserted with `owner_id` |
 | While recording | relay mirror writes `transcript_events`; `usage_sessions` counters grow; `usage_ledger` and `usage_minutes` rows added; `subscriptions.included_used_seconds` and `addons.seconds_used` grow |
 | End of recording | `usage_sessions.ended_at` and `sessions.ended_at` set (reservation released) |
-| Delete account (`DELETE /v1/me`) | Removed: `transcript_events`, `sessions`, `usage_minutes`, `usage_sessions`, `usage_ledger`, `addons`, `subscriptions`, `settings`, `billing_details`, `email_tokens`, `usage_locks`, `users`. **Kept**: `payments` (billing record), `email_deliveries` (only a domain, no address), `feedback`. Refused with 409 while a paid plan is still active and not set to cancel at period end |
+| Delete account (`DELETE /v1/me`) | `users` gets claim, then tombstone (`deleting`), then the cascade, with crash recovery (see `architecture/ACCOUNT_DELETION.md`). Removed: `transcript_events`, `sessions`, `usage_minutes`, `usage_sessions`, `usage_ledger`, `addons`, `subscriptions`, `settings`, `billing_details`, `email_tokens`, `usage_locks`, `users`. **Kept**: `payments` (billing record), `email_deliveries` (only a domain, no address), `feedback`. Refused with 409 while a paid plan is still active and not set to cancel at period end |
 | Send a feature request (`POST /v1/feedback`) | `feedback` row inserted; mail sent to info@scriptliv.com in the background |
 | Delete a transcript | `transcript_events` and `sessions` rows removed; `usage_sessions`, `usage_minutes`, `usage_ledger` **kept** (billing history stays correct) |
 | Share on / off | `sessions.share_token` and `shared_at` set / removed |
@@ -352,6 +356,7 @@ The relay first writes finals to a local SQLite file (`relays_phase7c/data/trans
 | `SCRIPTLIV_JWT_SECRET` | Signs tokens |
 | `SCRIPTLIV_TOKEN_TTL_SECONDS` | Token life (default 7 days) |
 | `SCRIPTLIV_RELAY_SECRET` | Shared with relay for `/internal` |
+| `SCRIPTLIV_ADMIN_EMAILS` | Comma-separated always-admin emails. Unset/empty/malformed = no email-based admin (fails closed); accounts already flagged `is_admin` in the DB keep access |
 | `SCRIPTLIV_APP_URL` | Base for share links and email links (default http://localhost:3100) |
 | `SCRIPTLIV_API_URL` | (relay side) where the API is |
 | `SCRIPTLIV_CORS_ORIGINS` | Allowed web origins (never `*`) |

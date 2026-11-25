@@ -1,11 +1,13 @@
 """Admin dashboard endpoints: system-wide analytics, user access control, plan assignment, and session management."""
+import re
 import time
 from typing import Optional
 from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 
-from ..deps import ADMIN_EMAILS, admin_user, db_dep, now, public_user
+from .. import account_deletion
+from ..deps import admin_emails, admin_user, db_dep, is_admin_account, now
 
 router = APIRouter(prefix="/v1/admin", tags=["admin"], dependencies=[Depends(admin_user)])
 
@@ -14,13 +16,18 @@ def _err(status: int, code: str, message: str):
     raise HTTPException(status, {"code": code, "message": message})
 
 
+def _is_protected(u: dict, caller_id: str) -> bool:
+    """Accounts the general access endpoint may not disable or demote: any administrator (env-listed or database) and the caller."""
+    return is_admin_account(u) or str(u["_id"]) == caller_id
+
+
 @router.get("/analytics")
 def get_analytics(db=Depends(db_dep)):
     """System-wide stats: user counts, transcription hours, subscription breakdown, and revenue."""
     total_users = db.users.count_documents({})
     verified_users = db.users.count_documents({"email_verified": True})
     disabled_users = db.users.count_documents({"disabled": True})
-    admin_users = db.users.count_documents({"$or": [{"is_admin": True}, {"email": {"$in": list(ADMIN_EMAILS)}}]})
+    admin_users = db.users.count_documents({"$or": [{"is_admin": True}, {"email": {"$in": list(admin_emails())}}]})
 
     total_sessions = db.sessions.count_documents({})
     live_sessions = db.sessions.count_documents({"ended_at": None})
@@ -75,11 +82,12 @@ def list_users(
     limit: int = Query(50, ge=1, le=500),
     skip: int = Query(0, ge=0),
     db=Depends(db_dep),
+    caller: dict = Depends(admin_user),
 ):
     """List users with plan status, session counts, and access state."""
     filter_dict = {}
     if q and q.strip():
-        term = q.strip()
+        term = re.escape(q.strip()[:100])  # literal match only: no regex injection / ReDoS from the search box
         filter_dict["$or"] = [
             {"email": {"$regex": term, "$options": "i"}},
             {"name": {"$regex": term, "$options": "i"}},
@@ -107,7 +115,8 @@ def list_users(
             "name": u.get("name", ""),
             "email": u.get("email", ""),
             "email_verified": bool(u.get("email_verified")),
-            "is_admin": bool(u.get("is_admin") or u.get("email") in ADMIN_EMAILS),
+            "is_admin": is_admin_account(u),
+            "protected": _is_protected(u, str(caller["_id"])),
             "disabled": bool(u.get("disabled")),
             "created_at": u.get("created_at", 0),
             "plan": plan,
@@ -127,8 +136,11 @@ class UserAccessPatch(BaseModel):
 
 
 @router.patch("/users/{user_id}")
-def update_user_access(user_id: str, body: UserAccessPatch, db=Depends(db_dep)):
-    """Admin modify user privileges, plan, email verification, account state, or grant bonus minutes."""
+def update_user_access(user_id: str, body: UserAccessPatch, db=Depends(db_dep), caller: dict = Depends(admin_user)):
+    """Admin modify user privileges, plan, email verification, account state, or grant bonus minutes.
+
+    Administrators (env-listed or database) and the caller's own account are protected: they cannot be disabled or demoted here.
+    That also means the last administrator can never be removed through this endpoint. Changing that is an operator task."""
     try:
         oid = ObjectId(user_id)
     except Exception:
@@ -137,6 +149,12 @@ def update_user_access(user_id: str, body: UserAccessPatch, db=Depends(db_dep)):
     user = db.users.find_one({"_id": oid})
     if not user:
         _err(404, "not_found", "User not found.")
+    if user.get("deleting"):
+        # tombstoned: nothing may be written for it (a plan change would recreate a subscription, an add-on a ledger row)
+        _err(409, "account_deleting", "This account is being deleted and can no longer be changed.")
+
+    if _is_protected(user, str(caller["_id"])) and (body.disabled is True or body.is_admin is False):
+        _err(403, "protected_account", "This account is protected: administrators and your own account cannot be disabled or demoted here.")
 
     upd = {}
     if body.is_admin is not None:
@@ -176,6 +194,8 @@ def update_user_access(user_id: str, body: UserAccessPatch, db=Depends(db_dep)):
             "purchased_at": t,
             "note": "Admin granted",
         })
+    if account_deletion.reconcile_after_write(db, user_id):   # tombstone landed after the check above: sweep the plan / add-on rows
+        _err(409, "account_deleting", "This account is being deleted and can no longer be changed.")
 
     refreshed = db.users.find_one({"_id": oid})
     sub = db.subscriptions.find_one({"user_id": user_id})
@@ -184,7 +204,8 @@ def update_user_access(user_id: str, body: UserAccessPatch, db=Depends(db_dep)):
         "name": refreshed.get("name", ""),
         "email": refreshed.get("email", ""),
         "email_verified": bool(refreshed.get("email_verified")),
-        "is_admin": bool(refreshed.get("is_admin") or refreshed.get("email") in ADMIN_EMAILS),
+        "is_admin": is_admin_account(refreshed),
+        "protected": _is_protected(refreshed, str(caller["_id"])),
         "disabled": bool(refreshed.get("disabled")),
         "created_at": refreshed.get("created_at", 0),
         "plan": sub.get("plan", "free") if sub else "free",

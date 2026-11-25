@@ -199,6 +199,9 @@ async def _speaker_admitted(websocket, params):
             code = 4402 if reason in BILLING_DENY_4402 else 4403 if reason in BILLING_DENY_4403 else 4401
             await websocket.close(code=code, reason=reason or "denied")
             return
+        if not verdict.get("user_id"):   # an allowed verdict without an owner cannot be metered or checked: fail closed
+            await websocket.close(code=4401, reason="billing_unavailable")
+            return
         billing_ctx = billing_mod.BillingContext(verdict["user_id"], params.session_id, verdict.get("remaining_seconds", 0), verdict.get("base_seconds", 0.0), verdict.get("session_cap_seconds"))
     if STREAMING:
         await run_streaming_session(websocket, params.session_id, engine, registry, params.access_code, billing=billing_ctx, refiner=refiner)

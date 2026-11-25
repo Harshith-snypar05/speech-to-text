@@ -291,13 +291,10 @@ class _LiveViewState extends State<_LiveView> {
 
   void _scrollToBottom() {
     if (!_scrollController.hasClients) return;
-    final position = _scrollController.position;
-    // Lands with the latest text roughly in the lower half of the screen
-    // rather than jammed against the very bottom edge.
-    final target = (position.maxScrollExtent - position.viewportDimension * 0.4)
-        .clamp(0.0, position.maxScrollExtent);
+    // Scroll to the true end so the newest text stays visible. The view's
+    // 20px padding keeps it off the very bottom edge.
     _scrollController.animateTo(
-      target,
+      _scrollController.position.maxScrollExtent,
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeOut,
     );

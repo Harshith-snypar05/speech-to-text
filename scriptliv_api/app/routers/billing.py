@@ -6,7 +6,9 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 from pymongo.errors import DuplicateKeyError
 
-from .. import payments, payments_cashfree, subscriptions, usage
+import logging
+
+from .. import account_deletion, payments, payments_cashfree, subscriptions, usage
 from ..config import get_settings, promo_active
 from ..deps import current_user, db_dep, now, verified_user
 from ..plans import (
@@ -23,6 +25,25 @@ from ..plans import (
 )
 
 router = APIRouter(prefix="/v1", tags=["billing"])
+
+
+log = logging.getLogger("scriptliv.billing")
+
+
+def _no_purchase_while_deleting(user: dict):
+    """A purchase started while a deletion is claimed or tombstoned could be charged and then have nowhere to land."""
+    if account_deletion.deletion_in_flight(user):
+        _err(409, "delete_in_progress", "This account is being deleted, so it cannot start a purchase.")
+
+
+def _deleting(db, uid, event: str, ref=None) -> bool:
+    """Webhook guard. A provider event for a tombstoned account writes nothing (no subscription, add-on, payment row or
+    email) and is acknowledged so the provider does not retry it forever. The ERROR line is the operator's cue to reconcile
+    any charge at the provider by hand; billing policy and provider configuration are deliberately untouched."""
+    if not account_deletion.is_deleting_uid(db, uid):
+        return False
+    log.error("billing_event_for_deleting_account uid=%s event=%s ref=%s", uid, event, ref)
+    return True
 
 
 def _err(status, code, message):
@@ -127,6 +148,7 @@ def checkout(body: CheckoutIn, user=Depends(verified_user), db=Depends(db_dep)):
     """Unlike Stripe, Cashfree's checkout is not a URL: the frontend takes {kind, session_id} from
     here and hands it to Cashfree's own JS SDK (cashfree.checkout / cashfree.subscriptionsCheckout),
     which does the actual redirect. See scriptliv_web/lib/cashfree.ts."""
+    _no_purchase_while_deleting(user)
     if promo_active():
         _err(409, "offer_active", "Minutes are free during our inaugural offer (each account gets a fixed allowance), so there is nothing to buy right now.")
     uid = str(user["_id"])
@@ -166,6 +188,7 @@ def retry_payment(user=Depends(current_user), db=Depends(db_dep)):
     found in Cashfree's Subscriptions docs, so this intentionally falls through to NotConfigured/503 for every
     Cashfree subscription today (Stripe's own key is never set), which is an honest "not supported yet" rather
     than a guess at an unverified endpoint. Revisit once Cashfree's retry semantics are confirmed."""
+    _no_purchase_while_deleting(user)
     uid = str(user["_id"])
     sub = subscriptions.get_subscription(db, uid)
     if sub["plan"] != PRO or sub["status"] not in ("past_due", "restricted") or not sub.get("provider_customer_id"):
@@ -215,6 +238,7 @@ def cancel(user=Depends(current_user), db=Depends(db_dep)):
 
 @router.post("/subscription/resume")
 def resume(user=Depends(current_user), db=Depends(db_dep)):
+    _no_purchase_while_deleting(user)   # resuming re-arms billing, which would defeat the "cancel first" rule of a deletion
     uid = str(user["_id"])
     sub = subscriptions.get_subscription(db, uid)
     if sub["plan"] != PRO or not sub.get("cancel_at_period_end"):
@@ -354,6 +378,8 @@ def _apply_cashfree_event(db, ev: dict):
         ref = payments_cashfree.parse_reference(order_id or "")
         if ref and ref[0] == "addon":
             _, uid = ref
+            if _deleting(db, uid, t, order_id):
+                return
             pid = _record_payment(db, {"user_id": uid, "created_at": ts, "description": f"Add-on {ADDON_MINUTES} minutes",
                                        "amount_cents": int(round(float(amount) * 100)), "currency": "inr",
                                        "status": "paid", "provider_ref": order_id})
@@ -372,6 +398,8 @@ def _apply_cashfree_event(db, ev: dict):
         ref = payments_cashfree.parse_reference(subscription_id or "")
         if ref and ref[0] == "pro":
             _, uid = ref
+            if _deleting(db, uid, t, subscription_id):
+                return
             existing = db.subscriptions.find_one({"user_id": uid})
             if existing and existing.get("provider_subscription_id") == subscription_id and existing.get("plan") == PRO:
                 subscriptions.payment_succeeded(db, uid, ts)  # renewal of an already-active Pro subscription
@@ -388,6 +416,8 @@ def _apply_cashfree_event(db, ev: dict):
         ref = payments_cashfree.parse_reference(subscription_id or "")
         if ref and ref[0] == "pro":
             _, uid = ref
+            if _deleting(db, uid, t, subscription_id):
+                return
             _record_payment(db, {"user_id": uid, "created_at": ts, "description": "ScriptLiv Pro",
                                  "amount_cents": 0, "currency": "inr", "status": "failed",
                                  "provider_ref": "failed:" + subscription_id + ":" + str(int(ts))})
@@ -433,6 +463,8 @@ def _apply_event(db, ev: dict):
     t = ev.get("type")
     if t == "checkout.session.completed" and obj.get("payment_status") in ("paid", "no_payment_required"):
         uid, kind = (obj.get("metadata") or {}).get("user_id"), (obj.get("metadata") or {}).get("kind")
+        if uid and kind in ("pro", "addon") and _deleting(db, uid, t, obj.get("id")):
+            return
         if uid and kind == "pro":
             subscriptions.activate_pro(db, uid, provider="stripe", customer_id=obj.get("customer"), subscription_id=obj.get("subscription"))
         elif uid and kind == "addon":
@@ -447,6 +479,8 @@ def _apply_event(db, ev: dict):
                     raise
     elif t == "invoice.paid":
         sub = db.subscriptions.find_one({"provider_customer_id": obj.get("customer")})
+        if sub and _deleting(db, sub["user_id"], t, obj.get("id")):
+            return
         if sub:
             subscriptions.payment_succeeded(db, obj.get("customer"), ev.get("created") or now())
             _record_payment(db, {"user_id": sub["user_id"], "created_at": now(), "description": "ScriptLiv Pro",
@@ -454,6 +488,8 @@ def _apply_event(db, ev: dict):
                                  "status": "paid", "provider_ref": obj.get("id"), "receipt_url": obj.get("hosted_invoice_url")})
     elif t == "invoice.payment_failed":
         sub = db.subscriptions.find_one({"provider_customer_id": obj.get("customer")})
+        if sub and _deleting(db, sub["user_id"], t, obj.get("id")):
+            return
         if sub:  # recorded as failed only; it never creates or extends a subscription
             _record_payment(db, {"user_id": sub["user_id"], "created_at": now(), "description": "ScriptLiv Pro",
                                  "amount_cents": obj.get("amount_due", 0), "currency": obj.get("currency", "usd"),

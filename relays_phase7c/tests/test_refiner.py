@@ -114,6 +114,7 @@ def test_store_update_only_when_line_unchanged(monkeypatch):
     class NoMirror:
         record_event = staticmethod(lambda *a: None)
         refine_event = staticmethod(lambda *a: None)
+        is_blocked = staticmethod(lambda *a: False)   # the store asks the mirror whether the owning account is gone
 
     monkeypatch.setattr(ts, "mongo_mirror", NoMirror)
     sid = "refine_test_session_unit"

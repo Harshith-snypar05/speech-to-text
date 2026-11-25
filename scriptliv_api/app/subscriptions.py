@@ -48,14 +48,17 @@ def payment_succeeded(db, customer_id: str, event_ts: float):
     return {**sub, **upd}
 
 
-def create_basic(db, user_id: str, now: float | None = None) -> dict:
-    now = now or _now()
+def _basic_doc(user_id: str, now: float) -> dict:
     start, end, _ = period_for(now, now)
-    sub = {
+    return {
         "user_id": user_id, "plan": BASIC, "anchor": now, "period_start": start, "period_end": end,
         "included_used_seconds": 0.0, "cancel_at_period_end": False, "status": "active",
         "provider": None, "provider_customer_id": None, "provider_subscription_id": None, "created_at": now,
     }
+
+
+def create_basic(db, user_id: str, now: float | None = None) -> dict:
+    sub = _basic_doc(user_id, now or _now())
     db.subscriptions.insert_one(sub)
     return sub
 
@@ -65,7 +68,12 @@ def get_subscription(db, user_id: str, now: float | None = None) -> dict:
     now = now or _now()
     sub = db.subscriptions.find_one({"user_id": user_id})
     if sub is None:
+        from .account_deletion import is_deleting_uid   # local import: account_deletion -> deps -> db, not back here
+        if is_deleting_uid(db, user_id):
+            return _basic_doc(user_id, now)   # a tombstoned account must not get a subscription row created by a read
         sub = create_basic(db, user_id, now)
+        from .account_deletion import reconcile_after_write
+        reconcile_after_write(db, user_id, missing_is_gone=False)   # tombstone landed between the check and the insert: sweep it
     if now >= sub["period_end"]:
         if sub["plan"] == PRO and sub.get("cancel_at_period_end"):
             # paid access ended: back to Basic, anchored where the paid period ended
