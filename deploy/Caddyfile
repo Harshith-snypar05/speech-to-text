@@ -6,15 +6,15 @@
 	@internal path /internal/* /sl/internal/*
 	respond @internal 404
 
-	# Live transcription sockets go to the relay (running on the host, port 8772).
+	# Live transcription sockets go to the relay container, port 8772.
 	@relay {
 		query role=speaker
 	}
 	@viewer {
 		query role=viewer
 	}
-	reverse_proxy @relay host.docker.internal:8772
-	reverse_proxy @viewer host.docker.internal:8772
+	reverse_proxy @relay relay:8772
+	reverse_proxy @viewer relay:8772
 
 	# Everything else is the web app. The web app proxies /sl/* to the API.
 	reverse_proxy web:3100

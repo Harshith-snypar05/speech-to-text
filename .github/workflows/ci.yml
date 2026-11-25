@@ -58,3 +58,10 @@ jobs:
       - uses: actions/checkout@v4
       - run: docker build -t scriptliv-api scriptliv_api
       - run: docker build -t scriptliv-web scriptliv_web
+      # whisper.cpp/ is gitignored here (pushed separately, see .gitignore) -- fetched into place so
+      # the relay image's build context (repo root) has it, matching a real deploy's layout.
+      - uses: actions/checkout@v4
+        with:
+          repository: Harshith-snypar05/whisper.cpp
+          path: whisper.cpp
+      - run: docker build -f relays_phase7c/Dockerfile -t scriptliv-relay .

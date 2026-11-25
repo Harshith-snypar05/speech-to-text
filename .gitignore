@@ -44,3 +44,6 @@ benchmarks/_retired_qa/
 
 # production deploy secrets
 deploy/production.env
+deploy/models/
+.vercel
+.env*

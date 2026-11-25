@@ -1,0 +1,33 @@
+# Only relays_phase7c/ and whisper.cpp/ are needed in the relay build context (see
+# relays_phase7c/Dockerfile) -- everything else here just slows the build down.
+stt-compare-venv/
+asr_venv/
+node_modules/
+.next/
+build/
+.dart_tool/
+.gradle/
+__pycache__/
+*.pyc
+*.log
+.git/
+scriptliv_api/.venv/
+scriptliv_web/node_modules/
+st_transcribe_app/
+scriptliv_web/
+scriptliv_api/
+asr_worker/
+docs/
+benchmarks/
+staging_secrets/
+staging_data_qa/
+deploy/models/
+whisper.cpp/models/*.bin
+whisper.cpp/build/
+whisper.cpp/build-shared/
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.sqlite
+*.db

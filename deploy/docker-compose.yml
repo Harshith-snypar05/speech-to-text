@@ -1,6 +1,7 @@
-# ScriptLiv production stack: API + web + Caddy (HTTPS). The speech relay is not containerised (it needs the Parakeet
-# model and the native whisper.cpp build); run it on the host and point SCRIPTLIV_API_URL at the API (see docs/PRODUCTION_RUNBOOK.md).
+# ScriptLiv production stack: API + relay + web + Caddy (HTTPS). Provider-agnostic -- any Linux VM
+# (Oracle/DigitalOcean/AWS/etc.) with Docker and ports 80/443 open works the same way:
 #   cp deploy/production.env.example deploy/production.env   # fill in
+#   mkdir -p deploy/models && cp /path/to/ggml-parakeet-tdt-0.6b-v2-q8_0.bin deploy/models/   # ~669MB, not in git
 #   docker compose -f deploy/docker-compose.yml --env-file deploy/production.env up -d --build
 services:
   api:
@@ -9,8 +10,23 @@ services:
     environment:
       SCRIPTLIV_TRUST_PROXY: "1"
     restart: unless-stopped
-    ports:
-      - "127.0.0.1:8790:8790"   # reachable by the relay on the same host only, never public
+    expose:
+      - "8790"   # internal only (relay + web reach it by service name); never published to the host
+
+  relay:
+    build:
+      context: ..
+      dockerfile: relays_phase7c/Dockerfile
+    env_file: production.env
+    environment:
+      SCRIPTLIV_API_URL: http://api:8790
+    volumes:
+      - ./models:/srv/whisper.cpp/models:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+    expose:
+      - "8772"
 
   web:
     build:
@@ -28,13 +44,12 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
     depends_on:
       - web
+      - relay
     restart: unless-stopped
 
 volumes:

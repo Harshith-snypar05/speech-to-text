@@ -8,27 +8,44 @@ How to deploy, run and recover ScriptLiv. Written 2026-11-16. Items marked **OWN
 |---|---|---|
 | Caddy (HTTPS, certificates) | container, `deploy/docker-compose.yml` | yes, ports 80 and 443 |
 | Web (Next.js, port 3100) | container | only through Caddy |
-| API (FastAPI, port 8790) | container, bound to `127.0.0.1` | no. `/internal/*` is answered with 404 by Caddy |
-| Relay (speech engine, port 8772) | on the host, not in a container. It needs the Parakeet model and the native whisper.cpp build | only the WebSocket path, through Caddy |
+| API (FastAPI, port 8790) | container, internal only | no. `/internal/*` is answered with 404 by Caddy |
+| Relay (speech engine, port 8772) | container (`relays_phase7c/Dockerfile`), CPU-only Parakeet build by default | only the WebSocket path, through Caddy |
 | Canary accuracy worker (port 8781) | on the host, next to the relay, own Python venv. Needs an NVIDIA GPU. See section 12 | no, loopback only |
 | MongoDB | MongoDB Atlas | no |
 
+Provider-agnostic by design: this is a plain Docker Compose stack with no provider-specific config, so any Linux VM
+with Docker and ports 80/443 reachable works the same way, whether that VM is on Oracle Cloud, DigitalOcean, AWS, or
+anywhere else. Nothing here depends on which one gets picked.
+
 ## 2. First deploy
 
-1. Provision a server (Linux, Docker, enough CPU/GPU for the relay) and point the DNS name at it. **OWNER**
+1. Provision a server (Linux, Docker, enough CPU for the relay — GPU optional, see step 3) and point the DNS name at
+   it. **OWNER**
 2. `cp deploy/production.env.example deploy/production.env` and fill it in. Generate each secret with `python -c "import secrets; print(secrets.token_urlsafe(48))"`.
    - `SCRIPTLIV_ENV=production` turns on the startup check. The API refuses to start if the JWT secret is under 32 characters, the relay secret is missing, the app URL or CORS origins are not `https://`, dev tokens or `/docs` are enabled, or Cashfree live mode is paired with a test key.
    - `SCRIPTLIV_CORS_ORIGINS` must list the public origin only. The default is localhost.
-3. Start the relay on the host with `STT_LISTEN_PORT=8772`, `SCRIPTLIV_API_URL=http://127.0.0.1:8790`, and the same `SCRIPTLIV_RELAY_SECRET` as the API.
+3. Copy the Parakeet model onto the server and into `deploy/models/` (not in git, ~669MB):
+   `mkdir -p deploy/models && scp ggml-parakeet-tdt-0.6b-v2-q8_0.bin <server>:<repo>/deploy/models/`. The relay
+   container builds whisper.cpp's shared library CPU-only by default; add `-DGGML_CUDA=ON` to the `cmake -B
+   build-shared` line in `relays_phase7c/Dockerfile`'s build stage if the chosen VM has an NVIDIA GPU (needs the CUDA
+   Toolkit available in that build stage too).
 4. `docker compose -f deploy/docker-compose.yml --env-file deploy/production.env up -d --build`
 5. Check: `curl https://<domain>/sl/healthz` returns `{"ok":true}` (it returns 503 if the database is unreachable). `curl -i https://<domain>/sl/internal/v1/x` must return 404.
 6. Register an account, verify the email, record a short session, open the share link in a second browser.
 
-The Docker files were written but **not built on the author's machine** (the Docker daemon was not running). The CI job `images` builds both, so the first CI run is the first real build. Fix anything it reports.
+The relay's Docker build needs `whisper.cpp/` (gitignored here, pushed separately — see root `.gitignore`) present as
+a sibling of `relays_phase7c/` in the build context; `docker-compose.yml`'s relay service already points its build
+context at the repo root for this reason.
+
+All four images (api, web, relay, and implicitly caddy which just pulls `caddy:2`) were written and wired up on a
+machine with no Docker daemon installed, so none of this has been built or run locally yet — only checked for valid
+Dockerfile/Compose syntax. The CI job `images` builds all three custom images (it also fetches the whisper.cpp fork
+into place first, since it isn't in this repo), so the first CI run is the first real build. Fix anything it
+reports. Treat this whole section as unverified until that first CI run (or a manual `docker compose build`) passes.
 
 ## 3. Continuous integration
 
-`.github/workflows/ci.yml` runs on every push and pull request: API tests and `pip-audit`, relay tests, web typecheck, lint, tests, build and `npm audit`, Flutter analyze and tests, then the Docker builds. Make it a required check on `main`.
+`.github/workflows/ci.yml` runs on every push and pull request: API tests and `pip-audit`, relay tests, web typecheck, lint, tests, build and `npm audit`, Flutter analyze and tests, then the Docker builds (api, web, and relay — the last one also checks out the separate whisper.cpp fork first). Make it a required check on `main`.
 
 ## 4. Going live on Cashfree (**OWNER**)
 
