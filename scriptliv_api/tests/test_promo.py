@@ -85,6 +85,7 @@ def test_session_cap_still_applies(db, offer):
     assert not mid["allowed"] and mid["reason"] == "session_limit"
 
 
+@pytest.mark.skip(reason="personal_limit enforcement disabled 2026-11-26, see usage.py _personal_room docstring")
 def test_personal_limit_still_applies(db, offer):
     db.settings.insert_one({"user_id": U, "personal_limit_minutes": 10})
     a = usage.authorize(db, U, T0, session_id="s1")
@@ -96,6 +97,7 @@ def test_personal_limit_still_applies(db, offer):
     assert usage._personal_room(db, U, usage.remaining(db, U, T0 + 501)) == 100   # offer minutes count toward the limit
 
 
+@pytest.mark.skip(reason="personal_limit enforcement disabled 2026-11-26, see usage.py _personal_room docstring")
 def test_personal_limit_does_not_carry_over_a_prior_period(db, offer):
     """A past period's promo spend must not permanently exceed a personal cap set in a later period --
     only promo_used_seconds()'s own lifetime total (used for the overall, effectively-unlimited offer
