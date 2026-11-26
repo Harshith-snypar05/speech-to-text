@@ -45,6 +45,7 @@ export class LiveClient {
   private retries = 0;
   private partial = "";
   private gapStart: number | null = null;
+  private paused = false;
   state: LiveState = "idle";
   lostAudioMs = 0;
   reconnects = 0;
@@ -136,6 +137,7 @@ export class LiveClient {
     const src = ctx.createMediaStreamSource(this.stream);
     const node = new AudioWorkletNode(ctx, "pcm-processor", { numberOfInputs: 1, numberOfOutputs: 0, channelCount: 1 });
     node.port.onmessage = (ev: MessageEvent<{ pcm: ArrayBuffer; rms: number }>) => {
+      if (this.paused) return; // nothing sent, nothing metered, while paused -- not a connection gap
       this.h.onLevel(ev.data.rms);
       if (this.ws && this.ws.readyState === WebSocket.OPEN) this.ws.send(ev.data.pcm);
       else this.lostAudioMs += 100; // mic still running while the socket is down: that audio is gone
@@ -143,6 +145,27 @@ export class LiveClient {
     src.connect(node);
     this.node = node;
     if (ctx.state === "suspended") await ctx.resume();
+  }
+
+  get isPaused() {
+    return this.paused;
+  }
+
+  // 0.8 s of 16 kHz mono PCM16 silence -- same flush the relay expects on pause (see parakeet_relay.py /
+  // the Flutter client), so it closes any sentence still in flight instead of leaving it stuck as a partial.
+  private static readonly PAUSE_FLUSH = new Uint8Array(16000 * 2 * 0.8);
+
+  /** Stops sending audio (the session and its viewers stay connected). */
+  pause() {
+    if (this.paused || this.userStopped || this.state !== "live") return;
+    if (this.ws && this.ws.readyState === WebSocket.OPEN) this.ws.send(LiveClient.PAUSE_FLUSH);
+    this.paused = true;
+    this.h.onLevel(0);
+  }
+
+  resume() {
+    if (!this.paused || this.userStopped) return;
+    this.paused = false;
   }
 
   private onMessage(ev: MessageEvent) {

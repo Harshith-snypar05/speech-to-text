@@ -1,5 +1,5 @@
 "use client";
-import { Mic, RotateCcw, Share2, Square } from "lucide-react";
+import { Mic, Pause, Play, RotateCcw, Share2, Square } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Waveform } from "@/components/waveform";
@@ -37,6 +37,7 @@ export default function RecordPage() {
   const [partial, setPartial] = useState("");
   const [levels, setLevels] = useState<number[]>([]);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [paused, setPaused] = useState(false);
   const [lost, setLost] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
@@ -73,7 +74,7 @@ export default function RecordPage() {
     const id = newSessionId(); // one session per press; reconnects reuse it
     setSessionId(id);
     setFinals([]); setPartial(""); setLevels([]); setLost(0); setElapsed(0);
-    setShareUrl(null); setShareMsg(null);
+    setShareUrl(null); setShareMsg(null); setPaused(false);
     t0.current = Date.now();
     let micDeviceId: string | undefined;
     try { micDeviceId = localStorage.getItem("sl-mic") || undefined; } catch { /* ignore */ }
@@ -89,6 +90,12 @@ export default function RecordPage() {
   }, [token]);
 
   const stop = () => void client.current?.stop();
+
+  const togglePause = () => {
+    if (!client.current) return;
+    if (paused) { client.current.resume(); setPaused(false); }
+    else { client.current.pause(); setPaused(true); }
+  };
 
   // Share icon: turns sharing on (first click only -- the session record is created when the
   // relay authorizes the speaker, which can lag the button by a moment, so a 404 is retried
@@ -176,16 +183,29 @@ export default function RecordPage() {
         </Notice>
       )}
       {lost > 0 && <Notice tone="warning" title={`About ${(lost / 1000).toFixed(1)} s of audio was not captured while offline`} />}
+      {paused && state === "live" && <Notice tone="info" title="Paused">Nothing is being transcribed or counted against your minutes.</Notice>}
 
       <Card className="p-5">
-        <Waveform levels={levels} active={state === "live"} />
+        <Waveform levels={levels} active={state === "live" && !paused} />
         <div className="mt-5 flex flex-col items-center gap-2">
           {busy ? (
-            <Button variant="danger" size="lg" onClick={stop} disabled={state === "stopping" || state === "requesting-mic" || state === "connecting"} className="h-16 w-16 rounded-full p-0" aria-label="Stop recording"><Square className="size-6" fill="currentColor" /></Button>
+            <div className="flex items-center gap-4">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={togglePause}
+                disabled={state !== "live"}
+                className="h-16 w-16 rounded-full p-0"
+                aria-label={paused ? "Resume recording" : "Pause recording"}
+              >
+                {paused ? <Play className="size-6" fill="currentColor" /> : <Pause className="size-6" fill="currentColor" />}
+              </Button>
+              <Button variant="danger" size="lg" onClick={stop} disabled={state === "stopping" || state === "requesting-mic" || state === "connecting"} className="h-16 w-16 rounded-full p-0" aria-label="Stop recording"><Square className="size-6" fill="currentColor" /></Button>
+            </div>
           ) : (
             <Button size="lg" onClick={start} disabled={!token || !isWsConfigured() || unverified} className="h-16 w-16 rounded-full p-0" aria-label="Start recording"><Mic className="size-7" /></Button>
           )}
-          <div className="text-xs text-ink-2">{busy ? "Press to stop" : "Press to start"}</div>
+          <div className="text-xs text-ink-2">{busy ? (paused ? "Press play to resume" : "Press pause or stop") : "Press to start"}</div>
         </div>
       </Card>
 
