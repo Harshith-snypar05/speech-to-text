@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>ScriptLiv live demo (frame(t))</title>
+<style>
+@font-face{font-family:'Inter';src:url('../../../scriptliv_web/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2');font-weight:100 900;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;font-family:'Inter',sans-serif}
+#stage{position:relative;width:1080px;height:1350px;overflow:hidden;background:linear-gradient(180deg,#1B0B33 0%,#2B0F52 100%);color:#F8F7FF}
+#glow{position:absolute;left:-10px;top:650px;width:1100px;height:1100px;border-radius:50%;background:rgba(106,0,255,.5);filter:blur(130px)}
+#logo{position:absolute;left:80px;top:70px;width:340px}
+#kick{position:absolute;left:80px;top:200px;right:80px;font-size:84px;font-weight:800;letter-spacing:-2.5px;line-height:1.04}
+#kick em{font-style:normal;color:#A855F7}
+#card{position:absolute;left:90px;top:470px;width:900px;height:640px;border-radius:44px;background:#F8F7FF;color:#0F172A;padding:48px 52px;box-shadow:0 0 140px rgba(106,0,255,.55)}
+#hd{display:flex;justify-content:space-between;align-items:center;font-size:40px;font-weight:700}
+#live{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:700;color:#E11D48;background:#FFE4EA;padding:8px 18px;border-radius:100px}
+#dot{width:14px;height:14px;border-radius:50%;background:#E11D48}
+#body{margin-top:34px;font-size:44px;line-height:1.38;font-weight:500}
+.ln{margin-bottom:14px;color:#64748B}
+.ln.cur{color:#0F172A}
+.w{display:inline-block;opacity:0;margin-right:.26em}
+.sw{display:inline-grid;margin-right:.26em}
+.sw span{grid-area:1/1;opacity:0}
+.old{color:#E11D48;text-decoration:line-through;text-decoration-thickness:4px}
+.new{color:#6A00FF;font-weight:700}
+#chip{position:absolute;left:52px;top:560px;font-size:26px;font-weight:600;color:#6A00FF;background:#EDE3FF;padding:10px 22px;border-radius:100px;opacity:0}
+#ok{position:absolute;right:52px;top:560px;font-size:24px;font-weight:700;color:#fff;background:#6A00FF;padding:10px 22px;border-radius:100px;opacity:0}
+#foot{position:absolute;left:0;right:0;top:1170px;text-align:center;opacity:0}
+#foot .a{font-size:56px;font-weight:700;letter-spacing:-1px}
+#foot .a em{font-style:normal;color:#A855F7}
+#foot .b{margin-top:14px;font-size:38px;color:#E9D5FF}
+</style></head><body>
+<div id="stage"><div id="glow"></div>
+<img id="logo" src="../../../assets/branding/exports/horizontal-dark-800.png" alt="ScriptLiv">
+<div id="kick">Words <em>appear</em><br>as you speak</div>
+<div id="card">
+ <div id="hd"><span>Live session</span><span id="live"><i id="dot"></i>LIVE</span></div>
+ <div id="body"><div class="ln" id="l1"></div><div class="ln" id="l2"></div><div class="ln cur" id="l3"></div></div>
+ <div id="chip">Re-checked by a second model</div><div id="ok">CORRECTED</div>
+</div>
+<div id="foot"><div class="a"><em>Fixed</em> a moment later.</div><div class="b">scriptliv.com</div></div>
+</div>
+<script>
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const L=[
+ {id:'l1',start:.5,step:.3,words:['Good','morning','everyone,','thanks','for','joining.']},
+ {id:'l2',start:2.6,step:.3,words:['Let’s','start','with','the','numbers.']},
+ {id:'l3',start:4.4,step:.3,words:['We','will',['meat','meet'],'tomorrow','at',['ten','10.']]}
+];
+const items=[];
+L.forEach(l=>{const el=document.getElementById(l.id);l.words.forEach((w,i)=>{
+ let n;
+ if(Array.isArray(w)){
+  n=document.createElement('span');n.className='sw';
+  const o=document.createElement('span');o.className='old';o.textContent=w[0];
+  const nw=document.createElement('span');nw.className='new';nw.textContent=w[1];
+  n.append(o,nw);n._sw=[o,nw];n._pair=true;n._fix=(w[0]==='meat'?6.6:7.0);
+ } else {n=document.createElement('span');n.className='w';n.textContent=w;}
+ n._t=l.start+i*l.step;
+ el.appendChild(n);items.push(n);});});
+const $=id=>document.getElementById(id);
+function frame(t){
+ items.forEach(n=>{
+  const p=clamp((t-n._t)/.18);
+  if(n._pair){
+   const [o,nw]=n._sw; const sw=clamp((t-n._fix)/.35);
+   o.style.opacity=p*(1-sw); nw.style.opacity=p*sw;
+  } else { n.style.opacity=p; n.style.transform='translateY('+((1-p)*12)+'px)'; }
+ });
+ $('dot').style.opacity=.5+.5*Math.abs(Math.sin(t*3));
+ $('chip').style.opacity=clamp((t-6.2)/.3)*(1-clamp((t-8.6)/.3));
+ $('ok').style.opacity=clamp((t-7.2)/.3);
+ $('foot').style.opacity=clamp((t-8.0)/.5);
+ $('foot').style.transform='translateY('+((1-clamp((t-8.0)/.5))*24)+'px)';
+}
+frame(0);
+</script></body></html>

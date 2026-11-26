@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>ScriptLiv static posts</title>
+<style>
+@font-face{font-family:'Inter';src:url('../../../scriptliv_web/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2');font-weight:100 900;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;font-family:'Inter',sans-serif}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:linear-gradient(180deg,#1B0B33 0%,#2B0F52 100%);color:#F8F7FF}
+.glow{position:absolute;left:-10px;top:650px;width:1100px;height:1100px;border-radius:50%;background:rgba(106,0,255,.5);filter:blur(130px)}
+.logo{position:absolute;left:80px;top:70px;width:340px}
+h1{position:absolute;left:80px;right:80px;top:200px;font-size:92px;line-height:1.04;font-weight:800;letter-spacing:-2.5px}
+h1 em{font-style:normal;color:#A855F7}
+.sub{position:absolute;left:80px;right:80px;top:410px;font-size:40px;color:#E9D5FF}
+.card{position:absolute;left:90px;width:900px;border-radius:40px;padding:40px 48px;background:#F8F7FF;color:#0F172A;box-shadow:0 0 120px rgba(106,0,255,.45)}
+.tag{display:inline-block;font-size:24px;font-weight:700;letter-spacing:2px;padding:8px 18px;border-radius:100px;background:#E2E8F0;color:#475569}
+.tag.ok{background:#6A00FF;color:#fff}
+.txt{margin-top:22px;font-size:50px;line-height:1.25;font-weight:600}
+.bad{color:#E11D48;text-decoration:line-through;text-decoration-thickness:5px}
+.good{color:#6A00FF;font-weight:800}
+.arrow{position:absolute;left:0;right:0;text-align:center;font-size:30px;font-weight:600;color:#E9D5FF}
+.arrow span{background:rgba(168,85,247,.2);border:2px solid rgba(168,85,247,.5);padding:12px 28px;border-radius:100px}
+.list{position:absolute;left:80px;right:80px;font-size:52px;font-weight:600;line-height:1.3}
+.list div{display:flex;gap:28px;align-items:flex-start;margin-bottom:44px}
+.list b{flex:none;width:64px;height:64px;border-radius:50%;background:#6A00FF;display:flex;align-items:center;justify-content:center;font-size:36px;margin-top:2px}
+.list small{display:block;font-size:34px;font-weight:400;color:#E9D5FF;margin-top:6px}
+.btns{position:absolute;left:80px;right:80px;top:1090px}
+.btn{display:inline-block;padding:28px 52px;border-radius:100px;background:#6A00FF;font-size:44px;font-weight:700;box-shadow:0 16px 50px rgba(106,0,255,.55)}
+.note{margin-top:30px;font-size:36px;color:#E9D5FF}
+</style></head><body>
+<section class="slide" id="ba">
+ <div class="glow"></div><img class="logo" src="../../../assets/branding/exports/horizontal-dark-800.png" alt="ScriptLiv">
+ <h1><em>Fixed</em> a moment later</h1>
+ <p class="sub">A second, more accurate check corrects each line in place.</p>
+ <div class="card" style="top:560px"><span class="tag">LIVE DRAFT</span><div class="txt">We will <span class="bad">meat</span> tomorrow at <span class="bad">ten</span>.</div></div>
+ <div class="arrow" style="top:792px"><span>Re-checked by a second model</span></div>
+ <div class="card" style="top:890px;border:6px solid #6A00FF"><span class="tag ok">CORRECTED</span><div class="txt">We will <span class="good">meet</span> tomorrow at <span class="good">10.</span></div></div>
+ <div class="sub" style="top:1230px;text-align:center;left:0;right:0">scriptliv.com</div>
+</section>
+<section class="slide" id="wl">
+ <div class="glow"></div><img class="logo" src="../../../assets/branding/exports/horizontal-dark-800.png" alt="ScriptLiv">
+ <h1>Android app: <em>join the waitlist</em></h1>
+ <div class="list" style="top:560px">
+  <div><b>&#10003;</b><span>Early access<small>Be first when the Android app opens.</small></span></div>
+  <div><b>&#10003;</b><span>Shape what ships<small>Your feedback goes straight to the developer.</small></span></div>
+  <div><b>&#10003;</b><span>Use the web app today<small>Free to start at scriptliv.com.</small></span></div>
+ </div>
+ <div class="btns"><span class="btn">Waitlist: link in the comments</span><div class="note">Web app: scriptliv.com</div></div>
+</section>
+</body></html>
