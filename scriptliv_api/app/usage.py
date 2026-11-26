@@ -47,9 +47,17 @@ def remaining(db, user_id: str, now: float | None = None) -> dict:
             "total_remaining": promo_rem if promo else inc_rem + add_rem}
 
 
-def promo_used_seconds(db, user_id: str) -> float:
-    """Seconds this account has spent from its inaugural-offer allowance (ledger rows with source "promo")."""
-    return float(sum(x["seconds"] for x in db.usage_ledger.find({"user_id": user_id, "source": "promo"}, {"seconds": 1})))
+def promo_used_seconds(db, user_id: str, period_start: float | None = None) -> float:
+    """Seconds this account has spent from its inaugural-offer allowance (ledger rows with source "promo").
+
+    Scoped to one billing period by default (period_start=None means all-time, lifetime total -- the
+    promo allowance itself is effectively unlimited either way, but the personal-limit setting
+    (_personal_room) must compare against the *current period*, the same way included_used_seconds does,
+    or a long-running promo account's lifetime total permanently exceeds any personal cap it sets."""
+    q = {"user_id": user_id, "source": "promo"}
+    if period_start is not None:
+        q["period_start"] = period_start
+    return float(sum(x["seconds"] for x in db.usage_ledger.find(q, {"seconds": 1})))
 
 
 @contextmanager
@@ -86,14 +94,19 @@ def _cas_take(coll, doc_id, field: str, cap: float, want: float) -> float:
 
 
 def _personal_room(db, user_id: str, r: dict) -> float:
-    """Seconds the account may still spend before its own personal limit (inf when none is set)."""
+    """Seconds the account may still spend before its own personal limit (inf when none is set).
+
+    Must compare against *this period's* usage, the same way included_used_seconds already does -- using
+    r["promo_used"] (lifetime, see promo_used_seconds's docstring) here would mean a long-running promo
+    account's all-time total permanently exceeds any personal cap it sets, long after the period it was
+    actually spent in."""
     st = db.settings.find_one({"user_id": user_id}) or {}
     cap_min = st.get("personal_limit_minutes")
     if not cap_min:
         return float("inf")
     used = r["sub"]["included_used_seconds"] + sum(a["seconds_used"] for a in r["addons"])
     if r["promo"]:
-        used += r["promo_used"]   # offer minutes count toward the account's own limit too
+        used += promo_used_seconds(db, user_id, r["sub"]["period_start"])
     return max(0.0, cap_min * 60 - used)
 
 

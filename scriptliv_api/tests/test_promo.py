@@ -96,6 +96,20 @@ def test_personal_limit_still_applies(db, offer):
     assert usage._personal_room(db, U, usage.remaining(db, U, T0 + 501)) == 100   # offer minutes count toward the limit
 
 
+def test_personal_limit_does_not_carry_over_a_prior_period(db, offer):
+    """A past period's promo spend must not permanently exceed a personal cap set in a later period --
+    only promo_used_seconds()'s own lifetime total (used for the overall, effectively-unlimited offer
+    allowance) carries across periods; _personal_room must compare against the current period only,
+    the same way included_used_seconds does."""
+    db.settings.insert_one({"user_id": U, "personal_limit_minutes": 10})
+    old_period_start = T0 - 30 * 24 * 3600
+    db.usage_ledger.insert_one({"user_id": U, "session_id": "old", "seconds": 5000, "source": "promo",
+                                 "addon_id": None, "period_start": old_period_start, "ts": T0 - 1000})
+    r = usage.remaining(db, U, T0)
+    assert r["promo_used"] == 5000                      # lifetime total still correct, for the overall offer cap
+    assert usage._personal_room(db, U, r) == 600         # but none of that prior-period spend counts against the cap
+
+
 def test_after_the_offer_the_plan_applies_again(db, offer):
     usage.record(db, U, "s1", 5000, T0, final=True)                       # during the offer: from the offer allowance
     after = 1_800_000_000.0                                              # 2027-01, past 2026-11-26
