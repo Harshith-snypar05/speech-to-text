@@ -94,10 +94,10 @@ Widget buildPanel(PanelSpec s) {
           ),
         ),
         Positioned(
-          left: 80,
-          top: 90,
-          width: 400,
-          height: 92,
+          left: 84,
+          top: 81,
+          width: 340,
+          height: 110,
           child: RawImage(image: s.logo, fit: BoxFit.contain, alignment: Alignment.centerLeft),
         ),
         Positioned(

@@ -19,7 +19,7 @@ void main() {
       ..addFont(Future.value(ByteData.sublistView(File(interPath!).readAsBytesSync())));
     await loader.load();
 
-    final logo = File('../assets/branding/exports/horizontal-dark-1600.png');
+    final logo = File('../docs/marketing/src/assets/logo-reversed.png');
     late ui.Image logoImage;
     await tester.runAsync(() async {
       final codec = await ui.instantiateImageCodec(logo.readAsBytesSync());
