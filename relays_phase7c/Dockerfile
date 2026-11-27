@@ -8,7 +8,7 @@
 # by default; add -DGGML_CUDA=ON (needs the CUDA Toolkit in the build stage) once a GPU host is chosen.
 
 FROM debian:bookworm-slim AS build
-RUN apt-get update && apt-get install -y --no-install-recommends cmake g++ git ca-certificates \
+RUN apt-get update && apt-get install -y --no-install-recommends cmake make g++ git ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /src
 COPY whisper.cpp ./whisper.cpp
@@ -19,6 +19,11 @@ RUN cmake -B build-shared -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
 
 FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+# The shared libs carry a build-time RPATH pointing at /src/..., which does not exist in this stage, so
+# libparakeet.so cannot find libggml.so.0 on its own. Point the loader at where they were copied.
+ENV LD_LIBRARY_PATH=/srv/whisper.cpp/build-shared/bin
+# Listen on all interfaces inside the container (the app default is loopback-only, unreachable from the ALB).
+ENV RELAY_HOST=0.0.0.0
 # libgomp1: OpenMP runtime ggml's CPU backend links against.
 RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 \
     && rm -rf /var/lib/apt/lists/*

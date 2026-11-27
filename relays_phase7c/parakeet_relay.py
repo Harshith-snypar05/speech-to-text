@@ -223,8 +223,10 @@ if os.environ.get("STT_REFINE_ENGINE"):
 
 
 async def main():
-    async with websockets.serve(handle, "localhost", LISTEN_PORT, max_size=None):
-        logger.info(f"Parakeet relay listening on ws://localhost:{LISTEN_PORT}")
+    # Default stays loopback-only for local dev; containers set RELAY_HOST=0.0.0.0 so the load balancer can reach it.
+    host = os.environ.get("RELAY_HOST", "localhost")
+    async with websockets.serve(handle, host, LISTEN_PORT, max_size=None):
+        logger.info(f"Parakeet relay listening on ws://{host}:{LISTEN_PORT}")
         await asyncio.Future()
 
 
